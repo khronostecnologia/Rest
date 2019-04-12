@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2019/04/11 23:12:15.000.547,=C:\Users\Giovanny\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2019/04/11 23:15:40.000.990,C:\Users\Giovanny\Documents\Embarcadero\Studio\Projects\Rest.dproj=C:\Users\Giovanny\Documents\Embarcadero\Studio\Projects\Project2.dproj</Transaction>
+    <Transaction>2019/04/11 23:20:37.000.645,G:\Rest.git\Units\uLogin.pas=C:\Users\Giovanny\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2019/04/11 23:20:37.000.645,G:\Rest.git\Units\uLogin.dfm=C:\Users\Giovanny\Documents\Embarcadero\Studio\Projects\Unit2.dfm</Transaction>
+    <Transaction>2019/04/11 23:20:44.000.799,G:\Rest.git\Rest.dproj=C:\Users\Giovanny\Documents\Embarcadero\Studio\Projects\Rest.dproj</Transaction>
+    <Transaction>2019/04/11 23:40:58.000.264,=G:\Rest.git\Unit1.pas</Transaction>
+    <Transaction>2019/04/11 23:50:29.000.870,G:\Rest.git\Units\uEmpresa.pas=G:\Rest.git\Unit1.pas</Transaction>
+    <Transaction>2019/04/11 23:50:29.000.870,G:\Rest.git\Units\uEmpresa.dfm=G:\Rest.git\Unit1.dfm</Transaction>
+    <Transaction>2019/04/12 00:13:46.000.779,=G:\Rest.git\Unit1.pas</Transaction>
+    <Transaction>2019/04/12 00:15:03.000.242,G:\Rest.git\Unit1.pas=G:\Rest.git\Dao\uDMmain.pas</Transaction>
+    <Transaction>2019/04/12 00:15:03.000.242,G:\Rest.git\Unit1.dfm=G:\Rest.git\Dao\uDMmain.dfm</Transaction>
+    <Transaction>2019/04/12 00:31:06.000.488,=G:\Rest.git\Unit1.pas</Transaction>
+    <Transaction>2019/04/12 00:32:21.000.535,G:\Rest.git\Unit1.dfm=G:\Rest.git\Units\uMenu.dfm</Transaction>
+    <Transaction>2019/04/12 00:32:21.000.535,G:\Rest.git\Unit1.pas=G:\Rest.git\Units\uMenu.pas</Transaction>
+  </Transactions>
+</BorlandProject>
