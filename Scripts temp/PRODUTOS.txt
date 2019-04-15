@@ -1,0 +1,16 @@
+CREATE TABLE "CADASTROS"."PRODUTOS"
+(
+    "ID" serial NOT NULL,
+	"IDEMPRESA" Integer NOT NULL,
+    "CODBARRA" character varying(13),
+    "CODPRODUTOFOR" character varying(10),
+	"DESCRICAO" character varying(10),
+    "SENHA" character(10)[],
+    PRIMARY KEY ("ID")
+)
+WITH (
+    OIDS = FALSE
+);
+
+ALTER TABLE "CADASTROS"."PRODUTOS"
+    OWNER to postgres;
