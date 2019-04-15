@@ -718,7 +718,6 @@ object FrmMenu: TFrmMenu
       Version = '1.5.2.1'
       Align = alBottom
       TabOrder = 1
-      ExplicitTop = 362
       TMSStyle = 4
       object ImgLogo: TImage
         Left = 5
