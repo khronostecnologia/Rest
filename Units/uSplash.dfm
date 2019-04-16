@@ -3,8 +3,8 @@ object FrmSplash: TFrmSplash
   Top = 0
   BorderStyle = bsNone
   Caption = 'FrmSplash'
-  ClientHeight = 433
-  ClientWidth = 318
+  ClientHeight = 378
+  ClientWidth = 297
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -18,8 +18,8 @@ object FrmSplash: TFrmSplash
   object AdvPanelGeral: TAdvSmoothPanel
     Left = 0
     Top = 0
-    Width = 318
-    Height = 433
+    Width = 297
+    Height = 378
     Cursor = crDefault
     Caption.HTMLFont.Charset = DEFAULT_CHARSET
     Caption.HTMLFont.Color = clWindowText
@@ -49,16 +49,14 @@ object FrmSplash: TFrmSplash
     Version = '1.5.2.1'
     Align = alClient
     TabOrder = 0
-    ExplicitLeft = -28
-    ExplicitTop = -57
-    ExplicitWidth = 333
-    ExplicitHeight = 480
+    ExplicitWidth = 301
+    ExplicitHeight = 382
     TMSStyle = 23
     object AdvPanelCentral: TAdvSmoothPanel
       Left = 9
       Top = 13
-      Width = 307
-      Height = 420
+      Width = 288
+      Height = 364
       Cursor = crDefault
       Caption.HTMLFont.Charset = DEFAULT_CHARSET
       Caption.HTMLFont.Color = clWindowText
@@ -86,23 +84,9 @@ object FrmSplash: TFrmSplash
       Version = '1.5.2.1'
       TabOrder = 0
       TMSStyle = 4
-      object lblDireitosAutorais: TLabel
-        Left = 56
-        Top = 211
-        Width = 196
-        Height = 15
-        Caption = 'copyright '#169' todos os direitos reservados'
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clBlack
-        Font.Height = -12
-        Font.Name = 'Times New Roman'
-        Font.Style = []
-        ParentFont = False
-        Transparent = True
-      end
       object ImgLogo: TImage
-        Left = 82
-        Top = 37
+        Left = 73
+        Top = 21
         Width = 128
         Height = 126
         Picture.Data = {
@@ -238,102 +222,102 @@ object FrmSplash: TFrmSplash
           82}
       end
       object lblTitulo: TLabel
-        Left = 108
-        Top = 169
-        Width = 83
-        Height = 39
+        Left = 94
+        Top = 150
+        Width = 90
+        Height = 42
         Caption = 'REST'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
-        Font.Height = -32
+        Font.Height = -35
         Font.Name = 'Tahoma'
         Font.Style = [fsBold]
         ParentFont = False
       end
       object Label1: TLabel
-        Left = 14
-        Top = 261
-        Width = 270
-        Height = 16
+        Left = 31
+        Top = 214
+        Width = 224
+        Height = 13
         Caption = 'Carregando informa'#231#245'es iniciais do sistema ....'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
-        Font.Height = -13
+        Font.Height = -11
         Font.Name = 'Tahoma'
         Font.Style = []
         ParentFont = False
         WordWrap = True
       end
       object Label2: TLabel
-        Left = 18
-        Top = 342
-        Width = 121
-        Height = 33
+        Left = 66
+        Top = 278
+        Width = 71
+        Height = 19
         Caption = 'Khronos '
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clNavy
-        Font.Height = -27
+        Font.Height = -16
         Font.Name = 'Tahoma'
         Font.Style = [fsBold]
         ParentFont = False
       end
       object Label3: TLabel
-        Left = 137
-        Top = 342
-        Width = 147
-        Height = 33
+        Left = 133
+        Top = 278
+        Width = 89
+        Height = 19
         Caption = 'Tecnologia'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clMaroon
-        Font.Height = -27
+        Font.Height = -16
         Font.Name = 'Tahoma'
         Font.Style = [fsBold]
         ParentFont = False
       end
       object Label5: TLabel
-        Left = 77
-        Top = 371
-        Width = 139
-        Height = 16
+        Left = 88
+        Top = 299
+        Width = 106
+        Height = 11
         Caption = 'Aplicativo | Software'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
-        Font.Height = -13
+        Font.Height = -9
         Font.Name = 'Tahoma'
         Font.Style = [fsBold]
         ParentFont = False
       end
       object Label4: TLabel
-        Left = 67
-        Top = 387
-        Width = 162
-        Height = 13
+        Left = 71
+        Top = 312
+        Width = 141
+        Height = 11
         Caption = 'www.khronostecnologia.com'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
-        Font.Height = -11
+        Font.Height = -9
         Font.Name = 'Tahoma'
         Font.Style = [fsBold]
         ParentFont = False
       end
       object Label6: TLabel
-        Left = 105
-        Top = 331
-        Width = 86
-        Height = 15
+        Left = 108
+        Top = 267
+        Width = 70
+        Height = 12
         Caption = 'Desenvolvido por'
         Font.Charset = ANSI_CHARSET
         Font.Color = clBlack
-        Font.Height = -12
+        Font.Height = -9
         Font.Name = 'Times New Roman'
         Font.Style = []
         ParentFont = False
         Transparent = True
       end
       object ProgressBar1: TProgressBar
-        Left = 12
-        Top = 281
-        Width = 273
+        Left = 31
+        Top = 233
+        Width = 224
         Height = 17
         TabOrder = 0
       end

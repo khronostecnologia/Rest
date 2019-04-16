@@ -11,7 +11,6 @@ type
   TFrmSplash = class(TForm)
     AdvPanelGeral: TAdvSmoothPanel;
     AdvPanelCentral: TAdvSmoothPanel;
-    lblDireitosAutorais: TLabel;
     ImgLogo: TImage;
     lblTitulo: TLabel;
     Label1: TLabel;

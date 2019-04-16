@@ -3,7 +3,7 @@ object FrmEmpresas: TFrmEmpresas
   Top = 0
   Caption = 'FrmEmpresas'
   ClientHeight = 466
-  ClientWidth = 339
+  ClientWidth = 727
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -17,7 +17,7 @@ object FrmEmpresas: TFrmEmpresas
   object AdvPanelGeral: TAdvSmoothPanel
     Left = 0
     Top = 0
-    Width = 339
+    Width = 727
     Height = 466
     Cursor = crDefault
     Caption.HTMLFont.Charset = DEFAULT_CHARSET
@@ -48,12 +48,12 @@ object FrmEmpresas: TFrmEmpresas
     Version = '1.5.2.1'
     Align = alClient
     TabOrder = 0
-    ExplicitWidth = 383
+    ExplicitWidth = 339
     TMSStyle = 23
     object AdvSmoothPanel1: TAdvSmoothPanel
       Left = 0
       Top = 57
-      Width = 339
+      Width = 727
       Height = 352
       Cursor = crDefault
       Caption.HTMLFont.Charset = DEFAULT_CHARSET
@@ -82,21 +82,16 @@ object FrmEmpresas: TFrmEmpresas
       Version = '1.5.2.1'
       Align = alClient
       TabOrder = 0
-      ExplicitTop = 120
-      ExplicitWidth = 383
-      ExplicitHeight = 57
+      ExplicitWidth = 339
       TMSStyle = 4
       object GridEmpresa: TcxGrid
         Left = 0
         Top = 0
-        Width = 339
+        Width = 727
         Height = 352
         Align = alClient
         TabOrder = 0
-        ExplicitLeft = 32
-        ExplicitTop = 40
-        ExplicitWidth = 250
-        ExplicitHeight = 200
+        ExplicitWidth = 339
         object GridEmpresaDBTableView1: TcxGridDBTableView
           Navigator.Buttons.CustomButtons = <>
           DataController.Summary.DefaultGroupSummaryItems = <>
@@ -112,7 +107,7 @@ object FrmEmpresas: TFrmEmpresas
     object PnlFooter: TAdvSmoothPanel
       Left = 0
       Top = 409
-      Width = 339
+      Width = 727
       Height = 57
       Cursor = crDefault
       Caption.HTMLFont.Charset = DEFAULT_CHARSET
@@ -142,12 +137,11 @@ object FrmEmpresas: TFrmEmpresas
       Version = '1.5.2.1'
       Align = alBottom
       TabOrder = 1
-      ExplicitTop = 0
-      ExplicitWidth = 383
+      ExplicitWidth = 339
       TMSStyle = 4
       object BtnSelecionar: TAdvGlowButton
-        Left = 106
-        Top = 8
+        Left = 314
+        Top = 6
         Width = 126
         Height = 42
         Caption = 'Selecionar'
@@ -211,7 +205,7 @@ object FrmEmpresas: TFrmEmpresas
     object PnlHeader: TAdvSmoothPanel
       Left = 0
       Top = 0
-      Width = 339
+      Width = 727
       Height = 57
       Cursor = crDefault
       Caption.HTMLFont.Charset = DEFAULT_CHARSET
@@ -241,7 +235,6 @@ object FrmEmpresas: TFrmEmpresas
       Version = '1.5.2.1'
       Align = alTop
       TabOrder = 2
-      ExplicitTop = -6
       TMSStyle = 4
       object lblTitulo: TLabel
         Left = 9

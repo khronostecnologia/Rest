@@ -8,7 +8,12 @@ uses
   uMenu in 'Units\uMenu.pas' {FrmMenu},
   uMensagem in 'Util\uMensagem.pas' {FrmMensagem},
   uSplash in 'Units\uSplash.pas' {FrmSplash},
-  uDMBase in 'Dao\uDMBase.pas' {DMBase: TDataModule};
+  uDMBase in 'Dao\uDMBase.pas' {DMBase: TDataModule},
+  uPesquisa in 'Util\uPesquisa.pas' {FrmPesquisa},
+  BiblKhronos in 'Util\BiblKhronos.pas',
+  uMaster in 'Heranca\uMaster.pas' {FrmMaster},
+  uImportacaoSPEDICMSIPI in 'Units\uImportacaoSPEDICMSIPI.pas' {FrmImportarSPED},
+  uDMImportacaoSPED in 'Dao\uDMImportacaoSPED.pas' {DMImportacaoSPED: TDataModule};
 
 {$R *.res}
 
@@ -16,9 +21,9 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TFrmMenu, FrmMenu);
-  DMBase    := TDMBase.create(nil);
+  dmPrincipal    := TDMBase.create(nil);
   try
-    //DMmain.ConectaBanco;
+    dmPrincipal.ConectaBanco;
   except
     On e: exception do
     begin
