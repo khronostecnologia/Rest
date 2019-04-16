@@ -10,7 +10,7 @@ uses
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
   FireDAC.UI.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Phys,
   FireDAC.Phys.PGDef, FireDAC.VCLUI.Wait, FireDAC.Comp.Client, FireDAC.Comp.UI,
-  FireDAC.Phys.PG, Data.DB, FireDAC.Comp.DataSet;
+  FireDAC.Phys.PG, Data.DB, FireDAC.Comp.DataSet, AdvGroupBox;
 
 type
   TFrmMenu = class(TForm)
@@ -33,8 +33,18 @@ type
     lblTitulo: TLabel;
     MnSelecionarCliente: TMenuItem;
     lblEmpresaLogada: TLabel;
+    AdvGroupBox1: TAdvGroupBox;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label5: TLabel;
+    Label4: TLabel;
     procedure FormShow(Sender: TObject);
     procedure MnSelecionarClienteClick(Sender: TObject);
+    procedure BtnRelatorioClick(Sender: TObject);
+    procedure BtnEmpresaClick(Sender: TObject);
+    procedure MnuSubImportacaoSPEDClick(Sender: TObject);
+    procedure Sair1Click(Sender: TObject);
+    procedure BtnImportacaoSPEDClick(Sender: TObject);
   private
     { Private declarations }
     procedure HabilitaMenus;
@@ -51,7 +61,31 @@ implementation
 
 {$R *.dfm}
 
-Uses uDMBase,uPesquisa,uMensagem;
+Uses uDMBase,uPesquisa,uMensagem,uImportacaoSPEDICMSIPI;
+
+procedure TFrmMenu.BtnEmpresaClick(Sender: TObject);
+begin
+  SelecionaCliente;
+end;
+
+procedure TFrmMenu.BtnImportacaoSPEDClick(Sender: TObject);
+begin
+  FrmImportarSPED := TFrmImportarSPED.Create(nil);
+  FrmImportarSPED.Show;
+end;
+
+procedure TFrmMenu.BtnRelatorioClick(Sender: TObject);
+begin
+ try
+  dmPrincipal.ConectaBanco;
+ except
+  On e: exception do
+  begin
+    ShowMessage(e.message);
+    FrmMensagem.Informacao(e.Message);
+  end;
+ end;
+end;
 
 procedure TFrmMenu.FormShow(Sender: TObject);
 begin
@@ -67,6 +101,17 @@ end;
 procedure TFrmMenu.MnSelecionarClienteClick(Sender: TObject);
 begin
   SelecionaCliente;
+end;
+
+procedure TFrmMenu.MnuSubImportacaoSPEDClick(Sender: TObject);
+begin
+  FrmImportarSPED := TFrmImportarSPED.Create(nil);
+  FrmImportarSPED.Show;
+end;
+
+procedure TFrmMenu.Sair1Click(Sender: TObject);
+begin
+  Application.Terminate;
 end;
 
 procedure TFrmMenu.SelecionaCliente;

@@ -4,14 +4,7 @@ object DMBase: TDMBase
   Height = 249
   Width = 370
   object DB: TFDConnection
-    Params.Strings = (
-      'Database=rest'
-      'Server=localhost'
-      'User_Name=postgres'
-      'Password=rest'
-      'DriverID=PG'
-      'Port=5432')
-    Connected = True
+    LoginPrompt = False
     Left = 40
     Top = 16
   end
@@ -84,10 +77,5 @@ object DMBase: TDMBase
       FieldName = 'IDCIDADE'
       Origin = '"IDCIDADE"'
     end
-  end
-  object FDPhysPgDriverLink1: TFDPhysPgDriverLink
-    VendorHome = 'G:\Rest.git\trunk\Aplicacoes\Lib'
-    Left = 128
-    Top = 72
   end
 end

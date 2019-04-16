@@ -16,7 +16,6 @@ type
     FDTransaction1: TFDTransaction;
     FDGUIxWaitCursor1: TFDGUIxWaitCursor;
     QryEmpresa: TFDQuery;
-    FDPhysPgDriverLink1: TFDPhysPgDriverLink;
     QryEmpresaID: TIntegerField;
     QryEmpresaRAZAO_SOCIAL: TWideStringField;
     QryEmpresaNOME_EMPRESARIAL: TWideStringField;
@@ -52,6 +51,7 @@ implementation
 procedure TDMBase.ConectaBanco;
 begin
   try
+   try
     with DB do
     begin
       close;
@@ -59,6 +59,9 @@ begin
       Params.LoadFromFile(FDirApp + 'Config.ini');
       Open;
     end;
+   except
+     raise;
+   end;
   finally
     BancoExec := DB;
   end;

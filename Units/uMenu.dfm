@@ -52,11 +52,11 @@ object FrmMenu: TFrmMenu
     TMSStyle = 4
     object lblEmpresaLogada: TLabel
       Left = 0
-      Top = 81
+      Top = 322
       Width = 691
       Height = 16
       Margins.Left = 20
-      Align = alTop
+      Align = alBottom
       Alignment = taCenter
       Caption = ' Empresa logada : Khronos Tecnologia | CNPJ : 14.638.0001.32 '
       Font.Charset = DEFAULT_CHARSET
@@ -103,9 +103,9 @@ object FrmMenu: TFrmMenu
       TMSStyle = 4
       object BtnEmpresa: TAdvGlowButton
         Left = 7
-        Top = 6
+        Top = 8
         Width = 125
-        Height = 70
+        Height = 66
         Caption = 'Cliente'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
@@ -241,6 +241,7 @@ object FrmMenu: TFrmMenu
           77771E31AE7082715F1B01801A6002C524CB52CC91BEC1E733E9CE84331CF7B5
           5A1450FFBF27FD3F46D7A5383866A7DA0000000049454E44AE426082}
         TabOrder = 0
+        OnClick = BtnEmpresaClick
         Appearance.BorderColor = 14727579
         Appearance.BorderColorHot = 10079963
         Appearance.BorderColorDown = 4548219
@@ -272,10 +273,10 @@ object FrmMenu: TFrmMenu
         Appearance.GradientChecked = ggVertical
       end
       object BtnProdutos: TAdvGlowButton
-        Left = 131
-        Top = 6
+        Left = 134
+        Top = 8
         Width = 125
-        Height = 70
+        Height = 66
         Caption = 'Produtos'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
@@ -475,10 +476,10 @@ object FrmMenu: TFrmMenu
         Appearance.GradientChecked = ggVertical
       end
       object BtnImportacaoSPED: TAdvGlowButton
-        Left = 255
-        Top = 6
+        Left = 261
+        Top = 8
         Width = 125
-        Height = 70
+        Height = 66
         Caption = 'Importa'#231#227'o SPED'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
@@ -564,6 +565,7 @@ object FrmMenu: TFrmMenu
           534E472F313236382F313439373534383431312D31325F38343831312E706E67
           8592C75A0000000049454E44AE426082}
         TabOrder = 2
+        OnClick = BtnImportacaoSPEDClick
         Appearance.BorderColor = 14727579
         Appearance.BorderColorHot = 10079963
         Appearance.BorderColorDown = 4548219
@@ -595,10 +597,10 @@ object FrmMenu: TFrmMenu
         Appearance.GradientChecked = ggVertical
       end
       object BtnRelatorio: TAdvGlowButton
-        Left = 379
-        Top = 6
+        Left = 388
+        Top = 8
         Width = 125
-        Height = 70
+        Height = 66
         Caption = 'Relat'#243'rio'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
@@ -818,12 +820,113 @@ object FrmMenu: TFrmMenu
         Font.Style = [fsBold]
         ParentFont = False
       end
+      object AdvGroupBox1: TAdvGroupBox
+        Left = 469
+        Top = 0
+        Width = 222
+        Height = 81
+        BorderColor = clActiveCaption
+        BorderStyle = bsDouble
+        Align = alRight
+        Caption = '            '
+        Color = 14922381
+        ParentBackground = False
+        ParentColor = False
+        TabOrder = 0
+        object Label2: TLabel
+          Left = 31
+          Top = 21
+          Width = 71
+          Height = 19
+          Caption = 'Khronos '
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clNavy
+          Font.Height = -16
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label3: TLabel
+          Left = 101
+          Top = 21
+          Width = 89
+          Height = 19
+          Caption = 'Tecnologia'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMaroon
+          Font.Height = -16
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label5: TLabel
+          Left = 55
+          Top = 39
+          Width = 106
+          Height = 11
+          Caption = 'Aplicativo | Software'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label4: TLabel
+          Left = 39
+          Top = 49
+          Width = 141
+          Height = 11
+          Caption = 'www.khronostecnologia.com'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+      end
     end
   end
   object Menu: TMainMenu
     Left = 648
     Top = 376
     object MnSelecionarCliente: TMenuItem
+      Bitmap.Data = {
+        36040000424D3604000000000000360000002800000010000000100000000100
+        2000000000000004000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000010100015E42
+        2782110C07170000000000000000000000000000000000000000000000000000
+        00000000000000000000000000000000000000000000000000003F2C1A57B882
+        4DFF9A6D41D6110C071700000000000000000000000000000000000000000000
+        00000000000000000000000000000000000000000000000000008B623AC1B882
+        4DFFB8824DFF47321E6200000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000AB7948EDB882
+        4DFFB8824DFF0C0905110000000000000000000000004F38216DAC7948EEAC79
+        48EE9F7042DC1D140C2800000000000000000000000000000000B5804CFBB882
+        4DFFB7814CFD02020103000000000000000000000000000000005C41267FB882
+        4DFFB8824DFFA67545E61D140C280000000000000000000000009D6F42DAB882
+        4DFFB8824DFF2E21134000000000000000000000000000000000000000005C41
+        2780B8824DFFB8824DFFA77646E71D140C2800000000000000005A40267DB882
+        4DFFB8824DFFA77646E747321E62140E081C0000000000000000000000000000
+        00005E422782B8824DFFB8824DFFA77646E71E150C29000000000705030A9166
+        3DC9B8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB5804CFBB6804CFCB882
+        4DFFB8824DFFB8824DFFB8824DFFB8824DFFA77646E71E150C29000000000907
+        040D704F2F9BB7814CFDB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB882
+        4DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFF8D633BC3000000000000
+        0000000000001A120B245E4227828D633BC3A97747EAB8824DFFB8824DFFB882
+        4DFFB8824DFFB8824DFFB8824DFFB8824DFF9F7042DC140E081C000000000000
+        0000000000000000000000000000000000000000000000000000000000000101
+        000171502F9DB8824DFFB8824DFFA07143DE160F091E00000000000000000000
+        0000000000000000000000000000000000000000000000000000010100017150
+        2F9DB8824DFFB8824DFFA27244E01610091F0000000000000000000000000000
+        000000000000000000000000000000000000000000000101000171502F9CB882
+        4DFFB8824DFFA37344E218110A21000000000000000000000000000000000000
+        0000000000000000000000000000000000000101000171502F9CB8824DFFB882
+        4DFFA47445E319120B2300000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000}
       Caption = 'Selecionar cliente'
       OnClick = MnSelecionarClienteClick
     end
@@ -901,6 +1004,7 @@ object FrmMenu: TFrmMenu
           0000000000000000000000000000000000000000000000000000000000000000
           0000000000000000000000000000000000000000000000000000}
         Caption = 'SPED ICMS/IPI'
+        OnClick = MnuSubImportacaoSPEDClick
       end
     end
     object MnCadastros: TMenuItem
@@ -1092,6 +1196,7 @@ object FrmMenu: TFrmMenu
         0000000000000000000000000000000000000000000000000000000000000000
         0000000000000000000000000000000000000000000000000000}
       Caption = 'Sair'
+      OnClick = Sair1Click
     end
   end
 end

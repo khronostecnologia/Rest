@@ -1,7 +1,9 @@
 inherited FrmImportarSPED: TFrmImportarSPED
+  BorderStyle = bsSingle
   Caption = 'FrmImportarSPED'
-  ClientHeight = 486
-  ClientWidth = 720
+  ClientHeight = 496
+  ClientWidth = 730
+  Position = poDesktopCenter
   OnClose = FormClose
   OnCreate = FormCreate
   ExplicitWidth = 736
@@ -9,118 +11,39 @@ inherited FrmImportarSPED: TFrmImportarSPED
   PixelsPerInch = 96
   TextHeight = 13
   inherited PnlGeral: TAdvSmoothPanel
-    Width = 720
-    Height = 486
-    ExplicitWidth = 710
-    ExplicitHeight = 481
+    Width = 730
+    Height = 496
+    ExplicitWidth = 730
+    ExplicitHeight = 496
     TMSStyle = 4
     inherited PnlHeader: TAdvSmoothPanel
-      Width = 720
+      Width = 730
+      ExplicitWidth = 730
       TMSStyle = 4
       inherited lblTitulo: TLabel
-        Top = 18
+        Top = 15
         Width = 327
         Caption = 'IMPORTA'#199#195'O SPED ICMS / IPI'
         WordWrap = False
-        ExplicitTop = 18
+        ExplicitTop = 15
         ExplicitWidth = 327
       end
     end
     inherited PnlCentral: TAdvSmoothPanel
-      Width = 720
-      Height = 429
+      Width = 730
+      Height = 439
       ExplicitTop = 63
-      ExplicitHeight = 424
+      ExplicitWidth = 730
+      ExplicitHeight = 439
       TMSStyle = 4
       inherited PnlFooter: TAdvSmoothPanel
-        Top = 372
-        Width = 720
+        Top = 382
+        Width = 730
+        ExplicitTop = 382
+        ExplicitWidth = 730
         TMSStyle = 4
-        object BtnNovo: TAdvGlowButton
-          Left = 12
-          Top = 14
-          Width = 109
-          Height = 30
-          Caption = 'Novo'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -11
-          Font.Name = 'MS Sans Serif'
-          Font.Style = [fsBold]
-          NotesFont.Charset = DEFAULT_CHARSET
-          NotesFont.Color = clWindowText
-          NotesFont.Height = -11
-          NotesFont.Name = 'Tahoma'
-          NotesFont.Style = []
-          ParentFont = False
-          Picture.Data = {
-            89504E470D0A1A0A0000000D4948445200000020000000200806000000737A7A
-            F40000000473424954080808087C086488000000097048597300000EC400000E
-            C401952B0E1B000003A8494441545885C5975D685C5510C77FE7DEED6E6E62DC
-            AA0D84F8A262D0B6060B9526DA62844A1FA4D50A2AF8D20A4550FA22282814AA
-            350FFAE0838A05AB2D35146DB1D1146CF3526C6D526D63D91274B1D4D0EA8394
-            44C9C7361FDDBDE79E333E347BB39BDDA4B99B85CE65E09E393377FE67E69C39
-            7355369B6DD65A7F29224996486F9DFEE7FB2F9E5BD511C526A6B5DE2622ED4B
-            750E30A9ED9A8D5FA5623FBEB2F6DDC5DA38D6DA9888500D0650B0BB7D7FFF9E
-            2800AAE23C0F200F62FDE73F2F0A84B358A48BA36210AD9F9DB9250807A85A04
-            1E4D82E81CA273B8268727FEEEE7F79D7C6F21006A7474F403E09D252E1D0063
-            0C37723EAE02A5549E271B1B1BEBE7B389E523500D721C873AAF269A8DB5B62A
-            CE2BA5AA46A02200D65A9452B70F00DCE608541BC00DA6C9480680A44A5223DE
-            C200AA9182EB92A12F38CD8049F19F1D2E9ABBC769A879F9AF2D1D0166EFD1FB
-            7B86E6DAAAA1A1A18AEB8088D06B4E714277E3E3DF4A7B12915D471E38FE69A1
-            B4E2BBC08AE5B0DFC977FE61B292C58AC58A25A112ACAA696165E2111CDC506E
-            45EEB0F0C94B5737EF4708435EF11E381E7473CEF495C85F5FF106AD754F00F0
-            43A69B43A307E6AAEC78E1CA33C35DF4EC820AEF82BFCD554EEA1EAC4809DFE5
-            DE1D7A4A3ACBCBEA8892B7B75ED9B42E4C41543AA18F61C420624BB898A4AC8E
-            88B88E387BA082148CCB18976C1AA1BC4DA15CE68C8BF4844DCF5E7ABA29F231
-            1C349731332BAD73EA68F1D6E0CCEE29EA9DD98B6F45AC81B6DAF5E138206060
-            3A852F1AC01187F6C811F8D70E85A17EB561274FD56F9C5777B5D7C26AAFA548
-            F6EDE8377C3D72F0E640C98391F7802F3E32F3D43B7746B2859B11CADB8B152F
-            724BE6496DB89B07272E638C29E2C2685A6B8BE682206070F2CFD91361642C16
-            154093BA374CC1A1F1031C1B3B8A2A682DDFBFEF439ABD8700F865A28FBDD73E
-            0EE70C862967221C0722BF4706D0EC3ECCB25C9C9C9303051995299A3798F0DD
-            573EE3CE58F90F59991CC94EF5464E41C249D0E66C98BF50151EBB854A79603B
-            538FA5A62B6ACB3727B6E2D95A045BC245FEA1AC8E0DEC4830A53BA0C2FF82A4
-            BB9C1DF1D7C0A892323B90B988D61A5FFBA4AFFF565A8A8D0D82ACDD76EAF1FE
-            6100954EA7DFF43CEFA34A7A820BD9F31C0CF6A15D5DB4ECB88D2348B11C10C3
-            B49996ED67DACE75E5652A9D4EC7B5D6DB4524FAA1062ED8F31CA1730B71D5AE
-            DCF23A6200CD4F5ADB9D67DB7EFDA370AE6ADDE886DEB5AD6EDC7D91656A1D48
-            D3CCE7AFA980FE2017749D7D32D55FCEEE7F52595195DFAD4697000000004945
-            4E44AE426082}
-          TabOrder = 0
-          OnClick = BtnIniciaImportacaoClick
-          Appearance.BorderColor = 14727579
-          Appearance.BorderColorHot = 10079963
-          Appearance.BorderColorDown = 4548219
-          Appearance.BorderColorDisabled = clBackground
-          Appearance.Color = 15653832
-          Appearance.ColorTo = 16178633
-          Appearance.ColorChecked = 7915518
-          Appearance.ColorCheckedTo = 11918331
-          Appearance.ColorDisabled = clBackground
-          Appearance.ColorDisabledTo = clBackground
-          Appearance.ColorDown = 7778289
-          Appearance.ColorDownTo = 4296947
-          Appearance.ColorHot = 15465983
-          Appearance.ColorHotTo = 11332863
-          Appearance.ColorMirror = 15586496
-          Appearance.ColorMirrorTo = 16245200
-          Appearance.ColorMirrorHot = 5888767
-          Appearance.ColorMirrorHotTo = 10807807
-          Appearance.ColorMirrorDown = 946929
-          Appearance.ColorMirrorDownTo = 5021693
-          Appearance.ColorMirrorChecked = 10480637
-          Appearance.ColorMirrorCheckedTo = 5682430
-          Appearance.ColorMirrorDisabled = clBackground
-          Appearance.ColorMirrorDisabledTo = clBackground
-          Appearance.GradientHot = ggVertical
-          Appearance.GradientMirrorHot = ggVertical
-          Appearance.GradientDown = ggVertical
-          Appearance.GradientMirrorDown = ggVertical
-          Appearance.GradientChecked = ggVertical
-        end
         object BtnGravar: TAdvGlowButton
-          Left = 127
+          Left = 10
           Top = 14
           Width = 109
           Height = 30
@@ -177,7 +100,7 @@ inherited FrmImportarSPED: TFrmImportarSPED
             C1C9C9C96EBA5C26C324195A6B9381B5436BCC4019630128660E44E489280B21
             645996B9F3F3F32CD948EE1F1D4D57A8768492378073B40ED1BF0032E87C30A4
             00F0110000000049454E44AE426082}
-          TabOrder = 1
+          TabOrder = 0
           OnClick = BtnIniciaImportacaoClick
           Appearance.BorderColor = 14727579
           Appearance.BorderColorHot = 10079963
@@ -210,7 +133,7 @@ inherited FrmImportarSPED: TFrmImportarSPED
           Appearance.GradientChecked = ggVertical
         end
         object BtnCancelar: TAdvGlowButton
-          Left = 242
+          Left = 125
           Top = 14
           Width = 109
           Height = 30
@@ -294,7 +217,7 @@ inherited FrmImportarSPED: TFrmImportarSPED
             351318C7FF73359B66CA164D6B5DA1EB9BAAA5BCB38A90DB744A638C109D10E2
             0B425236309006CE5E14E2C8B386F12E80094CDBD23F0B40E5FB1C800640298E
             25266758283E1E6EE27AFE3FC8B02D740B0AF83D0000000049454E44AE426082}
-          TabOrder = 2
+          TabOrder = 1
           OnClick = BtnIniciaImportacaoClick
           Appearance.BorderColor = 14727579
           Appearance.BorderColorHot = 10079963
@@ -327,7 +250,7 @@ inherited FrmImportarSPED: TFrmImportarSPED
           Appearance.GradientChecked = ggVertical
         end
         object BtnSair: TAdvGlowButton
-          Left = 357
+          Left = 240
           Top = 14
           Width = 109
           Height = 30
@@ -387,7 +310,7 @@ inherited FrmImportarSPED: TFrmImportarSPED
             248EE3E0791E4110D02C0D441492297936573C290B3FB9709A0A657EEB263006
             EA9D295656B23708C390969616C6C7C79936B3209DCD1D1469CCE6A04481FF00
             50AF59F878CAB4260000000049454E44AE426082}
-          TabOrder = 3
+          TabOrder = 2
           OnClick = BtnSairClick
           Appearance.BorderColor = 14727579
           Appearance.BorderColorHot = 10079963
@@ -423,12 +346,11 @@ inherited FrmImportarSPED: TFrmImportarSPED
       object AdvGroupBox1: TAdvGroupBox
         Left = 0
         Top = 0
-        Width = 720
+        Width = 730
         Height = 49
         Align = alTop
         Caption = '  Selecione o arquivo txt que deseja importar   '
         TabOrder = 1
-        ExplicitWidth = 710
         object Label1: TLabel
           Left = 8
           Top = 25
@@ -442,19 +364,11 @@ inherited FrmImportarSPED: TFrmImportarSPED
           Font.Style = [fsBold]
           ParentFont = False
         end
-        object EdtArq: TJvDirectoryEdit
-          Left = 67
-          Top = 22
-          Width = 478
-          Height = 19
-          TabOrder = 0
-          Text = ''
-        end
         object BtnIniciaImportacao: TAdvGlowButton
-          Left = 556
-          Top = 14
-          Width = 146
-          Height = 30
+          Left = 569
+          Top = 13
+          Width = 150
+          Height = 32
           Caption = 'Iniciar importa'#231#227'o'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -481,7 +395,7 @@ inherited FrmImportarSPED: TFrmImportarSPED
             CD5032E01A642DAD7C69406C44184EA6BE0F5DF21F03A211A1085E7D1FBAE4C0
             2F5EC3E89ED02907125C44B6F2CCF01DCE8BFF065DF2C4EC763D73A3ABCCDCC5
             05057F9A2F663602AA2D99BC420000000049454E44AE426082}
-          TabOrder = 1
+          TabOrder = 0
           OnClick = BtnIniciaImportacaoClick
           Appearance.BorderColor = 14727579
           Appearance.BorderColorHot = 10079963
@@ -512,6 +426,225 @@ inherited FrmImportarSPED: TFrmImportarSPED
           Appearance.GradientDown = ggVertical
           Appearance.GradientMirrorDown = ggVertical
           Appearance.GradientChecked = ggVertical
+        end
+        object EdtArquivo: TJvFilenameEdit
+          Left = 67
+          Top = 22
+          Width = 490
+          Height = 19
+          OnAfterDialog = EdtArquivoAfterDialog
+          Filter = 'All files (*.*)|*.*|All files(*.txt)|*.txt'
+          DialogTitle = 'Procurar arquivo SPED'
+          Color = clInfoBk
+          TabOrder = 1
+          Text = ''
+        end
+      end
+      object cxPgcImportacao: TcxPageControl
+        Left = 0
+        Top = 95
+        Width = 730
+        Height = 287
+        Align = alClient
+        Color = 16445929
+        ParentBackground = False
+        ParentColor = False
+        TabOrder = 2
+        Properties.ActivePage = Tbs000
+        Properties.CustomButtons.Buttons = <>
+        Properties.CustomButtons.Mode = cbmEveryTab
+        Properties.DragImage.Data = {
+          36040000424D3604000000000000360000002800000010000000100000000100
+          2000000000000004000000000000000000000000000000000000000000000000
+          00000000000000000000000000020000000A0000000F00000011000000110000
+          0011000000110000001200000012000000110000000B00000003000000005D45
+          3AFF5D4439FF5C4339FF0000000975492CC1A2663CFFA1653CFFA1653BFFA065
+          3AFFA0643AFFA0643AFF9F6439FF9F6339FF724729C30000000B000000005F46
+          3BFF00000000000000000000000CB1724DFFE9CA9CFFE9C89BFFE9C99AFFE9C8
+          99FFE8C798FFE8C696FFE7C695FFE6C594FFAD6D48FF0000000F000000006048
+          3DFF00000000000000000000000CB47650FFECCEA3FFE2BA83FFE3BA81FFE3B9
+          81FFE2B880FFE2B87FFFE1B77FFFE9C99AFFB0704AFF0000000F000000020000
+          000A0000000F000000110000001BB77A55FFEED2AAFFE5BE88FFE4BD87FFE4BD
+          87FFE3BC85FFE4BB85FFE3BB84FFEBCDA2FFB2744EFF0000000E00000009774C
+          2EC1A4683FFFA3683EFF9D633BFFB97E59FFF0D7B0FFE7C28EFFE6C18CFFE6C1
+          8CFFE5C08BFFE5BF8AFFE5BF89FFEDD1A8FFB57852FF0000000D0000000CB87C
+          58FFEBCFA4FFEBCEA4FFE4C89EFFBD835DFFF0DBB7FFE8C794FFEACB9BFFEBCD
+          9DFFEACC9CFFEAC998FFE6C38FFFEED5AFFFB87C56FF0000000B0000000CBB80
+          5BFFEDD3ACFFE5C18DFFE0BC87FFBF8762FFF3DFBFFFEED3A5FFEED3A6FFEED3
+          A5FFEED2A4FFEDD2A4FFEDD1A2FFF1DBB8FFBB805BFF0000000A0000000BBE84
+          61FFEFD7B2FFE8C592FFE2BF8EFFC28C65FFF6E6C9FFF0D8ADFFF0D7ACFFEFD6
+          ACFFEFD6ABFFEFD6AAFFEED5AAFFF4E2C3FFBD855FFF000000090000000AC088
+          65FFF1DCB8FFEAC998FFE4C493FFC5906AFFF8ECD4FFF8ECD4FFF8ECD3FFF8EC
+          D3FFF8EBD3FFF8EBD2FFF8EAD2FFF8EAD1FFC18A63FF0000000700000008C48D
+          68FFF3DEBFFFEBCD9EFFEACFA2FFD7AE86FFD2A37CFFD1A37CFFD1A27BFFD1A2
+          7BFFD0A17AFFD0A079FFCF9F78FFCE9E77FF997558C10000000400000007C691
+          6DFFF4E3C6FFF0D6ADFFEED6ACFFEDD4ABFFECD2A9FFEBD2A8FFEBD1A6FFF0DC
+          BCFFBE8765FF0000000F0000000500000005000000030000000100000006C996
+          70FFF7E8CDFFF1DBB2FFF1DAB1FFF0DAB1FFF0DAB0FFF0DAB0FFF0D8B0FFF5E5
+          C9FFC48F6AFF000000090000000000000000664C42FF0000000000000005CC9A
+          75FFF8EED7FFF9EED7FFF8EDD7FFF8EDD6FFF8EDD5FFF8ECD5FFF8ECD4FFF8EB
+          D3FFC8946EFF000000070000000000000000674E43FF00000000000000039D79
+          5DC0D2A47DFFD2A47DFFD2A47DFFD2A37DFFD2A37CFFD1A37CFFD1A27BFFD1A1
+          7BFF9A785BC1000000046A5045FF695045FF694F44FF00000000000000010000
+          0002000000030000000400000004000000040000000500000005000000050000
+          0005000000030000000100000000000000000000000000000000}
+        Properties.NavigatorPosition = npLeftTop
+        Properties.Style = 10
+        Properties.TabCaptionAlignment = taLeftJustify
+        Properties.TabSlants.Kind = skCutCorner
+        LookAndFeel.Kind = lfOffice11
+        TabSlants.Kind = skCutCorner
+        ExplicitTop = 92
+        ClientRectBottom = 287
+        ClientRectRight = 730
+        ClientRectTop = 20
+        object Tbs000: TcxTabSheet
+          Caption = 'Identifica'#231#227'o entidade ( Registro  0000)'
+          ImageIndex = 0
+          ExplicitTop = 36
+          ExplicitHeight = 210
+          object cxGrid1: TcxGrid
+            Left = 0
+            Top = 0
+            Width = 730
+            Height = 267
+            Align = alClient
+            TabOrder = 0
+            ExplicitLeft = 16
+            ExplicitTop = 24
+            ExplicitWidth = 250
+            ExplicitHeight = 200
+            object cxGrid1DBTableView1: TcxGridDBTableView
+              Navigator.Buttons.CustomButtons = <>
+              DataController.Summary.DefaultGroupSummaryItems = <>
+              DataController.Summary.FooterSummaryItems = <>
+              DataController.Summary.SummaryGroups = <>
+              OptionsView.GroupByBox = False
+            end
+            object cxGrid1Level1: TcxGridLevel
+              GridView = cxGrid1DBTableView1
+            end
+          end
+        end
+        object Tbs0200: TcxTabSheet
+          Caption = 'Mercadorias , servi'#231'os e produtos (Registro 0200)'
+          Color = 16445929
+          ImageIndex = 1
+          ParentColor = False
+          ExplicitTop = 36
+          ExplicitHeight = 210
+          object cxGrid2: TcxGrid
+            Left = 0
+            Top = 0
+            Width = 730
+            Height = 267
+            Align = alClient
+            TabOrder = 0
+            ExplicitLeft = 16
+            ExplicitTop = 24
+            ExplicitWidth = 250
+            ExplicitHeight = 200
+            object cxGridDBTableView1: TcxGridDBTableView
+              Navigator.Buttons.CustomButtons = <>
+              DataController.Summary.DefaultGroupSummaryItems = <>
+              DataController.Summary.FooterSummaryItems = <>
+              DataController.Summary.SummaryGroups = <>
+              OptionsView.GroupByBox = False
+            end
+            object cxGridLevel1: TcxGridLevel
+              GridView = cxGridDBTableView1
+            end
+          end
+        end
+        object TbsC100E: TcxTabSheet
+          Caption = 'Nota fiscal  entrada (Registro C100)'
+          ImageIndex = 2
+          ExplicitTop = 36
+          ExplicitHeight = 210
+          object cxGrid3: TcxGrid
+            Left = 0
+            Top = 0
+            Width = 730
+            Height = 267
+            Align = alClient
+            TabOrder = 0
+            ExplicitLeft = 16
+            ExplicitTop = 24
+            ExplicitWidth = 250
+            ExplicitHeight = 200
+            object cxGridDBTableView2: TcxGridDBTableView
+              Navigator.Buttons.CustomButtons = <>
+              DataController.Summary.DefaultGroupSummaryItems = <>
+              DataController.Summary.FooterSummaryItems = <>
+              DataController.Summary.SummaryGroups = <>
+              OptionsView.GroupByBox = False
+            end
+            object cxGridLevel2: TcxGridLevel
+              GridView = cxGridDBTableView2
+            end
+          end
+        end
+        object TbsC100S: TcxTabSheet
+          Caption = 'Nota fiscal Sa'#237'da (Registro C100)'
+          ImageIndex = 3
+          ExplicitTop = 36
+          ExplicitHeight = 210
+          object cxGrid4: TcxGrid
+            Left = 0
+            Top = 0
+            Width = 730
+            Height = 267
+            Align = alClient
+            TabOrder = 0
+            ExplicitLeft = 16
+            ExplicitTop = 24
+            ExplicitWidth = 250
+            ExplicitHeight = 200
+            object cxGridDBTableView3: TcxGridDBTableView
+              Navigator.Buttons.CustomButtons = <>
+              DataController.Summary.DefaultGroupSummaryItems = <>
+              DataController.Summary.FooterSummaryItems = <>
+              DataController.Summary.SummaryGroups = <>
+              OptionsView.GroupByBox = False
+            end
+            object cxGridLevel3: TcxGridLevel
+              GridView = cxGridDBTableView3
+            end
+          end
+        end
+      end
+      object GpbProcessaImportacao: TAdvGroupBox
+        Left = 0
+        Top = 49
+        Width = 730
+        Height = 46
+        Align = alTop
+        Caption = '   Processando importa'#231#227'o   '
+        TabOrder = 3
+        object ProgressBar: TW7ProgressBar
+          Left = 240
+          Top = 21
+          Width = 479
+          Height = 16
+          Min = 0
+          Max = 100
+          Position = 10
+          BackgroundColor = clWhite
+          Transparent = True
+          Style = pbsBlue
+        end
+        object lblCaptionImportacao: TLabel
+          Left = 16
+          Top = 23
+          Width = 147
+          Height = 13
+          Caption = 'Carregando registro 0000 .....'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlue
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
         end
       end
     end
