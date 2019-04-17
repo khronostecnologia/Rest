@@ -40,7 +40,6 @@ type
     Label4: TLabel;
     procedure FormShow(Sender: TObject);
     procedure MnSelecionarClienteClick(Sender: TObject);
-    procedure BtnRelatorioClick(Sender: TObject);
     procedure BtnEmpresaClick(Sender: TObject);
     procedure MnuSubImportacaoSPEDClick(Sender: TObject);
     procedure Sair1Click(Sender: TObject);
@@ -72,19 +71,6 @@ procedure TFrmMenu.BtnImportacaoSPEDClick(Sender: TObject);
 begin
   FrmImportarSPED := TFrmImportarSPED.Create(nil);
   FrmImportarSPED.Show;
-end;
-
-procedure TFrmMenu.BtnRelatorioClick(Sender: TObject);
-begin
- try
-  dmPrincipal.ConectaBanco;
- except
-  On e: exception do
-  begin
-    ShowMessage(e.message);
-    FrmMensagem.Informacao(e.Message);
-  end;
- end;
 end;
 
 procedure TFrmMenu.FormShow(Sender: TObject);

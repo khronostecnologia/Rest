@@ -4,6 +4,7 @@ inherited FrmImportarSPED: TFrmImportarSPED
   ClientHeight = 496
   ClientWidth = 730
   Position = poDesktopCenter
+  WindowState = wsMaximized
   OnClose = FormClose
   OnCreate = FormCreate
   ExplicitWidth = 736
@@ -32,7 +33,7 @@ inherited FrmImportarSPED: TFrmImportarSPED
     inherited PnlCentral: TAdvSmoothPanel
       Width = 730
       Height = 439
-      ExplicitTop = 63
+      ExplicitTop = 57
       ExplicitWidth = 730
       ExplicitHeight = 439
       TMSStyle = 4
@@ -429,11 +430,11 @@ inherited FrmImportarSPED: TFrmImportarSPED
         end
         object EdtArquivo: TJvFilenameEdit
           Left = 67
-          Top = 22
+          Top = 24
           Width = 490
           Height = 19
           OnAfterDialog = EdtArquivoAfterDialog
-          Filter = 'All files (*.*)|*.*|All files(*.txt)|*.txt'
+          Filter = 'All files(*.txt)|*.txt'
           DialogTitle = 'Procurar arquivo SPED'
           Color = clInfoBk
           TabOrder = 1
@@ -442,15 +443,15 @@ inherited FrmImportarSPED: TFrmImportarSPED
       end
       object cxPgcImportacao: TcxPageControl
         Left = 0
-        Top = 95
+        Top = 177
         Width = 730
-        Height = 287
+        Height = 205
         Align = alClient
         Color = 16445929
         ParentBackground = False
         ParentColor = False
         TabOrder = 2
-        Properties.ActivePage = Tbs000
+        Properties.ActivePage = Tbs0200
         Properties.CustomButtons.Buttons = <>
         Properties.CustomButtons.Mode = cbmEveryTab
         Properties.DragImage.Data = {
@@ -494,62 +495,70 @@ inherited FrmImportarSPED: TFrmImportarSPED
         Properties.TabSlants.Kind = skCutCorner
         LookAndFeel.Kind = lfOffice11
         TabSlants.Kind = skCutCorner
-        ExplicitTop = 92
-        ClientRectBottom = 287
+        ClientRectBottom = 205
         ClientRectRight = 730
         ClientRectTop = 20
-        object Tbs000: TcxTabSheet
-          Caption = 'Identifica'#231#227'o entidade ( Registro  0000)'
-          ImageIndex = 0
-          ExplicitTop = 36
-          ExplicitHeight = 210
-          object cxGrid1: TcxGrid
-            Left = 0
-            Top = 0
-            Width = 730
-            Height = 267
-            Align = alClient
-            TabOrder = 0
-            ExplicitLeft = 16
-            ExplicitTop = 24
-            ExplicitWidth = 250
-            ExplicitHeight = 200
-            object cxGrid1DBTableView1: TcxGridDBTableView
-              Navigator.Buttons.CustomButtons = <>
-              DataController.Summary.DefaultGroupSummaryItems = <>
-              DataController.Summary.FooterSummaryItems = <>
-              DataController.Summary.SummaryGroups = <>
-              OptionsView.GroupByBox = False
-            end
-            object cxGrid1Level1: TcxGridLevel
-              GridView = cxGrid1DBTableView1
-            end
-          end
-        end
         object Tbs0200: TcxTabSheet
           Caption = 'Mercadorias , servi'#231'os e produtos (Registro 0200)'
           Color = 16445929
           ImageIndex = 1
           ParentColor = False
-          ExplicitTop = 36
-          ExplicitHeight = 210
-          object cxGrid2: TcxGrid
+          object cxGrid0200: TcxGrid
             Left = 0
             Top = 0
             Width = 730
-            Height = 267
+            Height = 185
             Align = alClient
             TabOrder = 0
-            ExplicitLeft = 16
-            ExplicitTop = 24
-            ExplicitWidth = 250
-            ExplicitHeight = 200
             object cxGridDBTableView1: TcxGridDBTableView
               Navigator.Buttons.CustomButtons = <>
+              DataController.DataSource = DMImportacaoSPED.Ds0200
               DataController.Summary.DefaultGroupSummaryItems = <>
               DataController.Summary.FooterSummaryItems = <>
               DataController.Summary.SummaryGroups = <>
+              OptionsData.Deleting = False
+              OptionsData.DeletingConfirmation = False
+              OptionsData.Editing = False
+              OptionsData.Inserting = False
               OptionsView.GroupByBox = False
+              object cxGridDBTableView1COD_ITEM: TcxGridDBColumn
+                Caption = 'Cod.Item'
+                DataBinding.FieldName = 'COD_ITEM'
+                Width = 150
+              end
+              object cxGridDBTableView1DESCR_ITEM: TcxGridDBColumn
+                Caption = 'Descri'#231#227'o item'
+                DataBinding.FieldName = 'DESCR_ITEM'
+                Width = 250
+              end
+              object cxGridDBTableView1CODBARRA: TcxGridDBColumn
+                Caption = 'Cod.Barra'
+                DataBinding.FieldName = 'CODBARRA'
+                Width = 150
+              end
+              object cxGridDBTableView1UNID: TcxGridDBColumn
+                Caption = 'Unid.'
+                DataBinding.FieldName = 'UNID'
+              end
+              object cxGridDBTableView1TIPO_ITEM: TcxGridDBColumn
+                Caption = 'Tipo '
+                DataBinding.FieldName = 'TIPO_ITEM'
+                Width = 150
+              end
+              object cxGridDBTableView1ALIQ_ICMS: TcxGridDBColumn
+                Caption = 'Aliq.ICMS'
+                DataBinding.FieldName = 'ALIQ_ICMS'
+                Width = 90
+              end
+              object cxGridDBTableView1COD_NCM: TcxGridDBColumn
+                Caption = 'NCM'
+                DataBinding.FieldName = 'COD_NCM'
+                Width = 150
+              end
+              object cxGridDBTableView1CEST: TcxGridDBColumn
+                DataBinding.FieldName = 'CEST'
+                Width = 150
+              end
             end
             object cxGridLevel1: TcxGridLevel
               GridView = cxGridDBTableView1
@@ -559,19 +568,13 @@ inherited FrmImportarSPED: TFrmImportarSPED
         object TbsC100E: TcxTabSheet
           Caption = 'Nota fiscal  entrada (Registro C100)'
           ImageIndex = 2
-          ExplicitTop = 36
-          ExplicitHeight = 210
-          object cxGrid3: TcxGrid
+          object cxGridC100E: TcxGrid
             Left = 0
             Top = 0
             Width = 730
-            Height = 267
+            Height = 185
             Align = alClient
             TabOrder = 0
-            ExplicitLeft = 16
-            ExplicitTop = 24
-            ExplicitWidth = 250
-            ExplicitHeight = 200
             object cxGridDBTableView2: TcxGridDBTableView
               Navigator.Buttons.CustomButtons = <>
               DataController.Summary.DefaultGroupSummaryItems = <>
@@ -587,19 +590,13 @@ inherited FrmImportarSPED: TFrmImportarSPED
         object TbsC100S: TcxTabSheet
           Caption = 'Nota fiscal Sa'#237'da (Registro C100)'
           ImageIndex = 3
-          ExplicitTop = 36
-          ExplicitHeight = 210
-          object cxGrid4: TcxGrid
+          object cxGridC100S: TcxGrid
             Left = 0
             Top = 0
             Width = 730
-            Height = 267
+            Height = 185
             Align = alClient
             TabOrder = 0
-            ExplicitLeft = 16
-            ExplicitTop = 24
-            ExplicitWidth = 250
-            ExplicitHeight = 200
             object cxGridDBTableView3: TcxGridDBTableView
               Navigator.Buttons.CustomButtons = <>
               DataController.Summary.DefaultGroupSummaryItems = <>
@@ -612,6 +609,80 @@ inherited FrmImportarSPED: TFrmImportarSPED
             end
           end
         end
+        object TbsC400: TcxTabSheet
+          Caption = 'Cupom fiscal (C400)'
+          ImageIndex = 4
+        end
+      end
+      object GpbRegistro0000: TAdvGroupBox
+        Left = 0
+        Top = 95
+        Width = 730
+        Height = 82
+        Align = alTop
+        Caption = '   Identifica'#231#227'o entidade (Registro 0000)  '
+        TabOrder = 3
+        object cxGrid0000: TcxGrid
+          Left = 2
+          Top = 16
+          Width = 726
+          Height = 64
+          Align = alClient
+          TabOrder = 0
+          object cxGrid0000DBTableView1: TcxGridDBTableView
+            Navigator.Buttons.CustomButtons = <>
+            DataController.DataSource = DMImportacaoSPED.Ds0000
+            DataController.Summary.DefaultGroupSummaryItems = <>
+            DataController.Summary.FooterSummaryItems = <>
+            DataController.Summary.SummaryGroups = <>
+            OptionsData.Deleting = False
+            OptionsData.Editing = False
+            OptionsData.Inserting = False
+            OptionsView.GroupByBox = False
+            object cxGrid0000DBTableView1COD_FIN: TcxGridDBColumn
+              Caption = 'Cod.finalidade'
+              DataBinding.FieldName = 'COD_FIN'
+              Width = 100
+            end
+            object cxGrid0000DBTableView1DT_INI: TcxGridDBColumn
+              Caption = 'Data inicial'
+              DataBinding.FieldName = 'DT_INI'
+            end
+            object cxGrid0000DBTableView1DT_FIM: TcxGridDBColumn
+              Caption = 'Data final'
+              DataBinding.FieldName = 'DT_FIM'
+            end
+            object cxGrid0000DBTableView1NOME: TcxGridDBColumn
+              Caption = 'Nome da entidade'
+              DataBinding.FieldName = 'NOME'
+              Width = 270
+            end
+            object cxGrid0000DBTableView1CNPJ: TcxGridDBColumn
+              DataBinding.FieldName = 'CNPJ'
+            end
+            object cxGrid0000DBTableView1CPF: TcxGridDBColumn
+              DataBinding.FieldName = 'CPF'
+            end
+            object cxGrid0000DBTableView1UF: TcxGridDBColumn
+              DataBinding.FieldName = 'UF'
+              Width = 30
+            end
+            object cxGrid0000DBTableView1IE: TcxGridDBColumn
+              DataBinding.FieldName = 'IE'
+            end
+            object cxGrid0000DBTableView1IND_PERFIL: TcxGridDBColumn
+              Caption = 'Perfil'
+              DataBinding.FieldName = 'IND_PERFIL'
+            end
+            object cxGrid0000DBTableView1IND_ATIV: TcxGridDBColumn
+              Caption = 'Atividade'
+              DataBinding.FieldName = 'IND_ATIV'
+            end
+          end
+          object cxGrid0000Level1: TcxGridLevel
+            GridView = cxGrid0000DBTableView1
+          end
+        end
       end
       object GpbProcessaImportacao: TAdvGroupBox
         Left = 0
@@ -620,7 +691,7 @@ inherited FrmImportarSPED: TFrmImportarSPED
         Height = 46
         Align = alTop
         Caption = '   Processando importa'#231#227'o   '
-        TabOrder = 3
+        TabOrder = 4
         object ProgressBar: TW7ProgressBar
           Left = 240
           Top = 21
@@ -633,7 +704,7 @@ inherited FrmImportarSPED: TFrmImportarSPED
           Transparent = True
           Style = pbsBlue
         end
-        object lblCaptionImportacao: TLabel
+        object lblInfoImportacao: TLabel
           Left = 16
           Top = 23
           Width = 147
@@ -648,5 +719,18 @@ inherited FrmImportarSPED: TFrmImportarSPED
         end
       end
     end
+  end
+  object ACBrSPEDFiscal: TACBrSPEDFiscal
+    Path = 'C:\Program Files (x86)\Embarcadero\Studio\18.0\bin\'
+    Delimitador = '|'
+    TrimString = True
+    CurMascara = '#0.00'
+    Left = 664
+    Top = 262
+  end
+  object ACBrSpedFiscalImportar: TACBrSpedFiscalImportar
+    ACBrSpedFiscal = ACBrSPEDFiscal
+    Left = 664
+    Top = 318
   end
 end
