@@ -89,11 +89,9 @@ type
     QryC170eIDNF: TIntegerField;
     Qry0200IDSPED: TIntegerField;
     Qry0000ID: TAutoIncField;
-    QryC100sID: TAutoIncField;
     QryC100sID_SPED: TIntegerField;
     QryC100sIND_OPER: TStringField;
     QryC100sCOD_PART: TStringField;
-    QryC100sNOM_PART: TStringField;
     QryC100sCOD_MOD: TStringField;
     QryC100sSER: TStringField;
     QryC100sNUM_DOC: TStringField;
@@ -117,7 +115,6 @@ type
     QryC100sVL_BC_COFINS: TFloatField;
     QryC100sVL_COFINS: TFloatField;
     QryC100sPARTICIPANTE: TStringField;
-    QryC170sID: TAutoIncField;
     QryC170sID_SPED: TIntegerField;
     QryC170sIDNF: TIntegerField;
     QryC170sNUM_ITEM: TStringField;
@@ -134,6 +131,11 @@ type
     QryC170sVL_BC_ICMS_ST: TFloatField;
     QryC170sALIQ_ST: TFloatField;
     QryC170sVL_ICMS_ST: TFloatField;
+    Qry0200ID: TIntegerField;
+    QryC100eID: TIntegerField;
+    QryC170eID: TIntegerField;
+    QryC100sID: TIntegerField;
+    QryC170sID: TIntegerField;
   private
     { Private declarations }
   public

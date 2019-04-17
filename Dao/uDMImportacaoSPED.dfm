@@ -5,10 +5,15 @@ object DMImportacaoSPED: TDMImportacaoSPED
   object Qry0000: TFDQuery
     CachedUpdates = True
     Connection = DMBase.DB
+    UpdateOptions.AssignedValues = [uvFetchGeneratorsPoint]
     SQL.Strings = (
       'SELECT * FROM "CADASTROS"."REGISTRO0000_"')
     Left = 32
     Top = 14
+    object Qry0000ID: TAutoIncField
+      FieldName = 'ID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+    end
     object Qry0000DT_INI: TDateTimeField
       FieldName = 'DT_INI'
     end
@@ -45,9 +50,6 @@ object DMImportacaoSPED: TDMImportacaoSPED
     object Qry0000IND_ATIV: TStringField
       FieldName = 'IND_ATIV'
       Size = 30
-    end
-    object Qry0000ID: TAutoIncField
-      FieldName = 'ID'
     end
   end
   object Qry0200: TFDQuery
@@ -88,6 +90,9 @@ object DMImportacaoSPED: TDMImportacaoSPED
     end
     object Qry0200IDSPED: TIntegerField
       FieldName = 'IDSPED'
+    end
+    object Qry0200ID: TIntegerField
+      FieldName = 'ID'
     end
   end
   object QryC100e: TFDQuery
@@ -179,6 +184,9 @@ object DMImportacaoSPED: TDMImportacaoSPED
       FieldName = 'PARTICIPANTE'
       Size = 100
     end
+    object QryC100eID: TIntegerField
+      FieldName = 'ID'
+    end
   end
   object QryC170e: TFDQuery
     CachedUpdates = True
@@ -238,6 +246,9 @@ object DMImportacaoSPED: TDMImportacaoSPED
     object QryC170eIDNF: TIntegerField
       FieldName = 'IDNF'
     end
+    object QryC170eID: TIntegerField
+      FieldName = 'ID'
+    end
   end
   object QryC400: TFDQuery
     CachedUpdates = True
@@ -296,9 +307,6 @@ object DMImportacaoSPED: TDMImportacaoSPED
     Connection = DMBase.DB
     Left = 32
     Top = 182
-    object QryC100sID: TAutoIncField
-      FieldName = 'ID'
-    end
     object QryC100sID_SPED: TIntegerField
       FieldName = 'ID_SPED'
     end
@@ -309,10 +317,6 @@ object DMImportacaoSPED: TDMImportacaoSPED
     object QryC100sCOD_PART: TStringField
       FieldName = 'COD_PART'
       Size = 50
-    end
-    object QryC100sNOM_PART: TStringField
-      FieldName = 'NOM_PART'
-      Size = 100
     end
     object QryC100sCOD_MOD: TStringField
       FieldName = 'COD_MOD'
@@ -388,15 +392,15 @@ object DMImportacaoSPED: TDMImportacaoSPED
       FieldName = 'PARTICIPANTE'
       Size = 100
     end
+    object QryC100sID: TIntegerField
+      FieldName = 'ID'
+    end
   end
   object QryC170s: TFDQuery
     CachedUpdates = True
     Connection = DMBase.DB
     Left = 96
     Top = 182
-    object QryC170sID: TAutoIncField
-      FieldName = 'ID'
-    end
     object QryC170sID_SPED: TIntegerField
       FieldName = 'ID_SPED'
     end
@@ -449,6 +453,9 @@ object DMImportacaoSPED: TDMImportacaoSPED
     end
     object QryC170sVL_ICMS_ST: TFloatField
       FieldName = 'VL_ICMS_ST'
+    end
+    object QryC170sID: TIntegerField
+      FieldName = 'ID'
     end
   end
 end
