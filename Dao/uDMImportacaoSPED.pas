@@ -18,16 +18,6 @@ type
     QryC170e: TFDQuery;
     QryC400: TFDQuery;
     QryC470: TFDQuery;
-    Qry0000ID: TIntegerField;
-    Qry0000RAZAO_SOCIAL: TWideStringField;
-    Qry0000NOME_EMPRESARIAL: TWideStringField;
-    Qry0000CPFCNPJ: TWideStringField;
-    Qry0000RGIE: TWideStringField;
-    Qry0000ENDERECO: TWideStringField;
-    Qry0000NUMERO: TIntegerField;
-    Qry0000BAIRRO: TWideStringField;
-    Qry0000CEP: TWideStringField;
-    Qry0000IDCIDADE: TIntegerField;
     Ds0000: TDataSource;
     Ds0200: TDataSource;
     DsC100e: TDataSource;
@@ -36,6 +26,25 @@ type
     DsC170s: TDataSource;
     DsC400: TDataSource;
     DsC470: TDataSource;
+    Qry0000DT_INI: TDateTimeField;
+    Qry0000DT_FIM: TDateTimeField;
+    Qry0000COD_MUN: TIntegerField;
+    Qry0000COD_FIN: TStringField;
+    Qry0000NOME: TStringField;
+    Qry0000CNPJ: TStringField;
+    Qry0000CPF: TStringField;
+    Qry0000UF: TStringField;
+    Qry0000IE: TStringField;
+    Qry0000IND_PERFIL: TStringField;
+    Qry0000IND_ATIV: TStringField;
+    Qry0200COD_ITEM: TStringField;
+    Qry0200DESCR_ITEM: TStringField;
+    Qry0200CODBARRA: TStringField;
+    Qry0200UNID: TStringField;
+    Qry0200TIPO_ITEM: TStringField;
+    Qry0200COD_NCM: TStringField;
+    Qry0200ALIQ_ICMS: TFloatField;
+    Qry0200CEST: TStringField;
   private
     { Private declarations }
   public

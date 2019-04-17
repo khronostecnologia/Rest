@@ -70,6 +70,22 @@ end;
 procedure TDMBase.DataModuleCreate(Sender: TObject);
 begin
   FDirApp := ExtractFilePath(application.exeName);
+
+  with DB.FormatOptions do
+  begin
+    OwnMapRules := True;
+      with MapRules.Add do
+      begin
+        SourceDataType  := dtWideString;
+        TargetDataType  := dtAnsiString;
+      end;
+
+      with MapRules.Add do
+      begin
+        SourceDataType := dtDateTimeStamp;
+        TargetDataType := dtDateTime;
+      end;
+  end;
 end;
 
 function TDMBase.GetEmpresa(ACodigo: String): Boolean;

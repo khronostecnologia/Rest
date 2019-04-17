@@ -1,66 +1,50 @@
 object DMImportacaoSPED: TDMImportacaoSPED
   OldCreateOrder = False
-  Height = 304
-  Width = 563
+  Height = 412
+  Width = 682
   object Qry0000: TFDQuery
     CachedUpdates = True
     Connection = DMBase.DB
     SQL.Strings = (
-      'SELECT * FROM "CADASTROS"."EMPRESAS"'
-      'WHERE "ID" =:ID')
+      'SELECT * FROM "CADASTROS"."REGISTRO0000_"')
     Left = 32
     Top = 8
-    ParamData = <
-      item
-        Name = 'ID'
-        ParamType = ptInput
-      end>
-    object Qry0000ID: TIntegerField
-      FieldName = 'ID'
-      Origin = '"ID"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+    object Qry0000DT_INI: TDateTimeField
+      FieldName = 'DT_INI'
     end
-    object Qry0000RAZAO_SOCIAL: TWideStringField
-      FieldName = 'RAZAO_SOCIAL'
-      Origin = '"RAZAO_SOCIAL"'
-      Size = 50
+    object Qry0000DT_FIM: TDateTimeField
+      FieldName = 'DT_FIM'
     end
-    object Qry0000NOME_EMPRESARIAL: TWideStringField
-      FieldName = 'NOME_EMPRESARIAL'
-      Origin = '"NOME_EMPRESARIAL"'
-      Size = 50
+    object Qry0000COD_MUN: TIntegerField
+      FieldName = 'COD_MUN'
     end
-    object Qry0000CPFCNPJ: TWideStringField
-      FieldName = 'CPFCNPJ'
-      Origin = '"CPFCNPJ"'
-      Size = 18
+    object Qry0000COD_FIN: TStringField
+      FieldName = 'COD_FIN'
     end
-    object Qry0000RGIE: TWideStringField
-      FieldName = 'RGIE'
-      Origin = '"RGIE"'
-    end
-    object Qry0000ENDERECO: TWideStringField
-      FieldName = 'ENDERECO'
-      Origin = '"ENDERECO"'
+    object Qry0000NOME: TStringField
+      FieldName = 'NOME'
       Size = 100
     end
-    object Qry0000NUMERO: TIntegerField
-      FieldName = 'NUMERO'
-      Origin = '"NUMERO"'
+    object Qry0000CNPJ: TStringField
+      FieldName = 'CNPJ'
     end
-    object Qry0000BAIRRO: TWideStringField
-      FieldName = 'BAIRRO'
-      Origin = '"BAIRRO"'
-      Size = 50
+    object Qry0000CPF: TStringField
+      FieldName = 'CPF'
     end
-    object Qry0000CEP: TWideStringField
-      FieldName = 'CEP'
-      Origin = '"CEP"'
-      Size = 10
+    object Qry0000UF: TStringField
+      FieldName = 'UF'
+      Size = 2
     end
-    object Qry0000IDCIDADE: TIntegerField
-      FieldName = 'IDCIDADE'
-      Origin = '"IDCIDADE"'
+    object Qry0000IE: TStringField
+      FieldName = 'IE'
+    end
+    object Qry0000IND_PERFIL: TStringField
+      FieldName = 'IND_PERFIL'
+      Size = 30
+    end
+    object Qry0000IND_ATIV: TStringField
+      FieldName = 'IND_ATIV'
+      Size = 30
     end
   end
   object Qry0200: TFDQuery
@@ -68,6 +52,37 @@ object DMImportacaoSPED: TDMImportacaoSPED
     Connection = DMBase.DB
     Left = 32
     Top = 64
+    object Qry0200COD_ITEM: TStringField
+      FieldName = 'COD_ITEM'
+      Size = 30
+    end
+    object Qry0200DESCR_ITEM: TStringField
+      FieldName = 'DESCR_ITEM'
+      Size = 100
+    end
+    object Qry0200CODBARRA: TStringField
+      FieldName = 'CODBARRA'
+      Size = 14
+    end
+    object Qry0200UNID: TStringField
+      FieldName = 'UNID'
+      Size = 5
+    end
+    object Qry0200TIPO_ITEM: TStringField
+      FieldName = 'TIPO_ITEM'
+      Size = 50
+    end
+    object Qry0200COD_NCM: TStringField
+      FieldName = 'COD_NCM'
+      Size = 15
+    end
+    object Qry0200ALIQ_ICMS: TFloatField
+      FieldName = 'ALIQ_ICMS'
+    end
+    object Qry0200CEST: TStringField
+      FieldName = 'CEST'
+      Size = 15
+    end
   end
   object QryC100e: TFDQuery
     CachedUpdates = True
