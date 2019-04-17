@@ -44,6 +44,7 @@ Uses
   Procedure SetaFoco(AControl : TWinControl);
   Procedure MarcacaoCheckBox(ADataSet : TFDQuery ; AMarcacao : Boolean) ;
   Procedure CopyQuery(SQL : String);
+  function GetID(ATabela : String ; AConexao : TFDConnection):Integer;
 
 
 Const
@@ -353,4 +354,17 @@ begin
  result := not (Qry.IsEmpty);
 
 end;
+
+function GetID(ATabela : String ; AConexao : TFDConnection):Integer;
+var
+  Qry    : TFDQuery;
+begin
+ try
+  Qry    := ConsultaSQL('SELECT MAX("ID")ID FROM ' + ATabela,AConexao);
+  result := iif(Qry.IsEmpty,'0',Qry.FieldByName('ID').AsInteger);
+ finally
+   FreeAndNil(Qry);
+ end;
+end;
+
 end.
