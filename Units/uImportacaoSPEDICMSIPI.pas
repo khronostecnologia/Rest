@@ -216,7 +216,7 @@ end;
 
 function TFrmImportarSPED.GetSQLCreateRegistro0200(ACPFCNPJ: String): String;
 begin
-  result :=  result := 'CREATE TABLE "CADASTROS"."REGISTRO0200_' + ACPFCNPJ + '" '+
+  result := 'CREATE TABLE "CADASTROS"."REGISTRO0200_' + ACPFCNPJ + '" '+
             '  (                                                       '+
             '      "ID" serial NOT NULL,                               '+
             '      "COD_ITEM" character varying(30),                   '+
@@ -359,13 +359,14 @@ var
   end;
 begin
   lblInfoImportacao.Caption     := 'Carregando registro 0200...';
-  ProgressBar.Max               := Pred(ACBrSPEDFiscal.Bloco_0.Registro0200Count);
+  j                             := Pred(ACBrSPEDFiscal.Bloco_0.Registro0001.Registro0200.Count);
+  ProgressBar.Max               := j;
   ProgressBar.Position          := 0;
   vCNPJ                         := iif(dmPrincipal.QryEmpresa.Active,
                                    dmPrincipal.QryEmpresaCPFCNPJ.AsString,
                                    DMImportacaoSPED.Qry0000CNPJ.AsString);
-  vNomeTabela                   := 'Registro0200_' + vCNPJ;
-  if Pred(ACBrSPEDFiscal.Bloco_0.Registro0200Count) > 0 then
+  vNomeTabela                   := 'REGISTRO0200_' + vCNPJ;
+  if j > 0 then
   begin
     if not TabelaExiste(vNomeTabela,dmPrincipal.DB) then
     CriaTabelaEmpresaLogada(GetSQLCreateRegistro0200(vCNPJ));
@@ -378,8 +379,9 @@ begin
                            'WHERE "ID" = -1';
       Qry0200.Open;
 
-      for I := 0 to Pred(ACBrSPEDFiscal.Bloco_0.Registro0001.Registro0200.Count) do
+      for I := 0 to j do
       begin
+         Qry0200.Insert;
          Qry0200COD_ITEM.AsString    := ACBrSPEDFiscal.Bloco_0.Registro0001.
                                         Registro0200.Items[I].COD_ITEM;
          Qry0200DESCR_ITEM.AsString  := ACBrSPEDFiscal.Bloco_0.Registro0001.
@@ -392,10 +394,11 @@ begin
                                         Registro0200.Items[I].TIPO_ITEM);
          Qry0200COD_NCM.AsString     := ACBrSPEDFiscal.Bloco_0.Registro0001.
                                         Registro0200.Items[I].COD_NCM;
-         Qry0200ALIQ_ICMS            := ACBrSPEDFiscal.Bloco_0.Registro0001.
+         Qry0200ALIQ_ICMS.AsVariant  := ACBrSPEDFiscal.Bloco_0.Registro0001.
                                         Registro0200.Items[I].ALIQ_ICMS;
          Qry0200CEST.AsString        := ACBrSPEDFiscal.Bloco_0.Registro0001.
                                         Registro0200.Items[I].CEST;
+         Qry0200.Post;
          ProgressBar.Position        :=  ProgressBar.Position + 1;
       end;
     end;
