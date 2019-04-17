@@ -85,6 +85,12 @@ begin
         SourceDataType := dtDateTimeStamp;
         TargetDataType := dtDateTime;
       end;
+
+      with MapRules.Add do
+      begin
+        SourceDataType := dtBCD;
+        TargetDataType := dtDouble;
+      end;
   end;
 end;
 
