@@ -37,12 +37,14 @@ Uses
   ACodUsuario : String =  '';AAplicCommit : Boolean = False):Boolean;
   Function IIf(const condicao: Boolean; const Verdadeiro, Falso: Variant): Variant;
   Function TerminarProcesso(sFile: String): Boolean;
+  function  TabelaExiste(ATabela : String ;AConexao : TFDConnection):Boolean;
   Procedure SelecionarRegistros(Querie : TFDQuery;Sel : String; SelAll : Boolean);
   Procedure Imprimir(Var pReport : TfrxReport);
   Procedure AjustaTamanhoCampoGrid(pGrid : TJvDBUltimGrid);
   Procedure SetaFoco(AControl : TWinControl);
   Procedure MarcacaoCheckBox(ADataSet : TFDQuery ; AMarcacao : Boolean) ;
   Procedure CopyQuery(SQL : String);
+
 
 Const
   CheckBoxMarcado      = True;
@@ -311,11 +313,12 @@ end;
 
 function ConsultaSQL(ASQL : String ; AConnection : TFDConnection):TFDQuery;
 Var
- Qry : TFDQuery;
+ Qry                : TFDQuery;
 begin
- Qry             := TFDQuery.Create(nil);
- Qry.Connection  := AConnection;
- Qry.SQL.Text    := ASQL;
+ Qry                := TFDQuery.Create(nil);
+ Qry.Connection     := AConnection;
+ Qry.CachedUpdates  := true;
+ Qry.SQL.Text       := ASQL;
  Try
   Qry.Open;
  except
@@ -328,4 +331,26 @@ begin
  result := Qry;
 end;
 
+function TabelaExiste(ATabela : String ; AConexao : TFDConnection):Boolean;
+Var
+ Qry               : TFDQuery;
+begin
+ Qry               := TFDQuery.Create(nil);
+ Qry.Connection    := AConexao;
+ Qry.CachedUpdates := true;
+ Qry.SQL.Text      := 'select "relname" from "pg_class" '+
+                      'where relname = ' + QuotedStr(ATabela) +
+                      'and relkind = ''r'' ';
+ Try
+  Qry.Open;
+ except
+  On e: exception do
+  begin
+   Qry.Free;
+   raise Exception.Create('Erro: ' + e.message + ' ao tentar executar consultaSQL.');
+  end;
+ end;
+ result := not (Qry.IsEmpty);
+
+end;
 end.
