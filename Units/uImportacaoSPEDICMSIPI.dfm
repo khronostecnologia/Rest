@@ -1,19 +1,19 @@
 inherited FrmImportarSPED: TFrmImportarSPED
   BorderStyle = bsSingle
   Caption = 'FrmImportarSPED'
-  ClientHeight = 496
+  ClientHeight = 513
   ClientWidth = 730
   Position = poDesktopCenter
   WindowState = wsMaximized
   OnClose = FormClose
   OnCreate = FormCreate
   ExplicitWidth = 736
-  ExplicitHeight = 525
+  ExplicitHeight = 542
   PixelsPerInch = 96
   TextHeight = 13
   inherited PnlGeral: TAdvSmoothPanel
     Width = 730
-    Height = 496
+    Height = 513
     ExplicitWidth = 730
     ExplicitHeight = 496
     TMSStyle = 4
@@ -32,13 +32,13 @@ inherited FrmImportarSPED: TFrmImportarSPED
     end
     inherited PnlCentral: TAdvSmoothPanel
       Width = 730
-      Height = 439
+      Height = 456
       ExplicitTop = 57
       ExplicitWidth = 730
       ExplicitHeight = 439
       TMSStyle = 4
       inherited PnlFooter: TAdvSmoothPanel
-        Top = 382
+        Top = 399
         Width = 730
         ExplicitTop = 382
         ExplicitWidth = 730
@@ -445,13 +445,13 @@ inherited FrmImportarSPED: TFrmImportarSPED
         Left = 0
         Top = 177
         Width = 730
-        Height = 205
+        Height = 222
         Align = alClient
         Color = 16445929
         ParentBackground = False
         ParentColor = False
         TabOrder = 2
-        Properties.ActivePage = Tbs0200
+        Properties.ActivePage = TbsC100S
         Properties.CustomButtons.Buttons = <>
         Properties.CustomButtons.Mode = cbmEveryTab
         Properties.DragImage.Data = {
@@ -495,7 +495,8 @@ inherited FrmImportarSPED: TFrmImportarSPED
         Properties.TabSlants.Kind = skCutCorner
         LookAndFeel.Kind = lfOffice11
         TabSlants.Kind = skCutCorner
-        ClientRectBottom = 205
+        ExplicitHeight = 205
+        ClientRectBottom = 222
         ClientRectRight = 730
         ClientRectTop = 20
         object Tbs0200: TcxTabSheet
@@ -503,13 +504,15 @@ inherited FrmImportarSPED: TFrmImportarSPED
           Color = 16445929
           ImageIndex = 1
           ParentColor = False
+          ExplicitHeight = 185
           object cxGrid0200: TcxGrid
             Left = 0
             Top = 0
             Width = 730
-            Height = 185
+            Height = 202
             Align = alClient
             TabOrder = 0
+            ExplicitHeight = 185
             object cxGridDBTableView1: TcxGridDBTableView
               Navigator.Buttons.CustomButtons = <>
               DataController.DataSource = DMImportacaoSPED.Ds0200
@@ -568,41 +571,512 @@ inherited FrmImportarSPED: TFrmImportarSPED
         object TbsC100E: TcxTabSheet
           Caption = 'Nota fiscal  entrada (Registro C100)'
           ImageIndex = 2
-          object cxGridC100E: TcxGrid
+          ExplicitHeight = 185
+          object cxGridC100e: TcxGrid
             Left = 0
             Top = 0
             Width = 730
-            Height = 185
-            Align = alClient
+            Height = 49
+            Align = alTop
             TabOrder = 0
             object cxGridDBTableView2: TcxGridDBTableView
               Navigator.Buttons.CustomButtons = <>
+              DataController.DataSource = DMImportacaoSPED.DsC100e
               DataController.Summary.DefaultGroupSummaryItems = <>
               DataController.Summary.FooterSummaryItems = <>
               DataController.Summary.SummaryGroups = <>
               OptionsView.GroupByBox = False
+              object cxGridDBTableView2IND_OPER: TcxGridDBColumn
+                Caption = 'Indicador opera'#231#227'o'
+                DataBinding.FieldName = 'IND_OPER'
+                Width = 110
+              end
+              object cxGridDBTableView2COD_PART: TcxGridDBColumn
+                Caption = 'C'#243'digo'
+                DataBinding.FieldName = 'COD_PART'
+                Width = 90
+              end
+              object cxGridDBTableView2PARTICIPANTE: TcxGridDBColumn
+                Caption = 'Nome do participante'
+                DataBinding.FieldName = 'PARTICIPANTE'
+                Width = 150
+              end
+              object cxGridDBTableView2COD_MOD: TcxGridDBColumn
+                Caption = 'Modelo'
+                DataBinding.FieldName = 'COD_MOD'
+                Width = 50
+              end
+              object cxGridDBTableView2SER: TcxGridDBColumn
+                Caption = 'S'#233'rie'
+                DataBinding.FieldName = 'SER'
+                Width = 50
+              end
+              object cxGridDBTableView2NUM_DOC: TcxGridDBColumn
+                Caption = 'N'#250'mero'
+                DataBinding.FieldName = 'NUM_DOC'
+                Width = 90
+              end
+              object cxGridDBTableView2CHV_NFE: TcxGridDBColumn
+                Caption = 'Chave acesso'
+                DataBinding.FieldName = 'CHV_NFE'
+              end
+              object cxGridDBTableView2DT_DOC: TcxGridDBColumn
+                Caption = 'Data documento'
+                DataBinding.FieldName = 'DT_DOC'
+                Width = 100
+              end
+              object cxGridDBTableView2DT_E_ES: TcxGridDBColumn
+                Caption = 'Data entrada'
+                DataBinding.FieldName = 'DT_E_ES'
+                Width = 100
+              end
+              object cxGridDBTableView2VL_DOC: TcxGridDBColumn
+                Caption = 'Valor documento'
+                DataBinding.FieldName = 'VL_DOC'
+                Width = 100
+              end
+              object cxGridDBTableView2VL_MERC: TcxGridDBColumn
+                Caption = 'Valor mercadorias'
+                DataBinding.FieldName = 'VL_MERC'
+                Width = 100
+              end
+              object cxGridDBTableView2VL_DESC: TcxGridDBColumn
+                Caption = 'Valor desc.'
+                DataBinding.FieldName = 'VL_DESC'
+                HeaderHint = '1'
+                Width = 100
+              end
+              object cxGridDBTableView2VL_FRT: TcxGridDBColumn
+                Caption = 'Valor frete.'
+                DataBinding.FieldName = 'VL_FRT'
+                Width = 100
+              end
+              object cxGridDBTableView2VL_SEG: TcxGridDBColumn
+                Caption = 'Valor seguro'
+                DataBinding.FieldName = 'VL_SEG'
+                Width = 100
+              end
+              object cxGridDBTableView2VL_OUT_DA: TcxGridDBColumn
+                Caption = 'Valor Outros desp.'
+                DataBinding.FieldName = 'VL_OUT_DA'
+                Width = 100
+              end
+              object cxGridDBTableView2VL_BC_ICMS: TcxGridDBColumn
+                Caption = 'Valor BC ICMS'
+                DataBinding.FieldName = 'VL_BC_ICMS'
+                Width = 100
+              end
+              object cxGridDBTableView2VL_ICMS: TcxGridDBColumn
+                Caption = 'Valor ICMS'
+                DataBinding.FieldName = 'VL_ICMS'
+                Width = 100
+              end
+              object cxGridDBTableView2VL_BC_ICMS_ST: TcxGridDBColumn
+                Caption = 'Valor Bc ICMS ST'
+                DataBinding.FieldName = 'VL_BC_ICMS_ST'
+                Width = 100
+              end
+              object cxGridDBTableView2VL_ICMS_ST: TcxGridDBColumn
+                Caption = 'Valor ICMS ST'
+                DataBinding.FieldName = 'VL_ICMS_ST'
+                Width = 100
+              end
+              object cxGridDBTableView2VL_BC_IPI: TcxGridDBColumn
+                Caption = 'Valor bc IPI'
+                DataBinding.FieldName = 'VL_BC_IPI'
+                Width = 100
+              end
+              object cxGridDBTableView2VL_IPI: TcxGridDBColumn
+                Caption = 'Valor IPI'
+                DataBinding.FieldName = 'VL_IPI'
+                Width = 100
+              end
+              object cxGridDBTableView2VL_BC_COFINS: TcxGridDBColumn
+                Caption = 'Valor Bc Cofins'
+                DataBinding.FieldName = 'VL_BC_COFINS'
+                Width = 100
+              end
+              object cxGridDBTableView2VL_COFINS: TcxGridDBColumn
+                Caption = 'Valor Cofins'
+                DataBinding.FieldName = 'VL_COFINS'
+                Width = 100
+              end
+              object cxGridDBTableView2VL_BC_PIS: TcxGridDBColumn
+                Caption = 'Valor bc pis.'
+                DataBinding.FieldName = 'VL_BC_PIS'
+                Width = 100
+              end
+              object cxGridDBTableView2VL_PIS: TcxGridDBColumn
+                Caption = 'Valor pis'
+                DataBinding.FieldName = 'VL_PIS'
+                Width = 100
+              end
             end
             object cxGridLevel2: TcxGridLevel
               GridView = cxGridDBTableView2
+            end
+          end
+          object cxPageControl1: TcxPageControl
+            Left = 0
+            Top = 49
+            Width = 730
+            Height = 153
+            Align = alClient
+            TabOrder = 1
+            Properties.ActivePage = cxTabSheet1
+            Properties.CustomButtons.Buttons = <>
+            ClientRectBottom = 149
+            ClientRectLeft = 4
+            ClientRectRight = 726
+            ClientRectTop = 24
+            object cxTabSheet1: TcxTabSheet
+              Caption = 'C170'
+              ImageIndex = 0
+              ExplicitWidth = 281
+              ExplicitHeight = 165
+              object cxGridC170e: TcxGrid
+                Left = 0
+                Top = 0
+                Width = 722
+                Height = 125
+                Align = alClient
+                TabOrder = 0
+                ExplicitHeight = 122
+                object cxGridDBTableView4: TcxGridDBTableView
+                  Navigator.Buttons.CustomButtons = <>
+                  DataController.DataSource = DMImportacaoSPED.DsC170e
+                  DataController.Summary.DefaultGroupSummaryItems = <>
+                  DataController.Summary.FooterSummaryItems = <>
+                  DataController.Summary.SummaryGroups = <>
+                  OptionsView.GroupByBox = False
+                  object cxGridDBTableView4NUM_ITEM: TcxGridDBColumn
+                    Caption = 'N'#186' Item'
+                    DataBinding.FieldName = 'NUM_ITEM'
+                    Width = 70
+                  end
+                  object cxGridDBTableView4COD_ITEM: TcxGridDBColumn
+                    Caption = 'Cod.Item'
+                    DataBinding.FieldName = 'COD_ITEM'
+                    Width = 120
+                  end
+                  object cxGridDBTableView4QTDE: TcxGridDBColumn
+                    Caption = 'Qtde'
+                    DataBinding.FieldName = 'QTDE'
+                  end
+                  object cxGridDBTableView4UNID: TcxGridDBColumn
+                    Caption = 'Und.'
+                    DataBinding.FieldName = 'UNID'
+                    Width = 50
+                  end
+                  object cxGridDBTableView4VL_ITEM: TcxGridDBColumn
+                    Caption = 'Valor Item'
+                    DataBinding.FieldName = 'VL_ITEM'
+                    Width = 100
+                  end
+                  object cxGridDBTableView4VL_DESC: TcxGridDBColumn
+                    Caption = 'Valor desconto'
+                    DataBinding.FieldName = 'VL_DESC'
+                    Width = 100
+                  end
+                  object cxGridDBTableView4CST_ICMS: TcxGridDBColumn
+                    Caption = 'CST'
+                    DataBinding.FieldName = 'CST_ICMS'
+                    Width = 60
+                  end
+                  object cxGridDBTableView4CFOP: TcxGridDBColumn
+                    DataBinding.FieldName = 'CFOP'
+                    Width = 60
+                  end
+                  object cxGridDBTableView4VL_BC_ICMS: TcxGridDBColumn
+                    Caption = 'Valor bc icms'
+                    DataBinding.FieldName = 'VL_BC_ICMS'
+                    Width = 100
+                  end
+                  object cxGridDBTableView4ALIQ_ICMS: TcxGridDBColumn
+                    Caption = 'Aliq.icms'
+                    DataBinding.FieldName = 'ALIQ_ICMS'
+                    Width = 100
+                  end
+                  object cxGridDBTableView4VL_ICMS: TcxGridDBColumn
+                    Caption = 'Valor icms'
+                    DataBinding.FieldName = 'VL_ICMS'
+                    Width = 100
+                  end
+                  object cxGridDBTableView4VL_BC_ICMS_ST: TcxGridDBColumn
+                    Caption = 'Valor bc icms st'
+                    DataBinding.FieldName = 'VL_BC_ICMS_ST'
+                    Width = 100
+                  end
+                  object cxGridDBTableView4ALIQ_ST: TcxGridDBColumn
+                    Caption = 'Aliq.st'
+                    DataBinding.FieldName = 'ALIQ_ST'
+                  end
+                  object cxGridDBTableView4VL_ICMS_ST: TcxGridDBColumn
+                    Caption = 'Valor icms st'
+                    DataBinding.FieldName = 'VL_ICMS_ST'
+                    Width = 100
+                  end
+                end
+                object cxGridLevel4: TcxGridLevel
+                  GridView = cxGridDBTableView4
+                end
+              end
             end
           end
         end
         object TbsC100S: TcxTabSheet
           Caption = 'Nota fiscal Sa'#237'da (Registro C100)'
           ImageIndex = 3
-          object cxGridC100S: TcxGrid
+          ExplicitHeight = 185
+          object cxPageControl2: TcxPageControl
+            Left = 0
+            Top = 91
+            Width = 730
+            Height = 111
+            Align = alClient
+            TabOrder = 0
+            Properties.ActivePage = cxTabSheet2
+            Properties.CustomButtons.Buttons = <>
+            ExplicitLeft = 60
+            ExplicitTop = 95
+            ExplicitWidth = 289
+            ExplicitHeight = 193
+            ClientRectBottom = 107
+            ClientRectLeft = 4
+            ClientRectRight = 726
+            ClientRectTop = 24
+            object cxTabSheet2: TcxTabSheet
+              Caption = 'C170'
+              ImageIndex = 0
+              ExplicitHeight = 84
+              object cxGridC170s: TcxGrid
+                Left = 0
+                Top = 0
+                Width = 722
+                Height = 83
+                Align = alClient
+                TabOrder = 0
+                ExplicitHeight = 122
+                object cxGridDBTableView5: TcxGridDBTableView
+                  Navigator.Buttons.CustomButtons = <>
+                  DataController.DataSource = DMImportacaoSPED.DsC170s
+                  DataController.Summary.DefaultGroupSummaryItems = <>
+                  DataController.Summary.FooterSummaryItems = <>
+                  DataController.Summary.SummaryGroups = <>
+                  OptionsView.GroupByBox = False
+                  object cxGridDBColumn26: TcxGridDBColumn
+                    Caption = 'N'#186' Item'
+                    DataBinding.FieldName = 'NUM_ITEM'
+                    Width = 70
+                  end
+                  object cxGridDBColumn27: TcxGridDBColumn
+                    Caption = 'Cod.Item'
+                    DataBinding.FieldName = 'COD_ITEM'
+                    Width = 120
+                  end
+                  object cxGridDBColumn28: TcxGridDBColumn
+                    Caption = 'Qtde'
+                    DataBinding.FieldName = 'QTDE'
+                  end
+                  object cxGridDBColumn29: TcxGridDBColumn
+                    Caption = 'Und.'
+                    DataBinding.FieldName = 'UNID'
+                    Width = 50
+                  end
+                  object cxGridDBColumn30: TcxGridDBColumn
+                    Caption = 'Valor Item'
+                    DataBinding.FieldName = 'VL_ITEM'
+                    Width = 100
+                  end
+                  object cxGridDBColumn31: TcxGridDBColumn
+                    Caption = 'Valor desconto'
+                    DataBinding.FieldName = 'VL_DESC'
+                    Width = 100
+                  end
+                  object cxGridDBColumn32: TcxGridDBColumn
+                    Caption = 'CST'
+                    DataBinding.FieldName = 'CST_ICMS'
+                    Width = 60
+                  end
+                  object cxGridDBColumn33: TcxGridDBColumn
+                    DataBinding.FieldName = 'CFOP'
+                    Width = 60
+                  end
+                  object cxGridDBColumn34: TcxGridDBColumn
+                    Caption = 'Valor bc icms'
+                    DataBinding.FieldName = 'VL_BC_ICMS'
+                    Width = 100
+                  end
+                  object cxGridDBColumn35: TcxGridDBColumn
+                    Caption = 'Aliq.icms'
+                    DataBinding.FieldName = 'ALIQ_ICMS'
+                    Width = 100
+                  end
+                  object cxGridDBColumn36: TcxGridDBColumn
+                    Caption = 'Valor icms'
+                    DataBinding.FieldName = 'VL_ICMS'
+                    Width = 100
+                  end
+                  object cxGridDBColumn37: TcxGridDBColumn
+                    Caption = 'Valor bc icms st'
+                    DataBinding.FieldName = 'VL_BC_ICMS_ST'
+                    Width = 100
+                  end
+                  object cxGridDBColumn38: TcxGridDBColumn
+                    Caption = 'Aliq.st'
+                    DataBinding.FieldName = 'ALIQ_ST'
+                  end
+                  object cxGridDBColumn39: TcxGridDBColumn
+                    Caption = 'Valor icms st'
+                    DataBinding.FieldName = 'VL_ICMS_ST'
+                    Width = 100
+                  end
+                end
+                object cxGridLevel5: TcxGridLevel
+                  GridView = cxGridDBTableView5
+                end
+              end
+            end
+          end
+          object cxGridC100s: TcxGrid
             Left = 0
             Top = 0
             Width = 730
-            Height = 185
-            Align = alClient
-            TabOrder = 0
+            Height = 91
+            Align = alTop
+            TabOrder = 1
             object cxGridDBTableView3: TcxGridDBTableView
               Navigator.Buttons.CustomButtons = <>
+              DataController.DataSource = DMImportacaoSPED.DsC100s
               DataController.Summary.DefaultGroupSummaryItems = <>
               DataController.Summary.FooterSummaryItems = <>
               DataController.Summary.SummaryGroups = <>
               OptionsView.GroupByBox = False
+              object cxGridDBColumn1: TcxGridDBColumn
+                Caption = 'Indicador opera'#231#227'o'
+                DataBinding.FieldName = 'IND_OPER'
+                Width = 110
+              end
+              object cxGridDBColumn2: TcxGridDBColumn
+                Caption = 'C'#243'digo'
+                DataBinding.FieldName = 'COD_PART'
+                Width = 90
+              end
+              object cxGridDBColumn3: TcxGridDBColumn
+                Caption = 'Nome do participante'
+                DataBinding.FieldName = 'PARTICIPANTE'
+                Width = 150
+              end
+              object cxGridDBColumn4: TcxGridDBColumn
+                Caption = 'Modelo'
+                DataBinding.FieldName = 'COD_MOD'
+                Width = 50
+              end
+              object cxGridDBColumn5: TcxGridDBColumn
+                Caption = 'S'#233'rie'
+                DataBinding.FieldName = 'SER'
+                Width = 50
+              end
+              object cxGridDBColumn6: TcxGridDBColumn
+                Caption = 'N'#250'mero'
+                DataBinding.FieldName = 'NUM_DOC'
+                Width = 90
+              end
+              object cxGridDBColumn7: TcxGridDBColumn
+                Caption = 'Chave acesso'
+                DataBinding.FieldName = 'CHV_NFE'
+              end
+              object cxGridDBColumn8: TcxGridDBColumn
+                Caption = 'Data documento'
+                DataBinding.FieldName = 'DT_DOC'
+                Width = 100
+              end
+              object cxGridDBColumn9: TcxGridDBColumn
+                Caption = 'Data entrada'
+                DataBinding.FieldName = 'DT_E_ES'
+                Width = 100
+              end
+              object cxGridDBColumn10: TcxGridDBColumn
+                Caption = 'Valor documento'
+                DataBinding.FieldName = 'VL_DOC'
+                Width = 100
+              end
+              object cxGridDBColumn11: TcxGridDBColumn
+                Caption = 'Valor mercadorias'
+                DataBinding.FieldName = 'VL_MERC'
+                Width = 100
+              end
+              object cxGridDBColumn12: TcxGridDBColumn
+                Caption = 'Valor desc.'
+                DataBinding.FieldName = 'VL_DESC'
+                HeaderHint = '1'
+                Width = 100
+              end
+              object cxGridDBColumn13: TcxGridDBColumn
+                Caption = 'Valor frete.'
+                DataBinding.FieldName = 'VL_FRT'
+                Width = 100
+              end
+              object cxGridDBColumn14: TcxGridDBColumn
+                Caption = 'Valor seguro'
+                DataBinding.FieldName = 'VL_SEG'
+                Width = 100
+              end
+              object cxGridDBColumn15: TcxGridDBColumn
+                Caption = 'Valor Outros desp.'
+                DataBinding.FieldName = 'VL_OUT_DA'
+                Width = 100
+              end
+              object cxGridDBColumn16: TcxGridDBColumn
+                Caption = 'Valor BC ICMS'
+                DataBinding.FieldName = 'VL_BC_ICMS'
+                Width = 100
+              end
+              object cxGridDBColumn17: TcxGridDBColumn
+                Caption = 'Valor ICMS'
+                DataBinding.FieldName = 'VL_ICMS'
+                Width = 100
+              end
+              object cxGridDBColumn18: TcxGridDBColumn
+                Caption = 'Valor Bc ICMS ST'
+                DataBinding.FieldName = 'VL_BC_ICMS_ST'
+                Width = 100
+              end
+              object cxGridDBColumn19: TcxGridDBColumn
+                Caption = 'Valor ICMS ST'
+                DataBinding.FieldName = 'VL_ICMS_ST'
+                Width = 100
+              end
+              object cxGridDBColumn20: TcxGridDBColumn
+                Caption = 'Valor bc IPI'
+                DataBinding.FieldName = 'VL_BC_IPI'
+                Width = 100
+              end
+              object cxGridDBColumn21: TcxGridDBColumn
+                Caption = 'Valor IPI'
+                DataBinding.FieldName = 'VL_IPI'
+                Width = 100
+              end
+              object cxGridDBColumn22: TcxGridDBColumn
+                Caption = 'Valor Bc Cofins'
+                DataBinding.FieldName = 'VL_BC_COFINS'
+                Width = 100
+              end
+              object cxGridDBColumn23: TcxGridDBColumn
+                Caption = 'Valor Cofins'
+                DataBinding.FieldName = 'VL_COFINS'
+                Width = 100
+              end
+              object cxGridDBColumn24: TcxGridDBColumn
+                Caption = 'Valor bc pis.'
+                DataBinding.FieldName = 'VL_BC_PIS'
+                Width = 100
+              end
+              object cxGridDBColumn25: TcxGridDBColumn
+                Caption = 'Valor pis'
+                DataBinding.FieldName = 'VL_PIS'
+                Width = 100
+              end
             end
             object cxGridLevel3: TcxGridLevel
               GridView = cxGridDBTableView3
@@ -612,6 +1086,7 @@ inherited FrmImportarSPED: TFrmImportarSPED
         object TbsC400: TcxTabSheet
           Caption = 'Cupom fiscal (C400)'
           ImageIndex = 4
+          ExplicitHeight = 185
         end
       end
       object GpbRegistro0000: TAdvGroupBox
@@ -707,7 +1182,7 @@ inherited FrmImportarSPED: TFrmImportarSPED
         object lblInfoImportacao: TLabel
           Left = 16
           Top = 23
-          Width = 218
+          Width = 147
           Height = 13
           Caption = 'Carregando registro 0000 .....'
           Font.Charset = DEFAULT_CHARSET

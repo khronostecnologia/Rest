@@ -50,12 +50,9 @@ type
     cxGrid0200: TcxGrid;
     cxGridDBTableView1: TcxGridDBTableView;
     cxGridLevel1: TcxGridLevel;
-    cxGridC100E: TcxGrid;
+    cxGridC100e: TcxGrid;
     cxGridDBTableView2: TcxGridDBTableView;
     cxGridLevel2: TcxGridLevel;
-    cxGridC100S: TcxGrid;
-    cxGridDBTableView3: TcxGridDBTableView;
-    cxGridLevel3: TcxGridLevel;
     TbsC400: TcxTabSheet;
     GpbProcessaImportacao: TAdvGroupBox;
     ProgressBar: TW7ProgressBar;
@@ -83,6 +80,97 @@ type
     cxGridDBTableView1COD_NCM: TcxGridDBColumn;
     cxGridDBTableView1ALIQ_ICMS: TcxGridDBColumn;
     cxGridDBTableView1CEST: TcxGridDBColumn;
+    cxPageControl1: TcxPageControl;
+    cxTabSheet1: TcxTabSheet;
+    cxGridC170e: TcxGrid;
+    cxGridDBTableView4: TcxGridDBTableView;
+    cxGridLevel4: TcxGridLevel;
+    cxPageControl2: TcxPageControl;
+    cxTabSheet2: TcxTabSheet;
+    cxGridDBTableView2IND_OPER: TcxGridDBColumn;
+    cxGridDBTableView2COD_PART: TcxGridDBColumn;
+    cxGridDBTableView2COD_MOD: TcxGridDBColumn;
+    cxGridDBTableView2SER: TcxGridDBColumn;
+    cxGridDBTableView2NUM_DOC: TcxGridDBColumn;
+    cxGridDBTableView2CHV_NFE: TcxGridDBColumn;
+    cxGridDBTableView2DT_DOC: TcxGridDBColumn;
+    cxGridDBTableView2DT_E_ES: TcxGridDBColumn;
+    cxGridDBTableView2VL_DOC: TcxGridDBColumn;
+    cxGridDBTableView2VL_MERC: TcxGridDBColumn;
+    cxGridDBTableView2VL_DESC: TcxGridDBColumn;
+    cxGridDBTableView2VL_FRT: TcxGridDBColumn;
+    cxGridDBTableView2VL_SEG: TcxGridDBColumn;
+    cxGridDBTableView2VL_OUT_DA: TcxGridDBColumn;
+    cxGridDBTableView2VL_BC_ICMS: TcxGridDBColumn;
+    cxGridDBTableView2VL_ICMS: TcxGridDBColumn;
+    cxGridDBTableView2VL_BC_ICMS_ST: TcxGridDBColumn;
+    cxGridDBTableView2VL_ICMS_ST: TcxGridDBColumn;
+    cxGridDBTableView2VL_BC_IPI: TcxGridDBColumn;
+    cxGridDBTableView2VL_IPI: TcxGridDBColumn;
+    cxGridDBTableView2VL_BC_PIS: TcxGridDBColumn;
+    cxGridDBTableView2VL_PIS: TcxGridDBColumn;
+    cxGridDBTableView2VL_BC_COFINS: TcxGridDBColumn;
+    cxGridDBTableView2VL_COFINS: TcxGridDBColumn;
+    cxGridDBTableView2PARTICIPANTE: TcxGridDBColumn;
+    cxGridC100s: TcxGrid;
+    cxGridDBTableView3: TcxGridDBTableView;
+    cxGridDBColumn1: TcxGridDBColumn;
+    cxGridDBColumn2: TcxGridDBColumn;
+    cxGridDBColumn3: TcxGridDBColumn;
+    cxGridDBColumn4: TcxGridDBColumn;
+    cxGridDBColumn5: TcxGridDBColumn;
+    cxGridDBColumn6: TcxGridDBColumn;
+    cxGridDBColumn7: TcxGridDBColumn;
+    cxGridDBColumn8: TcxGridDBColumn;
+    cxGridDBColumn9: TcxGridDBColumn;
+    cxGridDBColumn10: TcxGridDBColumn;
+    cxGridDBColumn11: TcxGridDBColumn;
+    cxGridDBColumn12: TcxGridDBColumn;
+    cxGridDBColumn13: TcxGridDBColumn;
+    cxGridDBColumn14: TcxGridDBColumn;
+    cxGridDBColumn15: TcxGridDBColumn;
+    cxGridDBColumn16: TcxGridDBColumn;
+    cxGridDBColumn17: TcxGridDBColumn;
+    cxGridDBColumn18: TcxGridDBColumn;
+    cxGridDBColumn19: TcxGridDBColumn;
+    cxGridDBColumn20: TcxGridDBColumn;
+    cxGridDBColumn21: TcxGridDBColumn;
+    cxGridDBColumn22: TcxGridDBColumn;
+    cxGridDBColumn23: TcxGridDBColumn;
+    cxGridDBColumn24: TcxGridDBColumn;
+    cxGridDBColumn25: TcxGridDBColumn;
+    cxGridLevel3: TcxGridLevel;
+    cxGridDBTableView4NUM_ITEM: TcxGridDBColumn;
+    cxGridDBTableView4COD_ITEM: TcxGridDBColumn;
+    cxGridDBTableView4QTDE: TcxGridDBColumn;
+    cxGridDBTableView4UNID: TcxGridDBColumn;
+    cxGridDBTableView4VL_ITEM: TcxGridDBColumn;
+    cxGridDBTableView4VL_DESC: TcxGridDBColumn;
+    cxGridDBTableView4CST_ICMS: TcxGridDBColumn;
+    cxGridDBTableView4CFOP: TcxGridDBColumn;
+    cxGridDBTableView4VL_BC_ICMS: TcxGridDBColumn;
+    cxGridDBTableView4ALIQ_ICMS: TcxGridDBColumn;
+    cxGridDBTableView4VL_ICMS: TcxGridDBColumn;
+    cxGridDBTableView4VL_BC_ICMS_ST: TcxGridDBColumn;
+    cxGridDBTableView4ALIQ_ST: TcxGridDBColumn;
+    cxGridDBTableView4VL_ICMS_ST: TcxGridDBColumn;
+    cxGridC170s: TcxGrid;
+    cxGridDBTableView5: TcxGridDBTableView;
+    cxGridDBColumn26: TcxGridDBColumn;
+    cxGridDBColumn27: TcxGridDBColumn;
+    cxGridDBColumn28: TcxGridDBColumn;
+    cxGridDBColumn29: TcxGridDBColumn;
+    cxGridDBColumn30: TcxGridDBColumn;
+    cxGridDBColumn31: TcxGridDBColumn;
+    cxGridDBColumn32: TcxGridDBColumn;
+    cxGridDBColumn33: TcxGridDBColumn;
+    cxGridDBColumn34: TcxGridDBColumn;
+    cxGridDBColumn35: TcxGridDBColumn;
+    cxGridDBColumn36: TcxGridDBColumn;
+    cxGridDBColumn37: TcxGridDBColumn;
+    cxGridDBColumn38: TcxGridDBColumn;
+    cxGridDBColumn39: TcxGridDBColumn;
+    cxGridLevel5: TcxGridLevel;
     procedure BtnIniciaImportacaoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -581,7 +669,7 @@ begin
 
       for I := 0 to j do
       begin
-        if ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].COD_SIT
+        if ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].IND_OPER
          = tpEntradaAquisicao then
         begin
           QryC100e.Insert;
@@ -598,8 +686,8 @@ begin
           = tpEntradaAquisicao then
           begin
             QryC170e.Insert;
-             ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].
-             RegistroC170.Items[k].DESCR_COMPL
+             //ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].
+             //RegistroC170.Items[k].DESCR_COMPL
 
 
           end
