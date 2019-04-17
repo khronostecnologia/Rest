@@ -451,7 +451,7 @@ inherited FrmImportarSPED: TFrmImportarSPED
         ParentBackground = False
         ParentColor = False
         TabOrder = 2
-        Properties.ActivePage = TbsAnalise
+        Properties.ActivePage = Tbs0200
         Properties.CustomButtons.Buttons = <>
         Properties.CustomButtons.Mode = cbmEveryTab
         Properties.DragImage.Data = {
@@ -1090,10 +1090,6 @@ inherited FrmImportarSPED: TFrmImportarSPED
               Height = 68
               Align = alClient
               TabOrder = 0
-              ExplicitLeft = 24
-              ExplicitTop = 24
-              ExplicitWidth = 250
-              ExplicitHeight = 200
               object cxGridTotalizadorEntradaDBTableView1: TcxGridDBTableView
                 Navigator.Buttons.CustomButtons = <>
                 DataController.Summary.DefaultGroupSummaryItems = <>
@@ -1120,10 +1116,6 @@ inherited FrmImportarSPED: TFrmImportarSPED
               Height = 89
               Align = alClient
               TabOrder = 0
-              ExplicitLeft = 40
-              ExplicitTop = 35
-              ExplicitWidth = 250
-              ExplicitHeight = 200
               object cxGridDBTableView6: TcxGridDBTableView
                 Navigator.Buttons.CustomButtons = <>
                 DataController.Summary.DefaultGroupSummaryItems = <>

@@ -232,6 +232,7 @@ begin
     SetaFoco(EdtArquivo);
   end;
   ImportarSPED;
+  cxPgcImportacao.ActivePageIndex := 0;
 end;
 
 procedure TFrmImportarSPED.BtnSairClick(Sender: TObject);
@@ -748,7 +749,7 @@ begin
         else
         begin
           QryC100s.Insert;
-          QryC100s.AsInteger            := Qry0000ID.AsInteger;
+          QryC100sID_SPED.AsInteger     := Qry0000ID.AsInteger;
           QryC100sIND_OPER.AsString     := 'Saida prestação';
           QryC100sCOD_PART.AsString     := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].COD_PART;
           QryC100sPARTICIPANTE.AsString := 'PARTICIPANTE AVULSO';
@@ -778,14 +779,98 @@ begin
           = tpEntradaAquisicao then
           begin
             QryC170e.Insert;
-             //ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].
-             //RegistroC170.Items[k].DESCR_COMPL
+            QryC170eID_SPED.AsInteger     := Qry0000ID.AsInteger;
 
+            QryC170eNUM_ITEM.AsString     := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].
+                                             RegistroC170.Items[k].NUM_ITEM;
 
+            QryC170eCOD_ITEM.AsString     := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].
+                                             RegistroC170.Items[k].COD_ITEM;
+
+            QryC170eQTDE.AsFloat          := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].
+                                             RegistroC170.Items[k].QTD;
+
+            QryC170eUNID.AsString         := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].
+                                             RegistroC170.Items[k].UNID;
+
+            QryC170eVL_ITEM.AsFloat       := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].
+                                             RegistroC170.Items[k].VL_ITEM;
+
+            QryC170eVL_DESC.AsFloat       := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].
+                                             RegistroC170.Items[k].VL_DESC;
+
+            QryC170eCST_ICMS.AsString     := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].
+                                             RegistroC170.Items[k].CST_ICMS;
+
+            QryC170eCFOP.AsString         := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].
+                                             RegistroC170.Items[k].CFOP;
+
+            QryC170eVL_BC_ICMS.AsFloat    := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].
+                                             RegistroC170.Items[k].VL_BC_ICMS;
+
+            QryC170eALIQ_ICMS.AsFloat     := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].
+                                             RegistroC170.Items[k].ALIQ_ICMS;
+
+            QryC170eVL_ICMS.AsFloat       := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].
+                                             RegistroC170.Items[k].VL_ICMS;
+
+            QryC170eVL_BC_ICMS_ST.AsFloat := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].
+                                             RegistroC170.Items[k].VL_BC_ICMS_ST;
+
+            QryC170eVL_ICMS_ST.AsFloat    := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].
+                                             RegistroC170.Items[k].VL_ICMS_ST;
+
+            QryC170eALIQ_ST.AsFloat       := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].
+                                             RegistroC170.Items[k].ALIQ_ST;
+            QryC170e.Post;
           end
           else
           begin
             QryC170s.Insert;
+            QryC170sID_SPED.AsInteger     := Qry0000ID.AsInteger;
+
+            QryC170sNUM_ITEM.AsString     := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].
+                                             RegistroC170.Items[k].NUM_ITEM;
+
+            QryC170sCOD_ITEM.AsString     := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].
+                                             RegistroC170.Items[k].COD_ITEM;
+
+            QryC170sQTDE.AsFloat          := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].
+                                             RegistroC170.Items[k].QTD;
+
+            QryC170sUNID.AsString         := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].
+                                             RegistroC170.Items[k].UNID;
+
+            QryC170sVL_ITEM.AsFloat       := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].
+                                             RegistroC170.Items[k].VL_ITEM;
+
+            QryC170sVL_DESC.AsFloat       := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].
+                                             RegistroC170.Items[k].VL_DESC;
+
+            QryC170sCST_ICMS.AsString     := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].
+                                             RegistroC170.Items[k].CST_ICMS;
+
+            QryC170sCFOP.AsString         := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].
+                                             RegistroC170.Items[k].CFOP;
+
+            QryC170sVL_BC_ICMS.AsFloat    := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].
+                                             RegistroC170.Items[k].VL_BC_ICMS;
+
+            QryC170sALIQ_ICMS.AsFloat     := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].
+                                             RegistroC170.Items[k].ALIQ_ICMS;
+
+            QryC170sVL_ICMS.AsFloat       := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].
+                                             RegistroC170.Items[k].VL_ICMS;
+
+            QryC170sVL_BC_ICMS_ST.AsFloat := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].
+                                             RegistroC170.Items[k].VL_BC_ICMS_ST;
+
+            QryC170sVL_ICMS_ST.AsFloat    := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].
+                                             RegistroC170.Items[k].VL_ICMS_ST;
+
+            QryC170sALIQ_ST.AsFloat       := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].
+                                             RegistroC170.Items[k].ALIQ_ST;
+            QryC170s.Post;
           end;
         end;
         ProgressBar.Position  := ProgressBar.Position + 1;
