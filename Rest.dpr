@@ -35,10 +35,12 @@ begin
   FrmSplash := TFrmSplash.Create(nil);
   FrmSplash.ShowModal;
   FreeAndNil(FrmSplash);
+  FrmMensagem := TFrmMensagem.Create(nil);
   Application.Run;
 
 end.
 
 finalization
 FreeAndNil(DMBase);
+freeandnil(FrmMensagem);
 
