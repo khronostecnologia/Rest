@@ -238,6 +238,8 @@ begin
   BtnNovaImportacacao.Enabled   := true;
   BtnLocalizaImportacao.Enabled := true;
   EdtArquivo.Clear;
+  cxPgcImportacao.Visible       := false;
+  GpbRegistro0000.Visible       := false;
 
   with DMImportacaoSPED do
   begin
@@ -714,7 +716,7 @@ begin
                 'WHERE "ID" = -1';
     Open;
     Insert;
-    FieldByName('ID').AsInteger         := GetID(FNomeTabela,dmPrincipal.DB);
+    FieldByName('ID').AsInteger         := GetID('"CADASTROS"."'+ FNomeTabela + '"',dmPrincipal.DB) + 1;
     FieldByName('COD_FIN').AsString     := GetCodFin;
     FieldByName('NOME').AsString        := ACBrSPEDFiscal.Bloco_0.Registro0000.NOME;
     FieldByName('DT_INI').AsDateTime    := ACBrSPEDFiscal.Bloco_0.Registro0000.DT_INI;
@@ -776,7 +778,7 @@ begin
       for I := 0 to j do
       begin
          Qry0200.Insert;
-         Qry0200ID.AsInteger         := GetID(FNomeTabela,dmPrincipal.DB);
+         Qry0200ID.AsInteger         := GetID('"CADASTROS"."'+ FNomeTabela + '"',dmPrincipal.DB) + 1;
          Qry0200IDSPED.AsInteger     := Qry0000ID.AsInteger;
          Qry0200COD_ITEM.AsString    := ACBrSPEDFiscal.Bloco_0.Registro0001.
                                         Registro0200.Items[I].COD_ITEM;
@@ -858,7 +860,7 @@ begin
          = tpEntradaAquisicao then
         begin
           QryC100e.Insert;
-          QryC100eID.AsInteger          := GetID(FNomeTabela,dmPrincipal.DB);
+          QryC100eID.AsInteger          := GetID('"REG_ENT"."'+ FNomeTabela + '"',dmPrincipal.DB) + 1;
           QryC100eID_SPED.AsInteger     := Qry0000ID.AsInteger;
           QryC100eIND_OPER.AsString     := 'Entrada Aquisicao';
           QryC100eCOD_PART.AsString     := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].COD_PART;
@@ -885,7 +887,7 @@ begin
         begin
           QryC100s.Insert;
           QryC100sID_SPED.AsInteger     := Qry0000ID.AsInteger;
-          QryC100sID.AsInteger          := GetID(FNomeTabela,dmPrincipal.DB);
+          QryC100sID.AsInteger          := GetID('"REG_SAIDA"."' + FNomeTabela + '"',dmPrincipal.DB) + 1;
           QryC100sIND_OPER.AsString     := 'Saida prestação';
           QryC100sCOD_PART.AsString     := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].COD_PART;
           QryC100sPARTICIPANTE.AsString := 'PARTICIPANTE AVULSO';
@@ -923,7 +925,8 @@ begin
             end;
 
             QryC170e.Insert;
-            QryC170eID.AsInteger          := vIDC170e + 1;
+            vIDC170e                      :=  vIDC170e + 1;
+            QryC170eID.AsInteger          :=  vIDC170e;
             QryC170eID_SPED.AsInteger     := Qry0000ID.AsInteger;
             QryC170eIDNF.AsInteger        := QryC100eID.AsInteger;
 
@@ -979,7 +982,8 @@ begin
             end;
 
             QryC170s.Insert;
-            QryC170SID.AsInteger          := vIDC170s + 1;
+            vIDC170s                      := vIDC170s + 1;
+            QryC170SID.AsInteger          := vIDC170s;
             QryC170sIDNF.AsInteger        := QryC100sID.AsInteger;
             QryC170sID_SPED.AsInteger     := Qry0000ID.AsInteger;
 

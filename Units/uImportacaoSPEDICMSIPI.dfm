@@ -102,7 +102,7 @@ inherited FrmImportarSPED: TFrmImportarSPED
             C1C9C9C96EBA5C26C324195A6B9381B5436BCC4019630128660E44E489280B21
             645996B9F3F3F32CD948EE1F1D4D57A8768492378073B40ED1BF0032E87C30A4
             00F0110000000049454E44AE426082}
-          TabOrder = 1
+          TabOrder = 2
           OnClick = BtnIniciaImportacaoClick
           Appearance.BorderColor = 14727579
           Appearance.BorderColorHot = 10079963
@@ -219,7 +219,7 @@ inherited FrmImportarSPED: TFrmImportarSPED
             351318C7FF73359B66CA164D6B5DA1EB9BAAA5BCB38A90DB744A638C109D10E2
             0B425236309006CE5E14E2C8B386F12E80094CDBD23F0B40E5FB1C800640298E
             25266758283E1E6EE27AFE3FC8B02D740B0AF83D0000000049454E44AE426082}
-          TabOrder = 2
+          TabOrder = 3
           OnClick = BtnCancelarClick
           Appearance.BorderColor = 14727579
           Appearance.BorderColorHot = 10079963
@@ -312,7 +312,7 @@ inherited FrmImportarSPED: TFrmImportarSPED
             248EE3E0791E4110D02C0D441492297936573C290B3FB9709A0A657EEB263006
             EA9D295656B23708C390969616C6C7C79936B3209DCD1D1469CCE6A04481FF00
             50AF59F878CAB4260000000049454E44AE426082}
-          TabOrder = 3
+          TabOrder = 4
           OnClick = BtnSairClick
           Appearance.BorderColor = 14727579
           Appearance.BorderColorHot = 10079963
@@ -500,7 +500,7 @@ inherited FrmImportarSPED: TFrmImportarSPED
             DCF23A6200CD4F5ADB9D67DB7EFDA370AE6ADDE886DEB5AD6EDC7D91656A1D48
             D3CCE7AFA980FE2017749D7D32D55FCEEE7F52595195DFAD4697000000004945
             4E44AE426082}
-          TabOrder = 4
+          TabOrder = 1
           OnClick = BtnNovaImportacacaoClick
           Appearance.BorderColor = 14727579
           Appearance.BorderColorHot = 10079963
@@ -640,7 +640,7 @@ inherited FrmImportarSPED: TFrmImportarSPED
         ParentBackground = False
         ParentColor = False
         TabOrder = 2
-        Properties.ActivePage = Tbs0200
+        Properties.ActivePage = TbsC100S
         Properties.CustomButtons.Buttons = <>
         Properties.CustomButtons.Mode = cbmEveryTab
         Properties.DragImage.Data = {
