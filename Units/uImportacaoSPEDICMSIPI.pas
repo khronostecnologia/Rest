@@ -31,7 +31,7 @@ uses
   FireDAC.Stan.Intf, FireDAC.Stan.Option,
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
   FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
-  FireDAC.Comp.DataSet, FireDAC.Comp.Client;
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client, dxGDIPlusClasses, Vcl.ExtCtrls;
 
 type
   TFrmImportarSPED = class(TFrmMaster)
@@ -171,6 +171,21 @@ type
     cxGridDBColumn38: TcxGridDBColumn;
     cxGridDBColumn39: TcxGridDBColumn;
     cxGridLevel5: TcxGridLevel;
+    TbsAnalise: TcxTabSheet;
+    GpbResultEntrada: TAdvGroupBox;
+    GpbResultSaida: TAdvGroupBox;
+    GpbTotalizador: TAdvGroupBox;
+    lblTotalEntrada: TLabel;
+    lblTotalSaida: TLabel;
+    lblRestituir: TLabel;
+    lblComplementar: TLabel;
+    BtnImprimirResultado: TAdvGlowButton;
+    cxGridTotalizadorEntradaDBTableView1: TcxGridDBTableView;
+    cxGridTotalizadorEntradaLevel1: TcxGridLevel;
+    cxGridTotalizadorEntrada: TcxGrid;
+    cxGridTotalizadorSaida: TcxGrid;
+    cxGridDBTableView6: TcxGridDBTableView;
+    cxGridLevel6: TcxGridLevel;
     procedure BtnIniciaImportacaoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -313,6 +328,7 @@ begin
   result := 'CREATE TABLE "CADASTROS"."REGISTRO0200_' + ACPFCNPJ + '" '+
             '  (                                                       '+
             '      "ID" serial NOT NULL,                               '+
+            '      "IDSPED" Integer,                                   '+
             '      "COD_ITEM" character varying(30),                   '+
             '      "DESCR_ITEM" character varying(100),                '+
             '      "CODBARRA" character varying(14),                   '+
@@ -372,6 +388,7 @@ begin
             'CREATE TABLE "REG_ENT"."REGISTROC170_' + ACPFCNPJ + '" '+
             '  (                                                       '+
             '      "ID" serial NOT NULL,                               '+
+            '      "IDNF" Integer,                                     '+
             '      "ID_SPED" Integer,                                  '+
             '      "NUM_ITEM" character varying(5),                    '+
             '      "COD_ITEM" character varying(14),                   '+
@@ -436,6 +453,7 @@ begin
             '  (                                                       '+
             '      "ID" serial NOT NULL,                               '+
             '      "ID_SPED" Integer,                                  '+
+            '      "IDNF" Integer,                                     '+
             '      "NUM_ITEM" character varying(5),                    '+
             '      "COD_ITEM" character varying(14),                   '+
             '      "QTDE" decimal(15,3),                               '+
@@ -461,6 +479,37 @@ end;
 
 function TFrmImportarSPED.GetSQLCreateRegistroC400(ACPFCNPJ: String): String;
 begin
+
+  result := 'CREATE TABLE "REG_SAIDA"."REGISTROC400_' + ACPFCNPJ + '"  '+
+            '  (                                                       '+
+            '      "ID" serial NOT NULL,                               '+
+            '      "ID_SPED" Integer,                                  '+
+            '      "DATA" timestamp,                                   '+
+            '      "ECF_FAB" character varying(30),                    '+
+            '      PRIMARY KEY ("ID")                                  '+
+            '  )                                                       '+
+            '  WITH (                                                  '+
+            '      OIDS = FALSE                                        '+
+            '  );                                                      '+
+            '  ALTER TABLE "REG_SAIDA"."REGISTROC400_' + ACPFCNPJ + '" '+
+            '      OWNER to postgres'+
+
+            'CREATE TABLE "REG_SAIDA"."REGISTROC425_' + ACPFCNPJ + '"  '+
+            '  (                                                       '+
+            '      "ID" serial NOT NULL,                               '+
+            '      "ID_SPED" Integer,                                  '+
+            '      "ID_REDZ" Integer,                                  '+
+            '      "COD_ITEM" character varying(30),                   '+
+            '      "DESCR_ITEM" character varying(100),                '+
+            '      "QTD" decimal(15,2),                                '+
+            '      "VL_ITEM" decimal(15,2),                            '+
+            '      PRIMARY KEY ("ID")                                  '+
+            '  )                                                       '+
+            '  WITH (                                                  '+
+            '      OIDS = FALSE                                        '+
+            '  );                                                      '+
+            '  ALTER TABLE "REG_SAIDA"."REGISTROC425_' + ACPFCNPJ + '" '+
+            '      OWNER to postgres';
 
 end;
 
@@ -603,6 +652,7 @@ begin
       for I := 0 to j do
       begin
          Qry0200.Insert;
+         Qry0200IDSPED.AsInteger     := Qry0000ID.AsInteger;
          Qry0200COD_ITEM.AsString    := ACBrSPEDFiscal.Bloco_0.Registro0001.
                                         Registro0200.Items[I].COD_ITEM;
          Qry0200DESCR_ITEM.AsString  := ACBrSPEDFiscal.Bloco_0.Registro0001.
@@ -673,10 +723,52 @@ begin
          = tpEntradaAquisicao then
         begin
           QryC100e.Insert;
+          QryC100eID_SPED.AsInteger     := Qry0000ID.AsInteger;
+          QryC100eIND_OPER.AsString     := 'Entrada Aquisicao';
+          QryC100eCOD_PART.AsString     := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].COD_PART;
+          QryC100ePARTICIPANTE.AsString := 'PARTICIPANTE AVULSO';
+          QryC100eCOD_MOD.AsString      := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].COD_MOD;
+          QryC100eSER.AsString          := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].SER;
+          QryC100eNUM_DOC.AsString      := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].NUM_DOC;
+          QryC100eCHV_NFE.AsString      := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].CHV_NFE;
+          QryC100eDT_DOC.AsDateTime     := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].DT_DOC;
+          QryC100eDT_E_ES.AsDateTime    := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].DT_E_S;
+          QryC100eVL_DOC.AsFloat        := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].VL_DOC;
+          QryC100eVL_MERC.AsFloat       := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].VL_MERC;
+          QryC100eVL_DESC.AsFloat       := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].VL_DESC;
+          QryC100eVL_FRT.AsFloat        := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].VL_FRT;
+          QryC100eVL_SEG.AsFloat        := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].VL_SEG;
+          QryC100eVL_OUT_DA.AsFloat     := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].VL_OUT_DA;
+          QryC100eVL_BC_ICMS.AsFloat    := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].VL_BC_ICMS;
+          QryC100eVL_ICMS.AsFloat       := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].VL_ICMS;
+          QryC100eVL_BC_ICMS_ST.AsFloat := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].VL_BC_ICMS_ST;
+          QryC100eVL_ICMS_ST.AsFloat    := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].VL_ICMS_ST;
+          QryC100e.Post;
         end
         else
         begin
           QryC100s.Insert;
+          QryC100s.AsInteger            := Qry0000ID.AsInteger;
+          QryC100sIND_OPER.AsString     := 'Saida prestação';
+          QryC100sCOD_PART.AsString     := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].COD_PART;
+          QryC100sPARTICIPANTE.AsString := 'PARTICIPANTE AVULSO';
+          QryC100sCOD_MOD.AsString      := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].COD_MOD;
+          QryC100sSER.AsString          := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].SER;
+          QryC100sNUM_DOC.AsString      := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].NUM_DOC;
+          QryC100sCHV_NFE.AsString      := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].CHV_NFE;
+          QryC100sDT_DOC.AsDateTime     := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].DT_DOC;
+          QryC100sDT_E_ES.AsDateTime    := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].DT_E_S;
+          QryC100sVL_DOC.AsFloat        := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].VL_DOC;
+          QryC100sVL_MERC.AsFloat       := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].VL_MERC;
+          QryC100sVL_DESC.AsFloat       := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].VL_DESC;
+          QryC100sVL_FRT.AsFloat        := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].VL_FRT;
+          QryC100sVL_SEG.AsFloat        := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].VL_SEG;
+          QryC100sVL_OUT_DA.AsFloat     := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].VL_OUT_DA;
+          QryC100sVL_BC_ICMS.AsFloat    := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].VL_BC_ICMS;
+          QryC100sVL_ICMS.AsFloat       := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].VL_ICMS;
+          QryC100sVL_BC_ICMS_ST.AsFloat := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].VL_BC_ICMS_ST;
+          QryC100sVL_ICMS_ST.AsFloat    := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].VL_ICMS_ST;
+          QryC100s.Post;
         end;
 
         for K := 0 to Pred(ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i]
@@ -703,7 +795,15 @@ begin
 end;
 
 procedure TFrmImportarSPED.ImportaRegC400;
+var
+  i : Integer;
+  j : Integer;
+  K : Integer;
 begin
+  lblInfoImportacao.Caption     := 'Carregando registro C400 e C425...';
+  j                             := Pred(ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Count);
+  ProgressBar.Max               := j;
+  ProgressBar.Position          := 0;
 
 end;
 
