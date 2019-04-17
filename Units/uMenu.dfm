@@ -808,7 +808,7 @@ object FrmMenu: TFrmMenu
           000049454E44AE426082}
       end
       object lblTitulo: TLabel
-        Left = 70
+        Left = 63
         Top = 49
         Width = 62
         Height = 29

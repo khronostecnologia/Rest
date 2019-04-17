@@ -7,6 +7,7 @@ inherited FrmImportarSPED: TFrmImportarSPED
   WindowState = wsMaximized
   OnClose = FormClose
   OnCreate = FormCreate
+  ExplicitTop = -86
   ExplicitWidth = 736
   ExplicitHeight = 542
   PixelsPerInch = 96
@@ -44,8 +45,8 @@ inherited FrmImportarSPED: TFrmImportarSPED
         ExplicitWidth = 730
         TMSStyle = 4
         object BtnGravar: TAdvGlowButton
-          Left = 10
-          Top = 14
+          Left = 239
+          Top = 17
           Width = 109
           Height = 30
           Caption = 'Gravar'
@@ -101,7 +102,7 @@ inherited FrmImportarSPED: TFrmImportarSPED
             C1C9C9C96EBA5C26C324195A6B9381B5436BCC4019630128660E44E489280B21
             645996B9F3F3F32CD948EE1F1D4D57A8768492378073B40ED1BF0032E87C30A4
             00F0110000000049454E44AE426082}
-          TabOrder = 0
+          TabOrder = 1
           OnClick = BtnIniciaImportacaoClick
           Appearance.BorderColor = 14727579
           Appearance.BorderColorHot = 10079963
@@ -134,8 +135,8 @@ inherited FrmImportarSPED: TFrmImportarSPED
           Appearance.GradientChecked = ggVertical
         end
         object BtnCancelar: TAdvGlowButton
-          Left = 125
-          Top = 14
+          Left = 354
+          Top = 17
           Width = 109
           Height = 30
           Caption = 'Cancelar '
@@ -218,8 +219,8 @@ inherited FrmImportarSPED: TFrmImportarSPED
             351318C7FF73359B66CA164D6B5DA1EB9BAAA5BCB38A90DB744A638C109D10E2
             0B425236309006CE5E14E2C8B386F12E80094CDBD23F0B40E5FB1C800640298E
             25266758283E1E6EE27AFE3FC8B02D740B0AF83D0000000049454E44AE426082}
-          TabOrder = 1
-          OnClick = BtnIniciaImportacaoClick
+          TabOrder = 2
+          OnClick = BtnCancelarClick
           Appearance.BorderColor = 14727579
           Appearance.BorderColorHot = 10079963
           Appearance.BorderColorDown = 4548219
@@ -251,8 +252,8 @@ inherited FrmImportarSPED: TFrmImportarSPED
           Appearance.GradientChecked = ggVertical
         end
         object BtnSair: TAdvGlowButton
-          Left = 240
-          Top = 14
+          Left = 469
+          Top = 17
           Width = 109
           Height = 30
           Caption = 'Sair'
@@ -311,8 +312,196 @@ inherited FrmImportarSPED: TFrmImportarSPED
             248EE3E0791E4110D02C0D441492297936573C290B3FB9709A0A657EEB263006
             EA9D295656B23708C390969616C6C7C79936B3209DCD1D1469CCE6A04481FF00
             50AF59F878CAB4260000000049454E44AE426082}
-          TabOrder = 2
+          TabOrder = 3
           OnClick = BtnSairClick
+          Appearance.BorderColor = 14727579
+          Appearance.BorderColorHot = 10079963
+          Appearance.BorderColorDown = 4548219
+          Appearance.BorderColorDisabled = clBackground
+          Appearance.Color = 15653832
+          Appearance.ColorTo = 16178633
+          Appearance.ColorChecked = 7915518
+          Appearance.ColorCheckedTo = 11918331
+          Appearance.ColorDisabled = clBackground
+          Appearance.ColorDisabledTo = clBackground
+          Appearance.ColorDown = 7778289
+          Appearance.ColorDownTo = 4296947
+          Appearance.ColorHot = 15465983
+          Appearance.ColorHotTo = 11332863
+          Appearance.ColorMirror = 15586496
+          Appearance.ColorMirrorTo = 16245200
+          Appearance.ColorMirrorHot = 5888767
+          Appearance.ColorMirrorHotTo = 10807807
+          Appearance.ColorMirrorDown = 946929
+          Appearance.ColorMirrorDownTo = 5021693
+          Appearance.ColorMirrorChecked = 10480637
+          Appearance.ColorMirrorCheckedTo = 5682430
+          Appearance.ColorMirrorDisabled = clBackground
+          Appearance.ColorMirrorDisabledTo = clBackground
+          Appearance.GradientHot = ggVertical
+          Appearance.GradientMirrorHot = ggVertical
+          Appearance.GradientDown = ggVertical
+          Appearance.GradientMirrorDown = ggVertical
+          Appearance.GradientChecked = ggVertical
+        end
+        object BtnLocalizaImportacao: TAdvGlowButton
+          Left = 9
+          Top = 17
+          Width = 109
+          Height = 30
+          Caption = 'Procurar'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = [fsBold]
+          NotesFont.Charset = DEFAULT_CHARSET
+          NotesFont.Color = clWindowText
+          NotesFont.Height = -11
+          NotesFont.Name = 'Tahoma'
+          NotesFont.Style = []
+          ParentFont = False
+          Picture.Data = {
+            89504E470D0A1A0A0000000D4948445200000020000000200806000000737A7A
+            F40000000473424954080808087C086488000000097048597300000EC400000E
+            C401952B0E1B00000675494441545885B5967B6C53D71DC7BFF7ED6BC7377E51
+            43E23C4C0231698002E591042A542D9D1A9594821851A3AD9A90AA769AB44993
+            266DDA8458B5BF2631AD650F6D2A625D93B40646D4AEED68E9031014B54D81C4
+            0D1E0E3484C48E1FC1AFEBF8FA3EF747E2CE4BC9064EF3957E3AF71E9DDFF97E
+            CEB9F79EFB23B080060606ACA2286E67186615C330165DD7B385422168B55A2F
+            767575CD2C9477BF22E677F8FDFEE53CC7BDB0BCAAAAC766B3B3066DBA55D0F4
+            B4AACA666D265337238A6AEACE9D63F169F957070E7C27FE8D021CEF3FDEE6A9
+            F70C34AF5D4F5F8E157A932A17AB11987A8682392593E1BEDBD2B9F5F2AD8756
+            13C96750C8F39144E2A9EF76775FFA46004E9C38E1F3D6D75FAA6D6A197B7524
+            FFFBAED5C26E9E215D050DA2AC438C17301E97B5D89FC3C605DA50A9A7C54F7F
+            E8D0F33BA3C964FBF7BABB03E50290C50BBBDD7EB4DEF760ECE890F8E2FE66E1
+            004FCF9A177488790D9929056181A22A6BCC34AF1226ED15EB8EDF85257CCC91
+            E4AB7EBF9F5A14405F5F5F87CFB766EBC96B9997BA7CB627149D94241D624185
+            985720DE94101408D86440AC3141A934012A80771E687F7185A7C6C3B26CF7A2
+            003C1ECF7E8D172EB5B82D6B2A59AA2AAC2020AB102503D9B88A5BBA0E226F20
+            9F5590A8E1A1B868003490242C5292779EB2D96CDF5F1480D36E6F1D4B153EF7
+            08A67592A6E72C80332CE37A4A416C52468406A8AC02F1520E1367A6414C4A73
+            D93410D0ED9FB12CDBEE3F78902D1B8062188FA291BAAA13524123B3AA0E4D54
+            90BD98C6653B0987A8411C97110DE4918EAA803897AC01469EB667699AE6A486
+            86DA72006800300C8394354396544394806C50C2957801E9461E9E8884785A45
+            EE5C1E6163DE67CB93A04C0C6842210D16B0940D20E5F35339529227F3D6E035
+            59BB5165A25C751CAAB20AC40905D39FE4F1F5034705BC665470F28CD9562990
+            06C3A4CB0120012093C97C5A6331D61EBE927BDF6C50CCB48AD4E51C46073208
+            DCD57C4E2B5854F8B8FC2A595632C16070BC1C001A0012D3D37F6FA9F21CB303
+            2FBF7E9B0BC2420334BD70960A08506945268C87AAD8CE1B81F8BB870E1DD2CB
+            01200160686868203A159E78DE9BFF81A6C080366B02F5EBC650018E00F1204F
+            38775AB3DB944CB2696A62E2A572CC01800280B367CFEA8F3DD679D5C693076B
+            E430334C2DBF020200A9033A09E800F459E3359C5A59ADABC21621BF66B34DFF
+            F1E0E067FEBDFBF61D2E17E0BFDEEAD7FC277B1C36EBD1A99CF2F917C2BA3F06
+            7457B8D1410B4E8E30D1062859D574A520EB4FAF24F6BA49E9A9E1E161D262B1
+            5C0F8542DB7A7A7A928B06008063BDFE2D66067FA8ADADDDA0B2962FB23A3B62
+            707CCA6E369B9799A946815637452627D5EBA1D05FD7B6B474EB8661CF89E239
+            96E3F8582CF6D38E8E8E8F160550547F7F7F9BDBED7EBC52105A3893C9214992
+            9CCBE56E27A2D18B044D9FDAB367CFF499B7DF6E165CAEB7288AAAF77ABD4824
+            12577B7B7B3796FB42DEB77A7B7B5DA1502872FEFC7923168B19B168D438FDDB
+            672EBCF25CEDA3F73A07F9FF872C2C5114D38A2CF7363737CBE3E3E3183CFE1B
+            7033C9B6A6CDBBDE3BF9B32D3FBF9739167C04F7A36030E84DFFEBA32B5AE81D
+            21120CC0D9B41DEEE68D18BDFCE6E15DBF38F393FF955B762151AA23478EA4BA
+            7CB2DDD9F048BB726714523A02304E78B7EE6EFD76C34C45DF07A1F796140000
+            76AE9EB9C8B06CE78AA6ED2BA4F83528B93BD039371A5A9F6C7BB47A4AEFFFF0
+            E6B92505F8C7A0A8ECA88FBE61AEACEE72D46E70CAD341E833D3A0CCCB50F7F0
+            133B77B84263AF9F9FB8BA6400B31033629B67FC4485B3A1C3EE59E7961341E4
+            133741577888DA8D9D8FB7DB473E387E61EAF6920114215AAB47FBCD95F50F3B
+            EA36ADD4B35F22171901EF6CA497FBB6EFDEC27E7CE6D4A0185932805908A9D0
+            E6197C8DE1AAAB9C2B5B371A8528526343E05D3EB3D5E1DED72E04DF1AB82AC5
+            970C601602FADF4E0FBDD1B9BEC26EF73EB28DD252488E0D43A8D9C443CD7E6B
+            73CB8DBFFCF313684500620E862E6969004C491F85D9838B9C1B7F4F67C8AAF7
+            83EFB28DD2AA65BE8EB51C2D231BB90947DD06275D6047FA3EBC1128561D1600
+            15004C77091A800140C17FAA040D5FFDA4513CF78BC0A5D0380418D4AFCFBEFC
+            CB9E84E5C9BD0776391D3AC9DA6AC167120C70FAAB55B000CC73867C496B9E6B
+            8B2577D1D02859A45132075712EC3C18A2B5C9FAC0B3FB776D95A56CEE853FBD
+            F9A3890C46E76F63E9D612F3E26E2A05993FBE18E4BC7B1D800CA000C0F83720
+            1AD94F1D767FF80000000049454E44AE426082}
+          TabOrder = 0
+          OnClick = BtnLocalizaImportacaoClick
+          Appearance.BorderColor = 14727579
+          Appearance.BorderColorHot = 10079963
+          Appearance.BorderColorDown = 4548219
+          Appearance.BorderColorDisabled = clBackground
+          Appearance.Color = 15653832
+          Appearance.ColorTo = 16178633
+          Appearance.ColorChecked = 7915518
+          Appearance.ColorCheckedTo = 11918331
+          Appearance.ColorDisabled = clBackground
+          Appearance.ColorDisabledTo = clBackground
+          Appearance.ColorDown = 7778289
+          Appearance.ColorDownTo = 4296947
+          Appearance.ColorHot = 15465983
+          Appearance.ColorHotTo = 11332863
+          Appearance.ColorMirror = 15586496
+          Appearance.ColorMirrorTo = 16245200
+          Appearance.ColorMirrorHot = 5888767
+          Appearance.ColorMirrorHotTo = 10807807
+          Appearance.ColorMirrorDown = 946929
+          Appearance.ColorMirrorDownTo = 5021693
+          Appearance.ColorMirrorChecked = 10480637
+          Appearance.ColorMirrorCheckedTo = 5682430
+          Appearance.ColorMirrorDisabled = clBackground
+          Appearance.ColorMirrorDisabledTo = clBackground
+          Appearance.GradientHot = ggVertical
+          Appearance.GradientMirrorHot = ggVertical
+          Appearance.GradientDown = ggVertical
+          Appearance.GradientMirrorDown = ggVertical
+          Appearance.GradientChecked = ggVertical
+        end
+        object BtnNovaImportacacao: TAdvGlowButton
+          Left = 124
+          Top = 17
+          Width = 109
+          Height = 30
+          Caption = 'Nova importa'#231#227'o'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = [fsBold]
+          NotesFont.Charset = DEFAULT_CHARSET
+          NotesFont.Color = clWindowText
+          NotesFont.Height = -11
+          NotesFont.Name = 'Tahoma'
+          NotesFont.Style = []
+          ParentFont = False
+          Picture.Data = {
+            89504E470D0A1A0A0000000D4948445200000020000000200806000000737A7A
+            F40000000473424954080808087C086488000000097048597300000EC400000E
+            C401952B0E1B000003A8494441545885C5975D685C5510C77FE7DEED6E6E62DC
+            AA0D84F8A262D0B6060B9526DA62844A1FA4D50A2AF8D20A4550FA22282814AA
+            350FFAE0838A05AB2D35146DB1D1146CF3526C6D526D63D91274B1D4D0EA8394
+            44C9C7361FDDBDE79E333E347BB39BDDA4B99B85CE65E09E393377FE67E69C39
+            7355369B6DD65A7F29224996486F9DFEE7FB2F9E5BD511C526A6B5DE2622ED4B
+            750E30A9ED9A8D5FA5623FBEB2F6DDC5DA38D6DA9888500D0650B0BB7D7FFF9E
+            2800AAE23C0F200F62FDE73F2F0A84B358A48BA36210AD9F9DB9250807A85A04
+            1E4D82E81CA273B8268727FEEEE7F79D7C6F21006A7474F403E09D252E1D0063
+            0C37723EAE02A5549E271B1B1BEBE7B389E523500D721C873AAF269A8DB5B62A
+            CE2BA5AA46A02200D65A9452B70F00DCE608541BC00DA6C9480680A44A5223DE
+            C200AA9182EB92A12F38CD8049F19F1D2E9ABBC769A879F9AF2D1D0166EFD1FB
+            7B86E6DAAAA1A1A18AEB8088D06B4E714277E3E3DF4A7B12915D471E38FE69A1
+            B4E2BBC08AE5B0DFC977FE61B292C58AC58A25A112ACAA696165E2111CDC506E
+            45EEB0F0C94B5737EF4708435EF11E381E7473CEF495C85F5FF106AD754F00F0
+            43A69B43A307E6AAEC78E1CA33C35DF4EC820AEF82BFCD554EEA1EAC4809DFE5
+            DE1D7A4A3ACBCBEA8892B7B75ED9B42E4C41543AA18F61C420624BB898A4AC8E
+            88B88E387BA082148CCB18976C1AA1BC4DA15CE68C8BF4844DCF5E7ABA29F231
+            1C349731332BAD73EA68F1D6E0CCEE29EA9DD98B6F45AC81B6DAF5E138206060
+            3A852F1AC01187F6C811F8D70E85A17EB561274FD56F9C5777B5D7C26AAFA548
+            F6EDE8377C3D72F0E640C98391F7802F3E32F3D43B7746B2859B11CADB8B152F
+            724BE6496DB89B07272E638C29E2C2685A6B8BE682206070F2CFD91361642C16
+            154093BA374CC1A1F1031C1B3B8A2A682DDFBFEF439ABD8700F865A28FBDD73E
+            0EE70C862967221C0722BF4706D0EC3ECCB25C9C9C9303051995299A3798F0DD
+            573EE3CE58F90F59991CC94EF5464E41C249D0E66C98BF50151EBB854A79603B
+            538FA5A62B6ACB3727B6E2D95A045BC245FEA1AC8E0DEC4830A53BA0C2FF82A4
+            BB9C1DF1D7C0A892323B90B988D61A5FFBA4AFFF565A8A8D0D82ACDD76EAF1FE
+            6100954EA7DFF43CEFA34A7A820BD9F31C0CF6A15D5DB4ECB88D2348B11C10C3
+            B49996ED67DACE75E5652A9D4EC7B5D6DB4524FAA1062ED8F31CA1730B71D5AE
+            DCF23A6200CD4F5ADB9D67DB7EFDA370AE6ADDE886DEB5AD6EDC7D91656A1D48
+            D3CCE7AFA980FE2017749D7D32D55FCEEE7F52595195DFAD4697000000004945
+            4E44AE426082}
+          TabOrder = 4
+          OnClick = BtnNovaImportacacaoClick
           Appearance.BorderColor = 14727579
           Appearance.BorderColorHot = 10079963
           Appearance.BorderColorDown = 4548219
@@ -572,7 +761,7 @@ inherited FrmImportarSPED: TFrmImportarSPED
             Left = 0
             Top = 0
             Width = 730
-            Height = 49
+            Height = 91
             Align = alTop
             TabOrder = 0
             object cxGridDBTableView2: TcxGridDBTableView
@@ -714,14 +903,14 @@ inherited FrmImportarSPED: TFrmImportarSPED
           end
           object cxPageControl1: TcxPageControl
             Left = 0
-            Top = 49
+            Top = 91
             Width = 730
-            Height = 153
+            Height = 111
             Align = alClient
             TabOrder = 1
             Properties.ActivePage = cxTabSheet1
             Properties.CustomButtons.Buttons = <>
-            ClientRectBottom = 149
+            ClientRectBottom = 107
             ClientRectLeft = 4
             ClientRectRight = 726
             ClientRectTop = 24
@@ -732,7 +921,7 @@ inherited FrmImportarSPED: TFrmImportarSPED
                 Left = 0
                 Top = 0
                 Width = 722
-                Height = 125
+                Height = 83
                 Align = alClient
                 TabOrder = 0
                 object cxGridDBTableView4: TcxGridDBTableView

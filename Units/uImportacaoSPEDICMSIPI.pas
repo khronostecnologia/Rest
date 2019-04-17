@@ -186,6 +186,8 @@ type
     cxGridTotalizadorSaida: TcxGrid;
     cxGridDBTableView6: TcxGridDBTableView;
     cxGridLevel6: TcxGridLevel;
+    BtnLocalizaImportacao: TAdvGlowButton;
+    BtnNovaImportacacao: TAdvGlowButton;
     procedure BtnIniciaImportacaoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -193,6 +195,9 @@ type
     procedure FormShow(Sender: TObject);
     procedure EdtArquivoAfterDialog(Sender: TObject; var AName: string;
       var AAction: Boolean);
+    procedure BtnNovaImportacacaoClick(Sender: TObject);
+    procedure BtnCancelarClick(Sender: TObject);
+    procedure BtnLocalizaImportacaoClick(Sender: TObject);
   private
     { Private declarations }
     FNomeTabela : String;
@@ -203,6 +208,7 @@ type
     procedure ImportaRegC100;
     procedure ImportaRegC400;
     procedure CriaTabelaEmpresaLogada(ASQL : String);
+    procedure CarregaSPED(AID : Integer ;ACNPJ : String);
     function  ExisteArqSPED(ADT_INI,ADT_FIM,ACNPJCPF : String) : Boolean;
     function  GetSQLCreateRegistro0000(ACPFCNPJ : String): String;
     function  GetSQLCreateRegistro0200(ACPFCNPJ : String): String;
@@ -220,7 +226,31 @@ implementation
 {$R *.dfm}
 
 Uses uDMBase,uMensagem,BiblKhronos,uDMImportacaoSPED,
-     ACBrEFDBlocos;
+     ACBrEFDBlocos,uPesquisa,uMenu;
+
+procedure TFrmImportarSPED.BtnCancelarClick(Sender: TObject);
+begin
+  inherited;
+  EdtArquivo.Enabled            := false;
+  BtnIniciaImportacao.Enabled   := false;
+  BtnGravar.Enabled             := false;
+  BtnCancelar.Enabled           := false;
+  BtnNovaImportacacao.Enabled   := true;
+  BtnLocalizaImportacao.Enabled := true;
+  EdtArquivo.Clear;
+
+  with DMImportacaoSPED do
+  begin
+    Qry0000.Close;
+    Qry0200.Close;
+    QryC100e.Close;
+    QryC170e.Close;
+    QryC400.Close;
+    QryC470.Close;
+    QryC100s.Close;
+    QryC170s.Close;
+  end;
+end;
 
 procedure TFrmImportarSPED.BtnIniciaImportacaoClick(Sender: TObject);
 begin
@@ -233,12 +263,103 @@ begin
   end;
   ImportarSPED;
   cxPgcImportacao.ActivePageIndex := 0;
+  BtnGravar.Enabled             := true;
+  BtnCancelar.Enabled           := true;
+  BtnLocalizaImportacao.Enabled := false;
+  BtnNovaImportacacao.Enabled   := false;
+end;
+
+procedure TFrmImportarSPED.BtnLocalizaImportacaoClick(Sender: TObject);
+var
+  vRetorno : Integer;
+begin
+  inherited;
+  Try
+  FrmMenu.SelecionaCliente;
+  if dmPrincipal.QryEmpresa.Active then
+  begin
+    FrmPesquisa := TFrmPesquisa.Create(nil);
+    FrmPesquisa.MontaSql('SELECT * FROM "CADASTROS"."REGISTRO0000_'+ dmPrincipal.QryEmpresaCPFCNPJ.AsString + '" ' +
+                         ' ORDER BY "RAZAO_SOCIAL"');
+    FrmPesquisa.ShowModal;
+    if FrmPesquisa.Selecionou then
+    begin
+      vRetorno := FrmPesquisa.QryPesquisa.fieldbyName('ID').AsInteger;
+     CarregaSPED(vRetorno,dmPrincipal.QryEmpresaCPFCNPJ.AsString);
+     BtnIniciaImportacao.Enabled   := false;
+     BtnGravar.Enabled             := false;
+     BtnCancelar.Enabled           := true;
+     BtnLocalizaImportacao.Enabled := false;
+     BtnNovaImportacacao.Enabled   := false;
+    end;
+  end;
+ finally
+  FreeAndNil(FrmPesquisa);
+ end;
+end;
+
+procedure TFrmImportarSPED.BtnNovaImportacacaoClick(Sender: TObject);
+begin
+  inherited;
+  EdtArquivo.Enabled := true;
+  SetaFoco(EdtArquivo);
 end;
 
 procedure TFrmImportarSPED.BtnSairClick(Sender: TObject);
 begin
   inherited;
   Close;
+end;
+
+procedure TFrmImportarSPED.CarregaSPED(AID : Integer ;ACNPJ : String);
+begin
+  try
+    with DMImportacaoSPED do
+    begin
+      Qry0000.Close;
+      Qry0000.SQL.Clear;
+      Qry0000.SQL.Text := 'SELECT * FROM "CADASTROS"."REGISTRO0000_' + ACNPJ + '"' +
+                          'WHERE IDSPED =' + AID.ToString;
+      Qry0000.Open;
+
+      Qry0200.Close;
+      Qry0200.SQL.Clear;
+      Qry0200.SQL.Text := 'SELECT * FROM "CADASTROS"."REGISTRO0200_' + ACNPJ + '"' +
+                          'WHERE IDSPED =' + AID.ToString;
+      Qry0200.Open;
+
+      QryC100e.Close;
+      QryC100e.SQL.Clear;
+      QryC100e.SQL.Text := 'SELECT * FROM "REG_ENT"."REGISTROC100_' + ACNPJ + '"' +
+                           'WHERE IDSPED =' + AID.ToString;
+      QryC100e.Open;
+
+      QryC170e.Close;
+      QryC170e.SQL.Clear;
+      QryC170e.SQL.Text := 'SELECT * FROM "REG_ENT"."REGISTROC170_' + ACNPJ + '"' +
+                           'WHERE IDSPED =' + AID.ToString;
+      QryC170e.Open;
+
+      QryC100s.Close;
+      QryC100s.SQL.Clear;
+      QryC100s.SQL.Text := 'SELECT * FROM "REG_SAIDA"."REGISTROC100_' + ACNPJ + '"' +
+                           'WHERE IDSPED =' + AID.ToString;
+      QryC100s.Open;
+
+      QryC170s.Close;
+      QryC170s.SQL.Clear;
+      QryC170s.SQL.Text := 'SELECT * FROM "REG_SAIDA"."REGISTROC170_' + ACNPJ + '"' +
+                           'WHERE IDSPED =' + AID.ToString;
+      QryC170s.Open;
+
+    end;
+  except
+    on e: exception do
+    begin
+      FrmMensagem.Informacao('Erro : ' + e.Message + ' ao tentar carregar SPED.');
+      abort;
+    end;
+  end;
 end;
 
 procedure TFrmImportarSPED.CriaTabelaEmpresaLogada(ASQL: String);
@@ -296,14 +417,15 @@ begin
   GpbProcessaImportacao.Visible  := false;
   GpbRegistro0000.Visible        := false;
   cxPgcImportacao.Visible        := false;
-  SetaFoco(EdtArquivo);
+  EdtArquivo.Enabled             := false;
+  SetaFoco(BtnNovaImportacacao);
 end;
 
 function TFrmImportarSPED.GetSQLCreateRegistro0000(ACPFCNPJ : String): String;
 begin
   result := 'CREATE TABLE "CADASTROS"."REGISTRO0000_' + ACPFCNPJ + '" '+
             '  (                                                       '+
-            '      "ID" serial NOT NULL,                               '+
+            '      "ID" Integer NOT NULL,                              '+
             '      "COD_FIN" character varying(30),                    '+
             '      "DT_INI" TIMESTAMP,                                 '+
             '      "DT_FIM" TIMESTAMP,                                 '+
@@ -328,7 +450,7 @@ function TFrmImportarSPED.GetSQLCreateRegistro0200(ACPFCNPJ: String): String;
 begin
   result := 'CREATE TABLE "CADASTROS"."REGISTRO0200_' + ACPFCNPJ + '" '+
             '  (                                                       '+
-            '      "ID" serial NOT NULL,                               '+
+            '      "ID" Integer NOT NULL,                              '+
             '      "IDSPED" Integer,                                   '+
             '      "COD_ITEM" character varying(30),                   '+
             '      "DESCR_ITEM" character varying(100),                '+
@@ -351,11 +473,11 @@ function TFrmImportarSPED.GetSQLCreateRegistroC100(ACPFCNPJ: String): String;
 begin
   result := 'CREATE TABLE "REG_ENT"."REGISTROC100_' + ACPFCNPJ + '"    '+
             '  (                                                       '+
-            '      "ID" serial NOT NULL,                               '+
+            '      "ID" Integer NOT NULL,                              '+
             '      "ID_SPED" Integer,                                  '+
             '      "IND_OPER" character varying(50),                   '+
             '      "COD_PART" character varying(50),                   '+
-            '      "NOM_PART" character varying(100),                  '+
+            '      "PARTICIPANTE" character varying(100),              '+
             '      "COD_MOD" character varying(5),                     '+
             '      "SER" character varying(5),                         '+
             '      "NUM_DOC" character varying(10),                    '+
@@ -366,7 +488,7 @@ begin
             '      "VL_MERC" decimal(15,2),                            '+
             '      "VL_DESC" decimal(15,2),                            '+
             '      "VL_FRT" decimal(15,2),                             '+
-            '      "VL_SEG" decimal(15,2),                             '+                                                                                    '      "CHV_NFE" character varying(44),                    '+
+            '      "VL_SEG" decimal(15,2),                             '+
             '      "VL_OUT_DA" decimal(15,2),                          '+
             '      "VL_BC_ICMS" decimal(15,2),                         '+
             '      "VL_ICMS" decimal(15,2),                            '+
@@ -384,11 +506,11 @@ begin
             '      OIDS = FALSE                                        '+
             '  );                                                      '+
             '  ALTER TABLE "REG_ENT"."REGISTROC100_' + ACPFCNPJ + '" '+
-            '      OWNER to postgres'+
+            '      OWNER to postgres; '+
 
             'CREATE TABLE "REG_ENT"."REGISTROC170_' + ACPFCNPJ + '" '+
             '  (                                                       '+
-            '      "ID" serial NOT NULL,                               '+
+            '      "ID" Integer NOT NULL,                              '+
             '      "IDNF" Integer,                                     '+
             '      "ID_SPED" Integer,                                  '+
             '      "NUM_ITEM" character varying(5),                    '+
@@ -411,15 +533,15 @@ begin
             '      OIDS = FALSE                                        '+
             '  );                                                      '+
             '  ALTER TABLE "REG_ENT"."REGISTROC170_' + ACPFCNPJ + '" '+
-            '      OWNER to postgres'+
+            '      OWNER to postgres; '+
 
-             'CREATE TABLE "REG_SAIDA"."REGISTROC100_' + ACPFCNPJ + '" '+
+            'CREATE TABLE "REG_SAIDA"."REGISTROC100_' + ACPFCNPJ + '" '+
             '  (                                                       '+
-            '      "ID" serial NOT NULL,                               '+
+            '      "ID" Integer NOT NULL,                              '+
             '      "ID_SPED" Integer,                                  '+
             '      "IND_OPER" character varying(50),                   '+
             '      "COD_PART" character varying(50),                   '+
-            '      "NOM_PART" character varying(100),                  '+
+            '      "PARTICIPANTE" character varying(100),              '+
             '      "COD_MOD" character varying(5),                     '+
             '      "SER" character varying(5),                         '+
             '      "NUM_DOC" character varying(10),                    '+
@@ -430,7 +552,7 @@ begin
             '      "VL_MERC" decimal(15,2),                            '+
             '      "VL_DESC" decimal(15,2),                            '+
             '      "VL_FRT" decimal(15,2),                             '+
-            '      "VL_SEG" decimal(15,2),                             '+                                                                                    '      "CHV_NFE" character varying(44),                    '+
+            '      "VL_SEG" decimal(15,2),                             '+
             '      "VL_OUT_DA" decimal(15,2),                          '+
             '      "VL_BC_ICMS" decimal(15,2),                         '+
             '      "VL_ICMS" decimal(15,2),                            '+
@@ -448,11 +570,11 @@ begin
             '      OIDS = FALSE                                        '+
             '  );                                                      '+
             '  ALTER TABLE "REG_SAIDA"."REGISTROC100_' + ACPFCNPJ + '" '+
-            '      OWNER to postgres'+
+            '      OWNER to postgres; '+
 
             'CREATE TABLE "REG_SAIDA"."REGISTROC170_' + ACPFCNPJ + '" '+
             '  (                                                       '+
-            '      "ID" serial NOT NULL,                               '+
+            '      "ID" Integer NOT NULL,                              '+
             '      "ID_SPED" Integer,                                  '+
             '      "IDNF" Integer,                                     '+
             '      "NUM_ITEM" character varying(5),                    '+
@@ -475,7 +597,7 @@ begin
             '      OIDS = FALSE                                        '+
             '  );                                                      '+
             '  ALTER TABLE "REG_SAIDA"."REGISTROC170_' + ACPFCNPJ + '" '+
-            '      OWNER to postgres';
+            '      OWNER to postgres; ';
 end;
 
 function TFrmImportarSPED.GetSQLCreateRegistroC400(ACPFCNPJ: String): String;
@@ -483,7 +605,7 @@ begin
 
   result := 'CREATE TABLE "REG_SAIDA"."REGISTROC400_' + ACPFCNPJ + '"  '+
             '  (                                                       '+
-            '      "ID" serial NOT NULL,                               '+
+            '      "ID" Integer NOT NULL,                              '+
             '      "ID_SPED" Integer,                                  '+
             '      "DATA" timestamp,                                   '+
             '      "ECF_FAB" character varying(30),                    '+
@@ -497,7 +619,7 @@ begin
 
             'CREATE TABLE "REG_SAIDA"."REGISTROC425_' + ACPFCNPJ + '"  '+
             '  (                                                       '+
-            '      "ID" serial NOT NULL,                               '+
+            '      "ID" Integer NOT NULL,                              '+
             '      "ID_SPED" Integer,                                  '+
             '      "ID_REDZ" Integer,                                  '+
             '      "COD_ITEM" character varying(30),                   '+
@@ -592,6 +714,7 @@ begin
                 'WHERE "ID" = -1';
     Open;
     Insert;
+    FieldByName('ID').AsInteger         := GetID(FNomeTabela,dmPrincipal.DB);
     FieldByName('COD_FIN').AsString     := GetCodFin;
     FieldByName('NOME').AsString        := ACBrSPEDFiscal.Bloco_0.Registro0000.NOME;
     FieldByName('DT_INI').AsDateTime    := ACBrSPEDFiscal.Bloco_0.Registro0000.DT_INI;
@@ -653,6 +776,7 @@ begin
       for I := 0 to j do
       begin
          Qry0200.Insert;
+         Qry0200ID.AsInteger         := GetID(FNomeTabela,dmPrincipal.DB);
          Qry0200IDSPED.AsInteger     := Qry0000ID.AsInteger;
          Qry0200COD_ITEM.AsString    := ACBrSPEDFiscal.Bloco_0.Registro0001.
                                         Registro0200.Items[I].COD_ITEM;
@@ -679,14 +803,24 @@ end;
 
 procedure TFrmImportarSPED.ImportaRegC100;
 var
-  i : Integer;
-  j : Integer;
-  K : Integer;
+  i          : Integer;
+  j          : Integer;
+  K          : Integer;
+  vIDC170e   : Integer;
+  vIDC170s   : Integer;
+  vGerouIDe  : Boolean;
+  vGerouIDs  : Boolean;
 begin
   lblInfoImportacao.Caption     := 'Carregando registro C100 e C170...';
   j                             := Pred(ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Count);
   ProgressBar.Max               := j;
   ProgressBar.Position          := 0;
+  FNomeTabela                   := 'REGISTROC100_' + FCNPJ;
+
+  {Controla sequence temp}
+  vGerouIDe                     := false;
+  vGerouIDs                     := false;
+
   if j > 0 then
   begin
     if not TabelaExiste(FNomeTabela,dmPrincipal.DB) then
@@ -696,25 +830,25 @@ begin
     begin
       QryC100e.Close;
       QryC100e.SQL.Clear;
-      QryC100e.SQL.Text  := 'SELECT * FROM "REG_ENT"."REGISTRO0C100_' + FCNPJ + '"'+
+      QryC100e.SQL.Text  := 'SELECT * FROM "REG_ENT"."REGISTROC100_' + FCNPJ + '"'+
                             'WHERE "ID" = -1';
       QryC100e.Open;
 
       QryC170e.Close;
       QryC170e.SQL.Clear;
-      QryC170e.SQL.Text  := 'SELECT * FROM "REG_ENT"."REGISTRO0C170_' + FCNPJ + '"'+
+      QryC170e.SQL.Text  := 'SELECT * FROM "REG_ENT"."REGISTROC170_' + FCNPJ + '"'+
                             'WHERE "ID" = -1';
       QryC170e.Open;
 
       QryC100s.Close;
       QryC100s.SQL.Clear;
-      QryC100s.SQL.Text  := 'SELECT * FROM "REG_SAIDA"."REGISTRO0C100_' + FCNPJ + '"'+
+      QryC100s.SQL.Text  := 'SELECT * FROM "REG_SAIDA"."REGISTROC100_' + FCNPJ + '"'+
                             'WHERE "ID" = -1';
       QryC100s.Open;
 
       QryC170s.Close;
       QryC170s.SQL.Clear;
-      QryC170s.SQL.Text  := 'SELECT * FROM "REG_SAIDA"."REGISTRO0C170_' + FCNPJ + '"'+
+      QryC170s.SQL.Text  := 'SELECT * FROM "REG_SAIDA"."REGISTROC170_' + FCNPJ + '"'+
                             'WHERE "ID" = -1';
       QryC170s.Open;
 
@@ -724,6 +858,7 @@ begin
          = tpEntradaAquisicao then
         begin
           QryC100e.Insert;
+          QryC100eID.AsInteger          := GetID(FNomeTabela,dmPrincipal.DB);
           QryC100eID_SPED.AsInteger     := Qry0000ID.AsInteger;
           QryC100eIND_OPER.AsString     := 'Entrada Aquisicao';
           QryC100eCOD_PART.AsString     := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].COD_PART;
@@ -750,6 +885,7 @@ begin
         begin
           QryC100s.Insert;
           QryC100sID_SPED.AsInteger     := Qry0000ID.AsInteger;
+          QryC100sID.AsInteger          := GetID(FNomeTabela,dmPrincipal.DB);
           QryC100sIND_OPER.AsString     := 'Saida prestação';
           QryC100sCOD_PART.AsString     := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].COD_PART;
           QryC100sPARTICIPANTE.AsString := 'PARTICIPANTE AVULSO';
@@ -772,14 +908,24 @@ begin
           QryC100s.Post;
         end;
 
+
         for K := 0 to Pred(ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i]
         .RegistroC170.Count) do
         begin
           if ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].IND_OPER
           = tpEntradaAquisicao then
           begin
+
+            if not vGerouIDe then
+            begin
+              vIDC170e   := GetID('"REG_ENT"."REGISTROC170_' + FCNPJ + '"',dmPrincipal.DB);
+              vGerouIDe  := true;
+            end;
+
             QryC170e.Insert;
+            QryC170eID.AsInteger          := vIDC170e + 1;
             QryC170eID_SPED.AsInteger     := Qry0000ID.AsInteger;
+            QryC170eIDNF.AsInteger        := QryC100eID.AsInteger;
 
             QryC170eNUM_ITEM.AsString     := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].
                                              RegistroC170.Items[k].NUM_ITEM;
@@ -826,7 +972,15 @@ begin
           end
           else
           begin
+            if not vGerouIDs then
+            begin
+              vIDC170s   := GetID('"REG_SAIDA"."REGISTROC170_' + FCNPJ + '"',dmPrincipal.DB);
+              vGerouIDs  := true;
+            end;
+
             QryC170s.Insert;
+            QryC170SID.AsInteger          := vIDC170s + 1;
+            QryC170sIDNF.AsInteger        := QryC100sID.AsInteger;
             QryC170sID_SPED.AsInteger     := Qry0000ID.AsInteger;
 
             QryC170sNUM_ITEM.AsString     := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].

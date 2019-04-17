@@ -46,11 +46,11 @@ type
     procedure BtnImportacaoSPEDClick(Sender: TObject);
   private
     { Private declarations }
+  public
+    { Public declarations }
     procedure HabilitaMenus;
     procedure SelecionaCliente;
     procedure SetEmpresaLogada;
-  public
-    { Public declarations }
   end;
 
 var
