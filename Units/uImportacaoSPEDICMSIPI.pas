@@ -244,17 +244,35 @@ end;
 
 function TFrmImportarSPED.GetSQLCreateRegistroC100(ACPFCNPJ: String): String;
 begin
-  result := 'CREATE TABLE "REG_ENT"."REGISTROC100_' + ACPFCNPJ + '" '+
+  result := 'CREATE TABLE "REG_ENT"."REGISTROC100_' + ACPFCNPJ + '"    '+
             '  (                                                       '+
             '      "ID" serial NOT NULL,                               '+
-            '      "COD_ITEM" character varying(30),                   '+
-            '      "DESCR_ITEM" character varying(100),                '+
-            '      "CODBARRA" character varying(14),                   '+
-            '      "UNID" character varying(5),                        '+
-            '      "TIPO_ITEM" character varying(30),                  '+
-            '      "COD_NCM" character varying(15),                    '+
-            '      "ALIQ_ICMS" DECIMAL(15,2),                          '+
-            '      "CEST" character varying(15),                       '+
+            '      "ID_SPED" Integer,                                  '+
+            '      "IND_OPER" character varying(50),                   '+
+            '      "COD_PART" character varying(50),                   '+
+            '      "NOM_PART" character varying(100),                  '+
+            '      "COD_MOD" character varying(5),                     '+
+            '      "SER" character varying(5),                         '+
+            '      "NUM_DOC" character varying(10),                    '+
+            '      "CHV_NFE" character varying(44),                    '+
+            '      "DT_DOC" timestamp,                                 '+
+            '      "DT_E_ES" timestamp,                                '+
+            '      "VL_DOC" decimal(15,2),                             '+
+            '      "VL_MERC" decimal(15,2),                            '+
+            '      "VL_DESC" decimal(15,2),                            '+
+            '      "VL_FRT" decimal(15,2),                             '+
+            '      "VL_SEG" decimal(15,2),                             '+                                                                                    '      "CHV_NFE" character varying(44),                    '+
+            '      "VL_OUT_DA" decimal(15,2),                          '+
+            '      "VL_BC_ICMS" decimal(15,2),                         '+
+            '      "VL_ICMS" decimal(15,2),                            '+
+            '      "VL_BC_ICMS_ST" decimal(15,2),                      '+
+            '      "VL_ICMS_ST" decimal(15,2),                         '+
+            '      "VL_BC_IPI" decimal(15,2),                          '+
+            '      "VL_IPI" decimal(15,2),                             '+
+            '      "VL_BC_PIS" decimal(15,2),                          '+
+            '      "VL_PIS" decimal(15,2),                             '+
+            '      "VL_BC_COFINS" decimal(15,2),                       '+
+            '      "VL_COFINS" decimal(15,2),                          '+
             '      PRIMARY KEY ("ID")                                  '+
             '  )                                                       '+
             '  WITH (                                                  '+
@@ -266,14 +284,21 @@ begin
             'CREATE TABLE "REG_ENT"."REGISTROC170_' + ACPFCNPJ + '" '+
             '  (                                                       '+
             '      "ID" serial NOT NULL,                               '+
-            '      "COD_ITEM" character varying(30),                   '+
-            '      "DESCR_ITEM" character varying(100),                '+
-            '      "CODBARRA" character varying(14),                   '+
+            '      "ID_SPED" Integer,                                  '+
+            '      "NUM_ITEM" character varying(5),                    '+
+            '      "COD_ITEM" character varying(14),                   '+
+            '      "QTDE" decimal(15,3),                               '+
             '      "UNID" character varying(5),                        '+
-            '      "TIPO_ITEM" character varying(30),                  '+
-            '      "COD_NCM" character varying(15),                    '+
-            '      "ALIQ_ICMS" DECIMAL(15,2),                          '+
-            '      "CEST" character varying(15),                       '+
+            '      "VL_ITEM" decimal(15,2),                            '+
+            '      "VL_DESC" decimal(15,2),                            '+
+            '      "CST_ICMS" character varying(3),                    '+
+            '      "CFOP" character varying(4),                        '+
+            '      "VL_BC_ICMS" decimal(15,2),                         '+
+            '      "ALIQ_ICMS" decimal(15,2),                          '+
+            '      "VL_ICMS" decimal(15,2),                            '+
+            '      "VL_BC_ICMS_ST" decimal(15,2),                      '+
+            '      "ALIQ_ST" decimal(15,2),                            '+
+            '      "VL_ICMS_ST" decimal(15,2),                         '+
             '      PRIMARY KEY ("ID")                                  '+
             '  )                                                       '+
             '  WITH (                                                  '+
@@ -285,14 +310,32 @@ begin
              'CREATE TABLE "REG_SAIDA"."REGISTROC100_' + ACPFCNPJ + '" '+
             '  (                                                       '+
             '      "ID" serial NOT NULL,                               '+
-            '      "COD_ITEM" character varying(30),                   '+
-            '      "DESCR_ITEM" character varying(100),                '+
-            '      "CODBARRA" character varying(14),                   '+
-            '      "UNID" character varying(5),                        '+
-            '      "TIPO_ITEM" character varying(30),                  '+
-            '      "COD_NCM" character varying(15),                    '+
-            '      "ALIQ_ICMS" DECIMAL(15,2),                          '+
-            '      "CEST" character varying(15),                       '+
+            '      "ID_SPED" Integer,                                  '+
+            '      "IND_OPER" character varying(50),                   '+
+            '      "COD_PART" character varying(50),                   '+
+            '      "NOM_PART" character varying(100),                  '+
+            '      "COD_MOD" character varying(5),                     '+
+            '      "SER" character varying(5),                         '+
+            '      "NUM_DOC" character varying(10),                    '+
+            '      "CHV_NFE" character varying(44),                    '+
+            '      "DT_DOC" timestamp,                                 '+
+            '      "DT_E_ES" timestamp,                                '+
+            '      "VL_DOC" decimal(15,2),                             '+
+            '      "VL_MERC" decimal(15,2),                            '+
+            '      "VL_DESC" decimal(15,2),                            '+
+            '      "VL_FRT" decimal(15,2),                             '+
+            '      "VL_SEG" decimal(15,2),                             '+                                                                                    '      "CHV_NFE" character varying(44),                    '+
+            '      "VL_OUT_DA" decimal(15,2),                          '+
+            '      "VL_BC_ICMS" decimal(15,2),                         '+
+            '      "VL_ICMS" decimal(15,2),                            '+
+            '      "VL_BC_ICMS_ST" decimal(15,2),                      '+
+            '      "VL_ICMS_ST" decimal(15,2),                         '+
+            '      "VL_BC_IPI" decimal(15,2),                          '+
+            '      "VL_IPI" decimal(15,2),                             '+
+            '      "VL_BC_PIS" decimal(15,2),                          '+
+            '      "VL_PIS" decimal(15,2),                             '+
+            '      "VL_BC_COFINS" decimal(15,2),                       '+
+            '      "VL_COFINS" decimal(15,2),                          '+
             '      PRIMARY KEY ("ID")                                  '+
             '  )                                                       '+
             '  WITH (                                                  '+
@@ -304,14 +347,21 @@ begin
             'CREATE TABLE "REG_SAIDA"."REGISTROC170_' + ACPFCNPJ + '" '+
             '  (                                                       '+
             '      "ID" serial NOT NULL,                               '+
-            '      "COD_ITEM" character varying(30),                   '+
-            '      "DESCR_ITEM" character varying(100),                '+
-            '      "CODBARRA" character varying(14),                   '+
+            '      "ID_SPED" Integer,                                  '+
+            '      "NUM_ITEM" character varying(5),                    '+
+            '      "COD_ITEM" character varying(14),                   '+
+            '      "QTDE" decimal(15,3),                               '+
             '      "UNID" character varying(5),                        '+
-            '      "TIPO_ITEM" character varying(30),                  '+
-            '      "COD_NCM" character varying(15),                    '+
-            '      "ALIQ_ICMS" DECIMAL(15,2),                          '+
-            '      "CEST" character varying(15),                       '+
+            '      "VL_ITEM" decimal(15,2),                            '+
+            '      "VL_DESC" decimal(15,2),                            '+
+            '      "CST_ICMS" character varying(3),                    '+
+            '      "CFOP" character varying(4),                        '+
+            '      "VL_BC_ICMS" decimal(15,2),                         '+
+            '      "ALIQ_ICMS" decimal(15,2),                          '+
+            '      "VL_ICMS" decimal(15,2),                            '+
+            '      "VL_BC_ICMS_ST" decimal(15,2),                      '+
+            '      "ALIQ_ST" decimal(15,2),                            '+
+            '      "VL_ICMS_ST" decimal(15,2),                         '+
             '      PRIMARY KEY ("ID")                                  '+
             '  )                                                       '+
             '  WITH (                                                  '+
@@ -494,7 +544,7 @@ var
   j : Integer;
   K : Integer;
 begin
-  lblInfoImportacao.Caption     := 'Carregando registro C100 e filhos...';
+  lblInfoImportacao.Caption     := 'Carregando registro C100 e C170...';
   j                             := Pred(ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Count);
   ProgressBar.Max               := j;
   ProgressBar.Position          := 0;
@@ -531,7 +581,7 @@ begin
 
       for I := 0 to j do
       begin
-        if ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].IND_OPER
+        if ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].COD_SIT
          = tpEntradaAquisicao then
         begin
           QryC100e.Insert;
@@ -548,7 +598,8 @@ begin
           = tpEntradaAquisicao then
           begin
             QryC170e.Insert;
-             //ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].RegistroC170.Items[k].
+             ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].
+             RegistroC170.Items[k].DESCR_COMPL
 
 
           end

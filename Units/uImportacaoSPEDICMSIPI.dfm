@@ -707,7 +707,7 @@ inherited FrmImportarSPED: TFrmImportarSPED
         object lblInfoImportacao: TLabel
           Left = 16
           Top = 23
-          Width = 147
+          Width = 218
           Height = 13
           Caption = 'Carregando registro 0000 .....'
           Font.Charset = DEFAULT_CHARSET
