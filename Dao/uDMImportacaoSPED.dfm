@@ -169,6 +169,10 @@ object DMImportacaoSPED: TDMImportacaoSPED
     object QryC100eVL_COFINS: TFloatField
       FieldName = 'VL_COFINS'
     end
+    object QryC100ePARTICIPANTE: TStringField
+      FieldName = 'PARTICIPANTE'
+      Size = 100
+    end
   end
   object QryC170e: TFDQuery
     CachedUpdates = True
@@ -259,10 +263,12 @@ object DMImportacaoSPED: TDMImportacaoSPED
     Top = 126
   end
   object DsC100s: TDataSource
+    DataSet = QryC100s
     Left = 160
     Top = 182
   end
   object DsC170s: TDataSource
+    DataSet = QryC170s
     Left = 224
     Top = 182
   end
@@ -360,6 +366,10 @@ object DMImportacaoSPED: TDMImportacaoSPED
     end
     object FloatField16: TFloatField
       FieldName = 'VL_COFINS'
+    end
+    object QryC100sPARTICIPANTE: TStringField
+      FieldName = 'PARTICIPANTE'
+      Size = 100
     end
   end
   object QryC170s: TFDQuery

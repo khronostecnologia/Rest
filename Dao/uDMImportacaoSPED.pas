@@ -125,6 +125,8 @@ type
     FloatField23: TFloatField;
     FloatField24: TFloatField;
     FloatField25: TFloatField;
+    QryC100ePARTICIPANTE: TStringField;
+    QryC100sPARTICIPANTE: TStringField;
   private
     { Private declarations }
   public
