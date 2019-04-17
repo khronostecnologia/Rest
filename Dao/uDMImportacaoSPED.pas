@@ -69,31 +69,6 @@ type
     QryC100eVL_BC_COFINS: TFloatField;
     QryC100eVL_COFINS: TFloatField;
     QryC100s: TFDQuery;
-    IntegerField1: TIntegerField;
-    StringField1: TStringField;
-    StringField2: TStringField;
-    StringField3: TStringField;
-    StringField4: TStringField;
-    StringField5: TStringField;
-    StringField6: TStringField;
-    DateTimeField1: TDateTimeField;
-    DateTimeField2: TDateTimeField;
-    FloatField1: TFloatField;
-    FloatField2: TFloatField;
-    FloatField3: TFloatField;
-    FloatField4: TFloatField;
-    FloatField5: TFloatField;
-    FloatField6: TFloatField;
-    FloatField7: TFloatField;
-    FloatField8: TFloatField;
-    FloatField9: TFloatField;
-    FloatField10: TFloatField;
-    FloatField11: TFloatField;
-    FloatField12: TFloatField;
-    FloatField13: TFloatField;
-    FloatField14: TFloatField;
-    FloatField15: TFloatField;
-    FloatField16: TFloatField;
     QryC170eID_SPED: TIntegerField;
     QryC170eNUM_ITEM: TStringField;
     QryC170eCOD_ITEM: TStringField;
@@ -127,6 +102,10 @@ type
     FloatField25: TFloatField;
     QryC100ePARTICIPANTE: TStringField;
     QryC100sPARTICIPANTE: TStringField;
+    QryC170eIDNF: TIntegerField;
+    QryC170sIDNF: TIntegerField;
+    Qry0200IDSPED: TIntegerField;
+    Qry0000ID: TAutoIncField;
   private
     { Private declarations }
   public

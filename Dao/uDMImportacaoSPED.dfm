@@ -46,6 +46,9 @@ object DMImportacaoSPED: TDMImportacaoSPED
       FieldName = 'IND_ATIV'
       Size = 30
     end
+    object Qry0000ID: TAutoIncField
+      FieldName = 'ID'
+    end
   end
   object Qry0200: TFDQuery
     CachedUpdates = True
@@ -82,6 +85,9 @@ object DMImportacaoSPED: TDMImportacaoSPED
     object Qry0200CEST: TStringField
       FieldName = 'CEST'
       Size = 15
+    end
+    object Qry0200IDSPED: TIntegerField
+      FieldName = 'IDSPED'
     end
   end
   object QryC100e: TFDQuery
@@ -229,6 +235,9 @@ object DMImportacaoSPED: TDMImportacaoSPED
     object QryC170eVL_ICMS_ST: TFloatField
       FieldName = 'VL_ICMS_ST'
     end
+    object QryC170eIDNF: TIntegerField
+      FieldName = 'IDNF'
+    end
   end
   object QryC400: TFDQuery
     CachedUpdates = True
@@ -287,84 +296,84 @@ object DMImportacaoSPED: TDMImportacaoSPED
     Connection = DMBase.DB
     Left = 32
     Top = 182
-    object IntegerField1: TIntegerField
+    object ID_SPED: TIntegerField
       FieldName = 'ID_SPED'
     end
-    object StringField1: TStringField
+    object IND_OPER: TStringField
       FieldName = 'IND_OPER'
       Size = 50
     end
-    object StringField2: TStringField
+    object COD_PART: TStringField
       FieldName = 'COD_PART'
     end
-    object StringField3: TStringField
+    object COD_MOD: TStringField
       FieldName = 'COD_MOD'
       Size = 5
     end
-    object StringField4: TStringField
+    object SER: TStringField
       FieldName = 'SER'
       Size = 5
     end
-    object StringField5: TStringField
+    object NUM_DOC: TStringField
       FieldName = 'NUM_DOC'
       Size = 10
     end
-    object StringField6: TStringField
+    object CHV_NFE: TStringField
       FieldName = 'CHV_NFE'
       Size = 44
     end
-    object DateTimeField1: TDateTimeField
+    object DT_DOC: TDateTimeField
       FieldName = 'DT_DOC'
     end
-    object DateTimeField2: TDateTimeField
+    object DT_E_ES: TDateTimeField
       FieldName = 'DT_E_ES'
     end
-    object FloatField1: TFloatField
+    object VL_DOC: TFloatField
       FieldName = 'VL_DOC'
     end
-    object FloatField2: TFloatField
+    object VL_MERC: TFloatField
       FieldName = 'VL_MERC'
     end
-    object FloatField3: TFloatField
+    object VL_DESC: TFloatField
       FieldName = 'VL_DESC'
     end
-    object FloatField4: TFloatField
+    object VL_FRT: TFloatField
       FieldName = 'VL_FRT'
     end
-    object FloatField5: TFloatField
+    object VL_SEG: TFloatField
       FieldName = 'VL_SEG'
     end
-    object FloatField6: TFloatField
+    object VL_OUT_DA: TFloatField
       FieldName = 'VL_OUT_DA'
     end
-    object FloatField7: TFloatField
+    object VL_BC_ICMS: TFloatField
       FieldName = 'VL_BC_ICMS'
     end
-    object FloatField8: TFloatField
+    object VL_ICMS: TFloatField
       FieldName = 'VL_ICMS'
     end
-    object FloatField9: TFloatField
+    object VL_BC_ICMS_ST: TFloatField
       FieldName = 'VL_BC_ICMS_ST'
     end
-    object FloatField10: TFloatField
+    object VL_ICMS_ST: TFloatField
       FieldName = 'VL_ICMS_ST'
     end
-    object FloatField11: TFloatField
+    object VL_BC_IPI: TFloatField
       FieldName = 'VL_BC_IPI'
     end
-    object FloatField12: TFloatField
+    object VL_IPI: TFloatField
       FieldName = 'VL_IPI'
     end
-    object FloatField13: TFloatField
+    object VL_BC_PIS: TFloatField
       FieldName = 'VL_BC_PIS'
     end
-    object FloatField14: TFloatField
+    object VL_PIS: TFloatField
       FieldName = 'VL_PIS'
     end
-    object FloatField15: TFloatField
+    object VL_BC_COFINS: TFloatField
       FieldName = 'VL_BC_COFINS'
     end
-    object FloatField16: TFloatField
+    object VL_COFINS: TFloatField
       FieldName = 'VL_COFINS'
     end
     object QryC100sPARTICIPANTE: TStringField
@@ -426,6 +435,9 @@ object DMImportacaoSPED: TDMImportacaoSPED
     end
     object FloatField25: TFloatField
       FieldName = 'VL_ICMS_ST'
+    end
+    object QryC170sIDNF: TIntegerField
+      FieldName = 'IDNF'
     end
   end
 end
