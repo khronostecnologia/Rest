@@ -92,13 +92,19 @@ type
       var AAction: Boolean);
   private
     { Private declarations }
+    FNomeTabela : String;
+    FCNPJ       : String;
     procedure ImportarSPED;
     procedure ImportaReg0000;
     procedure ImportaReg0200;
+    procedure ImportaRegC100;
+    procedure ImportaRegC400;
     procedure CriaTabelaEmpresaLogada(ASQL : String);
     function  ExisteArqSPED(ADT_INI,ADT_FIM,ACNPJCPF : String) : Boolean;
     function  GetSQLCreateRegistro0000(ACPFCNPJ : String): String;
     function  GetSQLCreateRegistro0200(ACPFCNPJ : String): String;
+    function  GetSQLCreateRegistroC100(ACPFCNPJ : String): String;
+    function  GetSQLCreateRegistroC400(ACPFCNPJ : String): String;
   public
     { Public declarations }
   end;
@@ -236,12 +242,94 @@ begin
             '      OWNER to postgres;                                  ';
 end;
 
+function TFrmImportarSPED.GetSQLCreateRegistroC100(ACPFCNPJ: String): String;
+begin
+  result := 'CREATE TABLE "REG_ENT"."REGISTROC100_' + ACPFCNPJ + '" '+
+            '  (                                                       '+
+            '      "ID" serial NOT NULL,                               '+
+            '      "COD_ITEM" character varying(30),                   '+
+            '      "DESCR_ITEM" character varying(100),                '+
+            '      "CODBARRA" character varying(14),                   '+
+            '      "UNID" character varying(5),                        '+
+            '      "TIPO_ITEM" character varying(30),                  '+
+            '      "COD_NCM" character varying(15),                    '+
+            '      "ALIQ_ICMS" DECIMAL(15,2),                          '+
+            '      "CEST" character varying(15),                       '+
+            '      PRIMARY KEY ("ID")                                  '+
+            '  )                                                       '+
+            '  WITH (                                                  '+
+            '      OIDS = FALSE                                        '+
+            '  );                                                      '+
+            '  ALTER TABLE "REG_ENT"."REGISTROC100_' + ACPFCNPJ + '" '+
+            '      OWNER to postgres'+
+
+            'CREATE TABLE "REG_ENT"."REGISTROC170_' + ACPFCNPJ + '" '+
+            '  (                                                       '+
+            '      "ID" serial NOT NULL,                               '+
+            '      "COD_ITEM" character varying(30),                   '+
+            '      "DESCR_ITEM" character varying(100),                '+
+            '      "CODBARRA" character varying(14),                   '+
+            '      "UNID" character varying(5),                        '+
+            '      "TIPO_ITEM" character varying(30),                  '+
+            '      "COD_NCM" character varying(15),                    '+
+            '      "ALIQ_ICMS" DECIMAL(15,2),                          '+
+            '      "CEST" character varying(15),                       '+
+            '      PRIMARY KEY ("ID")                                  '+
+            '  )                                                       '+
+            '  WITH (                                                  '+
+            '      OIDS = FALSE                                        '+
+            '  );                                                      '+
+            '  ALTER TABLE "REG_ENT"."REGISTROC170_' + ACPFCNPJ + '" '+
+            '      OWNER to postgres'+
+
+             'CREATE TABLE "REG_SAIDA"."REGISTROC100_' + ACPFCNPJ + '" '+
+            '  (                                                       '+
+            '      "ID" serial NOT NULL,                               '+
+            '      "COD_ITEM" character varying(30),                   '+
+            '      "DESCR_ITEM" character varying(100),                '+
+            '      "CODBARRA" character varying(14),                   '+
+            '      "UNID" character varying(5),                        '+
+            '      "TIPO_ITEM" character varying(30),                  '+
+            '      "COD_NCM" character varying(15),                    '+
+            '      "ALIQ_ICMS" DECIMAL(15,2),                          '+
+            '      "CEST" character varying(15),                       '+
+            '      PRIMARY KEY ("ID")                                  '+
+            '  )                                                       '+
+            '  WITH (                                                  '+
+            '      OIDS = FALSE                                        '+
+            '  );                                                      '+
+            '  ALTER TABLE "REG_SAIDA"."REGISTROC100_' + ACPFCNPJ + '" '+
+            '      OWNER to postgres'+
+
+            'CREATE TABLE "REG_SAIDA"."REGISTROC170_' + ACPFCNPJ + '" '+
+            '  (                                                       '+
+            '      "ID" serial NOT NULL,                               '+
+            '      "COD_ITEM" character varying(30),                   '+
+            '      "DESCR_ITEM" character varying(100),                '+
+            '      "CODBARRA" character varying(14),                   '+
+            '      "UNID" character varying(5),                        '+
+            '      "TIPO_ITEM" character varying(30),                  '+
+            '      "COD_NCM" character varying(15),                    '+
+            '      "ALIQ_ICMS" DECIMAL(15,2),                          '+
+            '      "CEST" character varying(15),                       '+
+            '      PRIMARY KEY ("ID")                                  '+
+            '  )                                                       '+
+            '  WITH (                                                  '+
+            '      OIDS = FALSE                                        '+
+            '  );                                                      '+
+            '  ALTER TABLE "REG_SAIDA"."REGISTROC170_' + ACPFCNPJ + '" '+
+            '      OWNER to postgres';
+end;
+
+function TFrmImportarSPED.GetSQLCreateRegistroC400(ACPFCNPJ: String): String;
+begin
+
+end;
+
 procedure TFrmImportarSPED.ImportaReg0000;
 var
   vDT_INI     : TDateTime;
   vDT_FIM     : TDateTime;
-  vCPFCNPJ    : String;
-  vNomeTabela : String;
 
   function GetCodFin : String;
   begin
@@ -277,16 +365,16 @@ begin
 
   vDT_INI     := ACBrSPEDFiscal.Bloco_0.Registro0000.DT_INI;
   vDT_FIM     := ACBrSPEDFiscal.Bloco_0.Registro0000.DT_FIN;
-  vCPFCNPJ    := iif(ACBrSPEDFiscal.Bloco_0.Registro0000.CNPJ <> '',
+  FCNPJ       := iif(ACBrSPEDFiscal.Bloco_0.Registro0000.CNPJ <> '',
                  ACBrSPEDFiscal.Bloco_0.Registro0000.CNPJ,
                  ACBrSPEDFiscal.Bloco_0.Registro0000.CPF);
-  vNomeTabela := 'REGISTRO0000_' + vCPFCNPJ;
+  FNomeTabela := 'REGISTRO0000_' + FCNPJ;
   ProgressBar.Position          := ProgressBar.Position + 20;
 
   if dmPrincipal.QryEmpresa.Active then
   begin
     lblInfoImportacao.Caption     := 'Verificando registro de arquivos importados...';
-    if ExisteArqSPED(DateToStr(vDT_INI),DateToStr(vDT_FIM),vCPFCNPJ) then
+    if ExisteArqSPED(DateToStr(vDT_INI),DateToStr(vDT_FIM),FCNPJ) then
     begin
       FrmMensagem.Informacao('Arquivo com registro de importado...tente novamente!');
       Abort;
@@ -295,11 +383,11 @@ begin
   else
   begin
     lblInfoImportacao.Caption  := 'Verificando tabela de identificação existe...';
-    if not TabelaExiste(vNomeTabela,dmPrincipal.DB) then
+    if not TabelaExiste(FNomeTabela,dmPrincipal.DB) then
     begin
       try
         lblInfoImportacao.Caption  := 'Criando tabela de identificação...';
-        CriaTabelaEmpresaLogada(GetSQLCreateRegistro0000(vCPFCNPJ));
+        CriaTabelaEmpresaLogada(GetSQLCreateRegistro0000(FCNPJ));
       except
         raise;
       end;
@@ -312,7 +400,7 @@ begin
   begin
     Close;
     SQL.Clear;
-    SQL.Text := 'SELECT * FROM "CADASTROS"."' + vNomeTabela + '" '+
+    SQL.Text := 'SELECT * FROM "CADASTROS"."' + FNomeTabela + '" '+
                 'WHERE "ID" = -1';
     Open;
     Insert;
@@ -337,8 +425,6 @@ procedure TFrmImportarSPED.ImportaReg0200;
 var
   i           : Integer;
   j           : Integer;
-  vNomeTabela : String;
-  vCNPJ       : String;
 
   function GetTipoItem(ATipoItem :TACBrTipoItem) : String;
   begin
@@ -362,20 +448,17 @@ begin
   j                             := Pred(ACBrSPEDFiscal.Bloco_0.Registro0001.Registro0200.Count);
   ProgressBar.Max               := j;
   ProgressBar.Position          := 0;
-  vCNPJ                         := iif(dmPrincipal.QryEmpresa.Active,
-                                   dmPrincipal.QryEmpresaCPFCNPJ.AsString,
-                                   DMImportacaoSPED.Qry0000CNPJ.AsString);
-  vNomeTabela                   := 'REGISTRO0200_' + vCNPJ;
+  FNomeTabela                   := 'REGISTRO0200_' + FCNPJ;
   if j > 0 then
   begin
-    if not TabelaExiste(vNomeTabela,dmPrincipal.DB) then
-    CriaTabelaEmpresaLogada(GetSQLCreateRegistro0200(vCNPJ));
+    if not TabelaExiste(FNomeTabela,dmPrincipal.DB) then
+    CriaTabelaEmpresaLogada(GetSQLCreateRegistro0200(FCNPJ));
 
     with DMImportacaoSPED do
     begin
       Qry0200.Close;
       Qry0200.SQL.Clear;
-      Qry0200.SQL.Text  := 'SELECT * FROM "CADASTROS"."' + vNomeTabela + '" '+
+      Qry0200.SQL.Text  := 'SELECT * FROM "CADASTROS"."' + FNomeTabela + '" '+
                            'WHERE "ID" = -1';
       Qry0200.Open;
 
@@ -405,6 +488,86 @@ begin
   end;
 end;
 
+procedure TFrmImportarSPED.ImportaRegC100;
+var
+  i : Integer;
+  j : Integer;
+  K : Integer;
+begin
+  lblInfoImportacao.Caption     := 'Carregando registro C100 e filhos...';
+  j                             := Pred(ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Count);
+  ProgressBar.Max               := j;
+  ProgressBar.Position          := 0;
+  if j > 0 then
+  begin
+    if not TabelaExiste(FNomeTabela,dmPrincipal.DB) then
+    CriaTabelaEmpresaLogada(GetSQLCreateRegistroC100(FCNPJ));
+
+    with DMImportacaoSPED do
+    begin
+      QryC100e.Close;
+      QryC100e.SQL.Clear;
+      QryC100e.SQL.Text  := 'SELECT * FROM "REG_ENT"."REGISTRO0C100_' + FCNPJ + '"'+
+                            'WHERE "ID" = -1';
+      QryC100e.Open;
+
+      QryC170e.Close;
+      QryC170e.SQL.Clear;
+      QryC170e.SQL.Text  := 'SELECT * FROM "REG_ENT"."REGISTRO0C170_' + FCNPJ + '"'+
+                            'WHERE "ID" = -1';
+      QryC170e.Open;
+
+      QryC100s.Close;
+      QryC100s.SQL.Clear;
+      QryC100s.SQL.Text  := 'SELECT * FROM "REG_SAIDA"."REGISTRO0C100_' + FCNPJ + '"'+
+                            'WHERE "ID" = -1';
+      QryC100s.Open;
+
+      QryC170s.Close;
+      QryC170s.SQL.Clear;
+      QryC170s.SQL.Text  := 'SELECT * FROM "REG_SAIDA"."REGISTRO0C170_' + FCNPJ + '"'+
+                            'WHERE "ID" = -1';
+      QryC170s.Open;
+
+      for I := 0 to j do
+      begin
+        if ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].IND_OPER
+         = tpEntradaAquisicao then
+        begin
+          QryC100e.Insert;
+        end
+        else
+        begin
+          QryC100s.Insert;
+        end;
+
+        for K := 0 to Pred(ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i]
+        .RegistroC170.Count) do
+        begin
+          if ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].IND_OPER
+          = tpEntradaAquisicao then
+          begin
+            QryC170e.Insert;
+             //ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].RegistroC170.Items[k].
+
+
+          end
+          else
+          begin
+            QryC170s.Insert;
+          end;
+        end;
+        ProgressBar.Position  := ProgressBar.Position + 1;
+      end;
+    end;
+  end;
+end;
+
+procedure TFrmImportarSPED.ImportaRegC400;
+begin
+
+end;
+
 procedure TFrmImportarSPED.ImportarSPED;
 begin
  try
@@ -415,6 +578,8 @@ begin
 
      ImportaReg0000;
      ImportaReg0200;
+     ImportaRegC100;
+     ImportaRegC400;
 
      Application.ProcessMessages;
      FrmMensagem.Informacao('Importação realizada com sucesso!');
