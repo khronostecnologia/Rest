@@ -9,6 +9,7 @@ CREATE TABLE "CADASTROS"."EMPRESAS"
     "NUMERO" integer,
     "BAIRRO" character varying(50),
     "CEP" character varying(10),
+    "UF" character varying(2),
     "IDCIDADE" integer,
     PRIMARY KEY ("ID")
 )
