@@ -233,6 +233,7 @@ type
       AShift: TShiftState; var AHandled: Boolean);
     procedure cxGridc400DBTableView1KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure BtnGravarClick(Sender: TObject);
   private
     { Private declarations }
     FNomeTabela : String;
@@ -244,6 +245,7 @@ type
     procedure ImportaRegC400;
     procedure CriaTabelaEmpresaLogada(ASQL : String);
     procedure CarregaSPED(AID : Integer ;ACNPJ : String);
+    procedure LimpaTela;
     function  ExisteArqSPED(ADT_INI,ADT_FIM,ACNPJCPF : String) : Boolean;
     function  GetSQLCreateRegistro0000(ACPFCNPJ : String): String;
     function  GetSQLCreateRegistro0200(ACPFCNPJ : String): String;
@@ -266,27 +268,25 @@ Uses uDMBase,uMensagem,BiblKhronos,uDMImportacaoSPED,
 procedure TFrmImportarSPED.BtnCancelarClick(Sender: TObject);
 begin
   inherited;
-  EdtArquivo.Enabled            := false;
-  BtnIniciaImportacao.Enabled   := false;
-  BtnGravar.Enabled             := false;
-  BtnCancelar.Enabled           := false;
-  BtnNovaImportacacao.Enabled   := true;
-  BtnLocalizaImportacao.Enabled := true;
-  EdtArquivo.Clear;
-  cxPgcImportacao.Visible       := false;
-  GpbRegistro0000.Visible       := false;
+  LimpaTela;
+end;
 
-  with DMImportacaoSPED do
-  begin
-    Qry0000.Close;
-    Qry0200.Close;
-    QryC100e.Close;
-    QryC170e.Close;
-    QryC400.Close;
-    QryC425.Close;
-    QryC100s.Close;
-    QryC170s.Close;
-  end;
+procedure TFrmImportarSPED.BtnGravarClick(Sender: TObject);
+begin
+  inherited;
+  DMImportacaoSPED.Qry0000.ApplyUpdates(0);
+  DMImportacaoSPED.Qry0200.ApplyUpdates(0);
+  DMImportacaoSPED.QryC100e.ApplyUpdates(0);
+  DMImportacaoSPED.QryC170e.ApplyUpdates(0);
+  DMImportacaoSPED.QryC100s.ApplyUpdates(0);
+  DMImportacaoSPED.QryC170s.ApplyUpdates(0);
+  DMImportacaoSPED.QryC400.ApplyUpdates(0);
+  DMImportacaoSPED.QryC425.ApplyUpdates(0);
+  FrmMensagem.Informacao('Importação salva com sucesso!');
+  BtnGravar.Enabled := false;
+  BtnNovaImportacacao.Enabled := true;
+  BtnLocalizaImportacao.Enabled := true;
+  BtnCancelar.Enabled           := false;
 end;
 
 procedure TFrmImportarSPED.BtnIniciaImportacaoClick(Sender: TObject);
@@ -313,6 +313,7 @@ var
   vRetorno : Integer;
 begin
   inherited;
+  LimpaTela;
   Try
   FrmMenu.SelecionaCliente;
   if dmPrincipal.QryEmpresa.Active then
@@ -340,6 +341,7 @@ end;
 procedure TFrmImportarSPED.BtnNovaImportacacaoClick(Sender: TObject);
 begin
   inherited;
+  LimpaTela;
   EdtArquivo.Enabled := true;
   SetaFoco(EdtArquivo);
 end;
@@ -813,7 +815,7 @@ begin
             '      OIDS = FALSE                                        '+
             '  );                                                      '+
             '  ALTER TABLE "REG_SAIDA"."REGISTROC400_' + ACPFCNPJ + '" '+
-            '      OWNER to postgres'+
+            '      OWNER to postgres;'+
 
             'CREATE TABLE "REG_SAIDA"."REGISTROC425_' + ACPFCNPJ + '"  '+
             '  (                                                       '+
@@ -831,7 +833,7 @@ begin
             '      OIDS = FALSE                                        '+
             '  );                                                      '+
             '  ALTER TABLE "REG_SAIDA"."REGISTROC425_' + ACPFCNPJ + '" '+
-            '      OWNER to postgres';
+            '      OWNER to postgres;';
 
 end;
 
@@ -936,8 +938,10 @@ end;
 
 procedure TFrmImportarSPED.ImportaReg0200;
 var
-  i           : Integer;
-  j           : Integer;
+  i             : Integer;
+  j             : Integer;
+  vID0200       : Integer;
+  vGerouID0200  : Boolean;
 
   function GetTipoItem(ATipoItem :TACBrTipoItem) : String;
   begin
@@ -959,12 +963,13 @@ var
 begin
   lblInfoImportacao.Caption     := 'Carregando registro 0200...';
   j                             := Pred(ACBrSPEDFiscal.Bloco_0.Registro0001.Registro0200.Count);
-  ProgressBar.Max               := j;
+  ProgressBar.Max               := ACBrSPEDFiscal.Bloco_0.Registro0001.Registro0200.Count;
   ProgressBar.Position          := 0;
   FNomeTabela                   := 'REGISTRO0200_' + FCNPJ;
+  vGerouID0200                  := false;
   Application.ProcessMessages;
 
-  if j > 0 then
+  if ACBrSPEDFiscal.Bloco_0.Registro0001.Registro0200.Count > 0 then
   begin
     if not TabelaExiste(FNomeTabela,dmPrincipal.DB) then
     CriaTabelaEmpresaLogada(GetSQLCreateRegistro0200(FCNPJ));
@@ -980,7 +985,15 @@ begin
       for I := 0 to j do
       begin
          Qry0200.Insert;
-         Qry0200ID.AsInteger         := GetID('"CADASTROS"."'+ FNomeTabela + '"',dmPrincipal.DB) + 1;
+
+         if not vGerouID0200 then
+         begin
+           vID0200       := GetID('"CADASTROS"."REGISTRO0200_' + FCNPJ + '"',dmPrincipal.DB);
+           vGerouID0200  := true;
+         end;
+
+         vID0200                     := vID0200 + 1;
+         Qry0200ID.AsInteger         := vID0200;
          Qry0200IDSPED.AsInteger     := Qry0000ID.AsInteger;
          Qry0200COD_ITEM.AsString    := ACBrSPEDFiscal.Bloco_0.Registro0001.
                                         Registro0200.Items[I].COD_ITEM;
@@ -1038,7 +1051,7 @@ var
 begin
   lblInfoImportacao.Caption     := 'Carregando registro C100 e C170...';
   j                             := Pred(ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Count);
-  ProgressBar.Max               := j;
+  ProgressBar.Max               := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Count;
   ProgressBar.Position          := 0;
   FNomeTabela                   := 'REGISTROC100_' + FCNPJ;
   Application.ProcessMessages;
@@ -1049,7 +1062,7 @@ begin
   vGerouIDC170e  := false;
   vGerouIDC170s  := false;
 
-  if j > 0 then
+  if ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Count > 0 then
   begin
     if not TabelaExiste(FNomeTabela,dmPrincipal.DB) then
     CriaTabelaEmpresaLogada(GetSQLCreateRegistroC100(FCNPJ));
@@ -1059,25 +1072,25 @@ begin
       QryC100e.Close;
       QryC100e.SQL.Clear;
       QryC100e.SQL.Text  := 'SELECT * FROM "REG_ENT"."REGISTROC100_' + FCNPJ + '"'+
-                            'WHERE "ID" = -1';
+                            ' WHERE "ID" = -1';
       QryC100e.Open;
 
       QryC170e.Close;
       QryC170e.SQL.Clear;
       QryC170e.SQL.Text  := 'SELECT * FROM "REG_ENT"."REGISTROC170_' + FCNPJ + '"'+
-                            'WHERE "ID" = -1';
+                            ' WHERE "ID" = -1';
       QryC170e.Open;
 
       QryC100s.Close;
       QryC100s.SQL.Clear;
       QryC100s.SQL.Text  := 'SELECT * FROM "REG_SAIDA"."REGISTROC100_' + FCNPJ + '"'+
-                            'WHERE "ID" = -1';
+                            ' WHERE "ID" = -1';
       QryC100s.Open;
 
       QryC170s.Close;
       QryC170s.SQL.Clear;
       QryC170s.SQL.Text  := 'SELECT * FROM "REG_SAIDA"."REGISTROC170_' + FCNPJ + '"'+
-                            'WHERE "ID" = -1';
+                            ' WHERE "ID" = -1';
       QryC170s.Open;
 
       for I := 0 to j do
@@ -1295,17 +1308,18 @@ var
   vIDC425       : Integer;
   vGerouIDC400  : Boolean;
   vGerouIDC425  : Boolean;
+  vTeste        : String;
 begin
   lblInfoImportacao.Caption     := 'Carregando registro C400 e C425...';
   j                             := Pred(ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC400.Count);
-  ProgressBar.Max               := j;
+  ProgressBar.Max               := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC400.Count;
   ProgressBar.Position          := 0;
-  FNomeTabela                   := 'REGISTROC400_' + FCNPJ;
   Application.ProcessMessages;
   vGerouIDC400                  := false;
   vGerouIDC425                  := false;
+  FNomeTabela                   := 'REGISTROC400_' + FCNPJ;
 
-  if j > 0 then
+  if ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC400.Count > 0 then
   begin
     if not TabelaExiste(FNomeTabela,dmPrincipal.DB) then
     CriaTabelaEmpresaLogada(GetSQLCreateRegistroC400(FCNPJ));
@@ -1315,13 +1329,13 @@ begin
       QryC400.Close;
       QryC400.SQL.Clear;
       QryC400.SQL.Text  := 'SELECT * FROM "REG_SAIDA"."REGISTROC400_' + FCNPJ + '"'+
-                            'WHERE "ID" = -1';
+                           ' WHERE "ID" = -1';
       QryC400.Open;
 
       QryC425.Close;
       QryC425.SQL.Clear;
       QryC425.SQL.Text  := 'SELECT * FROM "REG_SAIDA"."REGISTROC425_' + FCNPJ + '"'+
-                            'WHERE "ID" = -1';
+                           ' WHERE "ID" = -1';
       QryC425.Open;
 
       for I := 0 to j do {C400 pega o numero de serie da ECF}
@@ -1346,6 +1360,9 @@ begin
           for L := 0 to Pred(ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC400.
                         Items[i].RegistroC405.Items[k].RegistroC420.Count) do
           begin
+            vTeste :=   ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC400.
+                        Items[i].RegistroC405.Items[k].RegistroC420.Items[L].COD_TOT_PAR;;
+
             for M := 0 to Pred(ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC400.
                           Items[i].RegistroC405.Items[k].RegistroC420.Items[L].
                           RegistroC425.Count) do
@@ -1361,15 +1378,20 @@ begin
               QryC425ID.AsInteger          := vIDC425;
               QryC425ID_SPED.AsInteger     := Qry0000ID.AsInteger;
               QryC425ID_REDZ.AsInteger     := QryC400ID.AsInteger;
+
               QryC425COD_TOT_PAR.AsString  := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC400.
                                               Items[i].RegistroC405.Items[k].RegistroC420.Items[L].COD_TOT_PAR;
+
               QryC425COD_ITEM.AsString     := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC400.
                                               Items[i].RegistroC405.Items[k].RegistroC420.Items[L].
                                               RegistroC425.Items[M].COD_ITEM;
+
               QryC425DESCR_ITEM.AsString   := DMImportacaoSPED.GetProduto(QryC425COD_ITEM.AsString);
+
               QryC425QTD.AsFloat           := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC400.
                                               Items[i].RegistroC405.Items[k].RegistroC420.Items[L].
                                               RegistroC425.Items[M].QTD;
+
               QryC425VL_ITEM.AsFloat       := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC400.
                                               Items[i].RegistroC405.Items[k].RegistroC420.Items[L].
                                               RegistroC425.Items[M].VL_ITEM;
@@ -1414,6 +1436,31 @@ begin
    GpbProcessaImportacao.Visible := false;
  end;
 
+end;
+
+procedure TFrmImportarSPED.LimpaTela;
+begin
+  EdtArquivo.Enabled            := false;
+  BtnIniciaImportacao.Enabled   := false;
+  BtnGravar.Enabled             := false;
+  BtnCancelar.Enabled           := false;
+  BtnNovaImportacacao.Enabled   := true;
+  BtnLocalizaImportacao.Enabled := true;
+  EdtArquivo.Clear;
+  cxPgcImportacao.Visible       := false;
+  GpbRegistro0000.Visible       := false;
+
+  with DMImportacaoSPED do
+  begin
+    Qry0000.Close;
+    Qry0200.Close;
+    QryC100e.Close;
+    QryC170e.Close;
+    QryC400.Close;
+    QryC425.Close;
+    QryC100s.Close;
+    QryC170s.Close;
+  end;
 end;
 
 end.

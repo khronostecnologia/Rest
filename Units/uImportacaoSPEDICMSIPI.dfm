@@ -7,6 +7,7 @@ inherited FrmImportarSPED: TFrmImportarSPED
   WindowState = wsMaximized
   OnClose = FormClose
   OnCreate = FormCreate
+  ExplicitTop = -86
   ExplicitWidth = 845
   ExplicitHeight = 542
   PixelsPerInch = 96
@@ -108,7 +109,7 @@ inherited FrmImportarSPED: TFrmImportarSPED
             645996B9F3F3F32CD948EE1F1D4D57A8768492378073B40ED1BF0032E87C30A4
             00F0110000000049454E44AE426082}
           TabOrder = 2
-          OnClick = BtnIniciaImportacaoClick
+          OnClick = BtnGravarClick
           Appearance.BorderColor = 14727579
           Appearance.BorderColorHot = 10079963
           Appearance.BorderColorDown = 4548219
@@ -1059,7 +1060,6 @@ inherited FrmImportarSPED: TFrmImportarSPED
             Height = 91
             Align = alTop
             TabOrder = 0
-            ExplicitTop = -6
             object cxGridDBTableView3: TcxGridDBTableView
               OnKeyDown = cxGridDBTableView3KeyDown
               Navigator.Buttons.CustomButtons = <>
@@ -1386,10 +1386,6 @@ inherited FrmImportarSPED: TFrmImportarSPED
             Align = alClient
             Caption = '   Itens da redu'#231#227'o Z (Registro C425)     '
             TabOrder = 1
-            ExplicitLeft = 80
-            ExplicitTop = 119
-            ExplicitWidth = 185
-            ExplicitHeight = 105
             object cxGridC425: TcxGrid
               Left = 2
               Top = 16
@@ -1397,7 +1393,6 @@ inherited FrmImportarSPED: TFrmImportarSPED
               Height = 113
               Align = alTop
               TabOrder = 0
-              ExplicitTop = -24
               object cxGridDBTableView7: TcxGridDBTableView
                 Navigator.Buttons.CustomButtons = <>
                 DataController.DataSource = DMImportacaoSPED.DsC425
