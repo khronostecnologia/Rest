@@ -15,7 +15,7 @@ type
     QryC100e: TFDQuery;
     QryC170e: TFDQuery;
     QryC400: TFDQuery;
-    QryC470: TFDQuery;
+    QryC425: TFDQuery;
     Ds0000: TDataSource;
     Ds0200: TDataSource;
     DsC100e: TDataSource;
@@ -23,7 +23,7 @@ type
     DsC100s: TDataSource;
     DsC170s: TDataSource;
     DsC400: TDataSource;
-    DsC470: TDataSource;
+    DsC425: TDataSource;
     Qry0000DT_INI: TDateTimeField;
     Qry0000DT_FIM: TDateTimeField;
     Qry0000COD_MUN: TIntegerField;
@@ -140,6 +140,18 @@ type
     QryC100sCOD_SIT: TStringField;
     QryC170eDESCR_ITEM: TStringField;
     QryC170sDESCR_ITEM: TStringField;
+    QryC400ID: TIntegerField;
+    QryC400ID_SPED: TIntegerField;
+    QryC400DATA: TDateTimeField;
+    QryC400ECF_FAB: TStringField;
+    QryC425ID: TIntegerField;
+    QryC425ID_SPED: TIntegerField;
+    QryC425ID_REDZ: TIntegerField;
+    QryC425COD_TOT_PAR: TStringField;
+    QryC425COD_ITEM: TStringField;
+    QryC425DESCR_ITEM: TStringField;
+    QryC425QTD: TFloatField;
+    QryC425VL_ITEM: TFloatField;
   private
     { Private declarations }
   public

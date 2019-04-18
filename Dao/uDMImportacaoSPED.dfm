@@ -285,12 +285,53 @@ object DMImportacaoSPED: TDMImportacaoSPED
     Connection = DMBase.DB
     Left = 32
     Top = 238
+    object QryC400ID: TIntegerField
+      FieldName = 'ID'
+    end
+    object QryC400ID_SPED: TIntegerField
+      FieldName = 'ID_SPED'
+    end
+    object QryC400DATA: TDateTimeField
+      FieldName = 'DATA'
+    end
+    object QryC400ECF_FAB: TStringField
+      FieldName = 'ECF_FAB'
+      Size = 21
+    end
   end
-  object QryC470: TFDQuery
+  object QryC425: TFDQuery
     CachedUpdates = True
     Connection = DMBase.DB
     Left = 96
     Top = 238
+    object QryC425ID: TIntegerField
+      FieldName = 'ID'
+    end
+    object QryC425ID_SPED: TIntegerField
+      FieldName = 'ID_SPED'
+    end
+    object QryC425ID_REDZ: TIntegerField
+      FieldName = 'ID_REDZ'
+    end
+    object QryC425COD_TOT_PAR: TStringField
+      FieldName = 'COD_TOT_PAR'
+      Size = 7
+    end
+    object QryC425COD_ITEM: TStringField
+      FieldName = 'COD_ITEM'
+      Size = 30
+    end
+    object QryC425DESCR_ITEM: TStringField
+      FieldName = 'DESCR_ITEM'
+      Size = 100
+    end
+    object QryC425QTD: TFloatField
+      FieldName = 'QTD'
+    end
+    object QryC425VL_ITEM: TFloatField
+      FieldName = 'VL_ITEM'
+      DisplayFormat = '0.00'
+    end
   end
   object Ds0000: TDataSource
     DataSet = Qry0000
@@ -327,8 +368,8 @@ object DMImportacaoSPED: TDMImportacaoSPED
     Left = 160
     Top = 238
   end
-  object DsC470: TDataSource
-    DataSet = QryC470
+  object DsC425: TDataSource
+    DataSet = QryC425
     Left = 224
     Top = 238
   end
