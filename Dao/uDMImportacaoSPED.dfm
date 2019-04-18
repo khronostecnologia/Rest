@@ -93,6 +93,7 @@ object DMImportacaoSPED: TDMImportacaoSPED
     end
     object Qry0200ID: TIntegerField
       FieldName = 'ID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfHidden]
     end
   end
   object QryC100e: TFDQuery
