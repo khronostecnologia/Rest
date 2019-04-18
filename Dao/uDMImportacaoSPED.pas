@@ -136,10 +136,15 @@ type
     QryC170eID: TIntegerField;
     QryC100sID: TIntegerField;
     QryC170sID: TIntegerField;
+    QryC100eCOD_SIT: TStringField;
+    QryC100sCOD_SIT: TStringField;
+    QryC170eDESCR_ITEM: TStringField;
+    QryC170sDESCR_ITEM: TStringField;
   private
     { Private declarations }
   public
     { Public declarations }
+    function GetProduto(AID : String):String;
   end;
 
 var
@@ -152,5 +157,15 @@ implementation
 {$R *.dfm}
 
 Uses udmBase;
+
+{ TDMImportacaoSPED }
+
+function TDMImportacaoSPED.GetProduto(AID: String): String;
+begin
+  Qry0200.DisableControls;
+  Qry0200.Locate('COD_ITEM',AID,[]);
+  result  := Qry0200DESCR_ITEM.AsString;
+  Qry0200.EnableControls;
+end;
 
 end.

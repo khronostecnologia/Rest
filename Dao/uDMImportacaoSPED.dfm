@@ -134,51 +134,67 @@ object DMImportacaoSPED: TDMImportacaoSPED
     end
     object QryC100eVL_DOC: TFloatField
       FieldName = 'VL_DOC'
+      DisplayFormat = '0.00'
     end
     object QryC100eVL_MERC: TFloatField
       FieldName = 'VL_MERC'
+      DisplayFormat = '0.00'
     end
     object QryC100eVL_DESC: TFloatField
       FieldName = 'VL_DESC'
+      DisplayFormat = '0.00'
     end
     object QryC100eVL_FRT: TFloatField
       FieldName = 'VL_FRT'
+      DisplayFormat = '0.00'
     end
     object QryC100eVL_SEG: TFloatField
       FieldName = 'VL_SEG'
+      DisplayFormat = '0.00'
     end
     object QryC100eVL_OUT_DA: TFloatField
       FieldName = 'VL_OUT_DA'
+      DisplayFormat = '0.00'
     end
     object QryC100eVL_BC_ICMS: TFloatField
       FieldName = 'VL_BC_ICMS'
+      DisplayFormat = '0.00'
     end
     object QryC100eVL_ICMS: TFloatField
       FieldName = 'VL_ICMS'
+      DisplayFormat = '0.00'
     end
     object QryC100eVL_BC_ICMS_ST: TFloatField
       FieldName = 'VL_BC_ICMS_ST'
+      DisplayFormat = '0.00'
     end
     object QryC100eVL_ICMS_ST: TFloatField
       FieldName = 'VL_ICMS_ST'
+      DisplayFormat = '0.00'
     end
     object QryC100eVL_BC_IPI: TFloatField
       FieldName = 'VL_BC_IPI'
+      DisplayFormat = '0.00'
     end
     object QryC100eVL_IPI: TFloatField
       FieldName = 'VL_IPI'
+      DisplayFormat = '0.00'
     end
     object QryC100eVL_BC_PIS: TFloatField
       FieldName = 'VL_BC_PIS'
+      DisplayFormat = '0.00'
     end
     object QryC100eVL_PIS: TFloatField
       FieldName = 'VL_PIS'
+      DisplayFormat = '0.00'
     end
     object QryC100eVL_BC_COFINS: TFloatField
       FieldName = 'VL_BC_COFINS'
+      DisplayFormat = '0.00'
     end
     object QryC100eVL_COFINS: TFloatField
       FieldName = 'VL_COFINS'
+      DisplayFormat = '0.00'
     end
     object QryC100ePARTICIPANTE: TStringField
       FieldName = 'PARTICIPANTE'
@@ -186,6 +202,10 @@ object DMImportacaoSPED: TDMImportacaoSPED
     end
     object QryC100eID: TIntegerField
       FieldName = 'ID'
+    end
+    object QryC100eCOD_SIT: TStringField
+      FieldName = 'COD_SIT'
+      Size = 50
     end
   end
   object QryC170e: TFDQuery
@@ -213,9 +233,11 @@ object DMImportacaoSPED: TDMImportacaoSPED
     end
     object QryC170eVL_ITEM: TFloatField
       FieldName = 'VL_ITEM'
+      DisplayFormat = '0.00'
     end
     object QryC170eVL_DESC: TFloatField
       FieldName = 'VL_DESC'
+      DisplayFormat = '0.00'
     end
     object QryC170eCST_ICMS: TStringField
       FieldName = 'CST_ICMS'
@@ -227,27 +249,35 @@ object DMImportacaoSPED: TDMImportacaoSPED
     end
     object QryC170eVL_BC_ICMS: TFloatField
       FieldName = 'VL_BC_ICMS'
+      DisplayFormat = '0.00'
     end
     object QryC170eALIQ_ICMS: TFloatField
       FieldName = 'ALIQ_ICMS'
     end
     object QryC170eVL_ICMS: TFloatField
       FieldName = 'VL_ICMS'
+      DisplayFormat = '0.00'
     end
     object QryC170eVL_BC_ICMS_ST: TFloatField
       FieldName = 'VL_BC_ICMS_ST'
+      DisplayFormat = '0.00'
     end
     object QryC170eALIQ_ST: TFloatField
       FieldName = 'ALIQ_ST'
     end
     object QryC170eVL_ICMS_ST: TFloatField
       FieldName = 'VL_ICMS_ST'
+      DisplayFormat = '0.00'
     end
     object QryC170eIDNF: TIntegerField
       FieldName = 'IDNF'
     end
     object QryC170eID: TIntegerField
       FieldName = 'ID'
+    end
+    object QryC170eDESCR_ITEM: TStringField
+      FieldName = 'DESCR_ITEM'
+      Size = 50
     end
   end
   object QryC400: TFDQuery
@@ -342,51 +372,67 @@ object DMImportacaoSPED: TDMImportacaoSPED
     end
     object QryC100sVL_DOC: TFloatField
       FieldName = 'VL_DOC'
+      DisplayFormat = '0.00'
     end
     object QryC100sVL_MERC: TFloatField
       FieldName = 'VL_MERC'
+      DisplayFormat = '0.00'
     end
     object QryC100sVL_DESC: TFloatField
       FieldName = 'VL_DESC'
+      DisplayFormat = '0.00'
     end
     object QryC100sVL_FRT: TFloatField
       FieldName = 'VL_FRT'
+      DisplayFormat = '0.00'
     end
     object QryC100sVL_SEG: TFloatField
       FieldName = 'VL_SEG'
+      DisplayFormat = '0.00'
     end
     object QryC100sVL_OUT_DA: TFloatField
       FieldName = 'VL_OUT_DA'
+      DisplayFormat = '0.00'
     end
     object QryC100sVL_BC_ICMS: TFloatField
       FieldName = 'VL_BC_ICMS'
+      DisplayFormat = '0.00'
     end
     object QryC100sVL_ICMS: TFloatField
       FieldName = 'VL_ICMS'
+      DisplayFormat = '0.00'
     end
     object QryC100sVL_BC_ICMS_ST: TFloatField
       FieldName = 'VL_BC_ICMS_ST'
+      DisplayFormat = '0.00'
     end
     object QryC100sVL_ICMS_ST: TFloatField
       FieldName = 'VL_ICMS_ST'
+      DisplayFormat = '0.00'
     end
     object QryC100sVL_BC_IPI: TFloatField
       FieldName = 'VL_BC_IPI'
+      DisplayFormat = '0.00'
     end
     object QryC100sVL_IPI: TFloatField
       FieldName = 'VL_IPI'
+      DisplayFormat = '0.00'
     end
     object QryC100sVL_BC_PIS: TFloatField
       FieldName = 'VL_BC_PIS'
+      DisplayFormat = '0.00'
     end
     object QryC100sVL_PIS: TFloatField
       FieldName = 'VL_PIS'
+      DisplayFormat = '0.00'
     end
     object QryC100sVL_BC_COFINS: TFloatField
       FieldName = 'VL_BC_COFINS'
+      DisplayFormat = '0.00'
     end
     object QryC100sVL_COFINS: TFloatField
       FieldName = 'VL_COFINS'
+      DisplayFormat = '0.00'
     end
     object QryC100sPARTICIPANTE: TStringField
       FieldName = 'PARTICIPANTE'
@@ -394,6 +440,10 @@ object DMImportacaoSPED: TDMImportacaoSPED
     end
     object QryC100sID: TIntegerField
       FieldName = 'ID'
+    end
+    object QryC100sCOD_SIT: TStringField
+      FieldName = 'COD_SIT'
+      Size = 50
     end
   end
   object QryC170s: TFDQuery
@@ -424,9 +474,11 @@ object DMImportacaoSPED: TDMImportacaoSPED
     end
     object QryC170sVL_ITEM: TFloatField
       FieldName = 'VL_ITEM'
+      DisplayFormat = '0.00'
     end
     object QryC170sVL_DESC: TFloatField
       FieldName = 'VL_DESC'
+      DisplayFormat = '0.00'
     end
     object QryC170sCST_ICMS: TStringField
       FieldName = 'CST_ICMS'
@@ -438,24 +490,32 @@ object DMImportacaoSPED: TDMImportacaoSPED
     end
     object QryC170sVL_BC_ICMS: TFloatField
       FieldName = 'VL_BC_ICMS'
+      DisplayFormat = '0.00'
     end
     object QryC170sALIQ_ICMS: TFloatField
       FieldName = 'ALIQ_ICMS'
     end
     object QryC170sVL_ICMS: TFloatField
       FieldName = 'VL_ICMS'
+      DisplayFormat = '0.00'
     end
     object QryC170sVL_BC_ICMS_ST: TFloatField
       FieldName = 'VL_BC_ICMS_ST'
+      DisplayFormat = '0.00'
     end
     object QryC170sALIQ_ST: TFloatField
       FieldName = 'ALIQ_ST'
     end
     object QryC170sVL_ICMS_ST: TFloatField
       FieldName = 'VL_ICMS_ST'
+      DisplayFormat = '0.00'
     end
     object QryC170sID: TIntegerField
       FieldName = 'ID'
+    end
+    object QryC170sDESCR_ITEM: TStringField
+      FieldName = 'DESCR_ITEM'
+      Size = 50
     end
   end
 end
