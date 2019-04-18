@@ -1,7 +1,7 @@
 object FrmMenu: TFrmMenu
   Left = 0
   Top = 0
-  Caption = 'Rest - Sistema de  an'#225'lise de tributa'#231#245'es   | FrmMenu'
+  Caption = 'Rest - Sistema de analise tribut'#225'ria | FrmMenu'
   ClientHeight = 419
   ClientWidth = 691
   Color = clBtnFace

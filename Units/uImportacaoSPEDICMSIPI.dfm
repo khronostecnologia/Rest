@@ -7,7 +7,7 @@ inherited FrmImportarSPED: TFrmImportarSPED
   WindowState = wsMaximized
   OnClose = FormClose
   OnCreate = FormCreate
-  ExplicitTop = -86
+  ExplicitTop = -77
   ExplicitWidth = 845
   ExplicitHeight = 542
   PixelsPerInch = 96
@@ -646,7 +646,7 @@ inherited FrmImportarSPED: TFrmImportarSPED
         ParentBackground = False
         ParentColor = False
         TabOrder = 2
-        Properties.ActivePage = TbsC400
+        Properties.ActivePage = TbsAnalise
         Properties.CustomButtons.Buttons = <>
         Properties.CustomButtons.Mode = cbmEveryTab
         Properties.DragImage.Data = {
@@ -1441,17 +1441,18 @@ inherited FrmImportarSPED: TFrmImportarSPED
           Caption = 'Resultado analise do arquivo'
           ImageIndex = 4
           object GpbResultEntrada: TAdvGroupBox
-            Left = 3
-            Top = 3
-            Width = 535
-            Height = 86
+            Left = 0
+            Top = 0
+            Width = 839
+            Height = 80
+            Align = alTop
             Caption = '   Entrada(s) '
             TabOrder = 0
             object cxGridTotalizadorEntrada: TcxGrid
               Left = 2
               Top = 16
-              Width = 531
-              Height = 68
+              Width = 835
+              Height = 62
               Align = alClient
               TabOrder = 0
               object cxGridTotalizadorEntradaDBTableView1: TcxGridDBTableView
@@ -1467,17 +1468,18 @@ inherited FrmImportarSPED: TFrmImportarSPED
             end
           end
           object GpbResultSaida: TAdvGroupBox
-            Left = 3
-            Top = 92
-            Width = 535
-            Height = 107
+            Left = 0
+            Top = 80
+            Width = 839
+            Height = 78
+            Align = alClient
             Caption = 'Sa'#237'da(s)'
             TabOrder = 1
             object cxGridTotalizadorSaida: TcxGrid
               Left = 2
               Top = 16
-              Width = 531
-              Height = 89
+              Width = 835
+              Height = 60
               Align = alClient
               TabOrder = 0
               object cxGridDBTableView6: TcxGridDBTableView
@@ -1493,33 +1495,33 @@ inherited FrmImportarSPED: TFrmImportarSPED
             end
           end
           object GpbTotalizador: TAdvGroupBox
-            Left = 653
-            Top = 0
-            Width = 186
-            Height = 202
-            Align = alRight
+            Left = 0
+            Top = 158
+            Width = 839
+            Height = 44
+            Align = alBottom
             Caption = '   Totalizador '
             TabOrder = 2
             object lblTotalEntrada: TLabel
-              Left = 12
-              Top = 22
+              Left = 8
+              Top = 19
               Width = 140
               Height = 13
               Caption = 'Total ICMS ST entrada : 0,00'
             end
             object lblTotalSaida: TLabel
-              Left = 12
-              Top = 41
-              Width = 127
+              Left = 189
+              Top = 19
+              Width = 140
               Height = 13
-              Caption = 'Total ICMS ST saida : 0,00'
+              Caption = '|   Total ICMS ST saida : 0,00'
             end
             object lblRestituir: TLabel
-              Left = 12
-              Top = 60
-              Width = 108
+              Left = 371
+              Top = 19
+              Width = 124
               Height = 13
-              Caption = 'Valor restituir: 0,00'
+              Caption = '|   Valor restituir: 0,00'
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clNavy
               Font.Height = -11
@@ -1528,11 +1530,11 @@ inherited FrmImportarSPED: TFrmImportarSPED
               ParentFont = False
             end
             object lblComplementar: TLabel
-              Left = 12
-              Top = 77
-              Width = 148
+              Left = 533
+              Top = 19
+              Width = 164
               Height = 13
-              Caption = 'Valor complementar : 0,00'
+              Caption = '|   Valor complementar : 0,00'
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clRed
               Font.Height = -11
@@ -1541,14 +1543,14 @@ inherited FrmImportarSPED: TFrmImportarSPED
               ParentFont = False
             end
             object BtnImprimirResultado: TAdvGlowButton
-              Left = 13
-              Top = 104
-              Width = 156
-              Height = 81
+              Left = 720
+              Top = 10
+              Width = 114
+              Height = 30
               Caption = 'Imprimir anal'#237'se'
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clWindowText
-              Font.Height = -13
+              Font.Height = -11
               Font.Name = 'MS Sans Serif'
               Font.Style = [fsBold]
               NotesFont.Charset = DEFAULT_CHARSET
@@ -1605,7 +1607,6 @@ inherited FrmImportarSPED: TFrmImportarSPED
                 0293DF0A00B5BFAE528596954FBF629CFF01121CFE29C9C6B596000000004945
                 4E44AE426082}
               TabOrder = 0
-              OnClick = BtnSairClick
               Appearance.BorderColor = 14727579
               Appearance.BorderColorHot = 10079963
               Appearance.BorderColorDown = 4548219
@@ -1635,6 +1636,8 @@ inherited FrmImportarSPED: TFrmImportarSPED
               Appearance.GradientDown = ggVertical
               Appearance.GradientMirrorDown = ggVertical
               Appearance.GradientChecked = ggVertical
+              DropDownButton = True
+              DropDownMenu = AdvPopupMenu1
             end
           end
         end
@@ -1751,11 +1754,113 @@ inherited FrmImportarSPED: TFrmImportarSPED
     TrimString = True
     CurMascara = '#0.00'
     Left = 688
-    Top = 470
+    Top = 462
   end
   object ACBrSpedFiscalImportar: TACBrSpedFiscalImportar
     ACBrSpedFiscal = ACBrSPEDFiscal
     Left = 624
     Top = 470
+  end
+  object AdvPopupMenu1: TAdvPopupMenu
+    MenuStyler = MnuImprimir
+    Version = '2.6.2.1'
+    Left = 576
+    Top = 404
+    object Analtico1: TMenuItem
+      Caption = 'Anal'#237'tico'
+    end
+    object Sinttico1: TMenuItem
+      Caption = 'Sint'#233'tico'
+    end
+  end
+  object MnuImprimir: TAdvMenuStyler
+    AntiAlias = aaNone
+    Background.Position = bpCenter
+    SelectedItem.Font.Charset = DEFAULT_CHARSET
+    SelectedItem.Font.Color = clWindowText
+    SelectedItem.Font.Height = -12
+    SelectedItem.Font.Name = 'Segoe UI'
+    SelectedItem.Font.Style = []
+    SelectedItem.NotesFont.Charset = DEFAULT_CHARSET
+    SelectedItem.NotesFont.Color = clWindowText
+    SelectedItem.NotesFont.Height = -9
+    SelectedItem.NotesFont.Name = 'Segoe UI'
+    SelectedItem.NotesFont.Style = []
+    RootItem.Font.Charset = DEFAULT_CHARSET
+    RootItem.Font.Color = clWindowText
+    RootItem.Font.Height = -12
+    RootItem.Font.Name = 'Segoe UI'
+    RootItem.Font.Style = []
+    Glyphs.SubMenu.Data = {
+      5A000000424D5A000000000000003E0000002800000004000000070000000100
+      0100000000001C0000000000000000000000020000000200000000000000FFFF
+      FF0070000000300000001000000000000000100000003000000070000000}
+    Glyphs.Check.Data = {
+      36040000424D3604000000000000360000002800000010000000100000000100
+      2000000000000004000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000000000001E1E1E811E1E1E810000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000001E1E1E813C3C3CFF3C3C3CFF1E1E
+      1E81000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000000000001E1E1E813C3C3CFF3C3C3CFF3C3C3CFF3C3C
+      3CFF1E1E1E810000000000000000000000000000000000000000000000000000
+      000000000000000000001E1E1E813C3C3CFF3C3C3CFF3C3C3CFF3C3C3CFF3C3C
+      3CFF3C3C3CFF1E1E1E8100000000000000000000000000000000000000000000
+      0000000000000F0F0F403C3C3CFF3C3C3CFF3C3C3CFF1E1E1E7E1E1E1E7E3C3C
+      3CFF3C3C3CFF3C3C3CFF1E1E1E81000000000000000000000000000000000000
+      000000000000000000001E1E1E7E3C3C3CFF1E1E1E7E00000000000000001E1E
+      1E7E3C3C3CFF3C3C3CFF3C3C3CFF1E1E1E810000000000000000000000000000
+      00000000000000000000000000000F0F0F3E0000000000000000000000000000
+      00001E1E1E7E3C3C3CFF3C3C3CFF3C3C3CFF1E1E1E8100000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000001E1E1E7E3C3C3CFF3C3C3CFF3C3C3CFF0F0F0F40000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000040404121E1E1E7E3C3C3CFF1E1E1E7E000000003C3C3CFF0909
+      09263C3C3CFF0707071D3C3C3CFF3C3C3CFF141414540303030B101010463C3C
+      3CFF3C3C3CFF01010106000000000F0F0F3E00000000000000003C3C3CFF3C3C
+      3CFF3C3C3CFF080808203C3C3CFF0B0B0B303C3C3CFF040404133C3C3CFF0303
+      030C0101010600000002000000000000000000000000000000003C3C3CFF0808
+      08213C3C3CFF0606061A3C3C3CFF3C3C3CFF1E1E1E7F040404113C3C3CFF0101
+      01060000000000000000000000000000000000000000000000003C3C3CFF1313
+      13503C3C3CFF050505153C3C3CFF080808213C3C3CFF0303030D3C3C3CFF0202
+      0208010101040000000100000000000000000000000000000000101010453C3C
+      3CFF101010460202020A3C3C3CFF3C3C3CFF1111114901010105101010423C3C
+      3CFF3C3C3CFF0000000200000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000}
+    Glyphs.Radio.Data = {
+      7E000000424D7E000000000000003E0000002800000010000000100000000100
+      010000000000400000000000000000000000020000000200000000000000FFFF
+      FF00FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FC3F0000F81F0000F81F
+      0000F81F0000F81F0000FC3F0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF
+      0000}
+    SideBar.Font.Charset = DEFAULT_CHARSET
+    SideBar.Font.Color = clWhite
+    SideBar.Font.Height = -19
+    SideBar.Font.Name = 'Tahoma'
+    SideBar.Font.Style = [fsBold, fsItalic]
+    SideBar.Image.Position = bpCenter
+    SideBar.Background.Position = bpCenter
+    SideBar.SplitterColorTo = clBlack
+    Separator.GradientType = gtBoth
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    NotesFont.Charset = DEFAULT_CHARSET
+    NotesFont.Color = clGray
+    NotesFont.Height = -9
+    NotesFont.Name = 'Segoe UI'
+    NotesFont.Style = []
+    ButtonAppearance.CaptionFont.Charset = DEFAULT_CHARSET
+    ButtonAppearance.CaptionFont.Color = clWindowText
+    ButtonAppearance.CaptionFont.Height = -11
+    ButtonAppearance.CaptionFont.Name = 'Segoe UI'
+    ButtonAppearance.CaptionFont.Style = []
+    Left = 640
+    Top = 406
   end
 end

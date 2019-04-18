@@ -32,7 +32,7 @@ uses
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
   FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, dxGDIPlusClasses, Vcl.ExtCtrls,
-  cxTextEdit, cxGridCustomPopupMenu, cxGridPopupMenu;
+  cxTextEdit, cxGridCustomPopupMenu, cxGridPopupMenu, Vcl.Menus, AdvMenus;
 
 type
   TFrmImportarSPED = class(TFrmMaster)
@@ -138,11 +138,6 @@ type
     GpbResultEntrada: TAdvGroupBox;
     GpbResultSaida: TAdvGroupBox;
     GpbTotalizador: TAdvGroupBox;
-    lblTotalEntrada: TLabel;
-    lblTotalSaida: TLabel;
-    lblRestituir: TLabel;
-    lblComplementar: TLabel;
-    BtnImprimirResultado: TAdvGlowButton;
     cxGridTotalizadorEntradaDBTableView1: TcxGridDBTableView;
     cxGridTotalizadorEntradaLevel1: TcxGridLevel;
     cxGridTotalizadorEntrada: TcxGrid;
@@ -206,6 +201,15 @@ type
     cxGridDBTableView7DESCR_ITEM: TcxGridDBColumn;
     cxGridDBTableView7QTD: TcxGridDBColumn;
     cxGridDBTableView7VL_ITEM: TcxGridDBColumn;
+    lblTotalEntrada: TLabel;
+    lblTotalSaida: TLabel;
+    lblRestituir: TLabel;
+    lblComplementar: TLabel;
+    BtnImprimirResultado: TAdvGlowButton;
+    AdvPopupMenu1: TAdvPopupMenu;
+    MnuImprimir: TAdvMenuStyler;
+    Analtico1: TMenuItem;
+    Sinttico1: TMenuItem;
     procedure BtnIniciaImportacaoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
