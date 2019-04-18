@@ -31,7 +31,8 @@ uses
   FireDAC.Stan.Intf, FireDAC.Stan.Option,
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
   FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
-  FireDAC.Comp.DataSet, FireDAC.Comp.Client, dxGDIPlusClasses, Vcl.ExtCtrls;
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client, dxGDIPlusClasses, Vcl.ExtCtrls,
+  cxTextEdit;
 
 type
   TFrmImportarSPED = class(TFrmMaster)
@@ -80,13 +81,6 @@ type
     cxGridDBTableView1COD_NCM: TcxGridDBColumn;
     cxGridDBTableView1ALIQ_ICMS: TcxGridDBColumn;
     cxGridDBTableView1CEST: TcxGridDBColumn;
-    cxPageControl1: TcxPageControl;
-    cxTabSheet1: TcxTabSheet;
-    cxGridC170e: TcxGrid;
-    cxGridDBTableView4: TcxGridDBTableView;
-    cxGridLevel4: TcxGridLevel;
-    cxPageControl2: TcxPageControl;
-    cxTabSheet2: TcxTabSheet;
     cxGridDBTableView2IND_OPER: TcxGridDBColumn;
     cxGridDBTableView2COD_PART: TcxGridDBColumn;
     cxGridDBTableView2COD_MOD: TcxGridDBColumn;
@@ -120,7 +114,7 @@ type
     cxGridDBColumn4: TcxGridDBColumn;
     cxGridDBColumn5: TcxGridDBColumn;
     cxGridDBColumn6: TcxGridDBColumn;
-    cxGridDBColumn7: TcxGridDBColumn;
+    cxGridDBTableView3Chv_acesso: TcxGridDBColumn;
     cxGridDBColumn8: TcxGridDBColumn;
     cxGridDBColumn9: TcxGridDBColumn;
     cxGridDBColumn10: TcxGridDBColumn;
@@ -140,37 +134,6 @@ type
     cxGridDBColumn24: TcxGridDBColumn;
     cxGridDBColumn25: TcxGridDBColumn;
     cxGridLevel3: TcxGridLevel;
-    cxGridDBTableView4NUM_ITEM: TcxGridDBColumn;
-    cxGridDBTableView4COD_ITEM: TcxGridDBColumn;
-    cxGridDBTableView4QTDE: TcxGridDBColumn;
-    cxGridDBTableView4UNID: TcxGridDBColumn;
-    cxGridDBTableView4VL_ITEM: TcxGridDBColumn;
-    cxGridDBTableView4VL_DESC: TcxGridDBColumn;
-    cxGridDBTableView4CST_ICMS: TcxGridDBColumn;
-    cxGridDBTableView4CFOP: TcxGridDBColumn;
-    cxGridDBTableView4VL_BC_ICMS: TcxGridDBColumn;
-    cxGridDBTableView4ALIQ_ICMS: TcxGridDBColumn;
-    cxGridDBTableView4VL_ICMS: TcxGridDBColumn;
-    cxGridDBTableView4VL_BC_ICMS_ST: TcxGridDBColumn;
-    cxGridDBTableView4ALIQ_ST: TcxGridDBColumn;
-    cxGridDBTableView4VL_ICMS_ST: TcxGridDBColumn;
-    cxGridC170s: TcxGrid;
-    cxGridDBTableView5: TcxGridDBTableView;
-    cxGridDBColumn26: TcxGridDBColumn;
-    cxGridDBColumn27: TcxGridDBColumn;
-    cxGridDBColumn28: TcxGridDBColumn;
-    cxGridDBColumn29: TcxGridDBColumn;
-    cxGridDBColumn30: TcxGridDBColumn;
-    cxGridDBColumn31: TcxGridDBColumn;
-    cxGridDBColumn32: TcxGridDBColumn;
-    cxGridDBColumn33: TcxGridDBColumn;
-    cxGridDBColumn34: TcxGridDBColumn;
-    cxGridDBColumn35: TcxGridDBColumn;
-    cxGridDBColumn36: TcxGridDBColumn;
-    cxGridDBColumn37: TcxGridDBColumn;
-    cxGridDBColumn38: TcxGridDBColumn;
-    cxGridDBColumn39: TcxGridDBColumn;
-    cxGridLevel5: TcxGridLevel;
     TbsAnalise: TcxTabSheet;
     GpbResultEntrada: TAdvGroupBox;
     GpbResultSaida: TAdvGroupBox;
@@ -188,6 +151,47 @@ type
     cxGridLevel6: TcxGridLevel;
     BtnLocalizaImportacao: TAdvGlowButton;
     BtnNovaImportacacao: TAdvGlowButton;
+    cxGridDBTableView2COD_SIT: TcxGridDBColumn;
+    cxGridDBTableView3SituacaoDocumento: TcxGridDBColumn;
+    GpbRegistroC170s: TAdvGroupBox;
+    cxGridC170s: TcxGrid;
+    cxGridDBTableView5: TcxGridDBTableView;
+    cxGridDBColumn26: TcxGridDBColumn;
+    cxGridDBColumn27: TcxGridDBColumn;
+    cxGridDBColumn28: TcxGridDBColumn;
+    cxGridDBColumn29: TcxGridDBColumn;
+    cxGridDBColumn30: TcxGridDBColumn;
+    cxGridDBColumn31: TcxGridDBColumn;
+    cxGridDBColumn32: TcxGridDBColumn;
+    cxGridDBColumn33: TcxGridDBColumn;
+    cxGridDBColumn34: TcxGridDBColumn;
+    cxGridDBColumn35: TcxGridDBColumn;
+    cxGridDBColumn36: TcxGridDBColumn;
+    cxGridDBColumn37: TcxGridDBColumn;
+    cxGridDBColumn38: TcxGridDBColumn;
+    cxGridDBColumn39: TcxGridDBColumn;
+    cxGridLevel5: TcxGridLevel;
+    GpbRegistroC170e: TAdvGroupBox;
+    cxGridC170e: TcxGrid;
+    cxGridDBTableView4: TcxGridDBTableView;
+    cxGridDBTableView4NUM_ITEM: TcxGridDBColumn;
+    cxGridDBTableView4COD_ITEM: TcxGridDBColumn;
+    cxGridDBTableView4QTDE: TcxGridDBColumn;
+    cxGridDBTableView4UNID: TcxGridDBColumn;
+    cxGridDBTableView4VL_ITEM: TcxGridDBColumn;
+    cxGridDBTableView4VL_DESC: TcxGridDBColumn;
+    cxGridDBTableView4CST_ICMS: TcxGridDBColumn;
+    cxGridDBTableView4CFOP: TcxGridDBColumn;
+    cxGridDBTableView4VL_BC_ICMS: TcxGridDBColumn;
+    cxGridDBTableView4ALIQ_ICMS: TcxGridDBColumn;
+    cxGridDBTableView4VL_ICMS: TcxGridDBColumn;
+    cxGridDBTableView4VL_BC_ICMS_ST: TcxGridDBColumn;
+    cxGridDBTableView4ALIQ_ST: TcxGridDBColumn;
+    cxGridDBTableView4VL_ICMS_ST: TcxGridDBColumn;
+    cxGridLevel4: TcxGridLevel;
+    Label2: TLabel;
+    cxGridDBTableView5Descr_item: TcxGridDBColumn;
+    cxGridDBTableView4Descr_item: TcxGridDBColumn;
     procedure BtnIniciaImportacaoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -198,6 +202,18 @@ type
     procedure BtnNovaImportacacaoClick(Sender: TObject);
     procedure BtnCancelarClick(Sender: TObject);
     procedure BtnLocalizaImportacaoClick(Sender: TObject);
+    procedure cxGridDBTableView2CanSelectRecord(Sender: TcxCustomGridTableView;
+      ARecord: TcxCustomGridRecord; var AAllow: Boolean);
+    procedure cxGridDBTableView2CellClick(Sender: TcxCustomGridTableView;
+      ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
+      AShift: TShiftState; var AHandled: Boolean);
+    procedure cxGridDBTableView2KeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure cxGridDBTableView3KeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure cxGridDBTableView3CellClick(Sender: TcxCustomGridTableView;
+      ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
+      AShift: TShiftState; var AHandled: Boolean);
   private
     { Private declarations }
     FNomeTabela : String;
@@ -262,6 +278,7 @@ begin
     FrmMensagem.Informacao('Informe o arquivo que deseja importar ' +
                            ' e tente novamente!');
     SetaFoco(EdtArquivo);
+    exit;
   end;
   ImportarSPED;
   cxPgcImportacao.ActivePageIndex := 0;
@@ -269,6 +286,7 @@ begin
   BtnCancelar.Enabled           := true;
   BtnLocalizaImportacao.Enabled := false;
   BtnNovaImportacacao.Enabled   := false;
+  BtnIniciaImportacao.Enabled   := false;
 end;
 
 procedure TFrmImportarSPED.BtnLocalizaImportacaoClick(Sender: TObject);
@@ -369,6 +387,115 @@ begin
   dmPrincipal.DB.ExecSQL(ASQL);
 end;
 
+
+procedure TFrmImportarSPED.cxGridDBTableView2CanSelectRecord(
+  Sender: TcxCustomGridTableView; ARecord: TcxCustomGridRecord;
+  var AAllow: Boolean);
+begin
+  inherited;
+
+    if (DMImportacaoSPED.QryC170e.Active) and
+       (DMImportacaoSPED.QryC100e.State = (dsBrowse)) then
+    begin
+      DMImportacaoSPED.QryC170e.Filtered := false;
+      DMImportacaoSPED.QryC170e.Filter   := ' IDNF = ' +
+                                          DMImportacaoSPED.QryC100eID.AsString;
+      DMImportacaoSPED.QryC170e.Filtered := true;
+    end;
+
+end;
+
+procedure TFrmImportarSPED.cxGridDBTableView2CellClick(
+  Sender: TcxCustomGridTableView; ACellViewInfo: TcxGridTableDataCellViewInfo;
+  AButton: TMouseButton; AShift: TShiftState; var AHandled: Boolean);
+begin
+  inherited;
+    if (DMImportacaoSPED.QryC170e.Active) and
+       (DMImportacaoSPED.QryC100e.State = (dsBrowse)) then
+    begin
+      DMImportacaoSPED.QryC170e.Filtered := false;
+      DMImportacaoSPED.QryC170e.Filter   := ' IDNF = ' +
+                                          DMImportacaoSPED.QryC100eID.AsString;
+      DMImportacaoSPED.QryC170e.Filtered := true;
+    end;
+end;
+
+procedure TFrmImportarSPED.cxGridDBTableView2KeyDown(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  inherited;
+  if (Key = VK_UP) or ( key = VK_DOWN) then
+  begin
+    if (DMImportacaoSPED.QryC170e.Active) and
+       (DMImportacaoSPED.QryC100e.State = (dsBrowse)) then
+    begin
+      DMImportacaoSPED.QryC100e.DisableControls;
+
+      if Key = VK_UP then
+        DMImportacaoSPED.QryC100e.Prior
+      else
+        DMImportacaoSPED.QryC100e.Next;
+
+      DMImportacaoSPED.QryC170e.Filtered := false;
+      DMImportacaoSPED.QryC170e.Filter   := ' IDNF = ' +
+                                          DMImportacaoSPED.QryC100eID.AsString;
+      DMImportacaoSPED.QryC170e.Filtered := true;
+
+      if key = VK_UP then
+        DMImportacaoSPED.QryC100e.Next
+      else
+        DMImportacaoSPED.QryC100e.Prior;
+
+      DMImportacaoSPED.QryC100e.EnableControls;
+    end;
+  end;
+end;
+
+procedure TFrmImportarSPED.cxGridDBTableView3CellClick(
+  Sender: TcxCustomGridTableView; ACellViewInfo: TcxGridTableDataCellViewInfo;
+  AButton: TMouseButton; AShift: TShiftState; var AHandled: Boolean);
+begin
+  inherited;
+  if (DMImportacaoSPED.QryC170s.Active) and
+     (DMImportacaoSPED.QryC100s.State = (dsBrowse)) then
+  begin
+    DMImportacaoSPED.QryC170s.Filtered := false;
+    DMImportacaoSPED.QryC170s.Filter   := ' IDNF = ' +
+                                          DMImportacaoSPED.QryC100sID.AsString;
+    DMImportacaoSPED.QryC170s.Filtered := true;
+  end;
+end;
+
+procedure TFrmImportarSPED.cxGridDBTableView3KeyDown(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  inherited;
+ if (Key = VK_UP) or ( key = VK_DOWN) then
+  begin
+    if (DMImportacaoSPED.QryC170s.Active) and
+       (DMImportacaoSPED.QryC100s.State = (dsBrowse)) then
+    begin
+      DMImportacaoSPED.QryC100s.DisableControls;
+
+      if Key = VK_UP then
+        DMImportacaoSPED.QryC100s.Prior
+      else
+        DMImportacaoSPED.QryC100s.Next;
+
+      DMImportacaoSPED.QryC170s.Filtered := false;
+      DMImportacaoSPED.QryC170s.Filter   := ' IDNF = ' +
+                                          DMImportacaoSPED.QryC100sID.AsString;
+      DMImportacaoSPED.QryC170s.Filtered := true;
+
+      if key = VK_UP then
+        DMImportacaoSPED.QryC100s.Next
+      else
+        DMImportacaoSPED.QryC100s.Prior;
+
+      DMImportacaoSPED.QryC100s.EnableControls;
+    end;
+  end;
+end;
 
 procedure TFrmImportarSPED.EdtArquivoAfterDialog(Sender: TObject;
   var AName: string; var AAction: Boolean);
@@ -478,6 +605,7 @@ begin
             '      "ID" Integer NOT NULL,                              '+
             '      "ID_SPED" Integer,                                  '+
             '      "IND_OPER" character varying(50),                   '+
+            '      "COD_SIT" character varying(50),                    '+
             '      "COD_PART" character varying(50),                   '+
             '      "PARTICIPANTE" character varying(100),              '+
             '      "COD_MOD" character varying(5),                     '+
@@ -517,6 +645,7 @@ begin
             '      "ID_SPED" Integer,                                  '+
             '      "NUM_ITEM" character varying(5),                    '+
             '      "COD_ITEM" character varying(14),                   '+
+            '      "DESCR_ITEM" character varying(50),                 '+
             '      "QTDE" decimal(15,3),                               '+
             '      "UNID" character varying(5),                        '+
             '      "VL_ITEM" decimal(15,2),                            '+
@@ -542,6 +671,7 @@ begin
             '      "ID" Integer NOT NULL,                              '+
             '      "ID_SPED" Integer,                                  '+
             '      "IND_OPER" character varying(50),                   '+
+            '      "COD_SIT" character varying(50),                    '+
             '      "COD_PART" character varying(50),                   '+
             '      "PARTICIPANTE" character varying(100),              '+
             '      "COD_MOD" character varying(5),                     '+
@@ -581,6 +711,7 @@ begin
             '      "IDNF" Integer,                                     '+
             '      "NUM_ITEM" character varying(5),                    '+
             '      "COD_ITEM" character varying(14),                   '+
+            '      "DESCR_ITEM" character varying(50),                 '+
             '      "QTDE" decimal(15,3),                               '+
             '      "UNID" character varying(5),                        '+
             '      "VL_ITEM" decimal(15,2),                            '+
@@ -674,6 +805,7 @@ begin
   lblInfoImportacao.Caption     := 'Carregando registro 0000...';
   ProgressBar.Max               := 100;
   ProgressBar.Position          := 0;
+  Application.ProcessMessages;
 
   vDT_INI     := ACBrSPEDFiscal.Bloco_0.Registro0000.DT_INI;
   vDT_FIM     := ACBrSPEDFiscal.Bloco_0.Registro0000.DT_FIN;
@@ -707,6 +839,7 @@ begin
   end;
 
   ProgressBar.Position          := ProgressBar.Position + 30;
+  Application.ProcessMessages;
 
   With DMImportacaoSPED.Qry0000 do
   begin
@@ -732,6 +865,7 @@ begin
   end;
   ProgressBar.Position          := ProgressBar.Position + 45;
   ProgressBar.Position          := 99;
+  Application.ProcessMessages;
 end;
 
 procedure TFrmImportarSPED.ImportaReg0200;
@@ -762,6 +896,8 @@ begin
   ProgressBar.Max               := j;
   ProgressBar.Position          := 0;
   FNomeTabela                   := 'REGISTRO0200_' + FCNPJ;
+  Application.ProcessMessages;
+
   if j > 0 then
   begin
     if not TabelaExiste(FNomeTabela,dmPrincipal.DB) then
@@ -798,6 +934,7 @@ begin
                                         Registro0200.Items[I].CEST;
          Qry0200.Post;
          ProgressBar.Position        :=  ProgressBar.Position + 1;
+         Application.ProcessMessages;
       end;
     end;
   end;
@@ -805,23 +942,46 @@ end;
 
 procedure TFrmImportarSPED.ImportaRegC100;
 var
-  i          : Integer;
-  j          : Integer;
-  K          : Integer;
-  vIDC170e   : Integer;
-  vIDC170s   : Integer;
-  vGerouIDe  : Boolean;
-  vGerouIDs  : Boolean;
+  i              : Integer;
+  j              : Integer;
+  K              : Integer;
+  vIDC100e       : Integer;
+  vIDC100s       : Integer;
+  vIDC170e       : Integer;
+  vIDC170s       : Integer;
+  vGerouIDC100e  : Boolean;
+  vGerouIDC100s  : Boolean;
+  vGerouIDC170e  : Boolean;
+  vGerouIDC170s  : Boolean;
+
+  function GetCodSit : String;
+  begin
+    case ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].COD_SIT of
+      sdRegular             : result := '00 - Documento regular';
+      sdExtempRegular       : result := '01 - Escrituração extemporânea de documento regular';
+      sdCancelado           : result := '02 - Documento cancelado';
+      sdCanceladoExtemp     : result := '03 - Escrituração extemporânea de documento cancelado';
+      sdDoctoDenegado       : result := '04 - NF-e ou CT-e - denegado';
+      sdDoctoNumInutilizada : result := '05 - NF-e ou CT-e - Numeração inutilizada';
+      sdFiscalCompl         : result := '06 - Documento Fiscal Complementar';
+      sdExtempCompl         : result := '07 - Escrituração extemporânea de documento complementar';
+      sdRegimeEspecNEsp     : result := '08 - Documento Fiscal emitido com base em Regime Especial ou Norma Específica';
+    end;
+  end;
+
 begin
   lblInfoImportacao.Caption     := 'Carregando registro C100 e C170...';
   j                             := Pred(ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Count);
   ProgressBar.Max               := j;
   ProgressBar.Position          := 0;
   FNomeTabela                   := 'REGISTROC100_' + FCNPJ;
+  Application.ProcessMessages;
 
   {Controla sequence temp}
-  vGerouIDe                     := false;
-  vGerouIDs                     := false;
+  vGerouIDC100e  := false;
+  vGerouIDC100s  := false;
+  vGerouIDC170e  := false;
+  vGerouIDC170s  := false;
 
   if j > 0 then
   begin
@@ -859,10 +1019,18 @@ begin
         if ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].IND_OPER
          = tpEntradaAquisicao then
         begin
+           if not vGerouIDC100e then
+           begin
+             vIDC100e       := GetID('"REG_ENT"."REGISTROC100_' + FCNPJ + '"',dmPrincipal.DB);
+             vGerouIDC100e  := true;
+           end;
+
           QryC100e.Insert;
-          QryC100eID.AsInteger          := GetID('"REG_ENT"."'+ FNomeTabela + '"',dmPrincipal.DB) + 1;
+          vIDC100e                      := vIDC100e + 1;
+          QryC100eID.AsInteger          := vIDC100e;
           QryC100eID_SPED.AsInteger     := Qry0000ID.AsInteger;
           QryC100eIND_OPER.AsString     := 'Entrada Aquisicao';
+          QryC100eCOD_SIT.AsString      := GetCodSit;
           QryC100eCOD_PART.AsString     := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].COD_PART;
           QryC100ePARTICIPANTE.AsString := 'PARTICIPANTE AVULSO';
           QryC100eCOD_MOD.AsString      := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].COD_MOD;
@@ -885,10 +1053,18 @@ begin
         end
         else
         begin
+            if not vGerouIDC100s then
+           begin
+             vIDC100s       := GetID('"REG_SAIDA"."REGISTROC100_' + FCNPJ + '"',dmPrincipal.DB);
+             vGerouIDC100s  := true;
+           end;
+
           QryC100s.Insert;
           QryC100sID_SPED.AsInteger     := Qry0000ID.AsInteger;
-          QryC100sID.AsInteger          := GetID('"REG_SAIDA"."' + FNomeTabela + '"',dmPrincipal.DB) + 1;
+          vIDC100s                      := vIDC100s + 1;
+          QryC100sID.AsInteger          := vIDC100s;
           QryC100sIND_OPER.AsString     := 'Saida prestação';
+          QryC100sCOD_SIT.AsString      := GetCodSit;
           QryC100sCOD_PART.AsString     := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].COD_PART;
           QryC100sPARTICIPANTE.AsString := 'PARTICIPANTE AVULSO';
           QryC100sCOD_MOD.AsString      := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].COD_MOD;
@@ -918,10 +1094,10 @@ begin
           = tpEntradaAquisicao then
           begin
 
-            if not vGerouIDe then
+            if not vGerouIDC170e then
             begin
-              vIDC170e   := GetID('"REG_ENT"."REGISTROC170_' + FCNPJ + '"',dmPrincipal.DB);
-              vGerouIDe  := true;
+              vIDC170e       := GetID('"REG_ENT"."REGISTROC170_' + FCNPJ + '"',dmPrincipal.DB);
+              vGerouIDC170e  := true;
             end;
 
             QryC170e.Insert;
@@ -935,6 +1111,8 @@ begin
 
             QryC170eCOD_ITEM.AsString     := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].
                                              RegistroC170.Items[k].COD_ITEM;
+
+            QryC170eDESCR_ITEM.AsString   := DMImportacaoSPED.GetProduto(QryC170eCOD_ITEM.AsString);
 
             QryC170eQTDE.AsFloat          := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].
                                              RegistroC170.Items[k].QTD;
@@ -975,10 +1153,10 @@ begin
           end
           else
           begin
-            if not vGerouIDs then
+            if not vGerouIDC170s then
             begin
-              vIDC170s   := GetID('"REG_SAIDA"."REGISTROC170_' + FCNPJ + '"',dmPrincipal.DB);
-              vGerouIDs  := true;
+              vIDC170s       := GetID('"REG_SAIDA"."REGISTROC170_' + FCNPJ + '"',dmPrincipal.DB);
+              vGerouIDC170s  := true;
             end;
 
             QryC170s.Insert;
@@ -992,6 +1170,8 @@ begin
 
             QryC170sCOD_ITEM.AsString     := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].
                                              RegistroC170.Items[k].COD_ITEM;
+
+           QryC170sDESCR_ITEM.AsString    := DMImportacaoSPED.GetProduto(QryC170sCOD_ITEM.AsString);
 
             QryC170sQTDE.AsFloat          := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].
                                              RegistroC170.Items[k].QTD;
@@ -1032,6 +1212,7 @@ begin
           end;
         end;
         ProgressBar.Position  := ProgressBar.Position + 1;
+        Application.ProcessMessages;
       end;
     end;
   end;
@@ -1057,12 +1238,14 @@ begin
      ACBrSpedFiscalImportar.Arquivo := EdtArquivo.Text;
      ACBrSpedFiscalImportar.Importar;
      GpbProcessaImportacao.Visible := true;
+     Application.ProcessMessages;
 
      ImportaReg0000;
      ImportaReg0200;
      ImportaRegC100;
      ImportaRegC400;
 
+     lblInfoImportacao.Caption := 'Registros carregados com sucesso...';
      Application.ProcessMessages;
      FrmMensagem.Informacao('Importação realizada com sucesso!');
      GpbRegistro0000.Visible       := true;
