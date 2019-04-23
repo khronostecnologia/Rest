@@ -35,6 +35,8 @@ uses
   cxTextEdit, cxGridCustomPopupMenu, cxGridPopupMenu, Vcl.Menus, AdvMenus;
 
 type
+  TTipoRel = (trelAnalitico,trelSintetico);
+
   TFrmImportarSPED = class(TFrmMaster)
     AdvGroupBox1: TAdvGroupBox;
     Label1: TLabel;
@@ -136,14 +138,10 @@ type
     cxGridLevel3: TcxGridLevel;
     TbsAnalise: TcxTabSheet;
     GpbResultEntrada: TAdvGroupBox;
-    GpbResultSaida: TAdvGroupBox;
     GpbTotalizador: TAdvGroupBox;
-    cxGridTotalizadorEntradaDBTableView1: TcxGridDBTableView;
-    cxGridTotalizadorEntradaLevel1: TcxGridLevel;
-    cxGridTotalizadorEntrada: TcxGrid;
-    cxGridTotalizadorSaida: TcxGrid;
-    cxGridDBTableView6: TcxGridDBTableView;
-    cxGridLevel6: TcxGridLevel;
+    cxGridTotalizadorSinteticoDBTableView1: TcxGridDBTableView;
+    cxGridTotalizadorSinteticoLevel1: TcxGridLevel;
+    cxGridTotalizadorSintetico: TcxGrid;
     BtnLocalizaImportacao: TAdvGlowButton;
     BtnNovaImportacacao: TAdvGlowButton;
     cxGridDBTableView2COD_SIT: TcxGridDBColumn;
@@ -201,15 +199,31 @@ type
     cxGridDBTableView7DESCR_ITEM: TcxGridDBColumn;
     cxGridDBTableView7QTD: TcxGridDBColumn;
     cxGridDBTableView7VL_ITEM: TcxGridDBColumn;
-    lblTotalEntrada: TLabel;
-    lblTotalSaida: TLabel;
-    lblRestituir: TLabel;
     lblComplementar: TLabel;
-    BtnImprimirResultado: TAdvGlowButton;
     AdvPopupMenu1: TAdvPopupMenu;
     MnuImprimir: TAdvMenuStyler;
     Analtico1: TMenuItem;
     Sinttico1: TMenuItem;
+    lblRestituir: TLabel;
+    cxGridTotalizadorSinteticoDBTableView1COD_ITEM: TcxGridDBColumn;
+    cxGridTotalizadorSinteticoDBTableView1DESCR_ITEM: TcxGridDBColumn;
+    cxGridTotalizadorSinteticoDBTableView1DATA_ENTRADA: TcxGridDBColumn;
+    cxGridTotalizadorSinteticoDBTableView1QTDE_ENTRADA: TcxGridDBColumn;
+    cxGridTotalizadorSinteticoDBTableView1BC_ICMS_ST_ENT: TcxGridDBColumn;
+    cxGridTotalizadorSinteticoDBTableView1VL_ICMS_ST_ENT: TcxGridDBColumn;
+    cxGridTotalizadorSinteticoDBTableView1VL_ICMS_ST_UNI_ENT: TcxGridDBColumn;
+    cxGridTotalizadorSinteticoDBTableView1DATA_SAIDA: TcxGridDBColumn;
+    cxGridTotalizadorSinteticoDBTableView1QTDE_SAIDA: TcxGridDBColumn;
+    cxGridTotalizadorSinteticoDBTableView1BC_ICMS_ST_SAI: TcxGridDBColumn;
+    cxGridTotalizadorSinteticoDBTableView1TOTAL_ICMS_SAIDA: TcxGridDBColumn;
+    cxGridTotalizadorSinteticoDBTableView1TOTAL_ICMS_ENTRADA: TcxGridDBColumn;
+    cxGridTotalizadorSinteticoDBTableView1DIFERENCA: TcxGridDBColumn;
+    cxGridTotalizadorSinteticoDBTableView1SALDO_RESTITUIR: TcxGridDBColumn;
+    cxGridTotalizadorSinteticoDBTableView1SALDO_ARECOLHER: TcxGridDBColumn;
+    cxStyleRepository1: TcxStyleRepository;
+    cxStyle1: TcxStyle;
+    BtnImprimirResultado: TAdvGlowButton;
+    BtnExcluir: TAdvGlowButton;
     procedure BtnIniciaImportacaoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -250,6 +264,7 @@ type
     procedure CriaTabelaEmpresaLogada(ASQL : String);
     procedure CarregaSPED(AID : Integer ;ACNPJ : String);
     procedure LimpaTela;
+    procedure CarregaResultado(ATipoRel : TTipoRel);
     function  ExisteArqSPED(ADT_INI,ADT_FIM,ACNPJCPF : String) : Boolean;
     function  GetSQLCreateRegistro0000(ACPFCNPJ : String): String;
     function  GetSQLCreateRegistro0200(ACPFCNPJ : String): String;
@@ -286,11 +301,17 @@ begin
   DMImportacaoSPED.QryC170s.ApplyUpdates(0);
   DMImportacaoSPED.QryC400.ApplyUpdates(0);
   DMImportacaoSPED.QryC425.ApplyUpdates(0);
-  FrmMensagem.Informacao('Importação salva com sucesso!');
-  BtnGravar.Enabled := false;
-  BtnNovaImportacacao.Enabled := true;
-  BtnLocalizaImportacao.Enabled := true;
-  BtnCancelar.Enabled           := false;
+  If dmPrincipal.GravaEmpresa(DMImportacaoSPED.Qry0000) then
+  begin
+    CarregaResultado(trelSintetico);
+    FrmMensagem.Informacao('Importação salva com sucesso!');
+
+    BtnImprimirResultado.Enabled  := true;
+    BtnNovaImportacacao.Enabled   := true;
+    BtnLocalizaImportacao.Enabled := true;
+    BtnCancelar.Enabled           := false;
+    BtnGravar.Enabled             := false;
+  end;
 end;
 
 procedure TFrmImportarSPED.BtnIniciaImportacaoClick(Sender: TObject);
@@ -324,7 +345,7 @@ begin
   begin
     FrmPesquisa := TFrmPesquisa.Create(nil);
     FrmPesquisa.MontaSql('SELECT * FROM "CADASTROS"."REGISTRO0000_'+ dmPrincipal.QryEmpresaCPFCNPJ.AsString + '" ' +
-                         ' ORDER BY "RAZAO_SOCIAL"');
+                         ' ORDER BY "NOME"');
     FrmPesquisa.ShowModal;
     if FrmPesquisa.Selecionou then
     begin
@@ -356,6 +377,23 @@ begin
   Close;
 end;
 
+procedure TFrmImportarSPED.CarregaResultado(ATipoRel : TTipoRel);
+begin
+  with DMImportacaoSPED do
+  begin
+    if ATipoRel = trelAnalitico then
+      DMImportacaoSPED.GetResultadoAnalitico
+    else
+      DMImportacaoSPED.GetResultadoSintetico;
+  end;
+  lblRestituir.Caption      := 'Valor á restituir : ' +
+                                DMImportacaoSPED.
+                                QryResultadoSTOTAL_RESTITUIR.AsString;
+  lblComplementar.Caption   := '  | Valor á recolher : ' +
+                                DMImportacaoSPED.
+                                QryResultadoSTOTAL_ARECOLHER.AsString;
+end;
+
 procedure TFrmImportarSPED.CarregaSPED(AID : Integer ;ACNPJ : String);
 begin
   try
@@ -364,37 +402,37 @@ begin
       Qry0000.Close;
       Qry0000.SQL.Clear;
       Qry0000.SQL.Text := 'SELECT * FROM "CADASTROS"."REGISTRO0000_' + ACNPJ + '"' +
-                          'WHERE IDSPED =' + AID.ToString;
+                          'WHERE "ID" =' + AID.ToString;
       Qry0000.Open;
 
       Qry0200.Close;
       Qry0200.SQL.Clear;
       Qry0200.SQL.Text := 'SELECT * FROM "CADASTROS"."REGISTRO0200_' + ACNPJ + '"' +
-                          'WHERE IDSPED =' + AID.ToString;
+                          'WHERE "IDSPED" =' + AID.ToString;
       Qry0200.Open;
 
       QryC100e.Close;
       QryC100e.SQL.Clear;
       QryC100e.SQL.Text := 'SELECT * FROM "REG_ENT"."REGISTROC100_' + ACNPJ + '"' +
-                           'WHERE IDSPED =' + AID.ToString;
+                           'WHERE "IDSPED" =' + AID.ToString;
       QryC100e.Open;
 
       QryC170e.Close;
       QryC170e.SQL.Clear;
       QryC170e.SQL.Text := 'SELECT * FROM "REG_ENT"."REGISTROC170_' + ACNPJ + '"' +
-                           'WHERE IDSPED =' + AID.ToString;
+                           'WHERE "IDSPED" =' + AID.ToString;
       QryC170e.Open;
 
       QryC100s.Close;
       QryC100s.SQL.Clear;
       QryC100s.SQL.Text := 'SELECT * FROM "REG_SAIDA"."REGISTROC100_' + ACNPJ + '"' +
-                           'WHERE IDSPED =' + AID.ToString;
+                           'WHERE "IDSPED" =' + AID.ToString;
       QryC100s.Open;
 
       QryC170s.Close;
       QryC170s.SQL.Clear;
       QryC170s.SQL.Text := 'SELECT * FROM "REG_SAIDA"."REGISTROC170_' + ACNPJ + '"' +
-                           'WHERE IDSPED =' + AID.ToString;
+                           'WHERE "IDSPED" =' + AID.ToString;
       QryC170s.Open;
 
     end;
@@ -613,6 +651,8 @@ begin
   EdtArquivo.InitialDir          := dmPrincipal.DirApp;
   BtnIniciaImportacao.Enabled    := False;
   BtnGravar.Enabled              := False;
+  BtnExcluir.Enabled             := false;
+  BtnImprimirResultado.Enabled   := false;
   BtnCancelar.Enabled            := false;
   GpbProcessaImportacao.Visible  := false;
   GpbRegistro0000.Visible        := false;
@@ -1448,6 +1488,8 @@ begin
   BtnIniciaImportacao.Enabled   := false;
   BtnGravar.Enabled             := false;
   BtnCancelar.Enabled           := false;
+  BtnExcluir.Enabled            := false;
+  BtnImprimirResultado.Enabled  := false;
   BtnNovaImportacacao.Enabled   := true;
   BtnLocalizaImportacao.Enabled := true;
   EdtArquivo.Clear;
@@ -1464,6 +1506,8 @@ begin
     QryC425.Close;
     QryC100s.Close;
     QryC170s.Close;
+    QryResultadoA.Close;
+    QryResultadoS.Close;
   end;
 end;
 

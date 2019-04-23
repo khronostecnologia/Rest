@@ -106,7 +106,7 @@ var
 begin
   Try
   FrmPesquisa := TFrmPesquisa.Create(nil);
-  FrmPesquisa.MontaSql('SELECT * FROM "CADASTROS"."EMPRESAS" ORDER BY "RAZAO_SOCIAL"');
+  FrmPesquisa.MontaSql('SELECT * FROM GET_EMPRESA ORDER BY "RAZAO_SOCIAL"');
   FrmPesquisa.ShowModal;
   if FrmPesquisa.Selecionou then
   begin

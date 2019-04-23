@@ -7,7 +7,7 @@ inherited FrmImportarSPED: TFrmImportarSPED
   WindowState = wsMaximized
   OnClose = FormClose
   OnCreate = FormCreate
-  ExplicitTop = -77
+  ExplicitTop = -95
   ExplicitWidth = 845
   ExplicitHeight = 542
   PixelsPerInch = 96
@@ -141,7 +141,7 @@ inherited FrmImportarSPED: TFrmImportarSPED
           Appearance.GradientChecked = ggVertical
         end
         object BtnCancelar: TAdvGlowButton
-          Left = 354
+          Left = 472
           Top = 17
           Width = 109
           Height = 30
@@ -258,7 +258,7 @@ inherited FrmImportarSPED: TFrmImportarSPED
           Appearance.GradientChecked = ggVertical
         end
         object BtnSair: TAdvGlowButton
-          Left = 469
+          Left = 708
           Top = 17
           Width = 109
           Height = 30
@@ -508,6 +508,204 @@ inherited FrmImportarSPED: TFrmImportarSPED
             4E44AE426082}
           TabOrder = 1
           OnClick = BtnNovaImportacacaoClick
+          Appearance.BorderColor = 14727579
+          Appearance.BorderColorHot = 10079963
+          Appearance.BorderColorDown = 4548219
+          Appearance.BorderColorDisabled = clBackground
+          Appearance.Color = 15653832
+          Appearance.ColorTo = 16178633
+          Appearance.ColorChecked = 7915518
+          Appearance.ColorCheckedTo = 11918331
+          Appearance.ColorDisabled = clBackground
+          Appearance.ColorDisabledTo = clBackground
+          Appearance.ColorDown = 7778289
+          Appearance.ColorDownTo = 4296947
+          Appearance.ColorHot = 15465983
+          Appearance.ColorHotTo = 11332863
+          Appearance.ColorMirror = 15586496
+          Appearance.ColorMirrorTo = 16245200
+          Appearance.ColorMirrorHot = 5888767
+          Appearance.ColorMirrorHotTo = 10807807
+          Appearance.ColorMirrorDown = 946929
+          Appearance.ColorMirrorDownTo = 5021693
+          Appearance.ColorMirrorChecked = 10480637
+          Appearance.ColorMirrorCheckedTo = 5682430
+          Appearance.ColorMirrorDisabled = clBackground
+          Appearance.ColorMirrorDisabledTo = clBackground
+          Appearance.GradientHot = ggVertical
+          Appearance.GradientMirrorHot = ggVertical
+          Appearance.GradientDown = ggVertical
+          Appearance.GradientMirrorDown = ggVertical
+          Appearance.GradientChecked = ggVertical
+        end
+        object BtnImprimirResultado: TAdvGlowButton
+          Left = 588
+          Top = 17
+          Width = 114
+          Height = 30
+          Caption = 'Imprimir anal'#237'se'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = [fsBold]
+          NotesFont.Charset = DEFAULT_CHARSET
+          NotesFont.Color = clWindowText
+          NotesFont.Height = -11
+          NotesFont.Name = 'Tahoma'
+          NotesFont.Style = []
+          ParentFont = False
+          Picture.Data = {
+            89504E470D0A1A0A0000000D4948445200000020000000200806000000737A7A
+            F40000000473424954080808087C086488000000097048597300000EC400000E
+            C401952B0E1B00000548494441545885C5973D6F1CC719809F999DDDBDDDBBF3
+            1D291D250B0EDC4840A0421008A7485CA8890AFD0655D1EF0840F217F0171830
+            E04A85BB400D03A8919B14068C40961B3589048B10C85BF24EB71FF395626F97
+            3CF24E6753455E60B098D999799F79BF7616FECF22D6BC57C0679FA8E314301F
+            53F031F9CC397724C43ACED52284B8061CAF7A2FD76DE0BDBFB2F2DFB2762D80
+            D61AE7DC95946BBDD2F2ADAC730165A9EB894A21A5649D3BBCF778EF31C65055
+            FAEA003B3B3B9BC3E1F0BF4551E0BD278A1C41A0088200296B8806A631B5F71E
+            6B1DD61AB4369465C5FEFEFE9B2CCBBED8DBDB5B1A072B010683410CA4795EE0
+            9CC3DA90300C09828020900871DE1A1EE7FC7C9E456B435555545585102249D3
+            B4F3BB2D00B5D967B319D65A8C3128A5514AA154B0E00EEF6B006BED1C40A3B5
+            A62C2B8220F8988AD500DD6E97C964C264F201AD0D711C11866AC10DB5151A00
+            37377F0D5055154551A2B5264DD38F03ECECECA81B376E1C5FBF7EBD3F1C0E51
+            4A319D4E79FFFE3DD3E914AD2BCA32228A42940A0902899467B170066031E60C
+            A02C2BF23CE7CE9D3B6F9F3F7F8E3186C964C2D1D1D1E4CD9B379B7B7B7B4601
+            5CBB766D3B49927E9AA6731F0768ADC9B28CC9644A55458461386F8D056A17D4
+            16E01C8099C780A6AA4AB22CA3AA6A5778EF499284344DFB376FDEDC06FEA500
+            A2287A902409611822A5444A491CC7BC7DFB96EFBEFB06E75CDBACB50B7DA05D
+            23A56CE19A1645119D4EA7ED2BA5E8743A5455F5A005D8DEDEFEAADBED7E88A2
+            A89DD8EBF5E493274FE26579BFAA162CAB7CDE7B46A35139180C5C033D77C59F
+            DA18B875EBD6E7699A762F2EDCDFDFBF52153C2F524A76777793C160B030DEEB
+            F53E6F0180EB17E9B5D63445E853440881D67AD93EA316406BBDA9D462461645
+            4155554B01922421499285B13CCFC9F37C2940511468BD58968D311B2D405996
+            E945BFCE6633B22CBB0460AD25CF73D2344529851002630C799E13C7F1A5C223
+            8460369B5114C5C503765B8077EFDEC5711C9F4BADDA6C8F1F3F4608B1306E8C
+            A12C4BC230248A228410545585D69A388E09C3B0FD2035CD39C7F1F171DB9F03
+            440D80DCDCDCF417AB55AFD763381C5E32E955A4A921001F3E4C512A248A220F
+            08050C67B39993F2EC6A20A5E4E0E080D7AF5F5F3ACDC5D698F9623B3F7EFBF6
+            6D1E3E7C38CF28D17CA82C305040FFF4F4542BA5DAA89A4C26ECEEEE7E720634
+            2284E0DEBD7BF4FB7D8480B2AC984EA706D8544092655991A6697BF93C393961
+            6363834E275D7B015927DE7B8A62C6C9C9096118220458EBC8B2AC004205C8C3
+            C3C3FC7C0C1445C1FDFBF7F9FAEBBF62AD69379A9F072905CE39BCF734AE33C6
+            B455F4ECE475FF871FFE4951146459D6BE3B3C3CCC814801272F5EBCF8C7CB97
+            2F6F0921ACF73ED05AFF61636373FBC183BFC8AAAA70CE2144AD544AD93E0182
+            206895036DB00921F0DE2384E0E79F7F740707073F0541F09F300C4B6BAD1A8F
+            C7BF02270AF8F5E9D3A77F0742C001E1DDBB77FFF6E8D1A3AFBEFCF28B368DEA
+            CD6A2535409D9ED6DA3655BD07EF5D0BE09C47A980E170209F3D7BF6FDAB57AF
+            BE0572EACBB006266AAEF4CC36A09452D3ADAD2DFAFD1EB3D90C682EA4206530
+            7789E37C8C064180B576C1FF520AC230646B6B8B388E8F8177C0C2A465372231
+            1E8F4321044A29922469FD7FFEC4DE8B76AC8985FA96245AF3379F6721044747
+            47C9FCE46B017C511445B7DB6DFDDE64C2A2B96B05C698057F9FAF9CCD58B7DB
+            A5288A12B894D7CB00EC783CFEF76834FA4508F1C7C602ABD2B1093A60E5BCD1
+            68F4CB783CFEE9E2E961F5CF6917F833B0B5847AD91A4F1D4BCDD35DE89F023F
+            0293DF0A00B5BFAE528596954FBF629CFF01121CFE29C9C6B596000000004945
+            4E44AE426082}
+          TabOrder = 5
+          Appearance.BorderColor = 14727579
+          Appearance.BorderColorHot = 10079963
+          Appearance.BorderColorDown = 4548219
+          Appearance.BorderColorDisabled = clBackground
+          Appearance.Color = 15653832
+          Appearance.ColorTo = 16178633
+          Appearance.ColorChecked = 7915518
+          Appearance.ColorCheckedTo = 11918331
+          Appearance.ColorDisabled = clBackground
+          Appearance.ColorDisabledTo = clBackground
+          Appearance.ColorDown = 7778289
+          Appearance.ColorDownTo = 4296947
+          Appearance.ColorHot = 15465983
+          Appearance.ColorHotTo = 11332863
+          Appearance.ColorMirror = 15586496
+          Appearance.ColorMirrorTo = 16245200
+          Appearance.ColorMirrorHot = 5888767
+          Appearance.ColorMirrorHotTo = 10807807
+          Appearance.ColorMirrorDown = 946929
+          Appearance.ColorMirrorDownTo = 5021693
+          Appearance.ColorMirrorChecked = 10480637
+          Appearance.ColorMirrorCheckedTo = 5682430
+          Appearance.ColorMirrorDisabled = clBackground
+          Appearance.ColorMirrorDisabledTo = clBackground
+          Appearance.GradientHot = ggVertical
+          Appearance.GradientMirrorHot = ggVertical
+          Appearance.GradientDown = ggVertical
+          Appearance.GradientMirrorDown = ggVertical
+          Appearance.GradientChecked = ggVertical
+          DropDownButton = True
+          DropDownMenu = AdvPopupMenu1
+        end
+        object BtnExcluir: TAdvGlowButton
+          Left = 356
+          Top = 17
+          Width = 109
+          Height = 30
+          Caption = 'Excluir'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = [fsBold]
+          NotesFont.Charset = DEFAULT_CHARSET
+          NotesFont.Color = clWindowText
+          NotesFont.Height = -11
+          NotesFont.Name = 'Tahoma'
+          NotesFont.Style = []
+          ParentFont = False
+          Picture.Data = {
+            89504E470D0A1A0A0000000D4948445200000020000000200806000000737A7A
+            F40000000473424954080808087C086488000000097048597300000EC400000E
+            C401952B0E1B000005E8494441545885CD964B6C1BC71D877F33B312B9A62832
+            9276F950A8875D598A64043102D9625307410B547150962910C841801C829C72
+            EE2140D14B0FCD2D017253DEA70A685254856927B6DB40495CC0369234068A75
+            24180592A04B397A5054B47C2CB93BD30377574B8A1495E4D201FED827E7FBE6
+            B7B33B04FE1FDB3B8A12BF9ECDFEE16545F9C98FED2B77E6CCB92B8F3DF6E21C
+            20B7BBCEDAC11F5E58F85012E229A5BF3F3BBCB373F5934A65EB87C03F48A7E7
+            871F7CF012DBDD3D7F767070E6DFF9FCA56F817A4701176E158BD3E6C60628E7
+            D1D16432737FB1F8BD253E48A7E713A74E2D975657656E18084AD2D4B9787CBA
+            55C213F0E03B3BD3E6E62604E700E760424446E3F1CCFDDF7D7764895C3A3D3F
+            7CEAD472E9CB2F6551A9344E72DE9048249A24D881916F6E42D8362004200404
+            E7609C4746E3F14C6A6FAFAB442E9D9E4FCDCC34C39DBE60DB9EC46A3E9F5B07
+            EA0C007E97CDBE4A4CF397E6C64663E43EB82761DB5D255C78F9CE9D66B8BFD9
+            3664C6A6C6A3D1F58B9B9B9F5100B87BFBF65FAADBDB5537F656B82BD453AB8D
+            FC6266E6CAEF07061EE808D7349997CB209C374A880355A154BFAAEB37000806
+            007FDDDAFACF4F25491B8A46B3C4B6A57670578C5956643491C8A40CC34B2297
+            4ECFA7A6A797CB9A268B4A05C46F260408E0555596F5D734EDC2BB7B7BFF02C0
+            FDF792B7A6A69E9C1C1E5E22B55AB01DDC5FF540E09B0F57571F7F6472722431
+            3DBD5CD134993BB1133776674B0080105464595FD4B40BEF1AC62D009677AD55
+            E2643CBE446AB5A007E77CBF43679F08012B14D2A39393035EECBE11B7B68A2C
+            EB8B77EE34C1DB090000797D6AEAC9075475899866B069E46E122EC8D9E7A512
+            44BD0E6159806D7BF711D2E8DE5455FD8DAFBE3A00EF24D09098986848F89300
+            00CE611B066CC300AF5420EA751042F60B683AAE0E0DE96FDEBBD7167E98C0BE
+            84A22C11D30CF26A15F54201D6EE2EC0B907A07E784B5515457F239FEF08EF26
+            E0491C0796EA5F7F1DF477EE81293D284129CCA121FD355D3F140EB4598C5A5B
+            AE5058FB5938ACDDD7D39325A6297582534A1BC5184C45C92FEAFAD3EF758103
+            00ED260040C454B572DFDC1C08A54DA3A4EED6394F29056B9C17233D3DC56EF0
+            A325303B3B9F1C1B5BDEBD7E5D8633E1A80373253CB0731C34CDFE8958EC5749
+            CBEABA761C2A909B9D9D4F8C8D2D173FFA48E686B13F527FE43E097F056AB5C8
+            782C96491072F513C3E828D151C085EFACAC78707FE4EDA08C5230C61A5B4A11
+            A8D723E38A9289031D25DA0AE46667E7E32323CBC5951599974AFB93CC11604E
+            12CC2FE080DD7DF758AED723C75535A372DE56E280800BDF71626F85BB8F8135
+            66FBB7526FAF245996449DD17B49B869308663961539AEAA19C5B60F48B076F0
+            8213BB0BF7CF7A4A88FBAAE98BBABED02BCB7F4F1E3BF66BC9B224E697600C92
+            23C01843C8B2222754353368594D12AC099E4A2D6FB781B73E735351F4D7F3F9
+            0BEF19C6ADF78B456D7660408BCB72B6C7B6256F0EF8E06EF5711E39118B6506
+            6A354F8201C0E533677EAEA65217B7575664BEB7D7FED3EABC76A6A2E86FAEAF
+            377DE17285C2DAD968548B8542D91ECB92FC507F0A8C52F4D976E4442C960997
+            CB97FE592E1728000443A167B73FFE58B6F7F61A7138D0C62EF1FE4C989D1716
+            F1FCDDBB7FFBBC5279A6DED757F5DE0A574292D0E3AB98102313B1D813000803
+            8054B1783B190E3F410C63B0D3E86BAAAABFBDB171E8B7FD62A1B0F67034AA25
+            43A16C40086F4E488C814912244902E9EDC5A7D5EAB517BEF8E28F65C0600070
+            BD5ADD4D0297C78786CE935269B07549B554557F7B73B3EBC2020017B7B6D64E
+            F7F76BC3E17036C8B9E40A488C810502B8552A5D5BB879F3B92DE05ED324BC61
+            9AC50470794C51CE5357825258F1B8FECE11E17E8987FAFAB4547F7F36C8B944
+            19030D0470D330AE3D75E3C673DBC03A00D1F6C7BF8D44C6DF1F1D5DBB120C8A
+            CB6363FF5DE8EB7B04807414704B236F4D4DFDE69B73E72AC5471F15FF989BBB
+            3A0824D1FD2F00F0622432F6A78989579E0E87CFFE40B827B178F2E4E37F3E7D
+            FAA521207124B8AFD1EFFB83435AC735E77F576841BFE59D84AD000000004945
+            4E44AE426082}
+          TabOrder = 6
+          OnClick = BtnGravarClick
           Appearance.BorderColor = 14727579
           Appearance.BorderColorHot = 10079963
           Appearance.BorderColorDown = 4548219
@@ -1444,53 +1642,121 @@ inherited FrmImportarSPED: TFrmImportarSPED
             Left = 0
             Top = 0
             Width = 839
-            Height = 80
-            Align = alTop
-            Caption = '   Entrada(s) '
-            TabOrder = 0
-            object cxGridTotalizadorEntrada: TcxGrid
-              Left = 2
-              Top = 16
-              Width = 835
-              Height = 62
-              Align = alClient
-              TabOrder = 0
-              object cxGridTotalizadorEntradaDBTableView1: TcxGridDBTableView
-                Navigator.Buttons.CustomButtons = <>
-                DataController.Summary.DefaultGroupSummaryItems = <>
-                DataController.Summary.FooterSummaryItems = <>
-                DataController.Summary.SummaryGroups = <>
-                OptionsView.GroupByBox = False
-              end
-              object cxGridTotalizadorEntradaLevel1: TcxGridLevel
-                GridView = cxGridTotalizadorEntradaDBTableView1
-              end
-            end
-          end
-          object GpbResultSaida: TAdvGroupBox
-            Left = 0
-            Top = 80
-            Width = 839
-            Height = 78
+            Height = 158
             Align = alClient
-            Caption = 'Sa'#237'da(s)'
-            TabOrder = 1
-            object cxGridTotalizadorSaida: TcxGrid
+            Caption = '   Analise sint'#233'tica  '
+            TabOrder = 0
+            object cxGridTotalizadorSintetico: TcxGrid
               Left = 2
               Top = 16
               Width = 835
-              Height = 60
+              Height = 140
               Align = alClient
               TabOrder = 0
-              object cxGridDBTableView6: TcxGridDBTableView
+              object cxGridTotalizadorSinteticoDBTableView1: TcxGridDBTableView
                 Navigator.Buttons.CustomButtons = <>
+                DataController.DataSource = DMImportacaoSPED.DsResultadoS
                 DataController.Summary.DefaultGroupSummaryItems = <>
                 DataController.Summary.FooterSummaryItems = <>
                 DataController.Summary.SummaryGroups = <>
                 OptionsView.GroupByBox = False
+                object cxGridTotalizadorSinteticoDBTableView1COD_ITEM: TcxGridDBColumn
+                  Caption = 'Cod.Item'
+                  DataBinding.FieldName = 'COD_ITEM'
+                  Options.Editing = False
+                  Width = 90
+                end
+                object cxGridTotalizadorSinteticoDBTableView1DESCR_ITEM: TcxGridDBColumn
+                  Caption = 'Descri'#231#227'o item'
+                  DataBinding.FieldName = 'DESCR_ITEM'
+                  GroupIndex = 0
+                  Options.Editing = False
+                  SortIndex = 0
+                  SortOrder = soAscending
+                  Width = 250
+                end
+                object cxGridTotalizadorSinteticoDBTableView1DATA_ENTRADA: TcxGridDBColumn
+                  Caption = 'Data entrada'
+                  DataBinding.FieldName = 'DATA_ENTRADA'
+                  Options.Editing = False
+                end
+                object cxGridTotalizadorSinteticoDBTableView1QTDE_ENTRADA: TcxGridDBColumn
+                  Caption = 'Qtde ent.'
+                  DataBinding.FieldName = 'QTDE_ENTRADA'
+                  Options.Editing = False
+                  Width = 80
+                end
+                object cxGridTotalizadorSinteticoDBTableView1BC_ICMS_ST_ENT: TcxGridDBColumn
+                  Caption = 'Bc Icms St. Ent'
+                  DataBinding.FieldName = 'BC_ICMS_ST_ENT'
+                  Options.Editing = False
+                  Width = 100
+                end
+                object cxGridTotalizadorSinteticoDBTableView1VL_ICMS_ST_ENT: TcxGridDBColumn
+                  Caption = 'Valor Icms st.'
+                  DataBinding.FieldName = 'VL_ICMS_ST_ENT'
+                  Options.Editing = False
+                  Width = 100
+                end
+                object cxGridTotalizadorSinteticoDBTableView1VL_ICMS_ST_UNI_ENT: TcxGridDBColumn
+                  Caption = 'Valor Icms st unit.'
+                  DataBinding.FieldName = 'VL_ICMS_ST_UNI_ENT'
+                  Options.Editing = False
+                  Width = 100
+                end
+                object cxGridTotalizadorSinteticoDBTableView1DATA_SAIDA: TcxGridDBColumn
+                  Caption = 'Data Saida'
+                  DataBinding.FieldName = 'DATA_SAIDA'
+                  Options.Editing = False
+                end
+                object cxGridTotalizadorSinteticoDBTableView1QTDE_SAIDA: TcxGridDBColumn
+                  Caption = 'Qtde saida.'
+                  DataBinding.FieldName = 'QTDE_SAIDA'
+                  Options.Editing = False
+                  Width = 100
+                end
+                object cxGridTotalizadorSinteticoDBTableView1BC_ICMS_ST_SAI: TcxGridDBColumn
+                  Caption = 'Bc Icms st sa'#237'da'
+                  DataBinding.FieldName = 'BC_ICMS_ST_SAI'
+                  Options.Editing = False
+                  Width = 96
+                end
+                object cxGridTotalizadorSinteticoDBTableView1TOTAL_ICMS_SAIDA: TcxGridDBColumn
+                  Caption = 'Total Icms Saida'
+                  DataBinding.FieldName = 'TOTAL_ICMS_SAIDA'
+                  Options.Editing = False
+                  Width = 100
+                end
+                object cxGridTotalizadorSinteticoDBTableView1TOTAL_ICMS_ENTRADA: TcxGridDBColumn
+                  Caption = 'Total Icms st entrada'
+                  DataBinding.FieldName = 'TOTAL_ICMS_ENTRADA'
+                  Visible = False
+                  Options.Editing = False
+                  Width = 100
+                end
+                object cxGridTotalizadorSinteticoDBTableView1DIFERENCA: TcxGridDBColumn
+                  Caption = 'Diferen'#231'a'
+                  DataBinding.FieldName = 'DIFERENCA'
+                  Options.Editing = False
+                  Width = 100
+                end
+                object cxGridTotalizadorSinteticoDBTableView1SALDO_RESTITUIR: TcxGridDBColumn
+                  Caption = 'Saldo restituir'
+                  DataBinding.FieldName = 'SALDO_RESTITUIR'
+                  Options.Editing = False
+                  Styles.Content = cxStyle1
+                  Width = 130
+                end
+                object cxGridTotalizadorSinteticoDBTableView1SALDO_ARECOLHER: TcxGridDBColumn
+                  Caption = 'Saldo recolher'
+                  DataBinding.FieldName = 'SALDO_ARECOLHER'
+                  Options.Editing = False
+                  Styles.Content = cxStyle1
+                  Width = 150
+                end
               end
-              object cxGridLevel6: TcxGridLevel
-                GridView = cxGridDBTableView6
+              object cxGridTotalizadorSinteticoLevel1: TcxGridLevel
+                GridView = cxGridTotalizadorSinteticoDBTableView1
               end
             end
           end
@@ -1501,37 +1767,10 @@ inherited FrmImportarSPED: TFrmImportarSPED
             Height = 44
             Align = alBottom
             Caption = '   Totalizador '
-            TabOrder = 2
-            object lblTotalEntrada: TLabel
-              Left = 8
-              Top = 19
-              Width = 140
-              Height = 13
-              Caption = 'Total ICMS ST entrada : 0,00'
-            end
-            object lblTotalSaida: TLabel
-              Left = 189
-              Top = 19
-              Width = 140
-              Height = 13
-              Caption = '|   Total ICMS ST saida : 0,00'
-            end
-            object lblRestituir: TLabel
-              Left = 371
-              Top = 19
-              Width = 124
-              Height = 13
-              Caption = '|   Valor restituir: 0,00'
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clNavy
-              Font.Height = -11
-              Font.Name = 'Tahoma'
-              Font.Style = [fsBold]
-              ParentFont = False
-            end
+            TabOrder = 1
             object lblComplementar: TLabel
-              Left = 533
-              Top = 19
+              Left = 176
+              Top = 23
               Width = 164
               Height = 13
               Caption = '|   Valor complementar : 0,00'
@@ -1542,102 +1781,18 @@ inherited FrmImportarSPED: TFrmImportarSPED
               Font.Style = [fsBold]
               ParentFont = False
             end
-            object BtnImprimirResultado: TAdvGlowButton
-              Left = 720
-              Top = 10
-              Width = 114
-              Height = 30
-              Caption = 'Imprimir anal'#237'se'
+            object lblRestituir: TLabel
+              Left = 14
+              Top = 23
+              Width = 111
+              Height = 13
+              Caption = ' Valor restituir: 0,00'
               Font.Charset = DEFAULT_CHARSET
-              Font.Color = clWindowText
+              Font.Color = clNavy
               Font.Height = -11
-              Font.Name = 'MS Sans Serif'
+              Font.Name = 'Tahoma'
               Font.Style = [fsBold]
-              NotesFont.Charset = DEFAULT_CHARSET
-              NotesFont.Color = clWindowText
-              NotesFont.Height = -11
-              NotesFont.Name = 'Tahoma'
-              NotesFont.Style = []
               ParentFont = False
-              Picture.Data = {
-                89504E470D0A1A0A0000000D4948445200000020000000200806000000737A7A
-                F40000000473424954080808087C086488000000097048597300000EC400000E
-                C401952B0E1B00000548494441545885C5973D6F1CC719809F999DDDBDDDBBF3
-                1D291D250B0EDC4840A0421008A7485CA8890AFD0655D1EF0840F217F0171830
-                E04A85BB400D03A8919B14068C40961B3589048B10C85BF24EB71FF395626F97
-                3CF24E6753455E60B098D999799F79BF7616FECF22D6BC57C0679FA8E314301F
-                53F031F9CC397724C43ACED52284B8061CAF7A2FD76DE0BDBFB2F2DFB2762D80
-                D61AE7DC95946BBDD2F2ADAC730165A9EB894A21A5649D3BBCF778EF31C65055
-                FAEA003B3B3B9BC3E1F0BF4551E0BD278A1C41A0088200296B8806A631B5F71E
-                6B1DD61AB4369465C5FEFEFE9B2CCBBED8DBDB5B1A072B010683410CA4795EE0
-                9CC3DA90300C09828020900871DE1A1EE7FC7C9E456B435555545585102249D3
-                B4F3BB2D00B5D967B319D65A8C3128A5514AA154B0E00EEF6B006BED1C40A3B5
-                A62C2B8220F8988AD500DD6E97C964C264F201AD0D711C11866AC10DB5151A00
-                37377F0D5055154551A2B5264DD38F03ECECECA81B376E1C5FBF7EBD3F1C0E51
-                4A319D4E79FFFE3DD3E914AD2BCA32228A42940A0902899467B170066031E60C
-                A02C2BF23CE7CE9D3B6F9F3F7F8E3186C964C2D1D1D1E4CD9B379B7B7B7B4601
-                5CBB766D3B49927E9AA6731F0768ADC9B28CC9644A55458461386F8D056A17D4
-                16E01C8099C780A6AA4AB22CA3AA6A5778EF499284344DFB376FDEDC06FEA500
-                A2287A902409611822A5444A491CC7BC7DFB96EFBEFB06E75CDBACB50B7DA05D
-                23A56CE19A1645119D4EA7ED2BA5E8743A5455F5A005D8DEDEFEAADBED7E88A2
-                A89DD8EBF5E493274FE26579BFAA162CAB7CDE7B46A35139180C5C033D77C59F
-                DA18B875EBD6E7699A762F2EDCDFDFBF52153C2F524A76777793C160B030DEEB
-                F53E6F0180EB17E9B5D63445E853440881D67AD93EA316406BBDA9D462461645
-                4155554B01922421499285B13CCFC9F37C2940511468BD58968D311B2D405996
-                E945BFCE6633B22CBB0460AD25CF73D2344529851002630C799E13C7F1A5C223
-                8460369B5114C5C503765B8077EFDEC5711C9F4BADDA6C8F1F3F4608B1306E8C
-                A12C4BC230248A228410545585D69A388E09C3B0FD2035CD39C7F1F171DB9F03
-                440D80DCDCDCF417AB55AFD763381C5E32E955A4A921001F3E4C512A248A220F
-                08050C67B39993F2EC6A20A5E4E0E080D7AF5F5F3ACDC5D698F9623B3F7EFBF6
-                6D1E3E7C38CF28D17CA82C305040FFF4F4542BA5DAA89A4C26ECEEEE7E720634
-                2284E0DEBD7BF4FB7D8480B2AC984EA706D8544092655991A6697BF93C393961
-                6363834E275D7B015927DE7B8A62C6C9C9096118220458EBC8B2AC004205C8C3
-                C3C3FC7C0C1445C1FDFBF7F9FAEBBF62AD69379A9F072905CE39BCF734AE33C6
-                B455F4ECE475FF871FFE4951146459D6BE3B3C3CCC814801272F5EBCF8C7CB97
-                2F6F0921ACF73ED05AFF61636373FBC183BFC8AAAA70CE2144AD544AD93E0182
-                206895036DB00921F0DE2384E0E79F7F740707073F0541F09F300C4B6BAD1A8F
-                C7BF02270AF8F5E9D3A77F0742C001E1DDBB77FFF6E8D1A3AFBEFCF28B368DEA
-                CD6A2535409D9ED6DA3655BD07EF5D0BE09C47A980E170209F3D7BF6FDAB57AF
-                BE0572EACBB006266AAEF4CC36A09452D3ADAD2DFAFD1EB3D90C682EA4206530
-                7789E37C8C064180B576C1FF520AC230646B6B8B388E8F8177C0C2A465372231
-                1E8F4321044A29922469FD7FFEC4DE8B76AC8985FA96245AF3379F6721044747
-                47C9FCE46B017C511445B7DB6DFDDE64C2A2B96B05C698057F9FAF9CCD58B7DB
-                A5288A12B894D7CB00EC783CFEF76834FA4508F1C7C602ABD2B1093A60E5BCD1
-                68F4CB783CFEE9E2E961F5CF6917F833B0B5847AD91A4F1D4BCDD35DE89F023F
-                0293DF0A00B5BFAE528596954FBF629CFF01121CFE29C9C6B596000000004945
-                4E44AE426082}
-              TabOrder = 0
-              Appearance.BorderColor = 14727579
-              Appearance.BorderColorHot = 10079963
-              Appearance.BorderColorDown = 4548219
-              Appearance.BorderColorDisabled = clBackground
-              Appearance.Color = 15653832
-              Appearance.ColorTo = 16178633
-              Appearance.ColorChecked = 7915518
-              Appearance.ColorCheckedTo = 11918331
-              Appearance.ColorDisabled = clBackground
-              Appearance.ColorDisabledTo = clBackground
-              Appearance.ColorDown = 7778289
-              Appearance.ColorDownTo = 4296947
-              Appearance.ColorHot = 15465983
-              Appearance.ColorHotTo = 11332863
-              Appearance.ColorMirror = 15586496
-              Appearance.ColorMirrorTo = 16245200
-              Appearance.ColorMirrorHot = 5888767
-              Appearance.ColorMirrorHotTo = 10807807
-              Appearance.ColorMirrorDown = 946929
-              Appearance.ColorMirrorDownTo = 5021693
-              Appearance.ColorMirrorChecked = 10480637
-              Appearance.ColorMirrorCheckedTo = 5682430
-              Appearance.ColorMirrorDisabled = clBackground
-              Appearance.ColorMirrorDisabledTo = clBackground
-              Appearance.GradientHot = ggVertical
-              Appearance.GradientMirrorHot = ggVertical
-              Appearance.GradientDown = ggVertical
-              Appearance.GradientMirrorDown = ggVertical
-              Appearance.GradientChecked = ggVertical
-              DropDownButton = True
-              DropDownMenu = AdvPopupMenu1
             end
           end
         end
@@ -1862,5 +2017,12 @@ inherited FrmImportarSPED: TFrmImportarSPED
     ButtonAppearance.CaptionFont.Style = []
     Left = 640
     Top = 406
+  end
+  object cxStyleRepository1: TcxStyleRepository
+    PixelsPerInch = 96
+    object cxStyle1: TcxStyle
+      AssignedValues = [svColor]
+      Color = clInfoBk
+    end
   end
 end
