@@ -1,14 +1,10 @@
 CREATE TABLE "CADASTROS"."EMPRESAS"
 (
-    "ID" serial NOT NULL,
+    "ID" Integer NOT NULL,
     "RAZAO_SOCIAL" character varying(50),
     "NOME_EMPRESARIAL" character varying(50),
     "CPFCNPJ" character varying(18),
     "RGIE" character varying(20),
-    "ENDERECO" character varying(100),
-    "NUMERO" integer,
-    "BAIRRO" character varying(50),
-    "CEP" character varying(10),
     "UF" character varying(2),
     "IDCIDADE" integer,
     PRIMARY KEY ("ID")
