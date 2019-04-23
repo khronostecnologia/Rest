@@ -16,16 +16,13 @@ type
     FDTransaction1: TFDTransaction;
     FDGUIxWaitCursor1: TFDGUIxWaitCursor;
     QryEmpresa: TFDQuery;
-    QryEmpresaID: TIntegerField;
-    QryEmpresaRAZAO_SOCIAL: TWideStringField;
-    QryEmpresaNOME_EMPRESARIAL: TWideStringField;
-    QryEmpresaRGIE: TWideStringField;
-    QryEmpresaENDERECO: TWideStringField;
-    QryEmpresaBAIRRO: TWideStringField;
-    QryEmpresaCEP: TWideStringField;
-    QryEmpresaCPFCNPJ: TWideStringField;
-    QryEmpresaNUMERO: TIntegerField;
     QryEmpresaIDCIDADE: TIntegerField;
+    QryEmpresaUF: TStringField;
+    QryEmpresaID: TIntegerField;
+    QryEmpresaRAZAO_SOCIAL: TStringField;
+    QryEmpresaNOME_EMPRESARIAL: TStringField;
+    QryEmpresaCPFCNPJ: TStringField;
+    QryEmpresaRGIE: TStringField;
     procedure DataModuleCreate(Sender: TObject);
   private
     FDirApp: String;
@@ -34,6 +31,7 @@ type
   public
     { Public declarations }
     procedure ConectaBanco;
+    function GravaEmpresa(AQry : TDataSet):Boolean;
     function GetEmpresa(ACodigo : String):Boolean;
     property DirApp : String read FDirApp write SetDirApp;
     class var BancoExec : TFDConnection;
@@ -47,6 +45,8 @@ implementation
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
 {$R *.dfm}
+
+Uses uMensagem,BiblKhronos;
 
 procedure TDMBase.ConectaBanco;
 begin
@@ -91,15 +91,48 @@ begin
         SourceDataType := dtBCD;
         TargetDataType := dtDouble;
       end;
+
+      with MapRules.Add do
+      begin
+        SourceDataType := dtFmtBCD;
+        TargetDataType := dtDouble;
+      end;
   end;
 end;
 
 function TDMBase.GetEmpresa(ACodigo: String): Boolean;
 begin
   QryEmpresa.Close;
-  QryEmpresa.ParamByName('ID').AsString := ACodigo;
+  QryEmpresa.ParamByName('ID').AsInteger := ACodigo.ToInteger;
   QryEmpresa.Open;
   Result  := not (QryEmpresa.IsEmpty);
+end;
+
+function TDMBase.GravaEmpresa(AQry: TDataSet):Boolean;
+begin
+  result := false;
+  if  AQry.IsEmpty then
+  begin
+    FrmMensagem.Informacao('Registro 0000 não encontrado!');
+    exit;
+  end;
+
+  if not QryEmpresa.Active then
+  begin
+    QryEmpresa.ParamByName('ID').AsInteger := -1;
+    QryEmpresa.Open;
+  end;
+
+  QryEmpresa.Insert;
+  QryEmpresaID.AsInteger               := GetID('"CADASTROS"."EMPRESAS"',DB) + 1;
+  QryEmpresaRAZAO_SOCIAL.AsString      := AQry.FieldByName('NOME').AsString;
+  QryEmpresaNOME_EMPRESARIAL.AsString  := AQry.FieldByName('NOME').AsString;
+  QryEmpresaRGIE.AsString              := AQry.FieldByName('IE').AsString;
+  QryEmpresaUF.AsString                := AQry.FieldByName('UF').AsString;
+  QryEmpresaCPFCNPJ.AsString           := AQry.FieldByName('CNPJ').AsString;
+  QryEmpresaIDCIDADE.AsInteger         := AQry.FieldByName('COD_MUN').AsInteger;
+  QryEmpresa.Post;
+  result :=  (QryEmpresa.ApplyUpdates(0) = 0);
 end;
 
 procedure TDMBase.SetDirApp(const Value: String);

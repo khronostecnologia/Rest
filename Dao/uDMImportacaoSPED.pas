@@ -152,11 +152,37 @@ type
     QryC425DESCR_ITEM: TStringField;
     QryC425QTD: TFloatField;
     QryC425VL_ITEM: TFloatField;
+    QryResultadoA: TFDQuery;
+    QryResultadoS: TFDQuery;
+    QryResultadoSCOD_ITEM: TStringField;
+    QryResultadoSCODBARRA: TStringField;
+    QryResultadoSDESCR_ITEM: TStringField;
+    QryResultadoSDATA_ENTRADA: TDateTimeField;
+    QryResultadoSQTDE_ENTRADA: TFloatField;
+    QryResultadoSBC_ICMS_ST_ENT: TFloatField;
+    QryResultadoSVL_ICMS_ST_ENT: TFloatField;
+    QryResultadoSVL_ICMS_ST_UNI_ENT: TFloatField;
+    QryResultadoSDATA_SAIDA: TDateTimeField;
+    QryResultadoSQTDE_SAIDA: TFloatField;
+    QryResultadoSBC_ICMS_ST_SAI: TFloatField;
+    QryResultadoSTOTAL_ICMS_SAIDA: TFloatField;
+    QryResultadoSTOTAL_ICMS_ENTRADA: TFloatField;
+    QryResultadoSDIFERENCA: TFloatField;
+    QryResultadoSSALDO_RESTITUIR: TFloatField;
+    QryResultadoSSALDO_ARECOLHER: TFloatField;
+    DsResultadoA: TDataSource;
+    DsResultadoS: TDataSource;
+    QryResultadoSTOTAL_RESTITUIR: TAggregateField;
+    QryResultadoSTOTAL_ARECOLHER: TAggregateField;
   private
     { Private declarations }
+    function GetSQLResultadoAnalitico:String;
+    function GetSQLResultadoSintetico:String;
   public
     { Public declarations }
     function GetProduto(AID : String):String;
+    function GetResultadoAnalitico:String;
+    function GetResultadoSintetico:String;
   end;
 
 var
@@ -178,6 +204,28 @@ begin
   Qry0200.Locate('COD_ITEM',AID,[]);
   result  := Qry0200DESCR_ITEM.AsString;
   Qry0200.EnableControls;
+end;
+
+function TDMImportacaoSPED.GetResultadoAnalitico: String;
+begin
+
+end;
+
+function TDMImportacaoSPED.GetResultadoSintetico: String;
+begin
+  QryResultadoS.Close;
+  QryResultadoS.ParamByName('ID').AsInteger := Qry0000ID.AsInteger;
+  QryResultadoS.Open;
+end;
+
+function TDMImportacaoSPED.GetSQLResultadoAnalitico: String;
+begin
+
+end;
+
+function TDMImportacaoSPED.GetSQLResultadoSintetico: String;
+begin
+
 end;
 
 end.

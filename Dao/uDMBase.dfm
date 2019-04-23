@@ -19,10 +19,11 @@ object DMBase: TDMBase
     Top = 128
   end
   object QryEmpresa: TFDQuery
+    CachedUpdates = True
     Connection = DB
     SQL.Strings = (
       'SELECT * FROM "CADASTROS"."EMPRESAS"'
-      'WHERE ID =:ID')
+      'WHERE "ID" =:ID')
     Left = 120
     Top = 16
     ParamData = <
@@ -32,50 +33,29 @@ object DMBase: TDMBase
       end>
     object QryEmpresaID: TIntegerField
       FieldName = 'ID'
-      Origin = '"ID"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-    end
-    object QryEmpresaRAZAO_SOCIAL: TWideStringField
-      FieldName = 'RAZAO_SOCIAL'
-      Origin = '"RAZAO_SOCIAL"'
-      Size = 50
-    end
-    object QryEmpresaNOME_EMPRESARIAL: TWideStringField
-      FieldName = 'NOME_EMPRESARIAL'
-      Origin = '"NOME_EMPRESARIAL"'
-      Size = 50
-    end
-    object QryEmpresaRGIE: TWideStringField
-      FieldName = 'RGIE'
-      Origin = '"RGIE"'
-    end
-    object QryEmpresaENDERECO: TWideStringField
-      FieldName = 'ENDERECO'
-      Origin = '"ENDERECO"'
-      Size = 100
-    end
-    object QryEmpresaBAIRRO: TWideStringField
-      FieldName = 'BAIRRO'
-      Origin = '"BAIRRO"'
-      Size = 50
-    end
-    object QryEmpresaCEP: TWideStringField
-      FieldName = 'CEP'
-      Origin = '"CEP"'
-      Size = 10
-    end
-    object QryEmpresaCPFCNPJ: TWideStringField
-      FieldName = 'CPFCNPJ'
-      Origin = '"CPFCNPJ"'
-      Size = 18
-    end
-    object QryEmpresaNUMERO: TIntegerField
-      FieldName = 'NUMERO'
-      Origin = '"NUMERO"'
     end
     object QryEmpresaIDCIDADE: TIntegerField
       FieldName = 'IDCIDADE'
       Origin = '"IDCIDADE"'
+    end
+    object QryEmpresaUF: TStringField
+      FieldName = 'UF'
+      Size = 2
+    end
+    object QryEmpresaRAZAO_SOCIAL: TStringField
+      FieldName = 'RAZAO_SOCIAL'
+      Size = 50
+    end
+    object QryEmpresaNOME_EMPRESARIAL: TStringField
+      FieldName = 'NOME_EMPRESARIAL'
+      Size = 50
+    end
+    object QryEmpresaCPFCNPJ: TStringField
+      FieldName = 'CPFCNPJ'
+      Size = 18
+    end
+    object QryEmpresaRGIE: TStringField
+      FieldName = 'RGIE'
     end
   end
 end

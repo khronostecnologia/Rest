@@ -1,7 +1,7 @@
 object DMImportacaoSPED: TDMImportacaoSPED
   OldCreateOrder = False
-  Height = 300
-  Width = 284
+  Height = 455
+  Width = 585
   object Qry0000: TFDQuery
     CachedUpdates = True
     Connection = DMBase.DB
@@ -559,5 +559,186 @@ object DMImportacaoSPED: TDMImportacaoSPED
       FieldName = 'DESCR_ITEM'
       Size = 50
     end
+  end
+  object QryResultadoA: TFDQuery
+    CachedUpdates = True
+    Connection = DMBase.DB
+    Left = 32
+    Top = 294
+  end
+  object QryResultadoS: TFDQuery
+    CachedUpdates = True
+    AggregatesActive = True
+    Connection = DMBase.DB
+    SQL.Strings = (
+      'SELECT '
+      '   P."COD_ITEM",P."CODBARRA",P."DESCR_ITEM",'
+      '   NF."DT_E_ES" AS "DATA_ENTRADA",'
+      '   SUM(NP."QTDE") AS "QTDE_ENTRADA",'
+      '   SUM(NP."VL_BC_ICMS_ST") AS "BC_ICMS_ST_ENT",'
+      '   SUM(NP."VL_ICMS_ST") AS "VL_ICMS_ST_ENT",'
+      '   SUM((NP."VL_BC_ICMS_ST" / NP."QTDE")) VL_ICMS_ST_UNI_ENT,'
+      '   V."DATA" AS "DATA_SAIDA",'
+      '   SUM(VI."QTD") AS "QTDE_SAIDA",'
+      '   SUM((VI."QTD" * VI."VL_ITEM")) AS "BC_ICMS_ST_SAI",'
+      
+        '   SUM(( /*ALIQUOTA PRATICA SAIDA*/ 14.00 * VI."VL_ITEM")) AS TO' +
+        'TAL_ICMS_SAIDA,'
+      
+        '   SUM( ( (NP."VL_BC_ICMS_ST" / NP."QTDE") * (VI."QTD") * (/*ALI' +
+        'QUOTA PRATICA SAIDA*/ 14.00))) TOTAL_ICMS_ENTRADA,'
+      '   SUM(( ( /*ALIQUOTA PRATICA SAIDA*/ 14.00 * VI."VL_ITEM") - '
+      
+        #9'( (NP."VL_BC_ICMS_ST" / NP."QTDE") * (VI."QTD") * (/*ALIQUOTA P' +
+        'RATICA SAIDA*/ 14.00))'
+      '   ))DIFERENCA,'
+      '  SUM( ('
+      '    CASE '
+      #9'   WHEN '
+      #9'    ( ( /*ALIQUOTA PRATICA SAIDA*/ 14.00 * VI."VL_ITEM") - '
+      
+        #9'( (NP."VL_BC_ICMS_ST" / NP."QTDE") * (VI."QTD") * (/*ALIQUOTA P' +
+        'RATICA SAIDA*/ 14.00))'
+      '      ) < 0 THEN'
+      #9'    ( ( /*ALIQUOTA PRATICA SAIDA*/ 14.00 * VI."VL_ITEM") - '
+      
+        #9'( (NP."VL_BC_ICMS_ST" / NP."QTDE") * (VI."QTD") * (/*ALIQUOTA P' +
+        'RATICA SAIDA*/ 14.00))'
+      '      )'
+      #9'    ELSE'
+      #9'     0'
+      #9'   END'#9'   '
+      '   ))SALDO_RESTITUIR,'
+      '   '
+      '   SUM(  ('
+      '    CASE '
+      #9'   WHEN '
+      #9'    ( ( /*ALIQUOTA PRATICA SAIDA*/ 14.00 * VI."VL_ITEM") - '
+      
+        #9'( (NP."VL_BC_ICMS_ST" / NP."QTDE") * (VI."QTD") * (/*ALIQUOTA P' +
+        'RATICA SAIDA*/ 14.00))'
+      '      ) > 0 THEN'
+      #9'    ( ( /*ALIQUOTA PRATICA SAIDA*/ 14.00 * VI."VL_ITEM") - '
+      
+        #9'( (NP."VL_BC_ICMS_ST" / NP."QTDE") * (VI."QTD") * (/*ALIQUOTA P' +
+        'RATICA SAIDA*/ 14.00))'
+      '      )'
+      #9'    ELSE'
+      #9'     0'
+      #9'   END'#9'   '
+      '   )) SALDO_ARECOLHER'
+      '   '
+      'FROM "CADASTROS"."REGISTRO0200_04454749000160" P'
+      
+        'LEFT JOIN "REG_ENT"."REGISTROC170_04454749000160" NP ON NP."COD_' +
+        'ITEM" = P."COD_ITEM"'
+      
+        'LEFT JOIN "REG_ENT"."REGISTROC100_04454749000160" NF ON NF."ID" ' +
+        '= NP."IDNF"'
+      
+        'LEFT JOIN "REG_SAIDA"."REGISTROC425_04454749000160" VI ON VI."CO' +
+        'D_ITEM" = P."COD_ITEM"'
+      
+        'LEFT JOIN "REG_SAIDA"."REGISTROC400_04454749000160" V ON V."ID" ' +
+        '= VI."ID_REDZ"'
+      'WHERE P."IDSPED" =:ID'
+      
+        'GROUP BY  P."COD_ITEM", P."CODBARRA",P."DESCR_ITEM",NF."DT_E_ES"' +
+        ',V."DATA"'
+      
+        'ORDER BY P."COD_ITEM", P."CODBARRA",P."DESCR_ITEM",NF."DT_E_ES",' +
+        'V."DATA"'
+      '')
+    Left = 32
+    Top = 350
+    ParamData = <
+      item
+        Name = 'ID'
+        ParamType = ptInput
+      end>
+    object QryResultadoSCOD_ITEM: TStringField
+      FieldName = 'COD_ITEM'
+      Size = 30
+    end
+    object QryResultadoSCODBARRA: TStringField
+      FieldName = 'CODBARRA'
+      Size = 13
+    end
+    object QryResultadoSDESCR_ITEM: TStringField
+      FieldName = 'DESCR_ITEM'
+      Size = 100
+    end
+    object QryResultadoSDATA_ENTRADA: TDateTimeField
+      FieldName = 'DATA_ENTRADA'
+    end
+    object QryResultadoSQTDE_ENTRADA: TFloatField
+      FieldName = 'QTDE_ENTRADA'
+    end
+    object QryResultadoSBC_ICMS_ST_ENT: TFloatField
+      FieldName = 'BC_ICMS_ST_ENT'
+      DisplayFormat = '0.00'
+    end
+    object QryResultadoSVL_ICMS_ST_ENT: TFloatField
+      FieldName = 'VL_ICMS_ST_ENT'
+      DisplayFormat = '0.00'
+    end
+    object QryResultadoSVL_ICMS_ST_UNI_ENT: TFloatField
+      FieldName = 'VL_ICMS_ST_UNI_ENT'
+      DisplayFormat = '0.00'
+    end
+    object QryResultadoSDATA_SAIDA: TDateTimeField
+      FieldName = 'DATA_SAIDA'
+    end
+    object QryResultadoSQTDE_SAIDA: TFloatField
+      FieldName = 'QTDE_SAIDA'
+    end
+    object QryResultadoSBC_ICMS_ST_SAI: TFloatField
+      FieldName = 'BC_ICMS_ST_SAI'
+      DisplayFormat = '0.00'
+    end
+    object QryResultadoSTOTAL_ICMS_SAIDA: TFloatField
+      FieldName = 'TOTAL_ICMS_SAIDA'
+      DisplayFormat = '0.00'
+    end
+    object QryResultadoSTOTAL_ICMS_ENTRADA: TFloatField
+      FieldName = 'TOTAL_ICMS_ENTRADA'
+      DisplayFormat = '0.00'
+    end
+    object QryResultadoSDIFERENCA: TFloatField
+      FieldName = 'DIFERENCA'
+      DisplayFormat = '0.00'
+    end
+    object QryResultadoSSALDO_RESTITUIR: TFloatField
+      FieldName = 'SALDO_RESTITUIR'
+      DisplayFormat = '0.00'
+    end
+    object QryResultadoSSALDO_ARECOLHER: TFloatField
+      FieldName = 'SALDO_ARECOLHER'
+      DisplayFormat = '0.00'
+    end
+    object QryResultadoSTOTAL_RESTITUIR: TAggregateField
+      FieldName = 'TOTAL_RESTITUIR'
+      Active = True
+      DisplayName = ''
+      DisplayFormat = '0.00'
+      Expression = 'SUM(SALDO_RESTITUIR)'
+    end
+    object QryResultadoSTOTAL_ARECOLHER: TAggregateField
+      FieldName = 'TOTAL_ARECOLHER'
+      Active = True
+      DisplayName = ''
+      DisplayFormat = '0.00'
+      Expression = 'SUM(SALDO_ARECOLHER)'
+    end
+  end
+  object DsResultadoA: TDataSource
+    DataSet = QryResultadoA
+    Left = 96
+    Top = 294
+  end
+  object DsResultadoS: TDataSource
+    DataSet = QryResultadoS
+    Left = 96
+    Top = 350
   end
 end
