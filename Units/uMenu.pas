@@ -31,16 +31,12 @@ type
     PnlFooter: TAdvSmoothPanel;
     ImgLogo: TImage;
     lblTitulo: TLabel;
-    MnSelecionarCliente: TMenuItem;
-    lblEmpresaLogada: TLabel;
     AdvGroupBox1: TAdvGroupBox;
     Label2: TLabel;
     Label3: TLabel;
     Label5: TLabel;
     Label4: TLabel;
     procedure FormShow(Sender: TObject);
-    procedure MnSelecionarClienteClick(Sender: TObject);
-    procedure BtnEmpresaClick(Sender: TObject);
     procedure MnuSubImportacaoSPEDClick(Sender: TObject);
     procedure Sair1Click(Sender: TObject);
     procedure BtnImportacaoSPEDClick(Sender: TObject);
@@ -49,8 +45,6 @@ type
   public
     { Public declarations }
     procedure HabilitaMenus;
-    procedure SelecionaCliente;
-    procedure SetEmpresaLogada;
   end;
 
 var
@@ -62,11 +56,6 @@ implementation
 
 Uses uDMBase,uPesquisa,uMensagem,uImportacao;
 
-procedure TFrmMenu.BtnEmpresaClick(Sender: TObject);
-begin
-  SelecionaCliente;
-end;
-
 procedure TFrmMenu.BtnImportacaoSPEDClick(Sender: TObject);
 begin
   FrmImportacao := TFrmImportacao.Create(nil);
@@ -76,17 +65,11 @@ end;
 procedure TFrmMenu.FormShow(Sender: TObject);
 begin
   HabilitaMenus;
-  SetEmpresaLogada;
 end;
 
 procedure TFrmMenu.HabilitaMenus;
 begin
   Menu.Items[0].Enabled := not (dmPrincipal.QryEmpresa.Active);
-end;
-
-procedure TFrmMenu.MnSelecionarClienteClick(Sender: TObject);
-begin
-  SelecionaCliente;
 end;
 
 procedure TFrmMenu.MnuSubImportacaoSPEDClick(Sender: TObject);
@@ -98,40 +81,6 @@ end;
 procedure TFrmMenu.Sair1Click(Sender: TObject);
 begin
   Application.Terminate;
-end;
-
-procedure TFrmMenu.SelecionaCliente;
-var
-  vRetorno : String;
-begin
-  Try
-  FrmPesquisa := TFrmPesquisa.Create(nil);
-  FrmPesquisa.MontaSql('SELECT * FROM GET_EMPRESA ORDER BY "RAZAO_SOCIAL"');
-  FrmPesquisa.ShowModal;
-  if FrmPesquisa.Selecionou then
-  begin
-   vRetorno := FrmPesquisa.QryPesquisa.fieldbyName('CODIGO').AsString;
-    if not dmPrincipal.GetEmpresa(vRetorno) then
-    begin
-      FrmMensagem.Informacao('Não foi possível encontrar o cadastro da empresa!');
-      exit;
-    end;
-   SetEmpresaLogada;
-  end;
- finally
-  FreeAndNil(FrmPesquisa);
- end;
-end;
-
-procedure TFrmMenu.SetEmpresaLogada;
-begin
-  if dmPrincipal.QryEmpresa.Active then
-    lblEmpresaLogada.Caption := 'Empresa logada : ' +
-                                 dmPrincipal.QryEmpresaRAZAO_SOCIAL.AsString +
-                                ' | CNPJ : ' +
-                                dmPrincipal.QryEmpresaCPFCNPJ.AsString
-  else
-    lblEmpresaLogada.Caption := '';
 end;
 
 end.

@@ -7,7 +7,7 @@ inherited FrmImportacao: TFrmImportacao
   WindowState = wsMaximized
   OnClose = FormClose
   OnCreate = FormCreate
-  ExplicitTop = -14
+  ExplicitTop = -95
   ExplicitWidth = 845
   ExplicitHeight = 542
   PixelsPerInch = 96
@@ -1840,6 +1840,11 @@ inherited FrmImportacao: TFrmImportacao
             OptionsData.Editing = False
             OptionsData.Inserting = False
             OptionsView.GroupByBox = False
+            object cxGrid0000DBTableView1Column1Codigo: TcxGridDBColumn
+              Caption = 'C'#243'digo'
+              DataBinding.FieldName = 'ID'
+              Options.Editing = False
+            end
             object cxGrid0000DBTableView1COD_FIN: TcxGridDBColumn
               Caption = 'Cod.finalidade'
               DataBinding.FieldName = 'COD_FIN'

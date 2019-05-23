@@ -245,7 +245,7 @@ implementation
 
 {$R *.dfm}
 
-Uses udmBase;
+Uses udmBase,biblKhronos;
 
 { TDMImportacaoSPED }
 
@@ -267,6 +267,7 @@ begin
   QryResultadoS.Close;
   QryResultadoS.ParamByName('ID').AsInteger := Qry0000ID.AsInteger;
   QryResultadoS.Open;
+  CopyQuery(QryResultadoS.SQL.Text);
 end;
 
 function TDMImportacao.GetSQLResultadoAnalitico: String;

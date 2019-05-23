@@ -228,6 +228,7 @@ type
     cxGridDBTableView4Column1: TcxGridDBColumn;
     cxGridDBTableView4Column2: TcxGridDBColumn;
     cxGridTotalizadorSinteticoDBTableView1ESTOQUE_FINAL: TcxGridDBColumn;
+    cxGrid0000DBTableView1Column1Codigo: TcxGridDBColumn;
     procedure BtnIniciaImportacaoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -265,7 +266,7 @@ type
     procedure ImportaRegC100;
     procedure ImportaRegC400;
     procedure CriaTabelaEmpresaLogada(ASQL : String);
-    procedure CarregaSPED(AID : Integer ;ACNPJ : String);
+    procedure CarregaSPED(AID : Integer);
     procedure LimpaTela;
     procedure CarregaResultado(ATipoRel : TTipoRel);
     function  ExisteArqSPED(ADT_INI,ADT_FIM,ACNPJCPF : String) : Boolean;
@@ -316,33 +317,36 @@ begin
     SetaFoco(EdtArquivo);
     exit;
   end;
-  ImportarSPED;
-  cxPgcImportacao.ActivePageIndex := 0;
-  BtnGravar.Enabled             := true;
-  BtnCancelar.Enabled           := true;
-  BtnLocalizaImportacao.Enabled := false;
-  BtnNovaImportacacao.Enabled   := false;
-  BtnIniciaImportacao.Enabled   := false;
+
+  try
+    ImportarSPED;
+
+    cxPgcImportacao.ActivePageIndex := 0;
+    BtnGravar.Enabled             := true;
+    BtnCancelar.Enabled           := true;
+    BtnLocalizaImportacao.Enabled := false;
+    BtnNovaImportacacao.Enabled   := false;
+    BtnIniciaImportacao.Enabled   := false;
+  except
+    LimpaTela;
+  end;
+
 end;
 
 procedure TFrmImportacao.BtnLocalizaImportacaoClick(Sender: TObject);
 var
-  vRetorno : Integer;
+  iID : Integer;
 begin
   inherited;
   LimpaTela;
   Try
-  FrmMenu.SelecionaCliente;
-  if dmPrincipal.QryEmpresa.Active then
-  begin
     FrmPesquisa := TFrmPesquisa.Create(nil);
-    FrmPesquisa.MontaSql('SELECT * FROM "CADASTROS"."REGISTRO0000_'+ dmPrincipal.QryEmpresaCPFCNPJ.AsString + '" ' +
-                         ' ORDER BY "NOME"');
+    FrmPesquisa.MontaSql('SELECT * FROM "REGISTRO0000" ORDER BY "NOME"');
     FrmPesquisa.ShowModal;
     if FrmPesquisa.Selecionou then
     begin
-      vRetorno := FrmPesquisa.QryPesquisa.fieldbyName('ID').AsInteger;
-     CarregaSPED(vRetorno,dmPrincipal.QryEmpresaCPFCNPJ.AsString);
+     iID := FrmPesquisa.QryPesquisa.fieldbyName('ID').AsInteger;
+     CarregaSPED(iID);
      CarregaResultado(trelSintetico);
      BtnIniciaImportacao.Enabled   := false;
      BtnGravar.Enabled             := false;
@@ -352,10 +356,9 @@ begin
      GpbRegistro0000.Visible       := true;
      cxPgcImportacao.Visible       := true;
     end;
+  finally
+    FreeAndNil(FrmPesquisa);
   end;
- finally
-  FreeAndNil(FrmPesquisa);
- end;
 end;
 
 procedure TFrmImportacao.BtnNovaImportacacaoClick(Sender: TObject);
@@ -364,6 +367,7 @@ begin
   LimpaTela;
   EdtArquivo.Enabled := true;
   EdtArquivo.DoClick;
+  if BtnIniciaImportacao.Enabled then
   SetaFoco(BtnIniciaImportacao);
 end;
 
@@ -390,7 +394,7 @@ begin
                                 QryResultadoSTOTAL_ARECOLHER.AsString;
 end;
 
-procedure TFrmImportacao.CarregaSPED(AID : Integer ;ACNPJ : String);
+procedure TFrmImportacao.CarregaSPED(AID : Integer);
 begin
   try
     with DMImportacao do
@@ -408,7 +412,7 @@ begin
       QryC100e.Close;
       QryC100e.SQL.Clear;
       QryC100e.SQL.Text := 'SELECT * FROM "REGISTROC100" WHERE "ID_SPED" =' + AID.ToString +
-                           ' AND IND_OPER = 0';
+                           ' AND "IND_OPER" = ''ENTRADA''';
       QryC100e.Open;
 
       QryC170e.Close;
@@ -416,16 +420,22 @@ begin
       QryC170e.SQL.Text := 'SELECT * FROM "REGISTROC170" WHERE "ID_SPED" =' + AID.ToString;
       QryC170e.Open;
 
+      QryC170e.Filter   := 'ID =-99';
+      QryC170e.Filtered := true;
+
       QryC100s.Close;
       QryC100s.SQL.Clear;
       QryC100s.SQL.Text := 'SELECT * FROM "REGISTROC100" WHERE "ID_SPED" =' + AID.ToString +
-                           ' AND IND_OPER = 1';
+                           ' AND "IND_OPER" = ''SAIDA''';
       QryC100s.Open;
 
       QryC170s.Close;
       QryC170s.SQL.Clear;
       QryC170s.SQL.Text := 'SELECT * FROM "REGISTROC170" WHERE "ID_SPED" =' + AID.ToString;
       QryC170s.Open;
+
+      QryC170s.Filter   := 'ID =-99';
+      QryC170s.Filtered := true;
 
       QryC400.Close;
       QryC400.SQL.Clear;
@@ -1149,7 +1159,7 @@ begin
       on e: exception do
       begin
         FrmMensagem.Informacao(e.Message + ' ao importar arquivo SPED.');
-        LimpaTela;
+        abort;
       end;
    end;
  finally
