@@ -1,0 +1,67 @@
+            CREATE TABLE "REGISTROC100"   
+              (                                                       
+                  "ID" Integer NOT NULL,                              
+                  "ID_SPED" Integer,                                  
+                  "IND_OPER" character varying(50),                   
+                  "COD_SIT" character varying(50),                    
+                  "COD_PART" character varying(50),                   
+                  "PARTICIPANTE" character varying(100),              
+                  "COD_MOD" character varying(5),                     
+                  "SER" character varying(5),                         
+                  "NUM_DOC" character varying(10),                    
+                  "CHV_NFE" character varying(44),                    
+                  "DT_DOC" timestamp,                                 
+                  "DT_E_ES" timestamp,                                
+                  "VL_DOC" decimal(15,2),                             
+                  "VL_MERC" decimal(15,2),                            
+                  "VL_DESC" decimal(15,2),                            
+                  "VL_FRT" decimal(15,2),                             
+                  "VL_SEG" decimal(15,2),                             
+                  "VL_OUT_DA" decimal(15,2),                          
+                  "VL_BC_ICMS" decimal(15,2),                         
+                  "VL_ICMS" decimal(15,2),                            
+                  "VL_BC_ICMS_ST" decimal(15,2),                      
+                  "VL_ICMS_ST" decimal(15,2),                         
+                  "VL_BC_IPI" decimal(15,2),                          
+                  "VL_IPI" decimal(15,2),                             
+                  "VL_BC_PIS" decimal(15,2),                          
+                  "VL_PIS" decimal(15,2),                             
+                  "VL_BC_COFINS" decimal(15,2),                       
+                  "VL_COFINS" decimal(15,2),                          
+                  PRIMARY KEY ("ID")                                  
+              )                                                       
+              WITH (                                                  
+                  OIDS = FALSE                                        
+              );                                                      
+            
+			ALTER TABLE "REGISTROC100"  OWNER to postgres; 
+
+            CREATE TABLE "REGISTROC170"
+              (                                                       
+                  "ID" Integer NOT NULL,                              
+                  "IDNF" Integer,                                     
+                  "ID_SPED" Integer,                                  
+                  "NUM_ITEM" character varying(5),                    
+                  "COD_ITEM" character varying(14),                   
+                  "DESCR_ITEM" character varying(50),                 
+                  "QTDE" decimal(15,3),                               
+                  "UNID" character varying(5),                        
+                  "VL_ITEM" decimal(15,2),                            
+                  "VL_DESC" decimal(15,2),                            
+                  "CST_ICMS" character varying(3),                    
+                  "CFOP" character varying(4),                        
+                  "VL_BC_ICMS" decimal(15,2),                         
+                  "ALIQ_ICMS" decimal(15,2),                          
+                  "VL_ICMS" decimal(15,2),                            
+                  "VL_BC_ICMS_ST" decimal(15,2),                      
+                  "ALIQ_ST" decimal(15,2),                            
+                  "VL_ICMS_ST" decimal(15,2),                         
+                  PRIMARY KEY ("ID")                                  
+              )                                                       
+              WITH (                                                  
+                  OIDS = FALSE                                        
+              );                                                      
+              ALTER TABLE "REGISTROC170" 
+                  OWNER to postgres; 
+
+            

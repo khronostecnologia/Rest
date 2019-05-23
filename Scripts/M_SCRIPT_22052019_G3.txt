@@ -1,0 +1,29 @@
+            CREATE TABLE "REGISTROC400" 
+              (                                                      
+                  "ID" Integer NOT NULL,                             
+                  "ID_SPED" Integer,                                 
+                  "DATA" timestamp,                                  
+                  "ECF_FAB" character varying(21),                   
+                  PRIMARY KEY ("ID")                                 
+              )                                                      
+              WITH (                                                 
+                  OIDS = FALSE                                       
+              );                                                     
+              ALTER TABLE "REGISTROC400" OWNER to postgres;
+
+            CREATE TABLE "REGISTROC425"
+              (                                                      
+                  "ID" Integer NOT NULL,                             
+                  "ID_SPED" Integer,                                 
+                  "ID_REDZ" Integer,                                 
+             	   "COD_TOT_PAR" character varying(7),                
+                  "COD_ITEM" character varying(30),                  
+                  "DESCR_ITEM" character varying(100),               
+                  "QTD" decimal(15,2),                               
+                  "VL_ITEM" decimal(15,2),                           
+                  PRIMARY KEY ("ID")                                 
+              )                                                      
+              WITH (                                                 
+                  OIDS = FALSE                                       
+              );                                                     
+              ALTER TABLE "REGISTROC425" OWNER to postgres;

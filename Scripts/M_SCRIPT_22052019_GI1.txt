@@ -1,0 +1,19 @@
+            CREATE TABLE "REGISTRO0200"
+              (                                                       
+                  "ID" Integer NOT NULL,                              
+                  "IDSPED" Integer,                                   
+                  "COD_ITEM" character varying(30),                   
+                  "DESCR_ITEM" character varying(100),                
+                  "CODBARRA" character varying(14),                   
+                  "UNID" character varying(5),                        
+                  "TIPO_ITEM" character varying(30),                  
+                  "COD_NCM" character varying(15),                    
+                  "ALIQ_ICMS" DECIMAL(15,2),                          
+                  "CEST" character varying(15),                       
+                  PRIMARY KEY ("ID")                                  
+              )                                                       
+              WITH (                                                  
+                  OIDS = FALSE                                        
+              );                                                      
+              ALTER TABLE "REGISTRO0200"
+                  OWNER to postgres;                                  ;

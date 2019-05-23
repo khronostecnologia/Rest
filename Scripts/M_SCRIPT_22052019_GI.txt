@@ -1,0 +1,21 @@
+            CREATE TABLE "REGISTRO0000"
+              (                                                       
+                  "ID" Integer NOT NULL,                              
+                  "COD_FIN" character varying(30),                    
+                  "DT_INI" TIMESTAMP,                                 
+                  "DT_FIM" TIMESTAMP,                                 
+                  "NOME" character varying(100),                      
+                  "CNPJ" character varying(20),                       
+                  "CPF" character varying(20),                        
+                  "UF" character varying(2),                          
+                  "IE" character varying(20),                         
+                  "COD_MUN" integer,                                  
+                  "IND_PERFIL" character varying(30),                 
+                  "IND_ATIV" character varying(30),                   
+                  PRIMARY KEY ("ID")                                  
+              )                                                       
+              WITH (                                                  
+                  OIDS = FALSE                                        
+              );                                                      
+              ALTER TABLE "REGISTRO0000" 
+                  OWNER to postgres;  
