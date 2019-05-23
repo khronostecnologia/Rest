@@ -60,7 +60,7 @@ implementation
 
 {$R *.dfm}
 
-Uses uDMBase,uPesquisa,uMensagem,uImportacaoSPEDICMSIPI;
+Uses uDMBase,uPesquisa,uMensagem,uImportacao;
 
 procedure TFrmMenu.BtnEmpresaClick(Sender: TObject);
 begin
@@ -69,8 +69,8 @@ end;
 
 procedure TFrmMenu.BtnImportacaoSPEDClick(Sender: TObject);
 begin
-  FrmImportarSPED := TFrmImportarSPED.Create(nil);
-  FrmImportarSPED.Show;
+  FrmImportacao := TFrmImportacao.Create(nil);
+  FrmImportacao.Show;
 end;
 
 procedure TFrmMenu.FormShow(Sender: TObject);
@@ -91,8 +91,8 @@ end;
 
 procedure TFrmMenu.MnuSubImportacaoSPEDClick(Sender: TObject);
 begin
-  FrmImportarSPED := TFrmImportarSPED.Create(nil);
-  FrmImportarSPED.Show;
+  FrmImportacao := TFrmImportacao.Create(nil);
+  FrmImportacao.Show;
 end;
 
 procedure TFrmMenu.Sair1Click(Sender: TObject);

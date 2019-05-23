@@ -12,8 +12,8 @@ uses
   uPesquisa in 'Util\uPesquisa.pas' {FrmPesquisa},
   BiblKhronos in 'Util\BiblKhronos.pas',
   uMaster in 'Heranca\uMaster.pas' {FrmMaster},
-  uImportacaoSPEDICMSIPI in 'Units\uImportacaoSPEDICMSIPI.pas' {FrmImportarSPED},
-  uDMImportacaoSPED in 'Dao\uDMImportacaoSPED.pas' {DMImportacaoSPED: TDataModule};
+  uImportacao in 'Units\uImportacao.pas' {FrmImportacao},
+  uDMImportacao in 'Dao\uDMImportacao.pas' {DMImportacao: TDataModule};
 
 {$R *.res}
 
