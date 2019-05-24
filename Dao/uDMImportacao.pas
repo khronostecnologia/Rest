@@ -41,7 +41,6 @@ type
     Qry0200CEST: TStringField;
     QryC100e: TFDQuery;
     QryC170e: TFDQuery;
-    Qry0200IDSPED: TIntegerField;
     Qry0000ID: TAutoIncField;
     QryC100eID_SPED: TIntegerField;
     QryC100eIND_OPER: TStringField;
@@ -225,6 +224,7 @@ type
     QryC170ID: TIntegerField;
     QryC170DESCR_ITEM: TStringField;
     QryResultadoSESTOQUE_FINAL: TFloatField;
+    Qry0200ID_SPED: TIntegerField;
   private
     { Private declarations }
     function GetSQLResultadoAnalitico:String;

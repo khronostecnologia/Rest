@@ -90,12 +90,12 @@ object DMImportacao: TDMImportacao
       FieldName = 'CEST'
       Size = 15
     end
-    object Qry0200IDSPED: TIntegerField
-      FieldName = 'IDSPED'
-    end
     object Qry0200ID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfHidden]
+    end
+    object Qry0200ID_SPED: TIntegerField
+      FieldName = 'ID_SPED'
     end
   end
   object QryC400: TFDQuery
@@ -387,7 +387,7 @@ object DMImportacao: TDMImportacao
       'SELECT '
       '   P."COD_ITEM",P."CODBARRA",P."DESCR_ITEM",'
       '   NF."DT_E_ES" AS "DATA_ENTRADA",'
-      '   SUM(NP."QTDE") AS "QTDE_ENTRADA",'
+      '   SUM(COALESCE(NP."QTDE",0)) AS "QTDE_ENTRADA",'
       '   SUM(NP."VL_BC_ICMS_ST") AS "BC_ICMS_ST_ENT",'
       '   SUM(NP."VL_ICMS_ST") AS "VL_ICMS_ST_ENT",'
       '   SUM((NP."VL_BC_ICMS_ST" / NP."QTDE")) VL_ICMS_ST_UNI_ENT,'
@@ -405,7 +405,9 @@ object DMImportacao: TDMImportacao
         #9'( (NP."VL_BC_ICMS_ST" / NP."QTDE") * (VI."QTD") * (/*ALIQUOTA P' +
         'RATICA SAIDA*/ 14.00))'
       '   ))DIFERENCA,'
-      '  (SUM(NP."QTDE") - SUM(VI."QTD")) ESTOQUE_FINAL,'
+      
+        '  (SUM(COALESCE(NP."QTDE",0)) - SUM(COALESCE(VI."QTD",0))) ESTOQ' +
+        'UE_FINAL,'
       '  SUM( ('
       '    CASE '
       #9'   WHEN '
@@ -447,14 +449,13 @@ object DMImportacao: TDMImportacao
       'LEFT JOIN "REGISTROC100" NF ON NF."ID" = NP."IDNF"'
       'LEFT JOIN "REGISTROC425" VI ON VI."COD_ITEM" = P."COD_ITEM"'
       'LEFT JOIN "REGISTROC400" V ON V."ID" = VI."ID_REDZ"'
-      'WHERE P."IDSPED" =:ID'
+      'WHERE P."ID_SPED" =:ID'
       
         'GROUP BY  P."COD_ITEM", P."CODBARRA",P."DESCR_ITEM",NF."DT_E_ES"' +
         ',V."DATA"'
       
         'ORDER BY P."COD_ITEM", P."CODBARRA",P."DESCR_ITEM",NF."DT_E_ES",' +
-        'V."DATA"'
-      '')
+        'V."DATA"')
     Left = 32
     Top = 390
     ParamData = <
@@ -482,15 +483,15 @@ object DMImportacao: TDMImportacao
     end
     object QryResultadoSBC_ICMS_ST_ENT: TFloatField
       FieldName = 'BC_ICMS_ST_ENT'
-      DisplayFormat = '0.00'
+      currency = True
     end
     object QryResultadoSVL_ICMS_ST_ENT: TFloatField
       FieldName = 'VL_ICMS_ST_ENT'
-      DisplayFormat = '0.00'
+      currency = True
     end
     object QryResultadoSVL_ICMS_ST_UNI_ENT: TFloatField
       FieldName = 'VL_ICMS_ST_UNI_ENT'
-      DisplayFormat = '0.00'
+      currency = True
     end
     object QryResultadoSDATA_SAIDA: TDateTimeField
       FieldName = 'DATA_SAIDA'
@@ -500,43 +501,44 @@ object DMImportacao: TDMImportacao
     end
     object QryResultadoSBC_ICMS_ST_SAI: TFloatField
       FieldName = 'BC_ICMS_ST_SAI'
-      DisplayFormat = '0.00'
+      currency = True
     end
     object QryResultadoSTOTAL_ICMS_SAIDA: TFloatField
       FieldName = 'TOTAL_ICMS_SAIDA'
-      DisplayFormat = '0.00'
+      currency = True
     end
     object QryResultadoSTOTAL_ICMS_ENTRADA: TFloatField
       FieldName = 'TOTAL_ICMS_ENTRADA'
-      DisplayFormat = '0.00'
+      currency = True
     end
     object QryResultadoSDIFERENCA: TFloatField
       FieldName = 'DIFERENCA'
-      DisplayFormat = '0.00'
+      currency = True
     end
     object QryResultadoSSALDO_RESTITUIR: TFloatField
       FieldName = 'SALDO_RESTITUIR'
-      DisplayFormat = '0.00'
+      currency = True
     end
     object QryResultadoSSALDO_ARECOLHER: TFloatField
       FieldName = 'SALDO_ARECOLHER'
-      DisplayFormat = '0.00'
+      currency = True
     end
     object QryResultadoSESTOQUE_FINAL: TFloatField
       FieldName = 'ESTOQUE_FINAL'
+      currency = True
     end
     object QryResultadoSTOTAL_RESTITUIR: TAggregateField
       FieldName = 'TOTAL_RESTITUIR'
       Active = True
+      currency = True
       DisplayName = ''
-      DisplayFormat = '0.00'
       Expression = 'SUM(SALDO_RESTITUIR)'
     end
     object QryResultadoSTOTAL_ARECOLHER: TAggregateField
       FieldName = 'TOTAL_ARECOLHER'
       Active = True
+      currency = True
       DisplayName = ''
-      DisplayFormat = '0.00'
       Expression = 'SUM(SALDO_ARECOLHER)'
     end
   end

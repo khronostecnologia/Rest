@@ -32,7 +32,8 @@ uses
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
   FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, dxGDIPlusClasses, Vcl.ExtCtrls,
-  cxTextEdit, cxGridCustomPopupMenu, cxGridPopupMenu, Vcl.Menus, AdvMenus;
+  cxTextEdit, cxGridCustomPopupMenu, cxGridPopupMenu, Vcl.Menus, AdvMenus,
+  Vcl.DBCtrls;
 
 type
   TTipoRel = (trelAnalitico,trelSintetico);
@@ -229,6 +230,8 @@ type
     cxGridDBTableView4Column2: TcxGridDBColumn;
     cxGridTotalizadorSinteticoDBTableView1ESTOQUE_FINAL: TcxGridDBColumn;
     cxGrid0000DBTableView1Column1Codigo: TcxGridDBColumn;
+    EdtTotalARestituir: TDBText;
+    EdtTotalARecolher: TDBText;
     procedure BtnIniciaImportacaoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -257,6 +260,7 @@ type
     procedure cxGridc400DBTableView1KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure BtnGravarClick(Sender: TObject);
+    procedure BtnExcluirClick(Sender: TObject);
   private
     { Private declarations }
     FCNPJ             : String;
@@ -269,6 +273,7 @@ type
     procedure CarregaSPED(AID : Integer);
     procedure LimpaTela;
     procedure CarregaResultado(ATipoRel : TTipoRel);
+    function  ExcluirArqSPED :Boolean;
     function  ExisteArqSPED(ADT_INI,ADT_FIM,ACNPJCPF : String) : Boolean;
   public
     { Public declarations }
@@ -290,12 +295,26 @@ begin
   LimpaTela;
 end;
 
+procedure TFrmImportacao.BtnExcluirClick(Sender: TObject);
+begin
+  inherited;
+  if not FrmMensagem.Confirmacao('Deseja realmente excluir a apuração?') then
+  exit;
+
+  if not ExcluirArqSPED then
+  exit;
+
+  FrmMensagem.Informacao('Registro excluído com sucesso!');
+  LimpaTela;
+end;
+
 procedure TFrmImportacao.BtnGravarClick(Sender: TObject);
 begin
   inherited;
   DMImportacao.Qry0000.ApplyUpdates(0);
   DMImportacao.Qry0200.ApplyUpdates(0);
   DMImportacao.QryC100.ApplyUpdates(0);
+  DMImportacao.QryC170.ApplyUpdates(0);
   DMImportacao.QryC400.ApplyUpdates(0);
   DMImportacao.QryC425.ApplyUpdates(0);
   CarregaResultado(trelSintetico);
@@ -353,6 +372,8 @@ begin
      BtnCancelar.Enabled           := true;
      BtnLocalizaImportacao.Enabled := false;
      BtnNovaImportacacao.Enabled   := false;
+     BtnImprimirResultado.Enabled  := true;
+     BtnExcluir.Enabled            := true;
      GpbRegistro0000.Visible       := true;
      cxPgcImportacao.Visible       := true;
     end;
@@ -386,12 +407,6 @@ begin
     else
       DMImportacao.GetResultadoSintetico;
   end;
-  lblRestituir.Caption      := 'Valor á restituir : ' +
-                                DMImportacao.
-                                QryResultadoSTOTAL_RESTITUIR.AsString;
-  lblComplementar.Caption   := '  | Valor á recolher : ' +
-                                DMImportacao.
-                                QryResultadoSTOTAL_ARECOLHER.AsString;
 end;
 
 procedure TFrmImportacao.CarregaSPED(AID : Integer);
@@ -406,15 +421,15 @@ begin
 
       Qry0200.Close;
       Qry0200.SQL.Clear;
-      Qry0200.SQL.Text := 'SELECT * FROM "REGISTRO0200" WHERE "IDSPED" =' + AID.ToString;
+      Qry0200.SQL.Text := 'SELECT * FROM "REGISTRO0200" WHERE "ID_SPED" =' + AID.ToString;
       Qry0200.Open;
 
       QryC100e.Close;
       QryC100e.SQL.Clear;
       QryC100e.SQL.Text := 'SELECT * FROM "REGISTROC100" WHERE "ID_SPED" =' + AID.ToString +
-                           ' AND "IND_OPER" = ''ENTRADA''';
+                           ' AND "IND_OPER" = ''E''';
       QryC100e.Open;
-
+                                                  
       QryC170e.Close;
       QryC170e.SQL.Clear;
       QryC170e.SQL.Text := 'SELECT * FROM "REGISTROC170" WHERE "ID_SPED" =' + AID.ToString;
@@ -426,7 +441,7 @@ begin
       QryC100s.Close;
       QryC100s.SQL.Clear;
       QryC100s.SQL.Text := 'SELECT * FROM "REGISTROC100" WHERE "ID_SPED" =' + AID.ToString +
-                           ' AND "IND_OPER" = ''SAIDA''';
+                           ' AND "IND_OPER" = ''S''';
       QryC100s.Open;
 
       QryC170s.Close;
@@ -625,6 +640,53 @@ begin
   BtnIniciaImportacao.Enabled := (AName <> '');
 end;
 
+function TFrmImportacao.ExcluirArqSPED : Boolean;
+  function GetDeleteSQL0000 : String;
+  begin
+    result := 'DELETE FROM "REGISTRO0000" WHERE "ID" = ' +
+              DMImportacao.Qry0000ID.AsString;
+  end;
+
+  function GetDeleteSQL0200 : String;
+  begin
+    result := 'DELETE FROM "REGISTRO0200" WHERE "ID_SPED" = ' +
+              DMImportacao.Qry0000ID.AsString;
+  end;
+
+  function GetDeleteSQLC100C170 : String;
+  begin
+    result := 'DELETE FROM "REGISTROC170" WHERE "ID_SPED" = ' +
+              DMImportacao.Qry0000ID.AsString + ';' +
+              'DELETE FROM "REGISTROC100" WHERE "ID_SPED" = ' +
+              DMImportacao.Qry0000ID.AsString;
+  end;
+
+  function GetDeleteSQLC400C425 : String;
+  begin
+    result := 'DELETE FROM "REGISTROC425" WHERE "ID_SPED" = ' +
+              DMImportacao.Qry0000ID.AsString + ';' +
+              'DELETE FROM "REGISTROC400" WHERE "ID_SPED" = ' +
+              DMImportacao.Qry0000ID.AsString;
+  end;
+
+begin
+  result := true;
+  try
+    dmPrincipal.DB.StartTransaction;
+    dmPrincipal.DB.ExecSQL(GetDeleteSQL0200);
+    dmPrincipal.DB.ExecSQL(GetDeleteSQLC100C170);
+    dmPrincipal.DB.ExecSQL(GetDeleteSQLC400C425);
+    dmPrincipal.DB.ExecSQL(GetDeleteSQL0000);
+    dmPrincipal.DB.Commit;
+  except
+    on e: exception do
+    begin
+      dmPrincipal.DB.Rollback;
+      result := false;
+    end;
+  end;
+end;
+
 function TFrmImportacao.ExisteArqSPED(ADT_INI,ADT_FIM,ACNPJCPF : String) : Boolean;
 var
   Qry      : TFDQuery;
@@ -807,7 +869,7 @@ begin
 
          vID0200                     := vID0200 + 1;
          Qry0200ID.AsInteger         := vID0200;
-         Qry0200IDSPED.AsInteger     := Qry0000ID.AsInteger;
+         Qry0200ID_SPED.AsInteger    := Qry0000ID.AsInteger;
          Qry0200COD_ITEM.AsString    := ACBrSPEDFiscal.Bloco_0.Registro0001.
                                         Registro0200.Items[I].COD_ITEM;
          Qry0200DESCR_ITEM.AsString  := ACBrSPEDFiscal.Bloco_0.Registro0001.
@@ -861,9 +923,9 @@ var
   begin
     if ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC100.Items[i].IND_OPER
     = tpEntradaAquisicao then
-      result := 'Entrada'
+      result := 'E'
     else
-      result := 'Saida';
+      result := 'S';
   end;
 
 begin
@@ -997,7 +1059,7 @@ begin
 
       QryC100e.Close;
       QryC100e.Data      := QryC100.Data;
-      QryC100e.Filter    := 'IND_OPER = ''Entrada'' ';
+      QryC100e.Filter    := 'IND_OPER = ''E'' ';
       QryC100e.Filtered  := true;
 
       {Filtra para nao mostra todos os registros}
@@ -1009,7 +1071,7 @@ begin
 
       QryC100s.Close;
       QryC100s.Data      := QryC100.Data;
-      QryC100s.Filter    := 'IND_OPER = ''Saida'' ';
+      QryC100s.Filter    := 'IND_OPER = ''S'' ';
       QryC100s.Filtered  := true;
 
       {Filtra para nao mostra todos os registros}

@@ -7,7 +7,6 @@ inherited FrmImportacao: TFrmImportacao
   WindowState = wsMaximized
   OnClose = FormClose
   OnCreate = FormCreate
-  ExplicitTop = -95
   ExplicitWidth = 845
   ExplicitHeight = 542
   PixelsPerInch = 96
@@ -705,7 +704,7 @@ inherited FrmImportacao: TFrmImportacao
             FAA521207124B8AFD1EFFB83435AC735E77F576841BFE59D84AD000000004945
             4E44AE426082}
           TabOrder = 6
-          OnClick = BtnGravarClick
+          OnClick = BtnExcluirClick
           Appearance.BorderColor = 14727579
           Appearance.BorderColorHot = 10079963
           Appearance.BorderColorDown = 4548219
@@ -1787,11 +1786,11 @@ inherited FrmImportacao: TFrmImportacao
             Caption = '   Totalizador '
             TabOrder = 1
             object lblComplementar: TLabel
-              Left = 176
-              Top = 23
-              Width = 164
+              Left = 258
+              Top = 25
+              Width = 140
               Height = 13
-              Caption = '|   Valor complementar : 0,00'
+              Caption = '|   Valor complementar : '
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clRed
               Font.Height = -11
@@ -1800,16 +1799,46 @@ inherited FrmImportacao: TFrmImportacao
               ParentFont = False
             end
             object lblRestituir: TLabel
-              Left = 14
-              Top = 23
-              Width = 111
+              Left = 5
+              Top = 25
+              Width = 87
               Height = 13
-              Caption = ' Valor restituir: 0,00'
+              Caption = ' Valor restituir: '
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clNavy
               Font.Height = -11
               Font.Name = 'Tahoma'
               Font.Style = [fsBold]
+              ParentFont = False
+            end
+            object EdtTotalARestituir: TDBText
+              Left = 96
+              Top = 25
+              Width = 150
+              Height = 13
+              DataField = 'TOTAL_RESTITUIR'
+              DataSource = DMImportacao.DsResultadoS
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clNavy
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = [fsBold]
+              ParentFont = False
+            end
+            object EdtTotalARecolher: TDBText
+              Left = 404
+              Top = 25
+              Width = 150
+              Height = 13
+              Color = 16445929
+              DataField = 'TOTAL_ARECOLHER'
+              DataSource = DMImportacao.DsResultadoS
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clRed
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = [fsBold]
+              ParentColor = False
               ParentFont = False
             end
           end
