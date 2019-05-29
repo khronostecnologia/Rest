@@ -13,7 +13,8 @@ uses
   BiblKhronos in 'Util\BiblKhronos.pas',
   uMaster in 'Heranca\uMaster.pas' {FrmMaster},
   uImportacao in 'Units\uImportacao.pas' {FrmImportacao},
-  uDMImportacao in 'Dao\uDMImportacao.pas' {DMImportacao: TDataModule};
+  uDMImportacao in 'Dao\uDMImportacao.pas' {DMImportacao: TDataModule},
+  uImportacaoXML in 'Units\uImportacaoXML.pas' {FrmImportacaoXML};
 
 {$R *.res}
 

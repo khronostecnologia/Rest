@@ -15,19 +15,11 @@ uses
 type
   TFrmMenu = class(TForm)
     Menu: TMainMenu;
-    MnCadastros: TMenuItem;
-    Empresas1: TMenuItem;
-    Produtos1: TMenuItem;
     MnuImportacao: TMenuItem;
-    MnuSubImportacaoSPED: TMenuItem;
-    MnRelatorios: TMenuItem;
+    MnuSubImportaSPED: TMenuItem;
     Sair1: TMenuItem;
     PnlGeral: TAdvSmoothPanel;
     PnlAtalhos: TAdvSmoothPanel;
-    BtnEmpresa: TAdvGlowButton;
-    BtnProdutos: TAdvGlowButton;
-    BtnImportacaoSPED: TAdvGlowButton;
-    BtnRelatorio: TAdvGlowButton;
     PnlFooter: TAdvSmoothPanel;
     ImgLogo: TImage;
     lblTitulo: TLabel;
@@ -36,15 +28,14 @@ type
     Label3: TLabel;
     Label5: TLabel;
     Label4: TLabel;
-    procedure FormShow(Sender: TObject);
-    procedure MnuSubImportacaoSPEDClick(Sender: TObject);
+    MnuImportaXML: TMenuItem;
+    procedure MnuSubImportaSPEDClick(Sender: TObject);
     procedure Sair1Click(Sender: TObject);
-    procedure BtnImportacaoSPEDClick(Sender: TObject);
+    procedure MnuImportaXMLClick(Sender: TObject);
   private
     { Private declarations }
   public
     { Public declarations }
-    procedure HabilitaMenus;
   end;
 
 var
@@ -54,25 +45,15 @@ implementation
 
 {$R *.dfm}
 
-Uses uDMBase,uPesquisa,uMensagem,uImportacao;
+Uses uDMBase,uPesquisa,uMensagem,uImportacao,uImportacaoXML;
 
-procedure TFrmMenu.BtnImportacaoSPEDClick(Sender: TObject);
+procedure TFrmMenu.MnuImportaXMLClick(Sender: TObject);
 begin
-  FrmImportacao := TFrmImportacao.Create(nil);
-  FrmImportacao.Show;
+  FrmImportacaoXML := TFrmImportacaoXML.Create(nil);
+  FrmImportacaoXML.Show;
 end;
 
-procedure TFrmMenu.FormShow(Sender: TObject);
-begin
-  HabilitaMenus;
-end;
-
-procedure TFrmMenu.HabilitaMenus;
-begin
-  Menu.Items[0].Enabled := not (dmPrincipal.QryEmpresa.Active);
-end;
-
-procedure TFrmMenu.MnuSubImportacaoSPEDClick(Sender: TObject);
+procedure TFrmMenu.MnuSubImportaSPEDClick(Sender: TObject);
 begin
   FrmImportacao := TFrmImportacao.Create(nil);
   FrmImportacao.Show;

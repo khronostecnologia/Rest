@@ -843,7 +843,7 @@ inherited FrmImportacao: TFrmImportacao
         ParentBackground = False
         ParentColor = False
         TabOrder = 2
-        Properties.ActivePage = TbsAnalise
+        Properties.ActivePage = TbsC100S
         Properties.CustomButtons.Buttons = <>
         Properties.CustomButtons.Mode = cbmEveryTab
         Properties.DragImage.Data = {

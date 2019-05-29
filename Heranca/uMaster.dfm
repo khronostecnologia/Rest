@@ -12,6 +12,7 @@ object FrmMaster: TFrmMaster
   Font.Style = []
   KeyPreview = True
   OldCreateOrder = False
+  Position = poMainFormCenter
   OnKeyPress = FormKeyPress
   OnShow = FormShow
   PixelsPerInch = 96
@@ -49,8 +50,6 @@ object FrmMaster: TFrmMaster
     Version = '1.5.2.1'
     Align = alClient
     TabOrder = 0
-    ExplicitWidth = 691
-    ExplicitHeight = 419
     TMSStyle = 4
     object PnlHeader: TAdvSmoothPanel
       Left = 0
@@ -134,8 +133,6 @@ object FrmMaster: TFrmMaster
       Version = '1.5.2.1'
       Align = alClient
       TabOrder = 1
-      ExplicitTop = 87
-      ExplicitHeight = 380
       TMSStyle = 4
       object PnlFooter: TAdvSmoothPanel
         Left = 0
@@ -170,7 +167,6 @@ object FrmMaster: TFrmMaster
         Version = '1.5.2.1'
         Align = alBottom
         TabOrder = 0
-        ExplicitTop = 343
         TMSStyle = 4
       end
     end
