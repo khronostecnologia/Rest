@@ -1,4 +1,4 @@
-unit uDMImportacao;
+unit uDMImportacaoSPED;
 
 interface
 
@@ -9,7 +9,7 @@ uses
   FireDAC.Comp.DataSet, FireDAC.Comp.Client;
 
 type
-  TDMImportacao = class(TDataModule)
+  TDMImportacaoSPED = class(TDataModule)
     Qry0000: TFDQuery;
     Qry0200: TFDQuery;
     QryC400: TFDQuery;
@@ -236,9 +236,6 @@ type
     function GetResultadoSintetico:String;
   end;
 
-var
-  DMImportacao: TDMImportacao;
-
 implementation
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
@@ -249,7 +246,7 @@ Uses udmBase,biblKhronos;
 
 { TDMImportacaoSPED }
 
-function TDMImportacao.GetProduto(AID: String): String;
+function TDMImportacaoSPED.GetProduto(AID: String): String;
 begin
   Qry0200.DisableControls;
   Qry0200.Locate('COD_ITEM',AID,[]);
@@ -257,12 +254,12 @@ begin
   Qry0200.EnableControls;
 end;
 
-function TDMImportacao.GetResultadoAnalitico: String;
+function TDMImportacaoSPED.GetResultadoAnalitico: String;
 begin
 
 end;
 
-function TDMImportacao.GetResultadoSintetico: String;
+function TDMImportacaoSPED.GetResultadoSintetico: String;
 begin
   QryResultadoS.Close;
   QryResultadoS.ParamByName('ID').AsInteger := Qry0000ID.AsInteger;
@@ -270,12 +267,12 @@ begin
   CopyQuery(QryResultadoS.SQL.Text);
 end;
 
-function TDMImportacao.GetSQLResultadoAnalitico: String;
+function TDMImportacaoSPED.GetSQLResultadoAnalitico: String;
 begin
 
 end;
 
-function TDMImportacao.GetSQLResultadoSintetico: String;
+function TDMImportacaoSPED.GetSQLResultadoSintetico: String;
 begin
 
 end;

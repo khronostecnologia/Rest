@@ -12,9 +12,11 @@ uses
   uPesquisa in 'Util\uPesquisa.pas' {FrmPesquisa},
   BiblKhronos in 'Util\BiblKhronos.pas',
   uMaster in 'Heranca\uMaster.pas' {FrmMaster},
-  uImportacao in 'Units\uImportacao.pas' {FrmImportacao},
-  uDMImportacao in 'Dao\uDMImportacao.pas' {DMImportacao: TDataModule},
-  uImportacaoXML in 'Units\uImportacaoXML.pas' {FrmImportacaoXML};
+  uImportacaoSPED in 'Units\uImportacaoSPED.pas' {FrmImportacao},
+  uImportacaoXML in 'Units\uImportacaoXML.pas' {FrmImportacaoXML},
+  uDMImportacaoXML in 'Dao\uDMImportacaoXML.pas' {DMImportacaoXML: TDataModule},
+  uArquivo in 'Util\uArquivo.pas',
+  uDMImportacaoSPED in 'Dao\uDMImportacaoSPED.pas' {DMImportacaoSPED: TDataModule};
 
 {$R *.res}
 

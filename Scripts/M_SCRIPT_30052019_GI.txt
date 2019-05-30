@@ -1,0 +1,71 @@
+CREATE TABLE public."NF"
+(
+    "ID" integer NOT NULL,
+    "IND_OPER" character varying(50) COLLATE pg_catalog."default",
+    "COD_SIT" character varying(50) COLLATE pg_catalog."default",
+    "COD_PART" character varying(50) COLLATE pg_catalog."default",
+    "PARTICIPANTE" character varying(100) COLLATE pg_catalog."default",
+    "COD_MOD" character varying(5) COLLATE pg_catalog."default",
+    "SER" character varying(5) COLLATE pg_catalog."default",
+    "NUM_DOC" character varying(10) COLLATE pg_catalog."default",
+    "CHV_NFE" character varying(44) COLLATE pg_catalog."default",
+    "DT_DOC" timestamp without time zone,
+    "DT_E_ES" timestamp without time zone,
+    "VL_DOC" numeric(15,2),
+    "VL_MERC" numeric(15,2),
+    "VL_DESC" numeric(15,2),
+    "VL_FRT" numeric(15,2),
+    "VL_SEG" numeric(15,2),
+    "VL_OUT_DA" numeric(15,2),
+    "VL_BC_ICMS" numeric(15,2),
+    "VL_ICMS" numeric(15,2),
+    "VL_BC_ICMS_ST" numeric(15,2),
+    "VL_ICMS_ST" numeric(15,2),
+    "VL_BC_IPI" numeric(15,2),
+    "VL_IPI" numeric(15,2),
+    "VL_BC_PIS" numeric(15,2),
+    "VL_PIS" numeric(15,2),
+    "VL_BC_COFINS" numeric(15,2),
+    "VL_COFINS" numeric(15,2),
+    CONSTRAINT "NF_pkey" PRIMARY KEY ("ID")
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public."NF"
+    OWNER to postgres;
+
+CREATE TABLE public."NF_ITENS"
+(
+    "ID" integer NOT NULL,
+    "IDNF" integer,
+    "ID_SPED" integer,
+    "NUM_ITEM" character varying(5) COLLATE pg_catalog."default",
+    "COD_ITEM" character varying(14) COLLATE pg_catalog."default",
+    "DESCR_ITEM" character varying(50) COLLATE pg_catalog."default",
+    "QTDE" numeric(15,3),
+    "UNID" character varying(5) COLLATE pg_catalog."default",
+    "VL_ITEM" numeric(15,2),
+    "VL_DESC" numeric(15,2),
+    "CST_ICMS" character varying(3) COLLATE pg_catalog."default",
+    "CFOP" character varying(4) COLLATE pg_catalog."default",
+    "VL_BC_ICMS" numeric(15,2),
+    "ALIQ_ICMS" numeric(15,2),
+    "VL_ICMS" numeric(15,2),
+    "VL_BC_ICMS_ST" numeric(15,2),
+    "ALIQ_ST" numeric(15,2),
+    "VL_ICMS_ST" numeric(15,2),
+    CONSTRAINT "NF_ITENS_pkey" PRIMARY KEY ("ID")
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public."NF_ITENS"
+    OWNER to postgres;
+
+ALTER TABLE "NF" DROP COLUMN "COD_SIT";
+

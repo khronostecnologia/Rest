@@ -25,7 +25,8 @@ uses
   dxSkinXmas2008Blue, dxSkinscxPCPainter, cxCustomData, cxFilter, cxData,
   cxDataStorage, cxEdit, cxNavigator, Data.DB, cxDBData, cxGridLevel,
   cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxClasses,
-  cxGridCustomView, cxGrid, dxBarBuiltInMenu, Vcl.DBCtrls, cxPC;
+  cxGridCustomView, cxGrid, dxBarBuiltInMenu, Vcl.DBCtrls, cxPC,
+  uDMImportacaoXML;
 
 type
   TFrmImportacaoXML = class(TFrmMaster)
@@ -57,18 +58,6 @@ type
     cxGridContribuinteDBTableView1IE: TcxGridDBColumn;
     cxGridContribuinteLevel1: TcxGridLevel;
     cxPgcImportacao: TcxPageControl;
-    TbsItens: TcxTabSheet;
-    cxGridProdutos: TcxGrid;
-    cxGridDBTableView1: TcxGridDBTableView;
-    cxGridDBTableView1COD_ITEM: TcxGridDBColumn;
-    cxGridDBTableView1DESCR_ITEM: TcxGridDBColumn;
-    cxGridDBTableView1CODBARRA: TcxGridDBColumn;
-    cxGridDBTableView1UNID: TcxGridDBColumn;
-    cxGridDBTableView1TIPO_ITEM: TcxGridDBColumn;
-    cxGridDBTableView1ALIQ_ICMS: TcxGridDBColumn;
-    cxGridDBTableView1COD_NCM: TcxGridDBColumn;
-    cxGridDBTableView1CEST: TcxGridDBColumn;
-    cxGridLevel1: TcxGridLevel;
     TbsNF: TcxTabSheet;
     TbsAnalise: TcxTabSheet;
     GpbTotalizador: TAdvGroupBox;
@@ -136,8 +125,13 @@ type
     cxGridDBColumn39: TcxGridDBColumn;
     cxGridLevel5: TcxGridLevel;
     procedure FormShow(Sender: TObject);
+    procedure BtnNovaImportacacaoClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure BtnIniciaImportacaoClick(Sender: TObject);
   private
     { Private declarations }
+    DMImportacaoXML : TDMImportacaoXML;
+    procedure LimpaTela;
   public
     { Public declarations }
   end;
@@ -149,7 +143,54 @@ implementation
 
 {$R *.dfm}
 
-Uses uDMBase;
+Uses uDMBase,uMensagem,uArquivo;
+
+procedure TFrmImportacaoXML.BtnIniciaImportacaoClick(Sender: TObject);
+begin
+  inherited;
+  if not (EdtDiretorio.Text <> '') then
+  begin
+    FrmMensagem.Informacao('Informe o diretório dos arquivos xml(s) que ' +
+                           'deseja importar e tente novamente!');
+    SetaFoco(EdtDiretorio);
+    exit;
+  end;
+
+  try
+    if not TXML.Listar(EdtDiretorio.Text) then
+    exit;
+
+    if not DMImportacaoXML.CarregaXML(TXML.GetListaXML) then
+    exit;
+
+    cxPgcImportacao.ActivePageIndex := 0;
+    BtnGravar.Enabled             := true;
+    BtnCancelar.Enabled           := true;
+    BtnLocalizaImportacao.Enabled := false;
+    BtnNovaImportacacao.Enabled   := false;
+    BtnIniciaImportacao.Enabled   := false;
+  except
+    LimpaTela;
+  end;
+
+end;
+
+procedure TFrmImportacaoXML.BtnNovaImportacacaoClick(Sender: TObject);
+begin
+  inherited;
+  EdtDiretorio.Enabled := true;
+  EdtDiretorio.DoClick;
+  if BtnIniciaImportacao.Enabled then
+  SetaFoco(BtnIniciaImportacao);
+end;
+
+procedure TFrmImportacaoXML.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  inherited;
+  FreeAndNil(DMImportacaoXML);
+  FreeAndNil(FrmImportacaoXML);
+end;
 
 procedure TFrmImportacaoXML.FormShow(Sender: TObject);
 begin
@@ -165,6 +206,10 @@ begin
   cxPgcImportacao.Visible        := false;
   EdtDiretorio.Enabled           := false;
   SetaFoco(BtnNovaImportacacao);
+end;
+
+procedure TFrmImportacaoXML.LimpaTela;
+begin
 
 end;
 

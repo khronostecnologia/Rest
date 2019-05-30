@@ -1,4 +1,4 @@
-object DMImportacao: TDMImportacao
+object DMImportacaoSPED: TDMImportacaoSPED
   OldCreateOrder = False
   Height = 455
   Width = 585

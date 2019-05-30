@@ -1,32 +1,33 @@
 inherited FrmImportacaoXML: TFrmImportacaoXML
   Caption = 'FrmImportacaoXML'
   ClientWidth = 829
+  OnClose = FormClose
   ExplicitWidth = 845
   PixelsPerInch = 96
   TextHeight = 13
   inherited PnlGeral: TAdvSmoothPanel
     Width = 829
+    ExplicitWidth = 829
     TMSStyle = 4
     inherited PnlHeader: TAdvSmoothPanel
       Width = 829
+      ExplicitWidth = 829
       TMSStyle = 4
       inherited lblTitulo: TLabel
         Top = 19
-        Width = 209
-        Height = 26
+        Width = 196
         Caption = 'IMPORTA'#199#195'O XML'
         ExplicitTop = 19
-        ExplicitWidth = 209
-        ExplicitHeight = 26
+        ExplicitWidth = 196
       end
     end
     inherited PnlCentral: TAdvSmoothPanel
       Width = 829
-      ExplicitTop = 63
       ExplicitWidth = 829
       TMSStyle = 4
       inherited PnlFooter: TAdvSmoothPanel
         Width = 829
+        ExplicitWidth = 829
         TMSStyle = 4
         object Label2: TLabel
           Left = 608
@@ -487,6 +488,7 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
             D3CCE7AFA980FE2017749D7D32D55FCEEE7F52595195DFAD4697000000004945
             4E44AE426082}
           TabOrder = 4
+          OnClick = BtnNovaImportacacaoClick
           Appearance.BorderColor = 14727579
           Appearance.BorderColorHot = 10079963
           Appearance.BorderColorDown = 4548219
@@ -722,8 +724,6 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
         Align = alTop
         Caption = '  Selecione a pasta com os arquivos que deseja importar   '
         TabOrder = 1
-        ExplicitTop = 8
-        ExplicitWidth = 710
         object Label1: TLabel
           Left = 8
           Top = 25
@@ -777,6 +777,7 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
             2F5EC3E89ED02907125C44B6F2CCF01DCE8BFF065DF2C4EC763D73A3ABCCDCC5
             05057F9A2F663602AA2D99BC420000000049454E44AE426082}
           TabOrder = 1
+          OnClick = BtnIniciaImportacaoClick
           Appearance.BorderColor = 14727579
           Appearance.BorderColorHot = 10079963
           Appearance.BorderColorDown = 4548219
@@ -816,7 +817,6 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
         Align = alTop
         Caption = '   Processando importa'#231#227'o   '
         TabOrder = 2
-        ExplicitWidth = 839
         object ProgressBar: TW7ProgressBar
           Left = 176
           Top = 21
@@ -851,7 +851,6 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
         Align = alTop
         Caption = '   Contribuinte'
         TabOrder = 3
-        ExplicitWidth = 839
         object cxGridContribuinte: TcxGrid
           Left = 2
           Top = 16
@@ -916,7 +915,7 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
         ParentBackground = False
         ParentColor = False
         TabOrder = 4
-        Properties.ActivePage = TbsItens
+        Properties.ActivePage = TbsNF
         Properties.CustomButtons.Buttons = <>
         Properties.CustomButtons.Mode = cbmEveryTab
         Properties.DragImage.Data = {
@@ -960,93 +959,13 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
         Properties.TabSlants.Kind = skCutCorner
         LookAndFeel.Kind = lfOffice11
         TabSlants.Kind = skCutCorner
-        ExplicitWidth = 839
-        ExplicitHeight = 222
         ClientRectBottom = 186
         ClientRectLeft = 4
         ClientRectRight = 825
         ClientRectTop = 24
-        object TbsItens: TcxTabSheet
-          Caption = 'Mercadorias , servi'#231'os e produtos (XMLs)'
-          Color = 16445929
-          ImageIndex = 1
-          ParentColor = False
-          ExplicitLeft = 0
-          ExplicitTop = 20
-          ExplicitWidth = 829
-          ExplicitHeight = 170
-          object cxGridProdutos: TcxGrid
-            Left = 0
-            Top = 0
-            Width = 821
-            Height = 162
-            Align = alClient
-            TabOrder = 0
-            ExplicitWidth = 829
-            ExplicitHeight = 170
-            object cxGridDBTableView1: TcxGridDBTableView
-              Navigator.Buttons.CustomButtons = <>
-              DataController.DataSource = DMImportacao.Ds0200
-              DataController.Options = [dcoAssignGroupingValues, dcoAssignMasterDetailKeys, dcoSaveExpanding, dcoImmediatePost]
-              DataController.Summary.DefaultGroupSummaryItems = <>
-              DataController.Summary.FooterSummaryItems = <>
-              DataController.Summary.SummaryGroups = <>
-              OptionsData.Deleting = False
-              OptionsData.DeletingConfirmation = False
-              OptionsData.Editing = False
-              OptionsData.Inserting = False
-              OptionsView.GroupByBox = False
-              object cxGridDBTableView1COD_ITEM: TcxGridDBColumn
-                Caption = 'Cod.Item'
-                DataBinding.FieldName = 'COD_ITEM'
-                Width = 150
-              end
-              object cxGridDBTableView1DESCR_ITEM: TcxGridDBColumn
-                Caption = 'Descri'#231#227'o item'
-                DataBinding.FieldName = 'DESCR_ITEM'
-                Width = 250
-              end
-              object cxGridDBTableView1CODBARRA: TcxGridDBColumn
-                Caption = 'Cod.Barra'
-                DataBinding.FieldName = 'CODBARRA'
-                Width = 150
-              end
-              object cxGridDBTableView1UNID: TcxGridDBColumn
-                Caption = 'Unid.'
-                DataBinding.FieldName = 'UNID'
-              end
-              object cxGridDBTableView1TIPO_ITEM: TcxGridDBColumn
-                Caption = 'Tipo '
-                DataBinding.FieldName = 'TIPO_ITEM'
-                Width = 150
-              end
-              object cxGridDBTableView1ALIQ_ICMS: TcxGridDBColumn
-                Caption = 'Aliq.ICMS'
-                DataBinding.FieldName = 'ALIQ_ICMS'
-                Width = 90
-              end
-              object cxGridDBTableView1COD_NCM: TcxGridDBColumn
-                Caption = 'NCM'
-                DataBinding.FieldName = 'COD_NCM'
-                Width = 150
-              end
-              object cxGridDBTableView1CEST: TcxGridDBColumn
-                DataBinding.FieldName = 'CEST'
-                Width = 150
-              end
-            end
-            object cxGridLevel1: TcxGridLevel
-              GridView = cxGridDBTableView1
-            end
-          end
-        end
         object TbsNF: TcxTabSheet
           Caption = 'Nota fiscal'
           ImageIndex = 2
-          ExplicitLeft = 0
-          ExplicitTop = 20
-          ExplicitWidth = 829
-          ExplicitHeight = 170
           object cxGridNF: TcxGrid
             Left = 0
             Top = 0
@@ -1158,9 +1077,6 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
             Align = alClient
             Caption = '   Itens da nota fiscal'
             TabOrder = 1
-            ExplicitTop = 91
-            ExplicitWidth = 839
-            ExplicitHeight = 111
             object cxGridItensNF: TcxGrid
               Left = 2
               Top = 16
@@ -1262,10 +1178,6 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
         object TbsAnalise: TcxTabSheet
           Caption = 'Resultado analise do arquivo'
           ImageIndex = 4
-          ExplicitLeft = 0
-          ExplicitTop = 20
-          ExplicitWidth = 839
-          ExplicitHeight = 202
           object GpbTotalizador: TAdvGroupBox
             Left = 0
             Top = 118
@@ -1274,8 +1186,6 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
             Align = alBottom
             Caption = '   Totalizador '
             TabOrder = 0
-            ExplicitTop = 158
-            ExplicitWidth = 839
             object lblComplementar: TLabel
               Left = 258
               Top = 25
@@ -1341,8 +1251,6 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
             Align = alClient
             Caption = '   Analise sint'#233'tica  '
             TabOrder = 1
-            ExplicitWidth = 839
-            ExplicitHeight = 158
             object cxGridTotalizadorSintetico: TcxGrid
               Left = 2
               Top = 16
@@ -1350,8 +1258,8 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
               Height = 100
               Align = alClient
               TabOrder = 0
-              ExplicitWidth = 825
-              ExplicitHeight = 108
+              ExplicitLeft = 4
+              ExplicitTop = 15
               object cxGridTotalizadorSinteticoDBTableView1: TcxGridDBTableView
                 Navigator.Buttons.CustomButtons = <>
                 DataController.DataSource = DMImportacao.DsResultadoS

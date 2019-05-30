@@ -45,7 +45,7 @@ implementation
 
 {$R *.dfm}
 
-Uses uDMBase,uPesquisa,uMensagem,uImportacao,uImportacaoXML;
+Uses uDMBase,uPesquisa,uMensagem,uImportacaoSPED,uImportacaoXML;
 
 procedure TFrmMenu.MnuImportaXMLClick(Sender: TObject);
 begin
@@ -55,8 +55,8 @@ end;
 
 procedure TFrmMenu.MnuSubImportaSPEDClick(Sender: TObject);
 begin
-  FrmImportacao := TFrmImportacao.Create(nil);
-  FrmImportacao.Show;
+  FrmImportacaoSPED := TFrmImportacaoSPED.Create(nil);
+  FrmImportacaoSPED.Show;
 end;
 
 procedure TFrmMenu.Sair1Click(Sender: TObject);
