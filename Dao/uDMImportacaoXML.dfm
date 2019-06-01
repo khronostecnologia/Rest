@@ -110,10 +110,6 @@ object DMImportacaoXML: TDMImportacaoXML
     object QryNFID: TIntegerField
       FieldName = 'ID'
     end
-    object QryNFCOD_SIT: TStringField
-      FieldName = 'COD_SIT'
-      Size = 50
-    end
   end
   object QryItensNF: TFDQuery
     CachedUpdates = True
@@ -182,6 +178,48 @@ object DMImportacaoXML: TDMImportacaoXML
     object QryItensNFDESCR_ITEM: TStringField
       FieldName = 'DESCR_ITEM'
       Size = 50
+    end
+    object QryItensNFCOD_EAN: TStringField
+      FieldName = 'COD_EAN'
+      Size = 13
+    end
+    object QryItensNFNCM: TStringField
+      FieldName = 'NCM'
+      Size = 30
+    end
+    object QryItensNFCEST: TStringField
+      FieldName = 'CEST'
+      Size = 30
+    end
+    object QryItensNFVL_SEGURO: TFloatField
+      FieldName = 'VL_SEGURO'
+    end
+    object QryItensNFVL_IPI: TFloatField
+      FieldName = 'VL_IPI'
+    end
+    object QryItensNFVL_PIS: TFloatField
+      FieldName = 'VL_PIS'
+    end
+    object QryItensNFVL_COFINS: TFloatField
+      FieldName = 'VL_COFINS'
+    end
+    object QryItensNFVL_OUTRAS_DESP: TFloatField
+      FieldName = 'VL_OUTRAS_DESP'
+    end
+    object QryItensNFVL_ICMSST_RET: TFloatField
+      FieldName = 'VL_ICMSST_RET'
+    end
+    object QryItensNFVL_ICMSST_DEST: TFloatField
+      FieldName = 'VL_ICMSST_DEST'
+    end
+    object QryItensNFVL_ICMSST_DESON: TFloatField
+      FieldName = 'VL_ICMSST_DESON'
+    end
+    object QryItensNFVL_FRETE: TFloatField
+      FieldName = 'VL_FRETE'
+    end
+    object QryItensNFVL_TOTAL_ITEM: TFloatField
+      FieldName = 'VL_TOTAL_ITEM'
     end
   end
 end

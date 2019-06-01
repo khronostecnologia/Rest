@@ -128,10 +128,13 @@ type
     procedure BtnNovaImportacacaoClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure BtnIniciaImportacaoClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure BtnCancelarClick(Sender: TObject);
   private
     { Private declarations }
     DMImportacaoXML : TDMImportacaoXML;
     procedure LimpaTela;
+    procedure ControleModoInclusao;
   public
     { Public declarations }
   end;
@@ -145,7 +148,16 @@ implementation
 
 Uses uDMBase,uMensagem,uArquivo;
 
+procedure TFrmImportacaoXML.BtnCancelarClick(Sender: TObject);
+begin
+  inherited;
+  LimpaTela;
+  ControleModoInclusao;
+end;
+
 procedure TFrmImportacaoXML.BtnIniciaImportacaoClick(Sender: TObject);
+var
+  vListaXML : TStringList;
 begin
   inherited;
   if not (EdtDiretorio.Text <> '') then
@@ -157,31 +169,61 @@ begin
   end;
 
   try
-    if not TXML.Listar(EdtDiretorio.Text) then
-    exit;
+    try
+      if not TXML.Listar(EdtDiretorio.Text) then
+      begin
+        FrmMensagem.Informacao('Arquivo xml(s) não encontrado no diretório informado.');
+        exit;
+      end;
 
-    if not DMImportacaoXML.CarregaXML(TXML.GetListaXML) then
-    exit;
+      if not TXML.GetListaXML(vListaXML) then
+      begin
+        FrmMensagem.Informacao('Erro ao obter lista de xml encontrados!');
+        exit;
+      end;
 
-    cxPgcImportacao.ActivePageIndex := 0;
-    BtnGravar.Enabled             := true;
-    BtnCancelar.Enabled           := true;
-    BtnLocalizaImportacao.Enabled := false;
-    BtnNovaImportacacao.Enabled   := false;
-    BtnIniciaImportacao.Enabled   := false;
-  except
-    LimpaTela;
+      if not DMImportacaoXML.ImportarXML(EdtDiretorio.Text,vListaXML) then
+      exit;
+
+      cxPgcImportacao.ActivePageIndex := 0;
+      BtnGravar.Enabled             := true;
+      BtnCancelar.Enabled           := true;
+      BtnLocalizaImportacao.Enabled := false;
+      BtnNovaImportacacao.Enabled   := false;
+      BtnIniciaImportacao.Enabled   := false;
+    except
+      on e: exception do
+      begin
+        ShowMessage('Erro : ' + e.Message + ' ao tentar importat xml');
+        LimpaTela;
+      end;
+    end;
+  finally
+    FreeAndNil(vListaXML);
   end;
-
 end;
 
 procedure TFrmImportacaoXML.BtnNovaImportacacaoClick(Sender: TObject);
 begin
   inherited;
-  EdtDiretorio.Enabled := true;
+  EdtDiretorio.Enabled        := true;
   EdtDiretorio.DoClick;
-  if BtnIniciaImportacao.Enabled then
+  BtnIniciaImportacao.Enabled := (EdtDiretorio.Text <> '');
+  BtnNovaImportacacao.Enabled := not (BtnIniciaImportacao.Enabled);
+  BtnCancelar.Enabled         := not (BtnNovaImportacacao.Enabled);
+  if BtnIniciaImportacao.Enabled  then
   SetaFoco(BtnIniciaImportacao);
+end;
+
+procedure TFrmImportacaoXML.ControleModoInclusao;
+begin
+  BtnCancelar.Enabled           := False;
+  BtnExcluir.Enabled            := BtnCancelar.Enabled;
+  BtnGravar.Enabled             := BtnExcluir.Enabled;
+  BtnIniciaImportacao.Enabled   := btnGravar.Enabled;
+  BtnImprimirResultado.Enabled  := BtnGravar.Enabled;
+  BtnLocalizaImportacao.Enabled := not (BtnImprimirResultado.Enabled);
+  BtnNovaImportacacao.Enabled   := BtnLocalizaImportacao.Enabled;
 end;
 
 procedure TFrmImportacaoXML.FormClose(Sender: TObject;
@@ -192,25 +234,28 @@ begin
   FreeAndNil(FrmImportacaoXML);
 end;
 
+procedure TFrmImportacaoXML.FormCreate(Sender: TObject);
+begin
+  inherited;
+  DMImportacaoXML := TDMImportacaoXML.Create(Self);
+end;
+
 procedure TFrmImportacaoXML.FormShow(Sender: TObject);
 begin
   inherited;
   EdtDiretorio.InitialDir        := dmPrincipal.DirApp;
-  BtnIniciaImportacao.Enabled    := False;
-  BtnGravar.Enabled              := False;
-  BtnExcluir.Enabled             := false;
-  BtnImprimirResultado.Enabled   := false;
-  BtnCancelar.Enabled            := false;
-  GpbProcessaImportacao.Visible  := false;
-  GpbContribuinte.Visible        := false;
-  cxPgcImportacao.Visible        := false;
-  EdtDiretorio.Enabled           := false;
+  ControleModoInclusao;
+  LimpaTela;
   SetaFoco(BtnNovaImportacacao);
 end;
 
 procedure TFrmImportacaoXML.LimpaTela;
 begin
-
+  EdtDiretorio.Text              := '';
+  GpbProcessaImportacao.Visible  := false;
+  GpbContribuinte.Visible        := false;
+  cxPgcImportacao.Visible        := false;
+  EdtDiretorio.Enabled           := false;
 end;
 
 end.

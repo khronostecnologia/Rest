@@ -7,7 +7,8 @@ uses
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet,
-  FireDAC.Comp.Client;
+  FireDAC.Comp.Client, ACBrDFeReport, ACBrDFeDANFeReport, ACBrNFeDANFEClass,
+  ACBrNFeDANFEFR;
 
 type
   TDMImportacaoXML = class(TDataModule)
@@ -39,7 +40,6 @@ type
     QryNFVL_COFINS: TFloatField;
     QryNFPARTICIPANTE: TStringField;
     QryNFID: TIntegerField;
-    QryNFCOD_SIT: TStringField;
     QryItensNFIDNF: TIntegerField;
     QryItensNFNUM_ITEM: TStringField;
     QryItensNFCOD_ITEM: TStringField;
@@ -57,6 +57,19 @@ type
     QryItensNFVL_ICMS_ST: TFloatField;
     QryItensNFID: TIntegerField;
     QryItensNFDESCR_ITEM: TStringField;
+    QryItensNFCOD_EAN: TStringField;
+    QryItensNFNCM: TStringField;
+    QryItensNFCEST: TStringField;
+    QryItensNFVL_SEGURO: TFloatField;
+    QryItensNFVL_IPI: TFloatField;
+    QryItensNFVL_PIS: TFloatField;
+    QryItensNFVL_COFINS: TFloatField;
+    QryItensNFVL_OUTRAS_DESP: TFloatField;
+    QryItensNFVL_ICMSST_RET: TFloatField;
+    QryItensNFVL_ICMSST_DEST: TFloatField;
+    QryItensNFVL_ICMSST_DESON: TFloatField;
+    QryItensNFVL_FRETE: TFloatField;
+    QryItensNFVL_TOTAL_ITEM: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure DataModuleDestroy(Sender: TObject);
   private
@@ -67,7 +80,7 @@ type
     function GetItensNF(pID : Integer):Boolean;
   public
     { Public declarations }
-    function CarregaXML(pListaXML : TStringList):Boolean;
+    function ImportarXML(pDir : String ; pListaXML : TStringList):Boolean;
   end;
 
 implementation
@@ -92,7 +105,7 @@ end;
 function TDMImportacaoXML.EsteXMLJaFoiImportado(pChave: String): Boolean;
   function GetSQL : String;
   begin
-    result := 'SELECT "ID" FROM "NF" WHERE "CHAVE" = ' + QuotedStr(pChave);
+    result := 'SELECT "ID" FROM "NF" WHERE "CHV_NFE" = ' + QuotedStr(pChave);
   end;
 var
   Qry      : TFDQuery;
@@ -145,27 +158,26 @@ begin
   end;
 end;
 
-function TDMImportacaoXML.CarregaXML(pListaXML : TStringList):Boolean;
+function TDMImportacaoXML.ImportarXML(pDir : String ; pListaXML : TStringList)
+:Boolean;
 var
-  i : Integer;
+  i        : Integer;
+  j        : Integer;
 
   procedure EnviaTextoBarraProgresso(pTexto : String);
   begin
     TFrmImportacaoXML(Owner).lblInfoImportacao.Caption := pTexto;
   end;
-
   procedure ReiniciaBarraProgresso(pValorMaximo :Integer);
   begin
     TFrmImportacaoXML(Owner).ProgressBar.Min := 0;
     TFrmImportacaoXML(Owner).ProgressBar.Max := pValorMaximo;
   end;
-
   procedure IncBarraProgresso;
   begin
     TFrmImportacaoXML(Owner).ProgressBar.Position :=
                              TFrmImportacaoXML(Owner).ProgressBar.Position + 1;
   end;
-
   procedure CarregaXMLsParaAcbr;
   var
     i : Integer;
@@ -180,16 +192,19 @@ var
 
         if EsteXMLJaFoiImportado(pListaXML[i]) then
         begin
-          //Gera log
           IncBarraProgresso;
           continue;
         end;
-        LoadFromFile(pListaXML[i]);
+        LoadFromFile(pDir + '\' + pListaXML[i]);
         IncBarraProgresso;
       end;
     end;
   end;
-
+  procedure AbreDataSetNFeNFItens;
+  begin
+    GetNF(-1);
+    GetItensNF(-1);
+  end;
   function ExisteXMLImportar : Boolean;
   begin
     result := (pListaXML.Count > 0);
@@ -197,55 +212,95 @@ var
 
 begin
   result := false;
+  try
+    NFe := TACBrNFe.Create(nil);
+    CarregaXMLsParaAcbr;
 
-  CarregaXMLsParaAcbr;
+    if not ExisteXMLImportar then
+    exit;
 
-  if not ExisteXMLImportar then
-  exit;
+    AbreDataSetNFeNFItens;
 
-  if not GetNF(-1) then
-  exit;
-
-  if not GetItensNF(-1) then
-  exit;
-
-  with NFe.NotasFiscais do
-  begin
-    for i :=0 to Pred(Count) do
+    with NFe.NotasFiscais do
     begin
-      with Items[i].NFe do
+      for i :=0 to Pred(Count) do
       begin
-        QryNF.Insert;
-        QryNFDT_DOC.AsDateTime     := Ide.dEmi;
-        QryNFDT_E_ES.AsDateTime    := Ide.dSaiEnt;
-        QryNFCOD_MOD.AsString      := Ide.modelo.ToString;
-        QryNFSER.AsString          := Ide.serie.ToString;
-        QryNFNUM_DOC.AsString      := Ide.nNF.ToString;
-        QryNFIND_OPER.AsString     := iif(Ide.tpNF = tnEntrada,'E','S');
-        QryNFCHV_NFE.AsString      := infNFe.ID;
-        QryNFVL_DOC.AsFloat        := Total.ICMSTot.vNF;
-        QryNFVL_MERC.AsFloat       := Total.ICMSTot.vProd;
-        QryNFVL_DESC.AsFloat       := Total.ICMSTot.vDesc;
-        QryNFVL_FRT.AsFloat        := Total.ICMSTot.vFrete;;
-        QryNFVL_SEG.AsFloat        := Total.ICMSTot.vSeg;
-        QryNFVL_OUT_DA.AsFloat     := Total.ICMSTot.vOutro;
-        QryNFVL_BC_ICMS.AsFloat    := Total.ICMSTot.vBC;
-        QryNFVL_ICMS.AsFloat       := Total.ICMSTot.vICMS;
-        QryNFVL_BC_ICMS_ST.AsFloat := Total.ICMSTot.vBCST;
-        QryNFVL_ICMS_ST.AsFloat    := Total.ICMSTot.vST;
-        QryNFVL_BC_IPI.AsFloat     := 0;
-        QryNFVL_IPI.AsFloat        := Total.ICMSTot.vIPI;
-        QryNFVL_BC_PIS.AsFloat     := 0;
-        QryNFVL_PIS.AsFloat        := Total.ICMSTot.vPIS;
-        QryNFVL_BC_COFINS.AsFloat  := 0;
-        QryNFVL_COFINS.AsFloat     := Total.ICMSTot.vCOFINS;
-        QryNFCOD_PART.AsString     := Emit.CNPJCPF;
-        QryNFPARTICIPANTE.AsString := Emit.xNome;
-        QryNF.Post;
+        with Items[i].NFe do
+        begin
+          QryNF.Insert;
+          QryNFID.AsInteger          := GetID('"NF"',dmPrincipal.DB) + 1;
+          QryNFDT_DOC.AsDateTime     := Ide.dEmi;
+          QryNFDT_E_ES.AsDateTime    := Ide.dSaiEnt;
+          QryNFCOD_MOD.AsString      := Ide.modelo.ToString;
+          QryNFSER.AsString          := Ide.serie.ToString;
+          QryNFNUM_DOC.AsString      := Ide.nNF.ToString;
+          QryNFIND_OPER.AsString     := iif(Ide.tpNF = tnEntrada,'E','S');
+          QryNFCHV_NFE.AsString      := infNFe.ID;
+          QryNFVL_DOC.AsFloat        := Total.ICMSTot.vNF;
+          QryNFVL_MERC.AsFloat       := Total.ICMSTot.vProd;
+          QryNFVL_DESC.AsFloat       := Total.ICMSTot.vDesc;
+          QryNFVL_FRT.AsFloat        := Total.ICMSTot.vFrete;
+          QryNFVL_SEG.AsFloat        := Total.ICMSTot.vSeg;
+          QryNFVL_OUT_DA.AsFloat     := Total.ICMSTot.vOutro;
+          QryNFVL_BC_ICMS.AsFloat    := Total.ICMSTot.vBC;
+          QryNFVL_ICMS.AsFloat       := Total.ICMSTot.vICMS;
+          QryNFVL_BC_ICMS_ST.AsFloat := Total.ICMSTot.vBCST;
+          QryNFVL_ICMS_ST.AsFloat    := Total.ICMSTot.vST;
+          QryNFVL_BC_IPI.AsFloat     := 0;
+          QryNFVL_IPI.AsFloat        := Total.ICMSTot.vIPI;
+          QryNFVL_BC_PIS.AsFloat     := 0;
+          QryNFVL_PIS.AsFloat        := Total.ICMSTot.vPIS;
+          QryNFVL_BC_COFINS.AsFloat  := 0;
+          QryNFVL_COFINS.AsFloat     := Total.ICMSTot.vCOFINS;
+          QryNFCOD_PART.AsString     := Emit.CNPJCPF;
+          QryNFPARTICIPANTE.AsString := Emit.xNome;
+          QryNF.Post;
+
+           for j := 0 to Pred(Det.Count) do
+           begin
+             with Det.Items[I] do
+             begin
+               QryItensNF.Insert;
+               QryItensNFID.AsInteger            := GetID('"NF_ITENS"',dmPrincipal.DB) + 1;
+               QryItensNFIDNF.AsInteger          := QryNFID.AsInteger;
+               QryItensNFNUM_ITEM.AsInteger      := Prod.nItem;
+               QryItensNFCOD_ITEM.AsString       := Prod.cProd;
+               QryItensNFCOD_EAN.AsString        := Prod.cEAN;
+               QryItensNFDESCR_ITEM.AsString     := Prod.xProd;
+               QryItensNFQTDE.AsFloat            := Prod.qCom;
+               QryItensNFUNID.AsString           := Prod.uCom;
+               QryItensNFCST_ICMS.AsString       := OrigToStr(imposto.ICMS.orig)  + CSTICMSToStr(imposto.ICMS.CST);
+               QryItensNFCFOP.AsString           := Prod.CFOP;
+               QryItensNFNCM.AsString            := Prod.NCM;
+               QryItensNFCEST.AsString           := Prod.CEST;
+               QryItensNFVL_ITEM.AsFloat         := Prod.vUnCom;
+               QryItensNFVL_TOTAL_ITEM.AsFloat   := Prod.vProd;
+               QryItensNFVL_IPI.AsFloat          := Imposto.IPI.vIPI;
+               QryItensNFVL_PIS.AsFloat          := Imposto.PIS.vPIS;
+               QryItensNFVL_COFINS.AsFloat       := Imposto.COFINS.vCOFINS;
+               QryItensNFVL_FRETE.AsFloat        := Prod.vFrete;
+               QryItensNFVL_OUTRAS_DESP.AsFloat  := Prod.vOutro;
+               QryItensNFVL_SEGURO.AsFloat       := Prod.vSeg;
+               QryItensNFVL_ICMSST_RET.AsFloat   := Imposto.ICMS.vICMSSTRet;
+               QryItensNFVL_ICMSST_DEST.AsFloat  := Imposto.ICMS.vICMSSTDest;
+               QryItensNFVL_ICMSST_DESON.AsFloat := Imposto.ICMS.vICMSDeson;
+               QryItensNFVL_DESC.AsFloat         := Prod.vDesc;
+               QryItensNFVL_BC_ICMS.AsFloat      := Imposto.ICMS.vBC;
+               QryItensNFALIQ_ICMS.AsFloat       := 0;
+               QryItensNFVL_ICMS.AsFloat         := Imposto.ICMS.vICMS;
+               QryItensNFVL_BC_ICMS_ST.AsFloat   := Imposto.ICMS.vBCST;
+               QryItensNFALIQ_ST.AsFloat         := 0;
+               QryItensNFVL_ICMS_ST.AsFloat      := Imposto.ICMS.vICMSST;
+               QryItensNF.Post;
+             end;
+           end;
+        end;
       end;
     end;
+    result := true;
+  finally
+    FreeAndNil(NFe);
   end;
-  result := true;
 end;
 
 end.

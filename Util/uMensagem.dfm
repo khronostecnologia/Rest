@@ -11,8 +11,10 @@ object FrmMensagem: TFrmMensagem
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
+  FormStyle = fsStayOnTop
   OldCreateOrder = False
   Position = poDesktopCenter
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object PnlGeral: TAdvSmoothPanel
@@ -84,9 +86,9 @@ object FrmMensagem: TFrmMensagem
       TMSStyle = 4
       object lblTextoMensagem: TAdvSmoothLabel
         Left = 8
-        Top = 121
-        Width = 489
-        Height = 65
+        Top = 125
+        Width = 502
+        Height = 59
         Fill.ColorMirror = clNone
         Fill.ColorMirrorTo = clNone
         Fill.GradientType = gtVertical
@@ -549,6 +551,36 @@ object FrmMensagem: TFrmMensagem
           314BA3F6B087EC257B5AE3F7CA7892E085F901237E3B9CFFD5F09E7F79C75E7A
           9C783569D2A44993264D9A1E36356AF47F6BD823862E7709480000000049454E
           44AE426082}
+      end
+      object AdvLblAguarde: TAdvSmoothLabel
+        Left = 3
+        Top = 47
+        Width = 489
+        Height = 65
+        Fill.ColorMirror = clNone
+        Fill.ColorMirrorTo = clNone
+        Fill.GradientType = gtVertical
+        Fill.GradientMirrorType = gtSolid
+        Fill.BorderColor = clNone
+        Fill.Rounding = 0
+        Fill.ShadowOffset = 0
+        Fill.Glow = gmNone
+        Caption.Text = 'Aguarde'
+        Caption.Font.Charset = DEFAULT_CHARSET
+        Caption.Font.Color = clWindowText
+        Caption.Font.Height = -29
+        Caption.Font.Name = 'Tahoma'
+        Caption.Font.Style = [fsBold]
+        Caption.ColorStart = clMenuHighlight
+        Caption.ColorEnd = clHighlight
+        CaptionShadow.Text = 'Aguarde'
+        CaptionShadow.Font.Charset = DEFAULT_CHARSET
+        CaptionShadow.Font.Color = clWindowText
+        CaptionShadow.Font.Height = -27
+        CaptionShadow.Font.Name = 'Tahoma'
+        CaptionShadow.Font.Style = []
+        Version = '1.6.0.2'
+        WordWrap = True
       end
       object BtnSim: TAdvGlowButton
         Left = 75

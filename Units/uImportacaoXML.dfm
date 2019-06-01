@@ -2,6 +2,7 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
   Caption = 'FrmImportacaoXML'
   ClientWidth = 829
   OnClose = FormClose
+  OnCreate = FormCreate
   ExplicitWidth = 845
   PixelsPerInch = 96
   TextHeight = 13
@@ -210,6 +211,7 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
             0B425236309006CE5E14E2C8B386F12E80094CDBD23F0B40E5FB1C800640298E
             25266758283E1E6EE27AFE3FC8B02D740B0AF83D0000000049454E44AE426082}
           TabOrder = 1
+          OnClick = BtnCancelarClick
           Appearance.BorderColor = 14727579
           Appearance.BorderColorHot = 10079963
           Appearance.BorderColorDown = 4548219
@@ -860,7 +862,6 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
           TabOrder = 0
           object cxGridContribuinteDBTableView1: TcxGridDBTableView
             Navigator.Buttons.CustomButtons = <>
-            DataController.DataSource = DMImportacao.Ds0000
             DataController.Summary.DefaultGroupSummaryItems = <>
             DataController.Summary.FooterSummaryItems = <>
             DataController.Summary.SummaryGroups = <>
@@ -975,7 +976,6 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
             TabOrder = 0
             object cxGridDBTableView4: TcxGridDBTableView
               Navigator.Buttons.CustomButtons = <>
-              DataController.DataSource = DMImportacao.DsC170e
               DataController.Summary.DefaultGroupSummaryItems = <>
               DataController.Summary.FooterSummaryItems = <>
               DataController.Summary.SummaryGroups = <>
@@ -1086,7 +1086,6 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
               TabOrder = 0
               object cxGridDBTableView5: TcxGridDBTableView
                 Navigator.Buttons.CustomButtons = <>
-                DataController.DataSource = DMImportacao.DsC170s
                 DataController.Summary.DefaultGroupSummaryItems = <>
                 DataController.Summary.FooterSummaryItems = <>
                 DataController.Summary.SummaryGroups = <>
@@ -1218,7 +1217,6 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
               Width = 150
               Height = 13
               DataField = 'TOTAL_RESTITUIR'
-              DataSource = DMImportacao.DsResultadoS
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clNavy
               Font.Height = -11
@@ -1233,7 +1231,6 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
               Height = 13
               Color = 16445929
               DataField = 'TOTAL_ARECOLHER'
-              DataSource = DMImportacao.DsResultadoS
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clRed
               Font.Height = -11
@@ -1258,11 +1255,8 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
               Height = 100
               Align = alClient
               TabOrder = 0
-              ExplicitLeft = 4
-              ExplicitTop = 15
               object cxGridTotalizadorSinteticoDBTableView1: TcxGridDBTableView
                 Navigator.Buttons.CustomButtons = <>
-                DataController.DataSource = DMImportacao.DsResultadoS
                 DataController.Summary.DefaultGroupSummaryItems = <>
                 DataController.Summary.FooterSummaryItems = <>
                 DataController.Summary.SummaryGroups = <>
