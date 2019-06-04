@@ -164,8 +164,10 @@ end;
 function TDMImportacaoXML.ImportarXML(pDir : String ; pListaXML : TStringList)
 :Boolean;
 var
-  i        : Integer;
-  j        : Integer;
+  i          : Integer;
+  j          : Integer;
+  vIDNF      : Integer;
+  vIDNFProd  : Integer;
 
   procedure CarregaXMLsParaAcbr;
   var
@@ -221,14 +223,21 @@ begin
         with Items[i].NFe do
         begin
           QryNF.Insert;
-          QryNFID.AsInteger          := GetID('"NF"',dmPrincipal.DB) + 1;
+
+          if vIDNF = 0 then
+            vIDNF := GetID('"NF"',dmPrincipal.DB) + 1
+          else
+            vIDNF := vIDNF + 1;
+
+          QryNFID.AsInteger          := vIDNF;
           QryNFDT_DOC.AsDateTime     := Ide.dEmi;
-          QryNFDT_E_ES.AsDateTime    := Ide.dSaiEnt;
+          if Ide.dSaiEnt > 0 then
+            QryNFDT_E_ES.AsDateTime    := Ide.dSaiEnt;
           QryNFCOD_MOD.AsString      := Ide.modelo.ToString;
           QryNFSER.AsString          := Ide.serie.ToString;
           QryNFNUM_DOC.AsString      := Ide.nNF.ToString;
           QryNFIND_OPER.AsString     := iif(Ide.tpNF = tnEntrada,'E','S');
-          QryNFCHV_NFE.AsString      := infNFe.ID;
+          QryNFCHV_NFE.AsString      := Copy(infNFe.ID,4,length(infNFe.ID));
           QryNFVL_DOC.AsFloat        := Total.ICMSTot.vNF;
           QryNFVL_MERC.AsFloat       := Total.ICMSTot.vProd;
           QryNFVL_DESC.AsFloat       := Total.ICMSTot.vDesc;
@@ -251,11 +260,15 @@ begin
 
            for j := 0 to Pred(Det.Count) do
            begin
-
              with Det.Items[j] do
              begin
+               if vIDNFProd = 0 then
+                 vIDNFProd := GetID('"NF_ITENS"',dmPrincipal.DB) + 1
+               else
+                 vIDNFProd := vIDNFProd + 1;
+
                QryItensNF.Insert;
-               QryItensNFID.AsInteger            := GetID('"NF_ITENS"',dmPrincipal.DB) + 1;
+               QryItensNFID.AsInteger            := vIDNFProd;
                QryItensNFIDNF.AsInteger          := QryNFID.AsInteger;
                QryItensNFNUM_ITEM.AsInteger      := Prod.nItem;
                QryItensNFCOD_ITEM.AsString       := Prod.cProd;
