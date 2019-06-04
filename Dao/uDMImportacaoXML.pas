@@ -8,7 +8,7 @@ uses
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet,
   FireDAC.Comp.Client, ACBrDFeReport, ACBrDFeDANFeReport, ACBrNFeDANFEClass,
-  ACBrNFeDANFEFR;
+  ACBrNFeDANFEFR,W7ProgressBars;
 
 type
   TDMImportacaoXML = class(TDataModule)
@@ -47,7 +47,6 @@ type
     QryItensNFUNID: TStringField;
     QryItensNFVL_ITEM: TFloatField;
     QryItensNFVL_DESC: TFloatField;
-    QryItensNFCST_ICMS: TStringField;
     QryItensNFCFOP: TStringField;
     QryItensNFVL_BC_ICMS: TFloatField;
     QryItensNFALIQ_ICMS: TFloatField;
@@ -70,6 +69,10 @@ type
     QryItensNFVL_ICMSST_DESON: TFloatField;
     QryItensNFVL_FRETE: TFloatField;
     QryItensNFVL_TOTAL_ITEM: TFloatField;
+    QryItensNFCST: TStringField;
+    QryItensNFCSOSN: TStringField;
+    DsQryNF: TDataSource;
+    DsQryItensNF: TDataSource;
     procedure DataModuleCreate(Sender: TObject);
     procedure DataModuleDestroy(Sender: TObject);
   private
@@ -90,7 +93,7 @@ implementation
 {$R *.dfm}
 
 Uses uDMBase,BiblKhronos,uImportacaoXML,uMensagem,
-     pcnNFe,pcnConversao;
+     pcnNFe,pcnConversao,uBarraProgresso;
 
 procedure TDMImportacaoXML.DataModuleCreate(Sender: TObject);
 begin
@@ -164,39 +167,25 @@ var
   i        : Integer;
   j        : Integer;
 
-  procedure EnviaTextoBarraProgresso(pTexto : String);
-  begin
-    TFrmImportacaoXML(Owner).lblInfoImportacao.Caption := pTexto;
-  end;
-  procedure ReiniciaBarraProgresso(pValorMaximo :Integer);
-  begin
-    TFrmImportacaoXML(Owner).ProgressBar.Min := 0;
-    TFrmImportacaoXML(Owner).ProgressBar.Max := pValorMaximo;
-  end;
-  procedure IncBarraProgresso;
-  begin
-    TFrmImportacaoXML(Owner).ProgressBar.Position :=
-                             TFrmImportacaoXML(Owner).ProgressBar.Position + 1;
-  end;
   procedure CarregaXMLsParaAcbr;
   var
-    i : Integer;
+    i     : Integer;
   begin
     with NFe.NotasFiscais do
     begin
       Clear;
+      FrmImportacaoXML.ProgressBar.Min := 0;
+      FrmImportacaoXML.ProgressBar.Max := pListaXML.Count;
+
       for I := 0 to Pred(pListaXML.Count) do
       begin
-        ReiniciaBarraProgresso(pListaXML.Count);
-        EnviaTextoBarraProgresso('Carregando xml para a lista...');
-
         if EsteXMLJaFoiImportado(pListaXML[i]) then
         begin
-          IncBarraProgresso;
+          FrmImportacaoXML.ProgressBar.Position := FrmImportacaoXML.ProgressBar.Position + 1;
           continue;
         end;
         LoadFromFile(pDir + '\' + pListaXML[i]);
-        IncBarraProgresso;
+        FrmImportacaoXML.ProgressBar.Position := FrmImportacaoXML.ProgressBar.Position + 1;
       end;
     end;
   end;
@@ -214,12 +203,16 @@ begin
   result := false;
   try
     NFe := TACBrNFe.Create(nil);
+
     CarregaXMLsParaAcbr;
 
     if not ExisteXMLImportar then
     exit;
 
     AbreDataSetNFeNFItens;
+
+    FrmImportacaoXML.ProgressBar.Max       := NFe.NotasFiscais.Count;
+    FrmImportacaoXML.ProgressBar.Position  := 0;
 
     with NFe.NotasFiscais do
     begin
@@ -258,7 +251,8 @@ begin
 
            for j := 0 to Pred(Det.Count) do
            begin
-             with Det.Items[I] do
+
+             with Det.Items[j] do
              begin
                QryItensNF.Insert;
                QryItensNFID.AsInteger            := GetID('"NF_ITENS"',dmPrincipal.DB) + 1;
@@ -269,8 +263,9 @@ begin
                QryItensNFDESCR_ITEM.AsString     := Prod.xProd;
                QryItensNFQTDE.AsFloat            := Prod.qCom;
                QryItensNFUNID.AsString           := Prod.uCom;
-               QryItensNFCST_ICMS.AsString       := OrigToStr(imposto.ICMS.orig)  + CSTICMSToStr(imposto.ICMS.CST);
+               QryItensNFCST.AsString            := OrigToStr(imposto.ICMS.orig)  + CSTICMSToStr(imposto.ICMS.CST);
                QryItensNFCFOP.AsString           := Prod.CFOP;
+               QryItensNFCSOSN.AsString          := OrigToStr(imposto.ICMS.orig)  + CSOSNIcmsToStr(imposto.ICMS.CSOSN);
                QryItensNFNCM.AsString            := Prod.NCM;
                QryItensNFCEST.AsString           := Prod.CEST;
                QryItensNFVL_ITEM.AsFloat         := Prod.vUnCom;
@@ -294,6 +289,7 @@ begin
                QryItensNF.Post;
              end;
            end;
+          FrmImportacaoXML.ProgressBar.Position := FrmImportacaoXML.ProgressBar.Position + 1;
         end;
       end;
     end;

@@ -16,7 +16,8 @@ uses
   uImportacaoXML in 'Units\uImportacaoXML.pas' {FrmImportacaoXML},
   uDMImportacaoXML in 'Dao\uDMImportacaoXML.pas' {DMImportacaoXML: TDataModule},
   uArquivo in 'Util\uArquivo.pas',
-  uDMImportacaoSPED in 'Dao\uDMImportacaoSPED.pas' {DMImportacaoSPED: TDataModule};
+  uDMImportacaoSPED in 'Dao\uDMImportacaoSPED.pas' {DMImportacaoSPED: TDataModule},
+  uBarraProgresso in 'Util\uBarraProgresso.pas';
 
 {$R *.res}
 

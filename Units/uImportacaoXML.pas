@@ -26,7 +26,7 @@ uses
   cxDataStorage, cxEdit, cxNavigator, Data.DB, cxDBData, cxGridLevel,
   cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxClasses,
   cxGridCustomView, cxGrid, dxBarBuiltInMenu, Vcl.DBCtrls, cxPC,
-  uDMImportacaoXML;
+  uDMImportacaoXML, cxTextEdit;
 
 type
   TFrmImportacaoXML = class(TFrmMaster)
@@ -34,7 +34,7 @@ type
     Label1: TLabel;
     GpbProcessaImportacao: TAdvGroupBox;
     ProgressBar: TW7ProgressBar;
-    lblInfoImportacao: TLabel;
+    lblInfoImportacaoXML: TLabel;
     Label2: TLabel;
     BtnGravar: TAdvGlowButton;
     BtnCancelar: TAdvGlowButton;
@@ -87,43 +87,65 @@ type
     cxGridTotalizadorSinteticoLevel1: TcxGridLevel;
     cxGridNF: TcxGrid;
     cxGridDBTableView4: TcxGridDBTableView;
-    cxGridDBTableView4Column1: TcxGridDBColumn;
-    cxGridDBTableView4Column2: TcxGridDBColumn;
-    cxGridDBTableView4NUM_ITEM: TcxGridDBColumn;
-    cxGridDBTableView4COD_ITEM: TcxGridDBColumn;
-    cxGridDBTableView4Descr_item: TcxGridDBColumn;
-    cxGridDBTableView4QTDE: TcxGridDBColumn;
-    cxGridDBTableView4UNID: TcxGridDBColumn;
-    cxGridDBTableView4VL_ITEM: TcxGridDBColumn;
-    cxGridDBTableView4VL_DESC: TcxGridDBColumn;
-    cxGridDBTableView4CST_ICMS: TcxGridDBColumn;
-    cxGridDBTableView4CFOP: TcxGridDBColumn;
-    cxGridDBTableView4VL_BC_ICMS: TcxGridDBColumn;
-    cxGridDBTableView4ALIQ_ICMS: TcxGridDBColumn;
-    cxGridDBTableView4VL_ICMS: TcxGridDBColumn;
-    cxGridDBTableView4VL_BC_ICMS_ST: TcxGridDBColumn;
-    cxGridDBTableView4ALIQ_ST: TcxGridDBColumn;
-    cxGridDBTableView4VL_ICMS_ST: TcxGridDBColumn;
     cxGridLevel4: TcxGridLevel;
     GpbRegistroItensNF: TAdvGroupBox;
     cxGridItensNF: TcxGrid;
     cxGridDBTableView5: TcxGridDBTableView;
-    cxGridDBColumn26: TcxGridDBColumn;
-    cxGridDBColumn27: TcxGridDBColumn;
-    cxGridDBTableView5Descr_item: TcxGridDBColumn;
-    cxGridDBColumn28: TcxGridDBColumn;
-    cxGridDBColumn29: TcxGridDBColumn;
-    cxGridDBColumn30: TcxGridDBColumn;
-    cxGridDBColumn31: TcxGridDBColumn;
-    cxGridDBColumn32: TcxGridDBColumn;
-    cxGridDBColumn33: TcxGridDBColumn;
-    cxGridDBColumn34: TcxGridDBColumn;
-    cxGridDBColumn35: TcxGridDBColumn;
-    cxGridDBColumn36: TcxGridDBColumn;
-    cxGridDBColumn37: TcxGridDBColumn;
-    cxGridDBColumn38: TcxGridDBColumn;
-    cxGridDBColumn39: TcxGridDBColumn;
     cxGridLevel5: TcxGridLevel;
+    cxGridDBTableView4IND_OPER: TcxGridDBColumn;
+    cxGridDBTableView4COD_PART: TcxGridDBColumn;
+    cxGridDBTableView4COD_MOD: TcxGridDBColumn;
+    cxGridDBTableView4SER: TcxGridDBColumn;
+    cxGridDBTableView4NUM_DOC: TcxGridDBColumn;
+    cxGridDBTableView4CHV_NFE: TcxGridDBColumn;
+    cxGridDBTableView4DT_DOC: TcxGridDBColumn;
+    cxGridDBTableView4DT_E_ES: TcxGridDBColumn;
+    cxGridDBTableView4VL_DOC: TcxGridDBColumn;
+    cxGridDBTableView4VL_MERC: TcxGridDBColumn;
+    cxGridDBTableView4VL_DESC: TcxGridDBColumn;
+    cxGridDBTableView4VL_FRT: TcxGridDBColumn;
+    cxGridDBTableView4VL_SEG: TcxGridDBColumn;
+    cxGridDBTableView4VL_OUT_DA: TcxGridDBColumn;
+    cxGridDBTableView4VL_BC_ICMS: TcxGridDBColumn;
+    cxGridDBTableView4VL_ICMS: TcxGridDBColumn;
+    cxGridDBTableView4VL_BC_ICMS_ST: TcxGridDBColumn;
+    cxGridDBTableView4VL_ICMS_ST: TcxGridDBColumn;
+    cxGridDBTableView4VL_BC_IPI: TcxGridDBColumn;
+    cxGridDBTableView4VL_IPI: TcxGridDBColumn;
+    cxGridDBTableView4VL_BC_PIS: TcxGridDBColumn;
+    cxGridDBTableView4VL_PIS: TcxGridDBColumn;
+    cxGridDBTableView4VL_BC_COFINS: TcxGridDBColumn;
+    cxGridDBTableView4VL_COFINS: TcxGridDBColumn;
+    cxGridDBTableView4PARTICIPANTE: TcxGridDBColumn;
+    cxGridDBTableView4ID: TcxGridDBColumn;
+    cxGridDBTableView5IDNF: TcxGridDBColumn;
+    cxGridDBTableView5NUM_ITEM: TcxGridDBColumn;
+    cxGridDBTableView5COD_ITEM: TcxGridDBColumn;
+    cxGridDBTableView5QTDE: TcxGridDBColumn;
+    cxGridDBTableView5UNID: TcxGridDBColumn;
+    cxGridDBTableView5VL_ITEM: TcxGridDBColumn;
+    cxGridDBTableView5VL_DESC: TcxGridDBColumn;
+    cxGridDBTableView5CFOP: TcxGridDBColumn;
+    cxGridDBTableView5VL_BC_ICMS: TcxGridDBColumn;
+    cxGridDBTableView5ALIQ_ICMS: TcxGridDBColumn;
+    cxGridDBTableView5VL_ICMS: TcxGridDBColumn;
+    cxGridDBTableView5VL_BC_ICMS_ST: TcxGridDBColumn;
+    cxGridDBTableView5ALIQ_ST: TcxGridDBColumn;
+    cxGridDBTableView5VL_ICMS_ST: TcxGridDBColumn;
+    cxGridDBTableView5DESCR_ITEM: TcxGridDBColumn;
+    cxGridDBTableView5COD_EAN: TcxGridDBColumn;
+    cxGridDBTableView5VL_SEGURO: TcxGridDBColumn;
+    cxGridDBTableView5VL_IPI: TcxGridDBColumn;
+    cxGridDBTableView5VL_PIS: TcxGridDBColumn;
+    cxGridDBTableView5VL_COFINS: TcxGridDBColumn;
+    cxGridDBTableView5VL_OUTRAS_DESP: TcxGridDBColumn;
+    cxGridDBTableView5VL_ICMSST_RET: TcxGridDBColumn;
+    cxGridDBTableView5VL_ICMSST_DEST: TcxGridDBColumn;
+    cxGridDBTableView5VL_ICMSST_DESON: TcxGridDBColumn;
+    cxGridDBTableView5VL_FRETE: TcxGridDBColumn;
+    cxGridDBTableView5VL_TOTAL_ITEM: TcxGridDBColumn;
+    cxGridDBTableView5CST: TcxGridDBColumn;
+    cxGridDBTableView5CSOSN: TcxGridDBColumn;
     procedure FormShow(Sender: TObject);
     procedure BtnNovaImportacacaoClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -146,7 +168,7 @@ implementation
 
 {$R *.dfm}
 
-Uses uDMBase,uMensagem,uArquivo;
+Uses uDMBase,uMensagem,uArquivo,uBarraProgresso;
 
 procedure TFrmImportacaoXML.BtnCancelarClick(Sender: TObject);
 begin
@@ -170,6 +192,11 @@ begin
 
   try
     try
+
+      GpbProcessaImportacao.Visible := true;
+      Application.ProcessMessages;
+      Sleep(500);
+
       if not TXML.Listar(EdtDiretorio.Text) then
       begin
         FrmMensagem.Informacao('Arquivo xml(s) não encontrado no diretório informado.');
@@ -185,21 +212,29 @@ begin
       if not DMImportacaoXML.ImportarXML(EdtDiretorio.Text,vListaXML) then
       exit;
 
+      Application.ProcessMessages;
+      Sleep(1200);
+
       cxPgcImportacao.ActivePageIndex := 0;
-      BtnGravar.Enabled             := true;
-      BtnCancelar.Enabled           := true;
-      BtnLocalizaImportacao.Enabled := false;
-      BtnNovaImportacacao.Enabled   := false;
-      BtnIniciaImportacao.Enabled   := false;
+      BtnGravar.Enabled               := true;
+      BtnCancelar.Enabled             := true;
+      BtnLocalizaImportacao.Enabled   := false;
+      BtnNovaImportacacao.Enabled     := false;
+      BtnIniciaImportacao.Enabled     := false;
+
+      GpbProcessaImportacao.Visible   := false;
+      GpbContribuinte.Visible         := true;
+      cxPgcImportacao.Visible         := GpbContribuinte.Visible;
     except
       on e: exception do
       begin
         ShowMessage('Erro : ' + e.Message + ' ao tentar importat xml');
+        ControleModoInclusao;
         LimpaTela;
       end;
     end;
   finally
-    FreeAndNil(vListaXML);
+    vListaXML.Free;
   end;
 end;
 

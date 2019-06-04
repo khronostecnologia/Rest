@@ -142,10 +142,6 @@ object DMImportacaoXML: TDMImportacaoXML
       FieldName = 'VL_DESC'
       DisplayFormat = '0.00'
     end
-    object QryItensNFCST_ICMS: TStringField
-      FieldName = 'CST_ICMS'
-      Size = 3
-    end
     object QryItensNFCFOP: TStringField
       FieldName = 'CFOP'
       Size = 4
@@ -221,5 +217,23 @@ object DMImportacaoXML: TDMImportacaoXML
     object QryItensNFVL_TOTAL_ITEM: TFloatField
       FieldName = 'VL_TOTAL_ITEM'
     end
+    object QryItensNFCST: TStringField
+      FieldName = 'CST'
+      Size = 3
+    end
+    object QryItensNFCSOSN: TStringField
+      FieldName = 'CSOSN'
+      Size = 3
+    end
+  end
+  object DsQryNF: TDataSource
+    DataSet = QryNF
+    Left = 104
+    Top = 8
+  end
+  object DsQryItensNF: TDataSource
+    DataSet = QryItensNF
+    Left = 104
+    Top = 64
   end
 end

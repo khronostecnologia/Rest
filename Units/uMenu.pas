@@ -51,6 +51,8 @@ procedure TFrmMenu.MnuImportaXMLClick(Sender: TObject);
 begin
   FrmImportacaoXML := TFrmImportacaoXML.Create(nil);
   FrmImportacaoXML.Show;
+
+  Application.ProcessMessages;
 end;
 
 procedure TFrmMenu.MnuSubImportaSPEDClick(Sender: TObject);
