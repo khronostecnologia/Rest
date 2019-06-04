@@ -26,7 +26,7 @@ uses
   cxDataStorage, cxEdit, cxNavigator, Data.DB, cxDBData, cxGridLevel,
   cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxClasses,
   cxGridCustomView, cxGrid, dxBarBuiltInMenu, Vcl.DBCtrls, cxPC,
-  uDMImportacaoXML, cxTextEdit;
+  uDMImportacaoXML, cxTextEdit, cxCalendar;
 
 type
   TFrmImportacaoXML = class(TFrmMaster)
@@ -152,6 +152,11 @@ type
     procedure BtnIniciaImportacaoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure BtnCancelarClick(Sender: TObject);
+    procedure cxGridDBTableView4KeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure cxGridDBTableView4CellClick(Sender: TcxCustomGridTableView;
+      ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
+      AShift: TShiftState; var AHandled: Boolean);
   private
     { Private declarations }
     DMImportacaoXML : TDMImportacaoXML;
@@ -225,6 +230,18 @@ begin
       GpbProcessaImportacao.Visible   := false;
       GpbContribuinte.Visible         := true;
       cxPgcImportacao.Visible         := GpbContribuinte.Visible;
+
+      SetaFoco(cxGridNF);
+
+      if (DMImportacaoXML.QryItensNF.Active) and
+      (DMImportacaoXML.QryNF.State = (dsBrowse)) then
+      begin
+        DMImportacaoXML.QryItensNF.Filtered := false;
+        DMImportacaoXML.QryItensNF.Filter   := ' IDNF = ' +
+                                          DMImportacaoXML.QryNF.FieldByName('ID').AsString;
+        DMImportacaoXML.QryItensNF.Filtered := true;
+      end;
+
     except
       on e: exception do
       begin
@@ -259,6 +276,52 @@ begin
   BtnImprimirResultado.Enabled  := BtnGravar.Enabled;
   BtnLocalizaImportacao.Enabled := not (BtnImprimirResultado.Enabled);
   BtnNovaImportacacao.Enabled   := BtnLocalizaImportacao.Enabled;
+end;
+
+procedure TFrmImportacaoXML.cxGridDBTableView4CellClick(
+  Sender: TcxCustomGridTableView; ACellViewInfo: TcxGridTableDataCellViewInfo;
+  AButton: TMouseButton; AShift: TShiftState; var AHandled: Boolean);
+begin
+  inherited;
+  if (DMImportacaoXML.QryItensNF.Active) and
+     (DMImportacaoXML.QryNF.State = (dsBrowse)) then
+  begin
+    DMImportacaoXML.QryItensNF.Filtered := false;
+    DMImportacaoXML.QryItensNF.Filter   := ' IDNF = ' +
+                                          DMImportacaoXML.QryNF.FieldByName('ID').AsString;
+    DMImportacaoXML.QryItensNF.Filtered := true;
+  end;
+end;
+
+procedure TFrmImportacaoXML.cxGridDBTableView4KeyDown(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  inherited;
+ if (Key = VK_UP) or ( key = VK_DOWN) then
+  begin
+    if (DMImportacaoXML.QryItensNF.Active) and
+       (DMImportacaoXML.QryItensNF.State = (dsBrowse)) then
+    begin
+      DMImportacaoXML.QryNF.DisableControls;
+
+      if Key = VK_UP then
+        DMImportacaoXML.QryNF.Prior
+      else
+        DMImportacaoXML.QryNF.Next;
+
+      DMImportacaoXML.QryItensNF.Filtered := false;
+      DMImportacaoXML.QryItensNF.Filter   := ' IDNF = ' +
+                                             DMImportacaoXML.QryNF.FieldByName('ID').AsString;
+      DMImportacaoXML.QryItensNF.Filtered := true;
+
+      if key = VK_UP then
+        DMImportacaoXML.QryNF.Next
+      else
+        DMImportacaoXML.QryNF.Prior;
+
+      DMImportacaoXML.QryNF.EnableControls;
+    end;
+  end;
 end;
 
 procedure TFrmImportacaoXML.FormClose(Sender: TObject;

@@ -3,7 +3,7 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
   ClientWidth = 857
   OnClose = FormClose
   OnCreate = FormCreate
-  ExplicitTop = -81
+  ExplicitTop = -56
   ExplicitWidth = 873
   PixelsPerInch = 96
   TextHeight = 13
@@ -976,14 +976,15 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
             Align = alTop
             TabOrder = 0
             object cxGridDBTableView4: TcxGridDBTableView
+              OnKeyDown = cxGridDBTableView4KeyDown
               Navigator.Buttons.CustomButtons = <>
+              OnCellClick = cxGridDBTableView4CellClick
               DataController.DataSource = DMImportacaoXML.DsQryNF
               DataController.Summary.DefaultGroupSummaryItems = <>
               DataController.Summary.FooterSummaryItems = <>
               DataController.Summary.SummaryGroups = <>
               OptionsData.Deleting = False
               OptionsData.DeletingConfirmation = False
-              OptionsData.Editing = False
               OptionsData.Inserting = False
               OptionsView.NoDataToDisplayInfoText = ' '
               OptionsView.GroupByBox = False
@@ -997,7 +998,7 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
                 Caption = 'Entrada/Saida'
                 DataBinding.FieldName = 'IND_OPER'
                 Options.Editing = False
-                Width = 150
+                Width = 90
               end
               object cxGridDBTableView4COD_PART: TcxGridDBColumn
                 Caption = 'C'#243'digo particip.'
@@ -1009,7 +1010,7 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
                 Caption = 'Participante'
                 DataBinding.FieldName = 'PARTICIPANTE'
                 Options.Editing = False
-                Width = 200
+                Width = 250
               end
               object cxGridDBTableView4COD_MOD: TcxGridDBColumn
                 Caption = 'Modelo'
@@ -1027,6 +1028,7 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
                 DataBinding.FieldName = 'CHV_NFE'
                 PropertiesClassName = 'TcxTextEditProperties'
                 Properties.ReadOnly = True
+                Width = 290
               end
               object cxGridDBTableView4DT_DOC: TcxGridDBColumn
                 Caption = 'Data emiss'#227'o'
@@ -1151,8 +1153,6 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
             Align = alClient
             Caption = '   Itens da nota fiscal'
             TabOrder = 1
-            ExplicitTop = 25
-            ExplicitHeight = 137
             object cxGridItensNF: TcxGrid
               Left = 2
               Top = 16
@@ -1160,7 +1160,6 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
               Height = 55
               Align = alClient
               TabOrder = 0
-              ExplicitHeight = 68
               object cxGridDBTableView5: TcxGridDBTableView
                 Navigator.Buttons.CustomButtons = <>
                 DataController.DataSource = DMImportacaoXML.DsQryItensNF
@@ -1177,7 +1176,7 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
                   Caption = 'C'#243'digo NF'
                   DataBinding.FieldName = 'IDNF'
                   Options.Editing = False
-                  Width = 90
+                  Width = 68
                 end
                 object cxGridDBTableView5NUM_ITEM: TcxGridDBColumn
                   Caption = 'N'#186'.Item'
@@ -1189,12 +1188,13 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
                   Caption = 'EAN'
                   DataBinding.FieldName = 'COD_EAN'
                   Options.Editing = False
-                  Width = 120
+                  Width = 104
                 end
                 object cxGridDBTableView5COD_ITEM: TcxGridDBColumn
                   Caption = 'Cod.Item'
                   DataBinding.FieldName = 'COD_ITEM'
                   Options.Editing = False
+                  Width = 77
                 end
                 object cxGridDBTableView5DESCR_ITEM: TcxGridDBColumn
                   Caption = 'Descri'#231#227'o item'
@@ -1204,12 +1204,12 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
                 object cxGridDBTableView5CST: TcxGridDBColumn
                   DataBinding.FieldName = 'CST'
                   Options.Editing = False
-                  Width = 80
+                  Width = 53
                 end
                 object cxGridDBTableView5CSOSN: TcxGridDBColumn
                   DataBinding.FieldName = 'CSOSN'
                   Options.Editing = False
-                  Width = 80
+                  Width = 59
                 end
                 object cxGridDBTableView5CFOP: TcxGridDBColumn
                   DataBinding.FieldName = 'CFOP'
