@@ -525,7 +525,6 @@ object DMImportacaoSPED: TDMImportacaoSPED
     end
     object QryResultadoSESTOQUE_FINAL: TFloatField
       FieldName = 'ESTOQUE_FINAL'
-      currency = True
     end
     object QryResultadoSTOTAL_RESTITUIR: TAggregateField
       FieldName = 'TOTAL_RESTITUIR'
