@@ -26,9 +26,10 @@ uses
   cxDataStorage, cxEdit, cxNavigator, Data.DB, cxDBData, cxGridLevel,
   cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxClasses,
   cxGridCustomView, cxGrid, dxBarBuiltInMenu, Vcl.DBCtrls, cxPC,
-  uDMImportacaoXML, cxTextEdit, cxCalendar;
+  uDMImportacaoXML, cxTextEdit, cxCalendar,uGenerico;
 
 type
+
   TFrmImportacaoXML = class(TFrmMaster)
     GpbSelArquivos: TAdvGroupBox;
     Label1: TLabel;
@@ -40,7 +41,7 @@ type
     BtnCancelar: TAdvGlowButton;
     BtnSair: TAdvGlowButton;
     BtnLocalizaImportacao: TAdvGlowButton;
-    BtnNovaImportacacao: TAdvGlowButton;
+    BtnNovaImportacao: TAdvGlowButton;
     BtnImprimirResultado: TAdvGlowButton;
     BtnExcluir: TAdvGlowButton;
     EdtDiretorio: TJvDirectoryEdit;
@@ -147,23 +148,35 @@ type
     cxGridDBTableView5CST: TcxGridDBColumn;
     cxGridDBTableView5CSOSN: TcxGridDBColumn;
     procedure FormShow(Sender: TObject);
-    procedure BtnNovaImportacacaoClick(Sender: TObject);
+    procedure BtnNovaImportacaoClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure BtnIniciaImportacaoClick(Sender: TObject);
-    procedure FormCreate(Sender: TObject);
     procedure BtnCancelarClick(Sender: TObject);
     procedure cxGridDBTableView4KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure cxGridDBTableView4CellClick(Sender: TcxCustomGridTableView;
       ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
       AShift: TShiftState; var AHandled: Boolean);
+    procedure BtnSairClick(Sender: TObject);
   private
     { Private declarations }
     DMImportacaoXML : TDMImportacaoXML;
+    FImportacao     : Boolean;
+    FForm           : TFormGeneric;
     procedure LimpaTela;
-    procedure ControleModoInclusao;
   public
     { Public declarations }
+    constructor create(pOwner : TComponent ; pFinalidadeTela : TFinalidadeTela);
+  end;
+
+  TFormImportacao = class(TFormGeneric)
+    procedure ConfigControles;Override;
+    procedure HabilitaControlesModoInclusao;Override;
+  end;
+
+  TFormApuracao = class(TFormGeneric)
+    procedure ConfigControles;Override;
+    procedure HabilitaControlesModoInclusao;Override;
   end;
 
 var
@@ -175,11 +188,65 @@ implementation
 
 Uses uDMBase,uMensagem,uArquivo,uBarraProgresso;
 
+{ TFormImportacao }
+
+procedure TFormImportacao.ConfigControles;
+begin
+  inherited;
+  {Mantem controles originais}
+end;
+
+procedure TFormImportacao.HabilitaControlesModoInclusao;
+begin
+  inherited;
+  with FrmImportacaoXML do
+  begin
+    BtnCancelar.Enabled           := False;
+    BtnExcluir.Enabled            := BtnCancelar.Enabled;
+    BtnGravar.Enabled             := BtnExcluir.Enabled;
+    BtnIniciaImportacao.Enabled   := btnGravar.Enabled;
+    BtnImprimirResultado.Enabled  := BtnGravar.Enabled;
+    BtnLocalizaImportacao.Enabled := not (BtnImprimirResultado.Enabled);
+    BtnNovaImportacao.Enabled     := BtnLocalizaImportacao.Enabled;
+    EdtDiretorio.InitialDir       := dmPrincipal.DirApp;
+    SetaFoco(BtnNovaImportacao);
+  end;
+end;
+
+{ TFormApuracao }
+
+procedure TFormApuracao.HabilitaControlesModoInclusao;
+begin
+  with FrmImportacaoXML do
+  begin
+    BtnCancelar.Enabled           := False;
+    BtnExcluir.Enabled            := BtnCancelar.Enabled;
+    BtnImprimirResultado.Enabled  := BtnExcluir.Enabled;
+    BtnLocalizaImportacao.Enabled := not (BtnImprimirResultado.Enabled);
+    SetaFoco(BtnLocalizaImportacao);
+  end;
+end;
+
+procedure TFormApuracao.ConfigControles;
+begin
+  with FrmImportacaoXML do
+  begin
+    lblTitulo.Caption           := 'Apuração XML';
+    GpbSelArquivos.Visible      := false;
+    BtnGravar.Visible           := GpbSelArquivos.Visible;
+    BtnNovaImportacao.Visible   := BtnGravar.Visible;
+
+    BtnSair.Left                := BtnCancelar.Left;
+    BtnImprimirResultado.Left   := BtnExcluir.Left;
+    BtnCancelar.Left            := BtnNovaImportacao.Left;
+    BtnExcluir.Left             := BtnGravar.Left;
+  end;
+end;
+
 procedure TFrmImportacaoXML.BtnCancelarClick(Sender: TObject);
 begin
   inherited;
   LimpaTela;
-  ControleModoInclusao;
 end;
 
 procedure TFrmImportacaoXML.BtnIniciaImportacaoClick(Sender: TObject);
@@ -224,7 +291,7 @@ begin
       BtnGravar.Enabled               := true;
       BtnCancelar.Enabled             := true;
       BtnLocalizaImportacao.Enabled   := false;
-      BtnNovaImportacacao.Enabled     := false;
+      BtnNovaImportacao.Enabled       := false;
       BtnIniciaImportacao.Enabled     := false;
 
       GpbProcessaImportacao.Visible   := false;
@@ -246,7 +313,6 @@ begin
       on e: exception do
       begin
         ShowMessage('Erro : ' + e.Message + ' ao tentar importat xml');
-        ControleModoInclusao;
         LimpaTela;
       end;
     end;
@@ -255,27 +321,34 @@ begin
   end;
 end;
 
-procedure TFrmImportacaoXML.BtnNovaImportacacaoClick(Sender: TObject);
+procedure TFrmImportacaoXML.BtnNovaImportacaoClick(Sender: TObject);
 begin
   inherited;
   EdtDiretorio.Enabled        := true;
   EdtDiretorio.DoClick;
   BtnIniciaImportacao.Enabled := (EdtDiretorio.Text <> '');
-  BtnNovaImportacacao.Enabled := not (BtnIniciaImportacao.Enabled);
-  BtnCancelar.Enabled         := not (BtnNovaImportacacao.Enabled);
+  BtnNovaImportacao.Enabled   := not (BtnIniciaImportacao.Enabled);
+  BtnCancelar.Enabled         := not (BtnNovaImportacao.Enabled);
   if BtnIniciaImportacao.Enabled  then
   SetaFoco(BtnIniciaImportacao);
 end;
 
-procedure TFrmImportacaoXML.ControleModoInclusao;
+procedure TFrmImportacaoXML.BtnSairClick(Sender: TObject);
 begin
-  BtnCancelar.Enabled           := False;
-  BtnExcluir.Enabled            := BtnCancelar.Enabled;
-  BtnGravar.Enabled             := BtnExcluir.Enabled;
-  BtnIniciaImportacao.Enabled   := btnGravar.Enabled;
-  BtnImprimirResultado.Enabled  := BtnGravar.Enabled;
-  BtnLocalizaImportacao.Enabled := not (BtnImprimirResultado.Enabled);
-  BtnNovaImportacacao.Enabled   := BtnLocalizaImportacao.Enabled;
+  inherited;
+  close;
+end;
+
+constructor TFrmImportacaoXML.create(pOwner: TComponent;
+  pFinalidadeTela: TFinalidadeTela);
+begin
+  inherited create(pOwner);
+  DMImportacaoXML := TDMImportacaoXML.Create(Self);
+
+  if pFinalidadeTela = ftImportacao then
+    FForm := TFormImportacao.Create
+  else
+    FForm := TFormApuracao.Create;
 end;
 
 procedure TFrmImportacaoXML.cxGridDBTableView4CellClick(
@@ -328,23 +401,17 @@ procedure TFrmImportacaoXML.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
   inherited;
+  FreeAndNil(FForm);
   FreeAndNil(DMImportacaoXML);
   FreeAndNil(FrmImportacaoXML);
-end;
-
-procedure TFrmImportacaoXML.FormCreate(Sender: TObject);
-begin
-  inherited;
-  DMImportacaoXML := TDMImportacaoXML.Create(Self);
 end;
 
 procedure TFrmImportacaoXML.FormShow(Sender: TObject);
 begin
   inherited;
-  EdtDiretorio.InitialDir        := dmPrincipal.DirApp;
-  ControleModoInclusao;
+  FForm.ConfigControles;
+  FForm.HabilitaControlesModoInclusao;
   LimpaTela;
-  SetaFoco(BtnNovaImportacacao);
 end;
 
 procedure TFrmImportacaoXML.LimpaTela;

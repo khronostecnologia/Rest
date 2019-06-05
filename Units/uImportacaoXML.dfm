@@ -2,8 +2,6 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
   Caption = 'FrmImportacaoXML'
   ClientWidth = 857
   OnClose = FormClose
-  OnCreate = FormCreate
-  ExplicitTop = -56
   ExplicitWidth = 873
   PixelsPerInch = 96
   TextHeight = 13
@@ -305,6 +303,7 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
             EA9D295656B23708C390969616C6C7C79936B3209DCD1D1469CCE6A04481FF00
             50AF59F878CAB4260000000049454E44AE426082}
           TabOrder = 2
+          OnClick = BtnSairClick
           Appearance.BorderColor = 14727579
           Appearance.BorderColorHot = 10079963
           Appearance.BorderColorDown = 4548219
@@ -439,9 +438,9 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
           Appearance.GradientMirrorDown = ggVertical
           Appearance.GradientChecked = ggVertical
         end
-        object BtnNovaImportacacao: TAdvGlowButton
+        object BtnNovaImportacao: TAdvGlowButton
           Left = 124
-          Top = 17
+          Top = 16
           Width = 109
           Height = 30
           Caption = 'Nova importa'#231#227'o'
@@ -491,7 +490,7 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
             D3CCE7AFA980FE2017749D7D32D55FCEEE7F52595195DFAD4697000000004945
             4E44AE426082}
           TabOrder = 4
-          OnClick = BtnNovaImportacacaoClick
+          OnClick = BtnNovaImportacaoClick
           Appearance.BorderColor = 14727579
           Appearance.BorderColorHot = 10079963
           Appearance.BorderColorDown = 4548219

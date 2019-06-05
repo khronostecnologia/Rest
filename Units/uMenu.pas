@@ -29,9 +29,12 @@ type
     Label5: TLabel;
     Label4: TLabel;
     MnuImportaXML: TMenuItem;
+    MnuApuracao: TMenuItem;
+    MnuApuracaoXML: TMenuItem;
     procedure MnuSubImportaSPEDClick(Sender: TObject);
     procedure Sair1Click(Sender: TObject);
     procedure MnuImportaXMLClick(Sender: TObject);
+    procedure MnuApuracaoXMLClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -45,14 +48,12 @@ implementation
 
 {$R *.dfm}
 
-Uses uDMBase,uPesquisa,uMensagem,uImportacaoSPED,uImportacaoXML;
+Uses uDMBase,uPesquisa,uMensagem,uImportacaoSPED,uImportacaoXML,biblKhronos;
 
 procedure TFrmMenu.MnuImportaXMLClick(Sender: TObject);
 begin
-  FrmImportacaoXML := TFrmImportacaoXML.Create(nil);
+  FrmImportacaoXML := TFrmImportacaoXML.Create(nil,ftImportacao);
   FrmImportacaoXML.Show;
-
-  Application.ProcessMessages;
 end;
 
 procedure TFrmMenu.MnuSubImportaSPEDClick(Sender: TObject);
@@ -64,6 +65,12 @@ end;
 procedure TFrmMenu.Sair1Click(Sender: TObject);
 begin
   Application.Terminate;
+end;
+
+procedure TFrmMenu.MnuApuracaoXMLClick(Sender: TObject);
+begin
+  FrmImportacaoXML := TFrmImportacaoXML.Create(nil,ftApuracao);
+  FrmImportacaoXML.Show;
 end;
 
 end.

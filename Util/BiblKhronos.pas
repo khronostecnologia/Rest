@@ -30,6 +30,7 @@ Uses
   TTpMov                  = (tmSomar,tmSubtrair);
   TMovimento              = (tmovCompra,tmovVenda);
   TTipoRel                = (trelAnalitico,trelSintetico);
+  TFinalidadeTela         = (ftImportacao,ftApuracao);
 
   Function GetValor(AConexao : TFDConnection; ACampo, ATabela : String; AAgregacao : String  = '' ; AWhere : String = '') : Variant;
   Function GetStrValor(AConexao : TFDConnection; ACampo, ATabela : String; AAgregacao : String  = '' ; AWhere : String = '') : Variant;
