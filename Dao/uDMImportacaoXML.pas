@@ -84,6 +84,8 @@ type
   public
     { Public declarations }
     function ImportarXML(pDir : String ; pListaXML : TStringList):Boolean;
+    function GravarImportacao : Boolean;
+    function GetTodasNF(pCodPart , pMes : String):Boolean;
   end;
 
 implementation
@@ -159,6 +161,54 @@ begin
       abort;
     end;
   end;
+end;
+
+function TDMImportacaoXML.GetTodasNF(pCodPart, pMes: String): Boolean;
+begin
+  try
+    with QryNF do
+    begin
+      Close;
+      SQL.Text := 'SELECT * FROM "NF" WHERE "COD_PART" = ' + QuotedStr(pCodPart) +
+                  ' AND EXTRACT(MONTH FROM "DT_DOC") = ' + pMes + ' ORDER BY "DT_DOC"';
+      Open;
+
+      if not IsEmpty then
+      begin
+        with QryItensNF do
+        begin
+          close;
+          SQL.Text := 'SELECT * FROM "NF_ITENS" NP WHERE EXISTS (SELECT N."ID" '+
+                      'FROM "NF" N WHERE N."COD_PART" = ' + QuotedStr(pCodPart) + ' ' +
+                      'AND EXTRACT(MONTH FROM N."DT_DOC") = ' + pMes +
+                      ' AND N."ID" = NP."IDNF")';
+          Open;
+        end;
+      end;
+    end;
+  except
+    on e: exception do
+    raise Exception.Create('Erro : ' + e.message + ' ao tentar recuperar NF(s) do participante');
+  end;
+end;
+
+function TDMImportacaoXML.GravarImportacao: Boolean;
+begin
+  result := false;
+  try
+    QryNF.ApplyUpdates(0);
+  except
+    on e: exception do
+    raise Exception.Create('Erro : ' + e.message + ' ao tentar gravar NF');
+  end;
+
+  try
+    QryItensNF.ApplyUpdates(0);
+  except
+    on e: exception do
+    raise Exception.Create('Erro : ' + e.message + ' ao tentar gravar itens da NF');
+  end;
+  result := true;
 end;
 
 function TDMImportacaoXML.ImportarXML(pDir : String ; pListaXML : TStringList)

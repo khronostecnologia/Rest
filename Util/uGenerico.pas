@@ -10,6 +10,7 @@ Type
   Public
     procedure ConfigControles;Virtual;Abstract;
     procedure HabilitaControlesModoInclusao;Virtual;Abstract;
+    procedure Pesquisa;Virtual;Abstract;
   end;
 
 implementation

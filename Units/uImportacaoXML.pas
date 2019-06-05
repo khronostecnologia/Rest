@@ -46,18 +46,6 @@ type
     BtnExcluir: TAdvGlowButton;
     EdtDiretorio: TJvDirectoryEdit;
     BtnIniciaImportacao: TAdvGlowButton;
-    GpbContribuinte: TAdvGroupBox;
-    cxGridContribuinte: TcxGrid;
-    cxGridContribuinteDBTableView1: TcxGridDBTableView;
-    cxGridContribuinteDBTableView1Column1Codigo: TcxGridDBColumn;
-    cxGridContribuinteDBTableView1DT_INI: TcxGridDBColumn;
-    cxGridContribuinteDBTableView1DT_FIM: TcxGridDBColumn;
-    cxGridContribuinteDBTableView1NOME: TcxGridDBColumn;
-    cxGridContribuinteDBTableView1CNPJ: TcxGridDBColumn;
-    cxGridContribuinteDBTableView1CPF: TcxGridDBColumn;
-    cxGridContribuinteDBTableView1UF: TcxGridDBColumn;
-    cxGridContribuinteDBTableView1IE: TcxGridDBColumn;
-    cxGridContribuinteLevel1: TcxGridLevel;
     cxPgcImportacao: TcxPageControl;
     TbsNF: TcxTabSheet;
     TbsAnalise: TcxTabSheet;
@@ -158,12 +146,15 @@ type
       ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
       AShift: TShiftState; var AHandled: Boolean);
     procedure BtnSairClick(Sender: TObject);
+    procedure BtnGravarClick(Sender: TObject);
+    procedure BtnLocalizaImportacaoClick(Sender: TObject);
   private
     { Private declarations }
     DMImportacaoXML : TDMImportacaoXML;
     FImportacao     : Boolean;
     FForm           : TFormGeneric;
     procedure LimpaTela;
+    procedure FiltraItensNF;
   public
     { Public declarations }
     constructor create(pOwner : TComponent ; pFinalidadeTela : TFinalidadeTela);
@@ -172,11 +163,13 @@ type
   TFormImportacao = class(TFormGeneric)
     procedure ConfigControles;Override;
     procedure HabilitaControlesModoInclusao;Override;
+    procedure Pesquisa;Override;
   end;
 
   TFormApuracao = class(TFormGeneric)
     procedure ConfigControles;Override;
     procedure HabilitaControlesModoInclusao;Override;
+    procedure Pesquisa;Override;
   end;
 
 var
@@ -186,14 +179,19 @@ implementation
 
 {$R *.dfm}
 
-Uses uDMBase,uMensagem,uArquivo,uBarraProgresso;
+Uses uDMBase,uMensagem,uArquivo,uBarraProgresso,uPesquisa;
 
 { TFormImportacao }
 
 procedure TFormImportacao.ConfigControles;
 begin
   inherited;
-  {Mantem controles originais}
+  with FrmImportacaoXML do
+  begin
+    TbsAnalise.TabVisible        := false;
+    BtnImprimirResultado.Visible := TbsAnalise.TabVisible;
+    BtnSair.Left                 := BtnImprimirResultado.Left;
+  end;
 end;
 
 procedure TFormImportacao.HabilitaControlesModoInclusao;
@@ -205,12 +203,16 @@ begin
     BtnExcluir.Enabled            := BtnCancelar.Enabled;
     BtnGravar.Enabled             := BtnExcluir.Enabled;
     BtnIniciaImportacao.Enabled   := btnGravar.Enabled;
-    BtnImprimirResultado.Enabled  := BtnGravar.Enabled;
-    BtnLocalizaImportacao.Enabled := not (BtnImprimirResultado.Enabled);
+    BtnLocalizaImportacao.Enabled := true;
     BtnNovaImportacao.Enabled     := BtnLocalizaImportacao.Enabled;
     EdtDiretorio.InitialDir       := dmPrincipal.DirApp;
     SetaFoco(BtnNovaImportacao);
   end;
+end;
+
+procedure TFormImportacao.Pesquisa;
+begin
+  inherited;
 end;
 
 { TFormApuracao }
@@ -224,6 +226,21 @@ begin
     BtnImprimirResultado.Enabled  := BtnExcluir.Enabled;
     BtnLocalizaImportacao.Enabled := not (BtnImprimirResultado.Enabled);
     SetaFoco(BtnLocalizaImportacao);
+  end;
+end;
+
+procedure TFormApuracao.Pesquisa;
+begin
+  inherited;
+  Try
+    FrmPesquisa := TFrmPesquisa.Create(nil);
+    FrmPesquisa.MontaSql('SELECT * FROM "NF" ORDER BY "NOME"');
+    FrmPesquisa.ShowModal;
+    if FrmPesquisa.Selecionou then
+    begin
+    end;
+  finally
+    FreeAndNil(FrmPesquisa);
   end;
 end;
 
@@ -247,6 +264,16 @@ procedure TFrmImportacaoXML.BtnCancelarClick(Sender: TObject);
 begin
   inherited;
   LimpaTela;
+end;
+
+procedure TFrmImportacaoXML.BtnGravarClick(Sender: TObject);
+begin
+  inherited;
+  if not DMImportacaoXML.GravarImportacao then
+  exit;
+
+  FrmMensagem.Informacao('Importação salva com sucesso!');
+  BtnNovaImportacao.Enabled := true;
 end;
 
 procedure TFrmImportacaoXML.BtnIniciaImportacaoClick(Sender: TObject);
@@ -287,28 +314,16 @@ begin
       Application.ProcessMessages;
       Sleep(1200);
 
+      cxPgcImportacao.Visible         := true;
       cxPgcImportacao.ActivePageIndex := 0;
       BtnGravar.Enabled               := true;
       BtnCancelar.Enabled             := true;
       BtnLocalizaImportacao.Enabled   := false;
       BtnNovaImportacao.Enabled       := false;
       BtnIniciaImportacao.Enabled     := false;
-
       GpbProcessaImportacao.Visible   := false;
-      GpbContribuinte.Visible         := true;
-      cxPgcImportacao.Visible         := GpbContribuinte.Visible;
-
       SetaFoco(cxGridNF);
-
-      if (DMImportacaoXML.QryItensNF.Active) and
-      (DMImportacaoXML.QryNF.State = (dsBrowse)) then
-      begin
-        DMImportacaoXML.QryItensNF.Filtered := false;
-        DMImportacaoXML.QryItensNF.Filter   := ' IDNF = ' +
-                                          DMImportacaoXML.QryNF.FieldByName('ID').AsString;
-        DMImportacaoXML.QryItensNF.Filtered := true;
-      end;
-
+      FiltraItensNF;
     except
       on e: exception do
       begin
@@ -321,14 +336,41 @@ begin
   end;
 end;
 
+procedure TFrmImportacaoXML.BtnLocalizaImportacaoClick(Sender: TObject);
+var
+  vCodPart : String;
+  vMesXML  : String;
+begin
+  inherited;
+    Try
+    FrmPesquisa := TFrmPesquisa.Create(nil);
+    FrmPesquisa.MontaSql('SELECT * FROM GET_PART_IMPORTADOS ORDER BY "PARTICIPANTE","MES"');
+    FrmPesquisa.ShowModal;
+    if FrmPesquisa.Selecionou then
+    begin
+      vCodPart := FrmPesquisa.QryPesquisa.FieldByName('CODIGO').AsString;
+      vMesXML  := FrmPesquisa.QryPesquisa.FieldByName('MES').AsString;
+      if DMImportacaoXML.GetTodasNF(vCodPart,vMesXML) then
+      begin
+        BtnCancelar.Enabled       := true;
+        BtnExcluir.Enabled        := true;
+        BtnNovaImportacao.Enabled := false;
+      end;
+    end;
+  finally
+    FreeAndNil(FrmPesquisa);
+  end;
+end;
+
 procedure TFrmImportacaoXML.BtnNovaImportacaoClick(Sender: TObject);
 begin
   inherited;
-  EdtDiretorio.Enabled        := true;
+  EdtDiretorio.Enabled          := true;
   EdtDiretorio.DoClick;
-  BtnIniciaImportacao.Enabled := (EdtDiretorio.Text <> '');
-  BtnNovaImportacao.Enabled   := not (BtnIniciaImportacao.Enabled);
-  BtnCancelar.Enabled         := not (BtnNovaImportacao.Enabled);
+  BtnIniciaImportacao.Enabled   := (EdtDiretorio.Text <> '');
+  BtnNovaImportacao.Enabled     := not (BtnIniciaImportacao.Enabled);
+  BtnCancelar.Enabled           := not (BtnNovaImportacao.Enabled);
+  BtnLocalizaImportacao.Enabled := false;
   if BtnIniciaImportacao.Enabled  then
   SetaFoco(BtnIniciaImportacao);
 end;
@@ -356,14 +398,7 @@ procedure TFrmImportacaoXML.cxGridDBTableView4CellClick(
   AButton: TMouseButton; AShift: TShiftState; var AHandled: Boolean);
 begin
   inherited;
-  if (DMImportacaoXML.QryItensNF.Active) and
-     (DMImportacaoXML.QryNF.State = (dsBrowse)) then
-  begin
-    DMImportacaoXML.QryItensNF.Filtered := false;
-    DMImportacaoXML.QryItensNF.Filter   := ' IDNF = ' +
-                                          DMImportacaoXML.QryNF.FieldByName('ID').AsString;
-    DMImportacaoXML.QryItensNF.Filtered := true;
-  end;
+  FiltraItensNF;
 end;
 
 procedure TFrmImportacaoXML.cxGridDBTableView4KeyDown(Sender: TObject;
@@ -397,6 +432,18 @@ begin
   end;
 end;
 
+procedure TFrmImportacaoXML.FiltraItensNF;
+begin
+   if (DMImportacaoXML.QryItensNF.Active) and
+     (DMImportacaoXML.QryNF.State = (dsBrowse)) then
+  begin
+    DMImportacaoXML.QryItensNF.Filtered := false;
+    DMImportacaoXML.QryItensNF.Filter   := ' IDNF = ' +
+                                          DMImportacaoXML.QryNF.FieldByName('ID').AsString;
+    DMImportacaoXML.QryItensNF.Filtered := true;
+  end;
+end;
+
 procedure TFrmImportacaoXML.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
@@ -418,7 +465,6 @@ procedure TFrmImportacaoXML.LimpaTela;
 begin
   EdtDiretorio.Text              := '';
   GpbProcessaImportacao.Visible  := false;
-  GpbContribuinte.Visible        := false;
   cxPgcImportacao.Visible        := false;
   EdtDiretorio.Enabled           := false;
 end;

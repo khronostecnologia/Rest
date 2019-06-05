@@ -94,6 +94,7 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
             645996B9F3F3F32CD948EE1F1D4D57A8768492378073B40ED1BF0032E87C30A4
             00F0110000000049454E44AE426082}
           TabOrder = 0
+          OnClick = BtnGravarClick
           Appearance.BorderColor = 14727579
           Appearance.BorderColorHot = 10079963
           Appearance.BorderColorDown = 4548219
@@ -408,6 +409,7 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
             F9A3890C46E76F63E9D612F3E26E2A05993FBE18E4BC7B1D800CA000C0F83720
             1AD94F1D767FF80000000049454E44AE426082}
           TabOrder = 3
+          OnClick = BtnLocalizaImportacaoClick
           Appearance.BorderColor = 14727579
           Appearance.BorderColorHot = 10079963
           Appearance.BorderColorDown = 4548219
@@ -440,7 +442,7 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
         end
         object BtnNovaImportacao: TAdvGlowButton
           Left = 124
-          Top = 16
+          Top = 17
           Width = 109
           Height = 30
           Caption = 'Nova importa'#231#227'o'
@@ -845,77 +847,16 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
           ParentFont = False
         end
       end
-      object GpbContribuinte: TAdvGroupBox
+      object cxPgcImportacao: TcxPageControl
         Left = 0
         Top = 95
         Width = 857
-        Height = 82
-        Align = alTop
-        Caption = '   Contribuinte'
-        TabOrder = 3
-        object cxGridContribuinte: TcxGrid
-          Left = 2
-          Top = 16
-          Width = 853
-          Height = 64
-          Align = alClient
-          TabOrder = 0
-          object cxGridContribuinteDBTableView1: TcxGridDBTableView
-            Navigator.Buttons.CustomButtons = <>
-            DataController.Summary.DefaultGroupSummaryItems = <>
-            DataController.Summary.FooterSummaryItems = <>
-            DataController.Summary.SummaryGroups = <>
-            OptionsData.Deleting = False
-            OptionsData.Editing = False
-            OptionsData.Inserting = False
-            OptionsView.GroupByBox = False
-            object cxGridContribuinteDBTableView1Column1Codigo: TcxGridDBColumn
-              Caption = 'C'#243'digo'
-              DataBinding.FieldName = 'ID'
-              Options.Editing = False
-            end
-            object cxGridContribuinteDBTableView1DT_INI: TcxGridDBColumn
-              Caption = 'Data inicial'
-              DataBinding.FieldName = 'DT_INI'
-            end
-            object cxGridContribuinteDBTableView1DT_FIM: TcxGridDBColumn
-              Caption = 'Data final'
-              DataBinding.FieldName = 'DT_FIM'
-            end
-            object cxGridContribuinteDBTableView1NOME: TcxGridDBColumn
-              Caption = 'Nome do contribuinte'
-              DataBinding.FieldName = 'NOME'
-              Width = 270
-            end
-            object cxGridContribuinteDBTableView1CNPJ: TcxGridDBColumn
-              DataBinding.FieldName = 'CNPJ'
-            end
-            object cxGridContribuinteDBTableView1CPF: TcxGridDBColumn
-              DataBinding.FieldName = 'CPF'
-            end
-            object cxGridContribuinteDBTableView1UF: TcxGridDBColumn
-              DataBinding.FieldName = 'UF'
-              Width = 30
-            end
-            object cxGridContribuinteDBTableView1IE: TcxGridDBColumn
-              DataBinding.FieldName = 'IE'
-            end
-          end
-          object cxGridContribuinteLevel1: TcxGridLevel
-            GridView = cxGridContribuinteDBTableView1
-          end
-        end
-      end
-      object cxPgcImportacao: TcxPageControl
-        Left = 0
-        Top = 177
-        Width = 857
-        Height = 190
+        Height = 272
         Align = alClient
         Color = 16445929
         ParentBackground = False
         ParentColor = False
-        TabOrder = 4
+        TabOrder = 3
         Properties.ActivePage = TbsNF
         Properties.CustomButtons.Buttons = <>
         Properties.CustomButtons.Mode = cbmEveryTab
@@ -960,7 +901,7 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
         Properties.TabSlants.Kind = skCutCorner
         LookAndFeel.Kind = lfOffice11
         TabSlants.Kind = skCutCorner
-        ClientRectBottom = 186
+        ClientRectBottom = 268
         ClientRectLeft = 4
         ClientRectRight = 853
         ClientRectTop = 24
@@ -1148,7 +1089,7 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
             Left = 0
             Top = 89
             Width = 849
-            Height = 73
+            Height = 155
             Align = alClient
             Caption = '   Itens da nota fiscal'
             TabOrder = 1
@@ -1156,7 +1097,7 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
               Left = 2
               Top = 16
               Width = 845
-              Height = 55
+              Height = 137
               Align = alClient
               TabOrder = 0
               object cxGridDBTableView5: TcxGridDBTableView
@@ -1346,7 +1287,7 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
           ImageIndex = 4
           object GpbTotalizador: TAdvGroupBox
             Left = 0
-            Top = 118
+            Top = 200
             Width = 849
             Height = 44
             Align = alBottom
@@ -1411,7 +1352,7 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
             Left = 0
             Top = 0
             Width = 849
-            Height = 118
+            Height = 200
             Align = alClient
             Caption = '   Analise sint'#233'tica  '
             TabOrder = 1
@@ -1419,7 +1360,7 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
               Left = 2
               Top = 16
               Width = 845
-              Height = 100
+              Height = 182
               Align = alClient
               TabOrder = 0
               object cxGridTotalizadorSinteticoDBTableView1: TcxGridDBTableView
