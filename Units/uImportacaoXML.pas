@@ -26,9 +26,11 @@ uses
   cxDataStorage, cxEdit, cxNavigator, Data.DB, cxDBData, cxGridLevel,
   cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxClasses,
   cxGridCustomView, cxGrid, dxBarBuiltInMenu, Vcl.DBCtrls, cxPC,
-  uDMImportacaoXML, cxTextEdit, cxCalendar,uGenerico;
+  uDMImportacaoXML, cxTextEdit, cxCalendar,uGenerico, AdvStickyPopupMenu,
+  Vcl.Menus;
 
 type
+  TModoExclusao = (mLote,mXML);
 
   TFrmImportacaoXML = class(TFrmMaster)
     GpbSelArquivos: TAdvGroupBox;
@@ -135,6 +137,9 @@ type
     cxGridDBTableView5VL_TOTAL_ITEM: TcxGridDBColumn;
     cxGridDBTableView5CST: TcxGridDBColumn;
     cxGridDBTableView5CSOSN: TcxGridDBColumn;
+    MnuExcluir: TPopupMenu;
+    MnuExcluirLote: TMenuItem;
+    MnuExcluirXML: TMenuItem;
     procedure FormShow(Sender: TObject);
     procedure BtnNovaImportacaoClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -148,15 +153,18 @@ type
     procedure BtnSairClick(Sender: TObject);
     procedure BtnGravarClick(Sender: TObject);
     procedure BtnLocalizaImportacaoClick(Sender: TObject);
-    procedure BtnExcluirClick(Sender: TObject);
+    procedure MnuExcluirLoteClick(Sender: TObject);
+    procedure MnuExcluirXMLClick(Sender: TObject);
   private
     { Private declarations }
+    FCodPartLote    : String;
+    FMesLote        : String;
     DMImportacaoXML : TDMImportacaoXML;
     FImportacao     : Boolean;
     FForm           : TFormGeneric;
     procedure LimpaTela;
     procedure FiltraItensNF;
-    function ExcluirLoteXML : Boolean;
+    function Excluir(pExclusao : TModoExclusao) : Boolean;
   public
     { Public declarations }
     constructor create(pOwner : TComponent ; pFinalidadeTela : TFinalidadeTela);
@@ -269,20 +277,6 @@ begin
   LimpaTela;
 end;
 
-procedure TFrmImportacaoXML.BtnExcluirClick(Sender: TObject);
-begin
-  inherited;
-  if not FrmMensagem.Confirmacao('Deseja realmente excluir a apuração?') then
-  exit;
-
-  if not ExcluirLoteXML then
-  exit;
-
-  FrmMensagem.Informacao('Registro excluído com sucesso!');
-  FForm.HabilitaControlesModoInclusao;
-  LimpaTela;
-end;
-
 procedure TFrmImportacaoXML.BtnGravarClick(Sender: TObject);
 begin
   inherited;
@@ -354,9 +348,6 @@ begin
 end;
 
 procedure TFrmImportacaoXML.BtnLocalizaImportacaoClick(Sender: TObject);
-var
-  vCodPart : String;
-  vMesXML  : String;
 begin
   inherited;
     Try
@@ -365,9 +356,9 @@ begin
     FrmPesquisa.ShowModal;
     if FrmPesquisa.Selecionou then
     begin
-      vCodPart := FrmPesquisa.QryPesquisa.FieldByName('CODIGO').AsString;
-      vMesXML  := FrmPesquisa.QryPesquisa.FieldByName('MES').AsString;
-      if DMImportacaoXML.GetTodasNF(vCodPart,vMesXML) then
+      FCodPartLote := FrmPesquisa.QryPesquisa.FieldByName('CODIGO').AsString;
+      FMesLote     := FrmPesquisa.QryPesquisa.FieldByName('MES').AsString;
+      if DMImportacaoXML.GetTodasNF(FCodPartLote,FMesLote) then
       begin
         BtnCancelar.Enabled       := true;
         BtnExcluir.Enabled        := true;
@@ -451,18 +442,29 @@ begin
   end;
 end;
 
-function TFrmImportacaoXML.ExcluirLoteXML: Boolean;
-begin
-  result := true;
-  try
-    dmPrincipal.DB.StartTransaction;
-    dmPrincipal.DB.Commit;
-  except
-    on e: exception do
-    begin
-      dmPrincipal.DB.Rollback;
+function TFrmImportacaoXML.Excluir(pExclusao: TModoExclusao): Boolean;
+  function ExcluirLote : Boolean;
+  begin
+    result := true;
+    try
+      DMImportacaoXML.DeletaTodasNF(FCodPartLote,FMesLote);
+    except
       result := false;
     end;
+  end;
+  function ExcluirXML : Boolean;
+  begin
+    result := true;
+    try
+      DMImportacaoXML.DeleteNF;
+    except
+      result := false;
+    end;
+  end;
+begin
+  case pExclusao of
+    mLote: result := ExcluirLote;
+    mXML : result := ExcluirXML;
   end;
 end;
 
@@ -497,11 +499,41 @@ end;
 
 procedure TFrmImportacaoXML.LimpaTela;
 begin
+  FCodPartLote                   := '';
+  FMesLote                       := '';
   EdtDiretorio.Text              := '';
   GpbProcessaImportacao.Visible  := false;
   cxPgcImportacao.Visible        := false;
   EdtDiretorio.Enabled           := false;
   GpbSelArquivos.Visible         := false;
+end;
+
+procedure TFrmImportacaoXML.MnuExcluirLoteClick(Sender: TObject);
+begin
+  inherited;
+  if not FrmMensagem.Confirmacao('Deseja realmente todo o lote XML?') then
+  exit;
+
+  if not Excluir(mLote) then
+  exit;
+
+  FrmMensagem.Informacao('Registro excluído com sucesso!');
+  FForm.HabilitaControlesModoInclusao;
+  LimpaTela;
+end;
+
+procedure TFrmImportacaoXML.MnuExcluirXMLClick(Sender: TObject);
+begin
+  inherited;
+  if not FrmMensagem.Confirmacao('Deseja realmente o XML?') then
+  exit;
+
+  if not Excluir(mXML) then
+  exit;
+
+  FrmMensagem.Informacao('Registro excluído com sucesso!');
+  FForm.HabilitaControlesModoInclusao;
+  LimpaTela;
 end;
 
 end.

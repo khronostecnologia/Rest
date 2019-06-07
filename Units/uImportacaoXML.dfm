@@ -1,13 +1,16 @@
 inherited FrmImportacaoXML: TFrmImportacaoXML
   Caption = 'FrmImportacaoXML'
+  ClientHeight = 501
   ClientWidth = 857
   OnClose = FormClose
-  ExplicitTop = -81
+  ExplicitTop = -101
   ExplicitWidth = 873
+  ExplicitHeight = 540
   PixelsPerInch = 96
   TextHeight = 13
   inherited PnlGeral: TAdvSmoothPanel
     Width = 857
+    Height = 501
     ExplicitWidth = 857
     TMSStyle = 4
     inherited PnlHeader: TAdvSmoothPanel
@@ -24,9 +27,11 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
     end
     inherited PnlCentral: TAdvSmoothPanel
       Width = 857
+      Height = 444
       ExplicitWidth = 857
       TMSStyle = 4
       inherited PnlFooter: TAdvSmoothPanel
+        Top = 387
         Width = 857
         ExplicitWidth = 857
         TMSStyle = 4
@@ -690,7 +695,6 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
             FAA521207124B8AFD1EFFB83435AC735E77F576841BFE59D84AD000000004945
             4E44AE426082}
           TabOrder = 6
-          OnClick = BtnExcluirClick
           Appearance.BorderColor = 14727579
           Appearance.BorderColorHot = 10079963
           Appearance.BorderColorDown = 4548219
@@ -720,6 +724,7 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
           Appearance.GradientDown = ggVertical
           Appearance.GradientMirrorDown = ggVertical
           Appearance.GradientChecked = ggVertical
+          DropDownButton = True
         end
       end
       object GpbSelArquivos: TAdvGroupBox
@@ -853,7 +858,7 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
         Left = 0
         Top = 95
         Width = 857
-        Height = 272
+        Height = 292
         Align = alClient
         Color = 16445929
         ParentBackground = False
@@ -903,13 +908,15 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
         Properties.TabSlants.Kind = skCutCorner
         LookAndFeel.Kind = lfOffice11
         TabSlants.Kind = skCutCorner
-        ClientRectBottom = 268
+        ExplicitHeight = 272
+        ClientRectBottom = 288
         ClientRectLeft = 4
         ClientRectRight = 853
         ClientRectTop = 24
         object TbsNF: TcxTabSheet
           Caption = 'Nota fiscal'
           ImageIndex = 2
+          ExplicitHeight = 244
           object cxGridNF: TcxGrid
             Left = 0
             Top = 0
@@ -1091,17 +1098,19 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
             Left = 0
             Top = 89
             Width = 849
-            Height = 155
+            Height = 175
             Align = alClient
             Caption = '   Itens da nota fiscal'
             TabOrder = 1
+            ExplicitHeight = 155
             object cxGridItensNF: TcxGrid
               Left = 2
               Top = 16
               Width = 845
-              Height = 137
+              Height = 157
               Align = alClient
               TabOrder = 0
+              ExplicitHeight = 137
               object cxGridDBTableView5: TcxGridDBTableView
                 Navigator.Buttons.CustomButtons = <>
                 DataController.DataSource = DMImportacaoXML.DsQryItensNF
@@ -1287,14 +1296,16 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
         object TbsAnalise: TcxTabSheet
           Caption = 'Resultado analise do arquivo'
           ImageIndex = 4
+          ExplicitHeight = 244
           object GpbTotalizador: TAdvGroupBox
             Left = 0
-            Top = 200
+            Top = 220
             Width = 849
             Height = 44
             Align = alBottom
             Caption = '   Totalizador '
             TabOrder = 0
+            ExplicitTop = 200
             object lblComplementar: TLabel
               Left = 258
               Top = 25
@@ -1354,17 +1365,19 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
             Left = 0
             Top = 0
             Width = 849
-            Height = 200
+            Height = 220
             Align = alClient
             Caption = '   Analise sint'#233'tica  '
             TabOrder = 1
+            ExplicitHeight = 200
             object cxGridTotalizadorSintetico: TcxGrid
               Left = 2
               Top = 16
               Width = 845
-              Height = 182
+              Height = 202
               Align = alClient
               TabOrder = 0
+              ExplicitHeight = 182
               object cxGridTotalizadorSinteticoDBTableView1: TcxGridDBTableView
                 Navigator.Buttons.CustomButtons = <>
                 DataController.Summary.DefaultGroupSummaryItems = <>
@@ -1477,6 +1490,41 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
           end
         end
       end
+    end
+  end
+  object MnuExcluir: TPopupMenu
+    Left = 404
+    Top = 416
+    object MnuExcluirLote: TMenuItem
+      Bitmap.Data = {
+        36010000424D3601000000000000360000002800000008000000080000000100
+        2000000000000001000000000000000000000000000000000000A4A5A525A4A4
+        A5579F9785919B8D6DC59C8E6EC39F98898EA4A5A658A4A4A5299A958A039979
+        34609C7A31E09E7C30FF9E7C30FF9B7A31D9987A3654A1B5E1029E7C323FA480
+        33E6AB8636FFAD8736FFAD8736FFAB8535FFA37F33DC9D7B3230A8843A95B28B
+        3DFFB78F3FFFB68F3FFFB68F3FFFB68F3FFFB08A3CFFA783397FB18C43A9BB94
+        45FFBF9747FFBF9747FFBF9747FFBF9747FFBA9345FFB08C4293B9944D72C199
+        4DFDC99E4EFFC99F4FFFC99F4FFFC89E4EFFC0994DF8B8944D5EBE9C5817C49E
+        56B1CCA255FFCFA456FFCFA456FFCBA155FFC39D56A2BD9B590FC4A05B00C7A4
+        621DCBA55F91CEA65FD8CEA65FD5CAA56088C7A46316C3A05C00}
+      Caption = 'Excluir lote'
+      Default = True
+      OnClick = MnuExcluirLoteClick
+    end
+    object MnuExcluirXML: TMenuItem
+      Bitmap.Data = {
+        36010000424D3601000000000000360000002800000008000000080000000100
+        2000000000000001000000000000000000000000000000000000A4A5A525A4A4
+        A5579F9785919B8D6DC59C8E6EC39F98898EA4A5A658A4A4A5299A958A039979
+        34609C7A31E09E7C30FF9E7C30FF9B7A31D9987A3654A1B5E1029E7C323FA480
+        33E6AB8636FFAD8736FFAD8736FFAB8535FFA37F33DC9D7B3230A8843A95B28B
+        3DFFB78F3FFFB68F3FFFB68F3FFFB68F3FFFB08A3CFFA783397FB18C43A9BB94
+        45FFBF9747FFBF9747FFBF9747FFBF9747FFBA9345FFB08C4293B9944D72C199
+        4DFDC99E4EFFC99F4FFFC99F4FFFC89E4EFFC0994DF8B8944D5EBE9C5817C49E
+        56B1CCA255FFCFA456FFCFA456FFCBA155FFC39D56A2BD9B590FC4A05B00C7A4
+        621DCBA55F91CEA65FD8CEA65FD5CAA56088C7A46316C3A05C00}
+      Caption = 'Ecxcluir XML'
+      OnClick = MnuExcluirXMLClick
     end
   end
 end

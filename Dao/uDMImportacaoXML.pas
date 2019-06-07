@@ -86,6 +86,8 @@ type
     function ImportarXML(pDir : String ; pListaXML : TStringList):Boolean;
     function GravarImportacao : Boolean;
     function GetTodasNF(pCodPart , pMes : String):Boolean;
+    procedure DeleteNF;
+    procedure DeletaTodasNF(pCodPart , pMes : String);
   end;
 
 implementation
@@ -105,6 +107,55 @@ end;
 procedure TDMImportacaoXML.DataModuleDestroy(Sender: TObject);
 begin
   FreeAndNil(NFe);
+end;
+
+procedure TDMImportacaoXML.DeletaTodasNF(pCodPart, pMes: String);
+  function GetSQLDeleteNFItens : String;
+  begin
+    result := 'DELETE FROM "NF_ITENS" NP WHERE EXISTS (SELECT N."ID" '+
+              'FROM "NF" N WHERE N."COD_PART" = ' + QuotedStr(pCodPart) + ' ' +
+              'AND EXTRACT(MONTH FROM N."DT_DOC") = ' + pMes +
+              ' AND N."ID" = NP."IDNF")';
+  end;
+  function GetSQLDeleteNF : String;
+  begin
+    result := 'DELETE FROM "NF" WHERE "COD_PART" = ' + QuotedStr(pCodPart) +
+              ' AND EXTRACT(MONTH FROM "DT_DOC") = ' + pMes;
+  end;
+begin
+  with dmPrincipal.DB do
+  begin
+    try
+      StartTransaction;
+      ExecSQL(GetSQLDeleteNFItens);
+      ExecSQL(GetSQLDeleteNF);
+      Commit;
+    except
+      on e: exception do
+      raise Exception.Create('Erro : ' + e.message + ' ao tentar excluir lote '+
+                             ' XML do participante');
+    end;
+  end;
+end;
+
+procedure TDMImportacaoXML.DeleteNF;
+begin
+  if not QryNF.Active then
+  exit;
+
+  QryItensNF.First;
+  while not QryItensNF.Eof do
+  begin
+    QryItensNF.Delete;
+    QryItensNF.First;
+  end;
+
+  if QryItensNF.ApplyUpdates(0) > 0 then
+  begin
+    QryNF.Delete;
+    QryNF.ApplyUpdates(0);
+  end;
+
 end;
 
 function TDMImportacaoXML.EsteXMLJaFoiImportado(pChave: String): Boolean;
