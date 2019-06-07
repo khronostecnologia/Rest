@@ -228,7 +228,7 @@ begin
           if Calc in [1..200] then
             pGrid.columns[i].Width := Calc
           else if Calc > 400 then
-            pGrid.columns[i].Width := 200
+            pGrid.columns[i].Width := 350
           else
             pGrid.columns[i].Width := Calc;
         end

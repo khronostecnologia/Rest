@@ -251,7 +251,7 @@ begin
    DisableControls;
    Filtered := False;
 
-   if (pvalue = '') or (pValue = '  /  /    ') then
+   if VarIsEmpty(pValue) then
     Filter  := ''
    else
     begin

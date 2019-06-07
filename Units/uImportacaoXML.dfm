@@ -2,6 +2,7 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
   Caption = 'FrmImportacaoXML'
   ClientWidth = 857
   OnClose = FormClose
+  ExplicitTop = -81
   ExplicitWidth = 873
   PixelsPerInch = 96
   TextHeight = 13
@@ -689,6 +690,7 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
             FAA521207124B8AFD1EFFB83435AC735E77F576841BFE59D84AD000000004945
             4E44AE426082}
           TabOrder = 6
+          OnClick = BtnExcluirClick
           Appearance.BorderColor = 14727579
           Appearance.BorderColorHot = 10079963
           Appearance.BorderColorDown = 4548219

@@ -165,6 +165,7 @@ end;
 
 function TDMImportacaoXML.GetTodasNF(pCodPart, pMes: String): Boolean;
 begin
+  result := false;
   try
     with QryNF do
     begin
@@ -175,6 +176,7 @@ begin
 
       if not IsEmpty then
       begin
+        result := true;
         with QryItensNF do
         begin
           close;

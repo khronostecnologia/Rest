@@ -52,9 +52,6 @@ object FrmPesquisa: TFrmPesquisa
     Version = '1.5.2.1'
     Align = alClient
     TabOrder = 6
-    ExplicitTop = 45
-    ExplicitWidth = 710
-    ExplicitHeight = 424
     TMSStyle = 4
   end
   object GridPesquisa: TJvDBUltimGrid
@@ -173,9 +170,7 @@ object FrmPesquisa: TFrmPesquisa
         'Diferente'
         'Come'#231'a com'
         'Contem'
-        'Entre'
-        ''
-        '')
+        'Entre')
     end
   end
   object pnlEntre: TPanel
@@ -234,7 +229,6 @@ object FrmPesquisa: TFrmPesquisa
       item
         Width = 50
       end>
-    ExplicitTop = 402
   end
   object PnlHeader: TAdvSmoothPanel
     Left = 0
@@ -268,8 +262,7 @@ object FrmPesquisa: TFrmPesquisa
     Fill.Glow = gmNone
     Version = '1.5.2.1'
     Align = alTop
-    TabOrder = 5
-    ExplicitWidth = 710
+    TabOrder = 4
     TMSStyle = 4
     object lblTitulo: TLabel
       Left = 8
@@ -318,7 +311,6 @@ object FrmPesquisa: TFrmPesquisa
     Version = '1.5.2.1'
     Align = alBottom
     TabOrder = 7
-    ExplicitTop = 401
     TMSStyle = 4
     object BtnSelecionar: TAdvGlowButton
       Left = 360

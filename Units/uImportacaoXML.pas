@@ -148,6 +148,7 @@ type
     procedure BtnSairClick(Sender: TObject);
     procedure BtnGravarClick(Sender: TObject);
     procedure BtnLocalizaImportacaoClick(Sender: TObject);
+    procedure BtnExcluirClick(Sender: TObject);
   private
     { Private declarations }
     DMImportacaoXML : TDMImportacaoXML;
@@ -155,6 +156,7 @@ type
     FForm           : TFormGeneric;
     procedure LimpaTela;
     procedure FiltraItensNF;
+    function ExcluirLoteXML : Boolean;
   public
     { Public declarations }
     constructor create(pOwner : TComponent ; pFinalidadeTela : TFinalidadeTela);
@@ -263,6 +265,21 @@ end;
 procedure TFrmImportacaoXML.BtnCancelarClick(Sender: TObject);
 begin
   inherited;
+  FForm.HabilitaControlesModoInclusao;
+  LimpaTela;
+end;
+
+procedure TFrmImportacaoXML.BtnExcluirClick(Sender: TObject);
+begin
+  inherited;
+  if not FrmMensagem.Confirmacao('Deseja realmente excluir a apuração?') then
+  exit;
+
+  if not ExcluirLoteXML then
+  exit;
+
+  FrmMensagem.Informacao('Registro excluído com sucesso!');
+  FForm.HabilitaControlesModoInclusao;
   LimpaTela;
 end;
 
@@ -344,7 +361,7 @@ begin
   inherited;
     Try
     FrmPesquisa := TFrmPesquisa.Create(nil);
-    FrmPesquisa.MontaSql('SELECT * FROM GET_PART_IMPORTADOS ORDER BY "PARTICIPANTE","MES"');
+    FrmPesquisa.MontaSql('SELECT * FROM "GET_PART_IMPORTADOS" ORDER BY "PARTICIPANTE","MES"');
     FrmPesquisa.ShowModal;
     if FrmPesquisa.Selecionou then
     begin
@@ -355,6 +372,7 @@ begin
         BtnCancelar.Enabled       := true;
         BtnExcluir.Enabled        := true;
         BtnNovaImportacao.Enabled := false;
+        cxPgcImportacao.Visible   := true;
       end;
     end;
   finally
@@ -365,7 +383,8 @@ end;
 procedure TFrmImportacaoXML.BtnNovaImportacaoClick(Sender: TObject);
 begin
   inherited;
-  EdtDiretorio.Enabled          := true;
+  GpbSelArquivos.Visible        := true;
+  EdtDiretorio.Enabled          := GpbSelArquivos.Visible;
   EdtDiretorio.DoClick;
   BtnIniciaImportacao.Enabled   := (EdtDiretorio.Text <> '');
   BtnNovaImportacao.Enabled     := not (BtnIniciaImportacao.Enabled);
@@ -432,6 +451,21 @@ begin
   end;
 end;
 
+function TFrmImportacaoXML.ExcluirLoteXML: Boolean;
+begin
+  result := true;
+  try
+    dmPrincipal.DB.StartTransaction;
+    dmPrincipal.DB.Commit;
+  except
+    on e: exception do
+    begin
+      dmPrincipal.DB.Rollback;
+      result := false;
+    end;
+  end;
+end;
+
 procedure TFrmImportacaoXML.FiltraItensNF;
 begin
    if (DMImportacaoXML.QryItensNF.Active) and
@@ -467,6 +501,7 @@ begin
   GpbProcessaImportacao.Visible  := false;
   cxPgcImportacao.Visible        := false;
   EdtDiretorio.Enabled           := false;
+  GpbSelArquivos.Visible         := false;
 end;
 
 end.
