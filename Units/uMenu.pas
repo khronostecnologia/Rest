@@ -10,7 +10,8 @@ uses
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
   FireDAC.UI.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Phys,
   FireDAC.Phys.PGDef, FireDAC.VCLUI.Wait, FireDAC.Comp.Client, FireDAC.Comp.UI,
-  FireDAC.Phys.PG, Data.DB, FireDAC.Comp.DataSet, AdvGroupBox;
+  FireDAC.Phys.PG, Data.DB, FireDAC.Comp.DataSet, AdvGroupBox, Vcl.AppEvnts,
+  uLog;
 
 type
   TFrmMenu = class(TForm)
@@ -31,10 +32,12 @@ type
     MnuImportaXML: TMenuItem;
     MnuApuracao: TMenuItem;
     MnuApuracaoXML: TMenuItem;
+    ApplicationEvents1: TApplicationEvents;
     procedure MnuSubImportaSPEDClick(Sender: TObject);
     procedure Sair1Click(Sender: TObject);
     procedure MnuImportaXMLClick(Sender: TObject);
     procedure MnuApuracaoXMLClick(Sender: TObject);
+    procedure ApplicationEvents1Exception(Sender: TObject; E: Exception);
   private
     { Private declarations }
   public
@@ -65,6 +68,12 @@ end;
 procedure TFrmMenu.Sair1Click(Sender: TObject);
 begin
   Application.Terminate;
+end;
+
+procedure TFrmMenu.ApplicationEvents1Exception(Sender: TObject; E: Exception);
+begin
+  //TLog.Gravar(dmPrincipal.DirRaizApp,'Log' + DateTimeToStr(Now),e.Message);
+  Application.ShowException(E);
 end;
 
 procedure TFrmMenu.MnuApuracaoXMLClick(Sender: TObject);

@@ -8,7 +8,7 @@ uses
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet,
   FireDAC.Comp.Client, ACBrDFeReport, ACBrDFeDANFeReport, ACBrNFeDANFEClass,
-  ACBrNFeDANFEFR,W7ProgressBars;
+  ACBrNFeDANFEFR,W7ProgressBars,Vcl.Forms;
 
 type
   TDMImportacaoXML = class(TDataModule)
@@ -78,16 +78,23 @@ type
   private
     { Private declarations }
     NFe : TACBrNFe;
+    FNomeArqLog: String;
+    FExisteXMLImportar: Boolean;
     function EsteXMLJaFoiImportado(pChave : String):Boolean;
-    function GetNF(pID : Integer):Boolean;
-    function GetItensNF(pID : Integer):Boolean;
+    function  GetNF(pID : Integer):Boolean;
+    function  GetItensNF(pID : Integer):Boolean;
+    procedure SetNomeArqLog(const Value: String);
+    procedure SetExisteXMLImportar(const Value: Boolean);
   public
     { Public declarations }
-    function ImportarXML(pDir : String ; pListaXML : TStringList):Boolean;
-    function GravarImportacao : Boolean;
-    function GetTodasNF(pCodPart , pMes : String):Boolean;
+    function  ImportarXML(pDir : String ; pListaXML : TStringList):Boolean;
+    function  GravarImportacao : Boolean;
+    function  GetTodasNF(pCodPart , pMes : String):Boolean;
     procedure DeleteNF;
     procedure DeletaTodasNF(pCodPart , pMes : String);
+    procedure Cancelar;
+    property  NomeArqLog : String read FNomeArqLog write SetNomeArqLog;
+    property  ExisteXMLImportar :Boolean read FExisteXMLImportar write SetExisteXMLImportar;
   end;
 
 implementation
@@ -97,7 +104,21 @@ implementation
 {$R *.dfm}
 
 Uses uDMBase,BiblKhronos,uImportacaoXML,uMensagem,
-     pcnNFe,pcnConversao,uBarraProgresso;
+     pcnNFe,pcnConversao,uBarraProgresso,uLog;
+
+procedure TDMImportacaoXML.Cancelar;
+begin
+  if QryItensNF.Active then
+  QryItensNF.CancelUpdates;
+
+  if QryNF.Active then
+  begin
+    if FNomeArqLog <> '' then
+    TLog.Gravar(dmPrincipal.DirImportacaoXML,NomeArqLog,'Cancelamento importação.');
+
+    QryNF.CancelUpdates;
+  end;
+end;
 
 procedure TDMImportacaoXML.DataModuleCreate(Sender: TObject);
 begin
@@ -129,6 +150,9 @@ begin
       StartTransaction;
       ExecSQL(GetSQLDeleteNFItens);
       ExecSQL(GetSQLDeleteNF);
+
+      TLog.Gravar(dmPrincipal.DirImportacaoXML,NomeArqLog,'Lote de XML part: ' + QryNFPARTICIPANTE.AsString +
+                  ' mes : ' + FormatDateTime('mm',QryNFDT_DOC.AsDateTime) + ' deletado');
       Commit;
     except
       on e: exception do
@@ -151,17 +175,25 @@ begin
   end;
 
   if QryItensNF.ApplyUpdates(0) > 0 then
-  begin
-    QryNF.Delete;
-    QryNF.ApplyUpdates(0);
-  end;
+  raise Exception.Create('Erro ao tentar deletar itens da nota fiscal');
 
+  QryNF.Delete;
+
+  if QryNF.ApplyUpdates(0) > 0 then
+  raise Exception.Create('Erro ao tentar deletar capa da nota fiscal');
+
+  TLog.Gravar(dmPrincipal.DirImportacaoXML,NomeArqLog,'XML nro : ' + QryNFNUM_DOC.AsString +
+              'chave : ' + QryNFCHV_NFE.AsString  + ' XML deletado.');
 end;
 
 function TDMImportacaoXML.EsteXMLJaFoiImportado(pChave: String): Boolean;
   function GetSQL : String;
+  var
+    vChaveXML : String;
   begin
-    result := 'SELECT "ID" FROM "NF" WHERE "CHV_NFE" = ' + QuotedStr(pChave);
+    vChaveXML := pChave;
+    vChaveXML := vChaveXML.Replace('.xml','').Trim;
+    result    := 'SELECT "ID" FROM "NF" WHERE "CHV_NFE" = ' + QuotedStr(vChaveXML);
   end;
 var
   Qry      : TFDQuery;
@@ -252,16 +284,26 @@ begin
     QryNF.ApplyUpdates(0);
   except
     on e: exception do
-    raise Exception.Create('Erro : ' + e.message + ' ao tentar gravar NF');
+    begin
+      TLog.Gravar(dmPrincipal.DirImportacaoXML,NomeArqLog,'Erro : ' + e.message + ' ao tentar gravar NF');
+      raise Exception.Create('Erro : ' + e.message + ' ao tentar gravar NF');
+    end;
   end;
 
   try
     QryItensNF.ApplyUpdates(0);
   except
     on e: exception do
-    raise Exception.Create('Erro : ' + e.message + ' ao tentar gravar itens da NF');
+    begin
+      TLog.Gravar(dmPrincipal.DirImportacaoXML,NomeArqLog,'Erro : ' + e.message + ' ao tentar gravar itens da NF');
+      raise Exception.Create('Erro : ' + e.message + ' ao tentar gravar itens da NF');
+    end;
   end;
-  result := true;
+
+  TLog.Gravar(dmPrincipal.DirImportacaoXML,NomeArqLog,'Importação salva com sucesso!');
+  FNomeArqLog         := '';
+  FExisteXMLImportar  := false;
+  result              := true;
 end;
 
 function TDMImportacaoXML.ImportarXML(pDir : String ; pListaXML : TStringList)
@@ -276,21 +318,37 @@ var
   var
     i     : Integer;
   begin
-    with NFe.NotasFiscais do
+    with FrmImportacaoXML do
     begin
-      Clear;
-      FrmImportacaoXML.ProgressBar.Min := 0;
-      FrmImportacaoXML.ProgressBar.Max := pListaXML.Count;
-
-      for I := 0 to Pred(pListaXML.Count) do
+      with NFe.NotasFiscais do
       begin
-        if EsteXMLJaFoiImportado(pListaXML[i]) then
+        Clear;
+        lblInfoImportacaoXML.Caption := 'Procurando XML(s) no diretório ...';
+        TLog.Gravar(dmPrincipal.DirRaizApp,FNomeArqLog,lblInfoImportacaoXML.Caption);
+        ProgressBar.Min := 0;
+        ProgressBar.Max := pListaXML.Count;
+        Application.ProcessMessages;
+        Sleep(900);
+
+        for I := 0 to Pred(pListaXML.Count) do
         begin
-          FrmImportacaoXML.ProgressBar.Position := FrmImportacaoXML.ProgressBar.Position + 1;
-          continue;
+          lblInfoImportacaoXML.Caption := 'Carregando XML ... (' + IntToStr(i + 1) + ') de (' +
+                                           pListaXML.Count.ToString + ')';
+          TLog.Gravar(dmPrincipal.DirRaizApp,FNomeArqLog,lblInfoImportacaoXML.Caption);
+          Application.ProcessMessages;
+          if EsteXMLJaFoiImportado(pListaXML[i]) then
+          begin
+            TLog.Gravar(dmPrincipal.DirRaizApp,FNomeArqLog,'Xml chave : ' +
+                        pListaXML[i].Replace('.xml','').Trim +
+                        ' importado anteriormente.');
+            ProgressBar.Position := ProgressBar.Position + 1;
+            Application.ProcessMessages;
+            continue;
+          end;
+          LoadFromFile(pDir + '\' + pListaXML[i]);
+          ProgressBar.Position := ProgressBar.Position + 1;
+          Application.ProcessMessages;
         end;
-        LoadFromFile(pDir + '\' + pListaXML[i]);
-        FrmImportacaoXML.ProgressBar.Position := FrmImportacaoXML.ProgressBar.Position + 1;
       end;
     end;
   end;
@@ -298,10 +356,6 @@ var
   begin
     GetNF(-1);
     GetItensNF(-1);
-  end;
-  function ExisteXMLImportar : Boolean;
-  begin
-    result := (pListaXML.Count > 0);
   end;
 
 begin
@@ -311,18 +365,33 @@ begin
 
     CarregaXMLsParaAcbr;
 
-    if not ExisteXMLImportar then
+    FExisteXMLImportar := (NFe.NotasFiscais.Count > 0);
+
+    if not FExisteXMLImportar then
     exit;
 
     AbreDataSetNFeNFItens;
 
     FrmImportacaoXML.ProgressBar.Max       := NFe.NotasFiscais.Count;
     FrmImportacaoXML.ProgressBar.Position  := 0;
+    Application.ProcessMessages;
+
+    FrmImportacaoXML.lblInfoImportacaoXML.Caption := 'Iniciando importação do XML(s)...';
+    Sleep(900);
+    Application.ProcessMessages;
+    TLog.Gravar(dmPrincipal.DirRaizApp,FNomeArqLog,FrmImportacaoXML.
+                                       lblInfoImportacaoXML.Caption);
 
     with NFe.NotasFiscais do
     begin
       for i :=0 to Pred(Count) do
       begin
+        FrmImportacaoXML.lblInfoImportacaoXML.
+        Caption := 'Importando XML ...(' + IntToStr(i + 1) + ') de (' + Count.ToString + ')';
+        TLog.Gravar(dmPrincipal.DirRaizApp,FNomeArqLog,FrmImportacaoXML.
+                                       lblInfoImportacaoXML.Caption);
+        Application.ProcessMessages;
+
         with Items[i].NFe do
         begin
           QryNF.Insert;
@@ -406,6 +475,7 @@ begin
              end;
            end;
           FrmImportacaoXML.ProgressBar.Position := FrmImportacaoXML.ProgressBar.Position + 1;
+          Application.ProcessMessages;
         end;
       end;
     end;
@@ -413,6 +483,16 @@ begin
   finally
     FreeAndNil(NFe);
   end;
+end;
+
+procedure TDMImportacaoXML.SetExisteXMLImportar(const Value: Boolean);
+begin
+  FExisteXMLImportar := Value;
+end;
+
+procedure TDMImportacaoXML.SetNomeArqLog(const Value: String);
+begin
+  FNomeArqLog := Value;
 end;
 
 end.

@@ -26,14 +26,24 @@ type
     procedure DataModuleCreate(Sender: TObject);
   private
     FDirApp: String;
+    FDirRaizApp: String;
+    FDirImportacaoXML: String;
+    FDirLogGeral: String;
     procedure SetDirApp(const Value: String);
+    procedure SetDirRaizApp(const Value: String);
+    procedure SetDirImportacaoXML(const Value: String);
+    procedure SetDirLogGeral(const Value: String);
     { Private declarations }
   public
     { Public declarations }
     procedure ConectaBanco;
     function GravaEmpresa(AQry : TDataSet):Boolean;
     function GetEmpresa(ACodigo : String):Boolean;
+    function GetNomeArqLog : String;
     property DirApp : String read FDirApp write SetDirApp;
+    property DirRaizApp : String read FDirRaizApp write SetDirRaizApp;
+    property DirImportacaoXML : String read FDirImportacaoXML write SetDirImportacaoXML;
+    property DirLogGeral : String read FDirLogGeral write SetDirLogGeral;
     class var BancoExec : TFDConnection;
   end;
 
@@ -69,7 +79,10 @@ end;
 
 procedure TDMBase.DataModuleCreate(Sender: TObject);
 begin
-  FDirApp := ExtractFilePath(application.exeName);
+  FDirApp           := ExtractFilePath(application.exeName);
+  FDirRaizApp       := FDirApp.Replace('Aplicacoes\','').Trim;
+  FDirLogGeral      := FDirRaizApp + 'Log\Geral';
+  FDirImportacaoXML := FDirRaizApp + 'Log\ImportacaoXML';
 
   with DB.FormatOptions do
   begin
@@ -108,6 +121,11 @@ begin
   Result  := not (QryEmpresa.IsEmpty);
 end;
 
+function TDMBase.GetNomeArqLog: String;
+begin
+  result := FormatDateTime('ddmmyyhhmmss',Now);
+end;
+
 function TDMBase.GravaEmpresa(AQry: TDataSet):Boolean;
 begin
   result := false;
@@ -138,6 +156,21 @@ end;
 procedure TDMBase.SetDirApp(const Value: String);
 begin
   FDirApp := Value;
+end;
+
+procedure TDMBase.SetDirImportacaoXML(const Value: String);
+begin
+  FDirImportacaoXML := Value;
+end;
+
+procedure TDMBase.SetDirLogGeral(const Value: String);
+begin
+  FDirLogGeral := Value;
+end;
+
+procedure TDMBase.SetDirRaizApp(const Value: String);
+begin
+  FDirRaizApp := Value;
 end;
 
 end.

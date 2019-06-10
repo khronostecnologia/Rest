@@ -358,4 +358,9 @@ object FrmMenu: TFrmMenu
       OnClick = Sair1Click
     end
   end
+  object ApplicationEvents1: TApplicationEvents
+    OnException = ApplicationEvents1Exception
+    Left = 520
+    Top = 88
+  end
 end

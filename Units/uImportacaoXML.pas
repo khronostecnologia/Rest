@@ -27,7 +27,7 @@ uses
   cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxClasses,
   cxGridCustomView, cxGrid, dxBarBuiltInMenu, Vcl.DBCtrls, cxPC,
   uDMImportacaoXML, cxTextEdit, cxCalendar,uGenerico, AdvStickyPopupMenu,
-  Vcl.Menus;
+  Vcl.Menus,uLog;
 
 type
   TModoExclusao = (mLote,mXML);
@@ -77,38 +77,38 @@ type
     cxGridTotalizadorSinteticoDBTableView1SALDO_ARECOLHER: TcxGridDBColumn;
     cxGridTotalizadorSinteticoLevel1: TcxGridLevel;
     cxGridNF: TcxGrid;
-    cxGridDBTableView4: TcxGridDBTableView;
+    cxGridDBTVNF: TcxGridDBTableView;
     cxGridLevel4: TcxGridLevel;
     GpbRegistroItensNF: TAdvGroupBox;
     cxGridItensNF: TcxGrid;
     cxGridDBTableView5: TcxGridDBTableView;
     cxGridLevel5: TcxGridLevel;
-    cxGridDBTableView4IND_OPER: TcxGridDBColumn;
-    cxGridDBTableView4COD_PART: TcxGridDBColumn;
-    cxGridDBTableView4COD_MOD: TcxGridDBColumn;
-    cxGridDBTableView4SER: TcxGridDBColumn;
-    cxGridDBTableView4NUM_DOC: TcxGridDBColumn;
-    cxGridDBTableView4CHV_NFE: TcxGridDBColumn;
-    cxGridDBTableView4DT_DOC: TcxGridDBColumn;
-    cxGridDBTableView4DT_E_ES: TcxGridDBColumn;
-    cxGridDBTableView4VL_DOC: TcxGridDBColumn;
-    cxGridDBTableView4VL_MERC: TcxGridDBColumn;
-    cxGridDBTableView4VL_DESC: TcxGridDBColumn;
-    cxGridDBTableView4VL_FRT: TcxGridDBColumn;
-    cxGridDBTableView4VL_SEG: TcxGridDBColumn;
-    cxGridDBTableView4VL_OUT_DA: TcxGridDBColumn;
-    cxGridDBTableView4VL_BC_ICMS: TcxGridDBColumn;
-    cxGridDBTableView4VL_ICMS: TcxGridDBColumn;
-    cxGridDBTableView4VL_BC_ICMS_ST: TcxGridDBColumn;
-    cxGridDBTableView4VL_ICMS_ST: TcxGridDBColumn;
-    cxGridDBTableView4VL_BC_IPI: TcxGridDBColumn;
-    cxGridDBTableView4VL_IPI: TcxGridDBColumn;
-    cxGridDBTableView4VL_BC_PIS: TcxGridDBColumn;
-    cxGridDBTableView4VL_PIS: TcxGridDBColumn;
-    cxGridDBTableView4VL_BC_COFINS: TcxGridDBColumn;
-    cxGridDBTableView4VL_COFINS: TcxGridDBColumn;
-    cxGridDBTableView4PARTICIPANTE: TcxGridDBColumn;
-    cxGridDBTableView4ID: TcxGridDBColumn;
+    cxGridDBTVNFIND_OPER: TcxGridDBColumn;
+    cxGridDBTVNFCOD_PART: TcxGridDBColumn;
+    cxGridDBTVNFCOD_MOD: TcxGridDBColumn;
+    cxGridDBTVNFSER: TcxGridDBColumn;
+    cxGridDBTVNFNUM_DOC: TcxGridDBColumn;
+    cxGridDBTVNFCHV_NFE: TcxGridDBColumn;
+    cxGridDBTVNFDT_DOC: TcxGridDBColumn;
+    cxGridDBTVNFDT_E_ES: TcxGridDBColumn;
+    cxGridDBTVNFVL_DOC: TcxGridDBColumn;
+    cxGridDBTVNFVL_MERC: TcxGridDBColumn;
+    cxGridDBTVNFVL_DESC: TcxGridDBColumn;
+    cxGridDBTVNFVL_FRT: TcxGridDBColumn;
+    cxGridDBTVNFVL_SEG: TcxGridDBColumn;
+    cxGridDBTVNFVL_OUT_DA: TcxGridDBColumn;
+    cxGridDBTVNFVL_BC_ICMS: TcxGridDBColumn;
+    cxGridDBTVNFVL_ICMS: TcxGridDBColumn;
+    cxGridDBTVNFVL_BC_ICMS_ST: TcxGridDBColumn;
+    cxGridDBTVNFVL_ICMS_ST: TcxGridDBColumn;
+    cxGridDBTVNFVL_BC_IPI: TcxGridDBColumn;
+    cxGridDBTVNFVL_IPI: TcxGridDBColumn;
+    cxGridDBTVNFVL_BC_PIS: TcxGridDBColumn;
+    cxGridDBTVNFVL_PIS: TcxGridDBColumn;
+    cxGridDBTVNFVL_BC_COFINS: TcxGridDBColumn;
+    cxGridDBTVNFVL_COFINS: TcxGridDBColumn;
+    cxGridDBTVNFPARTICIPANTE: TcxGridDBColumn;
+    cxGridDBTVNFID: TcxGridDBColumn;
     cxGridDBTableView5IDNF: TcxGridDBColumn;
     cxGridDBTableView5NUM_ITEM: TcxGridDBColumn;
     cxGridDBTableView5COD_ITEM: TcxGridDBColumn;
@@ -145,9 +145,9 @@ type
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure BtnIniciaImportacaoClick(Sender: TObject);
     procedure BtnCancelarClick(Sender: TObject);
-    procedure cxGridDBTableView4KeyDown(Sender: TObject; var Key: Word;
+    procedure cxGridDBTVNFKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
-    procedure cxGridDBTableView4CellClick(Sender: TcxCustomGridTableView;
+    procedure cxGridDBTVNFCellClick(Sender: TcxCustomGridTableView;
       ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
       AShift: TShiftState; var AHandled: Boolean);
     procedure BtnSairClick(Sender: TObject);
@@ -164,6 +164,7 @@ type
     FForm           : TFormGeneric;
     procedure LimpaTela;
     procedure FiltraItensNF;
+    procedure SetCaptionAbaNF;
     function Excluir(pExclusao : TModoExclusao) : Boolean;
   public
     { Public declarations }
@@ -273,6 +274,7 @@ end;
 procedure TFrmImportacaoXML.BtnCancelarClick(Sender: TObject);
 begin
   inherited;
+  DMImportacaoXML.Cancelar;
   FForm.HabilitaControlesModoInclusao;
   LimpaTela;
 end;
@@ -284,12 +286,14 @@ begin
   exit;
 
   FrmMensagem.Informacao('Importação salva com sucesso!');
-  BtnNovaImportacao.Enabled := true;
+  BtnNovaImportacao.Enabled      := true;
+  BtnLocalizaImportacao.Enabled  := true;
+  BtnGravar.Enabled              := false;
 end;
 
 procedure TFrmImportacaoXML.BtnIniciaImportacaoClick(Sender: TObject);
 var
-  vListaXML : TStringList;
+  vListaXML   : TStringList;
 begin
   inherited;
   if not (EdtDiretorio.Text <> '') then
@@ -302,29 +306,42 @@ begin
 
   try
     try
-
+      DMImportacaoXML.NomeArqLog := dmPrincipal.GetNomeArqLog;
+      lblInfoImportacaoXML.Caption := 'Iniciando processo de importação...';
+      ProgressBar.Position := 0;
       GpbProcessaImportacao.Visible := true;
       Application.ProcessMessages;
       Sleep(500);
 
+      TLog.Gravar(dmPrincipal.DirImportacaoXML,DMImportacaoXML.NomeArqLog,lblInfoImportacaoXML.Caption);
+
       if not TXML.Listar(EdtDiretorio.Text) then
       begin
         FrmMensagem.Informacao('Arquivo xml(s) não encontrado no diretório informado.');
+        TLog.Gravar(dmPrincipal.DirImportacaoXML,DMImportacaoXML.NomeArqLog,'Arquivo xml(s) não encontrado no diretório informado.');
         exit;
       end;
 
       if not TXML.GetListaXML(vListaXML) then
       begin
         FrmMensagem.Informacao('Erro ao obter lista de xml encontrados!');
+        TLog.Gravar(dmPrincipal.DirRaizApp,DMImportacaoXML.NomeArqLog,'Arquivo xml(s) não encontrado no diretório informado.');
         exit;
       end;
 
       if not DMImportacaoXML.ImportarXML(EdtDiretorio.Text,vListaXML) then
-      exit;
+      begin
+        if not DMImportacaoXML.ExisteXMLImportar then
+        FrmMensagem.Informacao('Não identificado novo XML á importar!');
 
+        FForm.HabilitaControlesModoInclusao;
+        LimpaTela;
+        Exit;
+      end;
+
+      TLog.Gravar(dmPrincipal.DirImportacaoXML,DMImportacaoXML.NomeArqLog,'Importação realizada com sucesso.');
       Application.ProcessMessages;
       Sleep(1200);
-
       cxPgcImportacao.Visible         := true;
       cxPgcImportacao.ActivePageIndex := 0;
       BtnGravar.Enabled               := true;
@@ -333,6 +350,7 @@ begin
       BtnNovaImportacao.Enabled       := false;
       BtnIniciaImportacao.Enabled     := false;
       GpbProcessaImportacao.Visible   := false;
+      SetCaptionAbaNF;
       SetaFoco(cxGridNF);
       FiltraItensNF;
     except
@@ -350,7 +368,13 @@ end;
 procedure TFrmImportacaoXML.BtnLocalizaImportacaoClick(Sender: TObject);
 begin
   inherited;
-    Try
+  Try
+    if not DMImportacaoXML.QryNF.IsEmpty then
+    begin
+      FForm.HabilitaControlesModoInclusao;
+      LimpaTela;
+    end;
+
     FrmPesquisa := TFrmPesquisa.Create(nil);
     FrmPesquisa.MontaSql('SELECT * FROM "GET_PART_IMPORTADOS" ORDER BY "PARTICIPANTE","MES"');
     FrmPesquisa.ShowModal;
@@ -360,10 +384,13 @@ begin
       FMesLote     := FrmPesquisa.QryPesquisa.FieldByName('MES').AsString;
       if DMImportacaoXML.GetTodasNF(FCodPartLote,FMesLote) then
       begin
-        BtnCancelar.Enabled       := true;
-        BtnExcluir.Enabled        := true;
-        BtnNovaImportacao.Enabled := false;
-        cxPgcImportacao.Visible   := true;
+        BtnCancelar.Enabled           := true;
+        BtnExcluir.Enabled            := true;
+        BtnNovaImportacao.Enabled     := false;
+        cxPgcImportacao.Visible       := true;
+        BtnLocalizaImportacao.Enabled := false;
+        SetCaptionAbaNF;
+        FiltraItensNF;
       end;
     end;
   finally
@@ -374,8 +401,14 @@ end;
 procedure TFrmImportacaoXML.BtnNovaImportacaoClick(Sender: TObject);
 begin
   inherited;
+  if not DMImportacaoXML.QryNF.IsEmpty then
+  begin
+    FForm.HabilitaControlesModoInclusao;
+    LimpaTela;
+  end;
   GpbSelArquivos.Visible        := true;
   EdtDiretorio.Enabled          := GpbSelArquivos.Visible;
+  Application.ProcessMessages;
   EdtDiretorio.DoClick;
   BtnIniciaImportacao.Enabled   := (EdtDiretorio.Text <> '');
   BtnNovaImportacao.Enabled     := not (BtnIniciaImportacao.Enabled);
@@ -403,7 +436,7 @@ begin
     FForm := TFormApuracao.Create;
 end;
 
-procedure TFrmImportacaoXML.cxGridDBTableView4CellClick(
+procedure TFrmImportacaoXML.cxGridDBTVNFCellClick(
   Sender: TcxCustomGridTableView; ACellViewInfo: TcxGridTableDataCellViewInfo;
   AButton: TMouseButton; AShift: TShiftState; var AHandled: Boolean);
 begin
@@ -411,7 +444,7 @@ begin
   FiltraItensNF;
 end;
 
-procedure TFrmImportacaoXML.cxGridDBTableView4KeyDown(Sender: TObject;
+procedure TFrmImportacaoXML.cxGridDBTVNFKeyDown(Sender: TObject;
   var Key: Word; Shift: TShiftState);
 begin
   inherited;
@@ -511,7 +544,13 @@ end;
 procedure TFrmImportacaoXML.MnuExcluirLoteClick(Sender: TObject);
 begin
   inherited;
-  if not FrmMensagem.Confirmacao('Deseja realmente todo o lote XML?') then
+  if cxGridDBTVNF.Controller.SelectedColumnCount < 0 then
+  begin
+    FrmMensagem.Informacao('Selecione o registro e tente novamente!');
+    exit;
+  end;
+
+  if not FrmMensagem.Confirmacao('Deseja realmente excluir o lote XML?') then
   exit;
 
   if not Excluir(mLote) then
@@ -525,7 +564,13 @@ end;
 procedure TFrmImportacaoXML.MnuExcluirXMLClick(Sender: TObject);
 begin
   inherited;
-  if not FrmMensagem.Confirmacao('Deseja realmente o XML?') then
+  if cxGridDBTVNF.Controller.SelectedColumnCount < 0 then
+  begin
+    FrmMensagem.Informacao('Selecione o registro e tente novamente!');
+    exit;
+  end;
+
+  if not FrmMensagem.Confirmacao('Deseja realmente excluir o XML selecionado?') then
   exit;
 
   if not Excluir(mXML) then
@@ -534,6 +579,11 @@ begin
   FrmMensagem.Informacao('Registro excluído com sucesso!');
   FForm.HabilitaControlesModoInclusao;
   LimpaTela;
+end;
+
+procedure TFrmImportacaoXML.SetCaptionAbaNF;
+begin
+  TbsNF.Caption := 'Nota fiscal(' + DMImportacaoXML.QryNF.RecordCount.ToString + ')';
 end;
 
 end.

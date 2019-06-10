@@ -18,7 +18,8 @@ uses
   uArquivo in 'Util\uArquivo.pas',
   uDMImportacaoSPED in 'Dao\uDMImportacaoSPED.pas' {DMImportacaoSPED: TDataModule},
   uBarraProgresso in 'Util\uBarraProgresso.pas',
-  uGenerico in 'Util\uGenerico.pas';
+  uGenerico in 'Util\uGenerico.pas',
+  uLog in 'Util\uLog.pas';
 
 {$R *.res}
 

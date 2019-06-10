@@ -3,7 +3,6 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
   ClientHeight = 501
   ClientWidth = 857
   OnClose = FormClose
-  ExplicitTop = -101
   ExplicitWidth = 873
   ExplicitHeight = 540
   PixelsPerInch = 96
@@ -12,6 +11,7 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
     Width = 857
     Height = 501
     ExplicitWidth = 857
+    ExplicitHeight = 501
     TMSStyle = 4
     inherited PnlHeader: TAdvSmoothPanel
       Width = 857
@@ -29,10 +29,12 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
       Width = 857
       Height = 444
       ExplicitWidth = 857
+      ExplicitHeight = 444
       TMSStyle = 4
       inherited PnlFooter: TAdvSmoothPanel
         Top = 387
         Width = 857
+        ExplicitTop = 387
         ExplicitWidth = 857
         TMSStyle = 4
         object Label2: TLabel
@@ -132,7 +134,7 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
           Appearance.GradientChecked = ggVertical
         end
         object BtnCancelar: TAdvGlowButton
-          Left = 472
+          Left = 473
           Top = 17
           Width = 109
           Height = 30
@@ -725,6 +727,7 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
           Appearance.GradientMirrorDown = ggVertical
           Appearance.GradientChecked = ggVertical
           DropDownButton = True
+          DropDownMenu = MnuExcluir
         end
       end
       object GpbSelArquivos: TAdvGroupBox
@@ -757,8 +760,8 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
           Text = ''
         end
         object BtnIniciaImportacao: TAdvGlowButton
-          Left = 569
-          Top = 13
+          Left = 565
+          Top = 11
           Width = 150
           Height = 32
           Caption = 'Iniciar importa'#231#227'o'
@@ -829,10 +832,10 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
         Caption = '   Processando importa'#231#227'o   '
         TabOrder = 2
         object ProgressBar: TW7ProgressBar
-          Left = 135
+          Left = 208
           Top = 21
-          Width = 584
-          Height = 16
+          Width = 511
+          Height = 19
           Min = 0
           Max = 100
           Position = 10
@@ -908,7 +911,6 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
         Properties.TabSlants.Kind = skCutCorner
         LookAndFeel.Kind = lfOffice11
         TabSlants.Kind = skCutCorner
-        ExplicitHeight = 272
         ClientRectBottom = 288
         ClientRectLeft = 4
         ClientRectRight = 853
@@ -916,7 +918,6 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
         object TbsNF: TcxTabSheet
           Caption = 'Nota fiscal'
           ImageIndex = 2
-          ExplicitHeight = 244
           object cxGridNF: TcxGrid
             Left = 0
             Top = 0
@@ -924,10 +925,10 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
             Height = 89
             Align = alTop
             TabOrder = 0
-            object cxGridDBTableView4: TcxGridDBTableView
-              OnKeyDown = cxGridDBTableView4KeyDown
+            object cxGridDBTVNF: TcxGridDBTableView
+              OnKeyDown = cxGridDBTVNFKeyDown
               Navigator.Buttons.CustomButtons = <>
-              OnCellClick = cxGridDBTableView4CellClick
+              OnCellClick = cxGridDBTVNFCellClick
               DataController.DataSource = DMImportacaoXML.DsQryNF
               DataController.Summary.DefaultGroupSummaryItems = <>
               DataController.Summary.FooterSummaryItems = <>
@@ -937,161 +938,161 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
               OptionsData.Inserting = False
               OptionsView.NoDataToDisplayInfoText = ' '
               OptionsView.GroupByBox = False
-              object cxGridDBTableView4NUM_DOC: TcxGridDBColumn
+              object cxGridDBTVNFNUM_DOC: TcxGridDBColumn
                 Caption = 'N'#250'mero Doc.'
                 DataBinding.FieldName = 'NUM_DOC'
                 Options.Editing = False
                 Width = 100
               end
-              object cxGridDBTableView4IND_OPER: TcxGridDBColumn
+              object cxGridDBTVNFIND_OPER: TcxGridDBColumn
                 Caption = 'Entrada/Saida'
                 DataBinding.FieldName = 'IND_OPER'
                 Options.Editing = False
                 Width = 90
               end
-              object cxGridDBTableView4COD_PART: TcxGridDBColumn
+              object cxGridDBTVNFCOD_PART: TcxGridDBColumn
                 Caption = 'C'#243'digo particip.'
                 DataBinding.FieldName = 'COD_PART'
                 Options.Editing = False
                 Width = 100
               end
-              object cxGridDBTableView4PARTICIPANTE: TcxGridDBColumn
+              object cxGridDBTVNFPARTICIPANTE: TcxGridDBColumn
                 Caption = 'Participante'
                 DataBinding.FieldName = 'PARTICIPANTE'
                 Options.Editing = False
                 Width = 250
               end
-              object cxGridDBTableView4COD_MOD: TcxGridDBColumn
+              object cxGridDBTVNFCOD_MOD: TcxGridDBColumn
                 Caption = 'Modelo'
                 DataBinding.FieldName = 'COD_MOD'
                 Options.Editing = False
                 Width = 50
               end
-              object cxGridDBTableView4SER: TcxGridDBColumn
+              object cxGridDBTVNFSER: TcxGridDBColumn
                 Caption = 'S'#233'rie'
                 DataBinding.FieldName = 'SER'
                 Options.Editing = False
               end
-              object cxGridDBTableView4CHV_NFE: TcxGridDBColumn
+              object cxGridDBTVNFCHV_NFE: TcxGridDBColumn
                 Caption = 'Chave Acesso'
                 DataBinding.FieldName = 'CHV_NFE'
                 PropertiesClassName = 'TcxTextEditProperties'
                 Properties.ReadOnly = True
                 Width = 290
               end
-              object cxGridDBTableView4DT_DOC: TcxGridDBColumn
+              object cxGridDBTVNFDT_DOC: TcxGridDBColumn
                 Caption = 'Data emiss'#227'o'
                 DataBinding.FieldName = 'DT_DOC'
                 Options.Editing = False
               end
-              object cxGridDBTableView4DT_E_ES: TcxGridDBColumn
+              object cxGridDBTVNFDT_E_ES: TcxGridDBColumn
                 Caption = 'Data entrada/saida'
                 DataBinding.FieldName = 'DT_E_ES'
                 Options.Editing = False
               end
-              object cxGridDBTableView4VL_DOC: TcxGridDBColumn
+              object cxGridDBTVNFVL_DOC: TcxGridDBColumn
                 Caption = 'Total NF'
                 DataBinding.FieldName = 'VL_DOC'
                 Options.Editing = False
                 Width = 100
               end
-              object cxGridDBTableView4VL_MERC: TcxGridDBColumn
+              object cxGridDBTVNFVL_MERC: TcxGridDBColumn
                 Caption = 'Total prod.'
                 DataBinding.FieldName = 'VL_MERC'
                 Options.Editing = False
                 Width = 100
               end
-              object cxGridDBTableView4VL_DESC: TcxGridDBColumn
+              object cxGridDBTVNFVL_DESC: TcxGridDBColumn
                 Caption = 'Total desc.'
                 DataBinding.FieldName = 'VL_DESC'
                 Options.Editing = False
                 Width = 100
               end
-              object cxGridDBTableView4VL_FRT: TcxGridDBColumn
+              object cxGridDBTVNFVL_FRT: TcxGridDBColumn
                 Caption = 'Total frete'
                 DataBinding.FieldName = 'VL_FRT'
                 Options.Editing = False
                 Width = 100
               end
-              object cxGridDBTableView4VL_SEG: TcxGridDBColumn
+              object cxGridDBTVNFVL_SEG: TcxGridDBColumn
                 Caption = 'Total seguro'
                 DataBinding.FieldName = 'VL_SEG'
                 Options.Editing = False
                 Width = 100
               end
-              object cxGridDBTableView4VL_OUT_DA: TcxGridDBColumn
+              object cxGridDBTVNFVL_OUT_DA: TcxGridDBColumn
                 Caption = 'Total desp.acess'
                 DataBinding.FieldName = 'VL_OUT_DA'
                 Options.Editing = False
                 Width = 100
               end
-              object cxGridDBTableView4VL_BC_ICMS: TcxGridDBColumn
+              object cxGridDBTVNFVL_BC_ICMS: TcxGridDBColumn
                 Caption = 'Total BC ICMS'
                 DataBinding.FieldName = 'VL_BC_ICMS'
                 Options.Editing = False
                 Width = 100
               end
-              object cxGridDBTableView4VL_ICMS: TcxGridDBColumn
+              object cxGridDBTVNFVL_ICMS: TcxGridDBColumn
                 Caption = 'Total ICMS'
                 DataBinding.FieldName = 'VL_ICMS'
                 Options.Editing = False
                 Width = 100
               end
-              object cxGridDBTableView4VL_BC_ICMS_ST: TcxGridDBColumn
+              object cxGridDBTVNFVL_BC_ICMS_ST: TcxGridDBColumn
                 Caption = 'Total BC ICMS ST'
                 DataBinding.FieldName = 'VL_BC_ICMS_ST'
                 Options.Editing = False
                 Width = 100
               end
-              object cxGridDBTableView4VL_ICMS_ST: TcxGridDBColumn
+              object cxGridDBTVNFVL_ICMS_ST: TcxGridDBColumn
                 Caption = 'Total ICMS ST'
                 DataBinding.FieldName = 'VL_ICMS_ST'
                 Options.Editing = False
                 Width = 100
               end
-              object cxGridDBTableView4VL_BC_IPI: TcxGridDBColumn
+              object cxGridDBTVNFVL_BC_IPI: TcxGridDBColumn
                 Caption = 'Total BC IPI'
                 DataBinding.FieldName = 'VL_BC_IPI'
                 Options.Editing = False
                 Width = 100
               end
-              object cxGridDBTableView4VL_IPI: TcxGridDBColumn
+              object cxGridDBTVNFVL_IPI: TcxGridDBColumn
                 Caption = 'Total IPI'
                 DataBinding.FieldName = 'VL_IPI'
                 Options.Editing = False
                 Width = 100
               end
-              object cxGridDBTableView4VL_BC_PIS: TcxGridDBColumn
+              object cxGridDBTVNFVL_BC_PIS: TcxGridDBColumn
                 Caption = 'Total BC Pis'
                 DataBinding.FieldName = 'VL_BC_PIS'
                 Options.Editing = False
                 Width = 100
               end
-              object cxGridDBTableView4VL_PIS: TcxGridDBColumn
+              object cxGridDBTVNFVL_PIS: TcxGridDBColumn
                 Caption = 'Total Pis'
                 DataBinding.FieldName = 'VL_PIS'
                 Options.Editing = False
                 Width = 100
               end
-              object cxGridDBTableView4VL_BC_COFINS: TcxGridDBColumn
+              object cxGridDBTVNFVL_BC_COFINS: TcxGridDBColumn
                 Caption = 'Total BC Cofins'
                 DataBinding.FieldName = 'VL_BC_COFINS'
                 Options.Editing = False
                 Width = 100
               end
-              object cxGridDBTableView4VL_COFINS: TcxGridDBColumn
+              object cxGridDBTVNFVL_COFINS: TcxGridDBColumn
                 Caption = 'Total Cofins'
                 DataBinding.FieldName = 'VL_COFINS'
                 Options.Editing = False
                 Width = 100
               end
-              object cxGridDBTableView4ID: TcxGridDBColumn
+              object cxGridDBTVNFID: TcxGridDBColumn
                 DataBinding.FieldName = 'ID'
                 Options.Editing = False
               end
             end
             object cxGridLevel4: TcxGridLevel
-              GridView = cxGridDBTableView4
+              GridView = cxGridDBTVNF
             end
           end
           object GpbRegistroItensNF: TAdvGroupBox
@@ -1102,7 +1103,6 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
             Align = alClient
             Caption = '   Itens da nota fiscal'
             TabOrder = 1
-            ExplicitHeight = 155
             object cxGridItensNF: TcxGrid
               Left = 2
               Top = 16
@@ -1110,7 +1110,6 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
               Height = 157
               Align = alClient
               TabOrder = 0
-              ExplicitHeight = 137
               object cxGridDBTableView5: TcxGridDBTableView
                 Navigator.Buttons.CustomButtons = <>
                 DataController.DataSource = DMImportacaoXML.DsQryItensNF
@@ -1296,7 +1295,6 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
         object TbsAnalise: TcxTabSheet
           Caption = 'Resultado analise do arquivo'
           ImageIndex = 4
-          ExplicitHeight = 244
           object GpbTotalizador: TAdvGroupBox
             Left = 0
             Top = 220
@@ -1305,7 +1303,6 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
             Align = alBottom
             Caption = '   Totalizador '
             TabOrder = 0
-            ExplicitTop = 200
             object lblComplementar: TLabel
               Left = 258
               Top = 25
@@ -1369,7 +1366,6 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
             Align = alClient
             Caption = '   Analise sint'#233'tica  '
             TabOrder = 1
-            ExplicitHeight = 200
             object cxGridTotalizadorSintetico: TcxGrid
               Left = 2
               Top = 16
@@ -1377,7 +1373,6 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
               Height = 202
               Align = alClient
               TabOrder = 0
-              ExplicitHeight = 182
               object cxGridTotalizadorSinteticoDBTableView1: TcxGridDBTableView
                 Navigator.Buttons.CustomButtons = <>
                 DataController.Summary.DefaultGroupSummaryItems = <>
@@ -1508,7 +1503,6 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
         56B1CCA255FFCFA456FFCFA456FFCBA155FFC39D56A2BD9B590FC4A05B00C7A4
         621DCBA55F91CEA65FD8CEA65FD5CAA56088C7A46316C3A05C00}
       Caption = 'Excluir lote'
-      Default = True
       OnClick = MnuExcluirLoteClick
     end
     object MnuExcluirXML: TMenuItem
@@ -1523,7 +1517,7 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
         4DFDC99E4EFFC99F4FFFC99F4FFFC89E4EFFC0994DF8B8944D5EBE9C5817C49E
         56B1CCA255FFCFA456FFCFA456FFCBA155FFC39D56A2BD9B590FC4A05B00C7A4
         621DCBA55F91CEA65FD8CEA65FD5CAA56088C7A46316C3A05C00}
-      Caption = 'Ecxcluir XML'
+      Caption = 'Excluir XML'
       OnClick = MnuExcluirXMLClick
     end
   end
