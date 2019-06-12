@@ -8,7 +8,7 @@ uses
   FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.VCLUI.Wait,
   Data.DB, FireDAC.Comp.Client,Vcl.Forms, FireDAC.Comp.UI, FireDAC.Stan.Param,
   FireDAC.DatS, FireDAC.DApt.Intf, FireDAC.DApt, FireDAC.Comp.DataSet,
-  FireDAC.Phys.PG, FireDAC.Phys.PGDef;
+  FireDAC.Phys.PG, FireDAC.Phys.PGDef,vcl.forms;
 
 type
   TDMBase = class(TDataModule)
@@ -56,7 +56,7 @@ implementation
 
 {$R *.dfm}
 
-Uses uMensagem,BiblKhronos;
+Uses uMensagem,BiblKhronos, Vcl.Dialogs;
 
 procedure TDMBase.ConectaBanco;
 begin
@@ -70,7 +70,8 @@ begin
       Open;
     end;
    except
-     raise;
+     on e: exception do
+     ShowMessage('Erro : ' + e.Message + ' ao tentar conectar no banco de dados.');
    end;
   finally
     BancoExec := DB;

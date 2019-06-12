@@ -73,6 +73,12 @@ type
     QryItensNFCSOSN: TStringField;
     DsQryNF: TDataSource;
     DsQryItensNF: TDataSource;
+    QryItensNFVL_BC_ST_RET: TFloatField;
+    QryItensNFVL_FCP_ST: TFloatField;
+    QryItensNFVL_BC_FCP_ST: TFloatField;
+    QryItensNFVL_BC_FCP_ST_RET: TFloatField;
+    QryItensNFVL_FCP_ST_RET: TFloatField;
+    QryItensNFVL_BC_ST_DEST: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure DataModuleDestroy(Sender: TObject);
   private
@@ -151,7 +157,9 @@ begin
       ExecSQL(GetSQLDeleteNFItens);
       ExecSQL(GetSQLDeleteNF);
 
-      TLog.Gravar(dmPrincipal.DirImportacaoXML,NomeArqLog,'Lote de XML part: ' + QryNFPARTICIPANTE.AsString +
+      FNomeArqLog := dmPrincipal.GetNomeArqLog;
+
+      TLog.Gravar(dmPrincipal.DirImportacaoXML,FNomeArqLog,'Lote de XML part: ' + QryNFPARTICIPANTE.AsString +
                   ' mes : ' + FormatDateTime('mm',QryNFDT_DOC.AsDateTime) + ' deletado');
       Commit;
     except
@@ -163,9 +171,15 @@ begin
 end;
 
 procedure TDMImportacaoXML.DeleteNF;
+var
+  vDoc   : String;
+  vChave : String;
 begin
   if not QryNF.Active then
   exit;
+
+  vDoc   := QryNFNUM_DOC.AsString;
+  vChave := QryNFCHV_NFE.AsString;
 
   QryItensNF.First;
   while not QryItensNF.Eof do
@@ -182,8 +196,11 @@ begin
   if QryNF.ApplyUpdates(0) > 0 then
   raise Exception.Create('Erro ao tentar deletar capa da nota fiscal');
 
-  TLog.Gravar(dmPrincipal.DirImportacaoXML,NomeArqLog,'XML nro : ' + QryNFNUM_DOC.AsString +
-              'chave : ' + QryNFCHV_NFE.AsString  + ' XML deletado.');
+  if FNomeArqLog = '' then
+  FNomeArqLog := dmPrincipal.GetNomeArqLog;
+
+    TLog.Gravar(dmPrincipal.DirImportacaoXML,FNomeArqLog,' | XML nro :' + vDoc +
+              ' chave : ' + vChave  + ' deletado.');
 end;
 
 function TDMImportacaoXML.EsteXMLJaFoiImportado(pChave: String): Boolean;
@@ -324,7 +341,7 @@ var
       begin
         Clear;
         lblInfoImportacaoXML.Caption := 'Procurando XML(s) no diretório ...';
-        TLog.Gravar(dmPrincipal.DirRaizApp,FNomeArqLog,lblInfoImportacaoXML.Caption);
+        TLog.Gravar(dmPrincipal.DirImportacaoXML,FNomeArqLog,lblInfoImportacaoXML.Caption);
         ProgressBar.Min := 0;
         ProgressBar.Max := pListaXML.Count;
         Application.ProcessMessages;
@@ -334,11 +351,11 @@ var
         begin
           lblInfoImportacaoXML.Caption := 'Carregando XML ... (' + IntToStr(i + 1) + ') de (' +
                                            pListaXML.Count.ToString + ')';
-          TLog.Gravar(dmPrincipal.DirRaizApp,FNomeArqLog,lblInfoImportacaoXML.Caption);
+          TLog.Gravar(dmPrincipal.DirImportacaoXML,FNomeArqLog,lblInfoImportacaoXML.Caption);
           Application.ProcessMessages;
           if EsteXMLJaFoiImportado(pListaXML[i]) then
           begin
-            TLog.Gravar(dmPrincipal.DirRaizApp,FNomeArqLog,'Xml chave : ' +
+            TLog.Gravar(dmPrincipal.DirImportacaoXML,FNomeArqLog,'Xml chave : ' +
                         pListaXML[i].Replace('.xml','').Trim +
                         ' importado anteriormente.');
             ProgressBar.Position := ProgressBar.Position + 1;
@@ -379,7 +396,7 @@ begin
     FrmImportacaoXML.lblInfoImportacaoXML.Caption := 'Iniciando importação do XML(s)...';
     Sleep(900);
     Application.ProcessMessages;
-    TLog.Gravar(dmPrincipal.DirRaizApp,FNomeArqLog,FrmImportacaoXML.
+    TLog.Gravar(dmPrincipal.DirImportacaoXML,FNomeArqLog,FrmImportacaoXML.
                                        lblInfoImportacaoXML.Caption);
 
     with NFe.NotasFiscais do
@@ -388,7 +405,7 @@ begin
       begin
         FrmImportacaoXML.lblInfoImportacaoXML.
         Caption := 'Importando XML ...(' + IntToStr(i + 1) + ') de (' + Count.ToString + ')';
-        TLog.Gravar(dmPrincipal.DirRaizApp,FNomeArqLog,FrmImportacaoXML.
+        TLog.Gravar(dmPrincipal.DirImportacaoXML,FNomeArqLog,FrmImportacaoXML.
                                        lblInfoImportacaoXML.Caption);
         Application.ProcessMessages;
 
@@ -404,7 +421,7 @@ begin
           QryNFID.AsInteger          := vIDNF;
           QryNFDT_DOC.AsDateTime     := Ide.dEmi;
           if Ide.dSaiEnt > 0 then
-            QryNFDT_E_ES.AsDateTime    := Ide.dSaiEnt;
+            QryNFDT_E_ES.AsDateTime  := Ide.dSaiEnt;
           QryNFCOD_MOD.AsString      := Ide.modelo.ToString;
           QryNFSER.AsString          := Ide.serie.ToString;
           QryNFNUM_DOC.AsString      := Ide.nNF.ToString;
@@ -471,6 +488,11 @@ begin
                QryItensNFVL_BC_ICMS_ST.AsFloat   := Imposto.ICMS.vBCST;
                QryItensNFALIQ_ST.AsFloat         := 0;
                QryItensNFVL_ICMS_ST.AsFloat      := Imposto.ICMS.vICMSST;
+               QryItensNFVL_BC_ST_RET.AsFloat    := Imposto.ICMS.vBCSTRet;
+               QryItensNFVL_FCP_ST.AsFloat       := Imposto.ICMS.vFCPST;
+               QryItensNFVL_BC_FCP_ST.AsFloat    := Imposto.ICMS.vBCFCPST;
+               QryItensNFVL_FCP_ST_RET.AsFloat   := Imposto.ICMS.vFCPSTRet;
+               QryItensNFVL_BC_FCP_ST_RET.AsFloat:= Imposto.ICMS.vBCFCPSTRet;
                QryItensNF.Post;
              end;
            end;

@@ -3,6 +3,7 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
   ClientHeight = 501
   ClientWidth = 857
   OnClose = FormClose
+  ExplicitTop = -101
   ExplicitWidth = 873
   ExplicitHeight = 540
   PixelsPerInch = 96
@@ -1267,11 +1268,23 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
                   Options.Editing = False
                   Width = 100
                 end
+                object cxGridDBTableView5VL_BC_ST_RET: TcxGridDBColumn
+                  Caption = 'Valor Bc ICMS ST Ret'
+                  DataBinding.FieldName = 'VL_BC_ST_RET'
+                  Options.Editing = False
+                  Width = 120
+                end
                 object cxGridDBTableView5VL_ICMSST_RET: TcxGridDBColumn
                   Caption = 'Valor ICMS Ret'
                   DataBinding.FieldName = 'VL_ICMSST_RET'
                   Options.Editing = False
                   Width = 100
+                end
+                object cxGridDBTableView5VL_BC_ST_DEST: TcxGridDBColumn
+                  Caption = 'Valor BC ST Dest'
+                  DataBinding.FieldName = 'VL_BC_ST_DEST'
+                  Options.Editing = False
+                  Width = 90
                 end
                 object cxGridDBTableView5VL_ICMSST_DEST: TcxGridDBColumn
                   Caption = 'Valor ICMS Dest'
@@ -1282,6 +1295,30 @@ inherited FrmImportacaoXML: TFrmImportacaoXML
                 object cxGridDBTableView5VL_ICMSST_DESON: TcxGridDBColumn
                   Caption = 'Valor ICMS Deson'
                   DataBinding.FieldName = 'VL_ICMSST_DESON'
+                  Options.Editing = False
+                  Width = 100
+                end
+                object cxGridDBTableView5VL_BC_FCP_ST: TcxGridDBColumn
+                  Caption = 'Valor BC FCP ST'
+                  DataBinding.FieldName = 'VL_BC_FCP_ST'
+                  Options.Editing = False
+                  Width = 90
+                end
+                object cxGridDBTableView5VL_FCP_ST: TcxGridDBColumn
+                  Caption = 'Valor FCP ST'
+                  DataBinding.FieldName = 'VL_FCP_ST'
+                  Options.Editing = False
+                  Width = 80
+                end
+                object cxGridDBTableView5VL_BC_FCP_ST_RET: TcxGridDBColumn
+                  Caption = 'Valor BC FCP ST Ret'
+                  DataBinding.FieldName = 'VL_BC_FCP_ST_RET'
+                  Options.Editing = False
+                  Width = 110
+                end
+                object cxGridDBTableView5VL_FCP_ST_RET: TcxGridDBColumn
+                  Caption = 'Valor FCP ST Ret'
+                  DataBinding.FieldName = 'VL_FCP_ST_RET'
                   Options.Editing = False
                   Width = 100
                 end

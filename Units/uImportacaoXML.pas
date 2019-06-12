@@ -140,6 +140,12 @@ type
     MnuExcluir: TPopupMenu;
     MnuExcluirLote: TMenuItem;
     MnuExcluirXML: TMenuItem;
+    cxGridDBTableView5VL_BC_ST_RET: TcxGridDBColumn;
+    cxGridDBTableView5VL_FCP_ST: TcxGridDBColumn;
+    cxGridDBTableView5VL_BC_FCP_ST: TcxGridDBColumn;
+    cxGridDBTableView5VL_BC_FCP_ST_RET: TcxGridDBColumn;
+    cxGridDBTableView5VL_FCP_ST_RET: TcxGridDBColumn;
+    cxGridDBTableView5VL_BC_ST_DEST: TcxGridDBColumn;
     procedure FormShow(Sender: TObject);
     procedure BtnNovaImportacaoClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -325,7 +331,7 @@ begin
       if not TXML.GetListaXML(vListaXML) then
       begin
         FrmMensagem.Informacao('Erro ao obter lista de xml encontrados!');
-        TLog.Gravar(dmPrincipal.DirRaizApp,DMImportacaoXML.NomeArqLog,'Arquivo xml(s) não encontrado no diretório informado.');
+        TLog.Gravar(dmPrincipal.DirImportacaoXML,DMImportacaoXML.NomeArqLog,'Arquivo xml(s) não encontrado no diretório informado.');
         exit;
       end;
 

@@ -225,6 +225,24 @@ object DMImportacaoXML: TDMImportacaoXML
       FieldName = 'CSOSN'
       Size = 3
     end
+    object QryItensNFVL_BC_ST_RET: TFloatField
+      FieldName = 'VL_BC_ST_RET'
+    end
+    object QryItensNFVL_FCP_ST: TFloatField
+      FieldName = 'VL_FCP_ST'
+    end
+    object QryItensNFVL_BC_FCP_ST: TFloatField
+      FieldName = 'VL_BC_FCP_ST'
+    end
+    object QryItensNFVL_BC_FCP_ST_RET: TFloatField
+      FieldName = 'VL_BC_FCP_ST_RET'
+    end
+    object QryItensNFVL_FCP_ST_RET: TFloatField
+      FieldName = 'VL_FCP_ST_RET'
+    end
+    object QryItensNFVL_BC_ST_DEST: TFloatField
+      FieldName = 'VL_BC_ST_DEST'
+    end
   end
   object DsQryNF: TDataSource
     DataSet = QryNF

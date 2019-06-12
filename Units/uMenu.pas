@@ -72,7 +72,7 @@ end;
 
 procedure TFrmMenu.ApplicationEvents1Exception(Sender: TObject; E: Exception);
 begin
-  //TLog.Gravar(dmPrincipal.DirRaizApp,'Log' + DateTimeToStr(Now),e.Message);
+  TLog.Gravar(dmPrincipal.DirRaizApp,'Log' + DateTimeToStr(Now),e.Message);
   Application.ShowException(E);
 end;
 
