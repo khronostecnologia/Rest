@@ -110,6 +110,19 @@ object DMImportacaoXML: TDMImportacaoXML
     object QryNFID: TIntegerField
       FieldName = 'ID'
     end
+    object QryNFCOD_EMP: TStringField
+      FieldName = 'COD_EMP'
+    end
+    object QryNFEMPRESA: TStringField
+      FieldName = 'EMPRESA'
+      Size = 100
+    end
+    object QryNFMES: TIntegerField
+      FieldName = 'MES'
+    end
+    object QryNFANO: TIntegerField
+      FieldName = 'ANO'
+    end
   end
   object QryItensNF: TFDQuery
     CachedUpdates = True
