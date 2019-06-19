@@ -44,38 +44,11 @@ type
     BtnSair: TAdvGlowButton;
     BtnLocalizaImportacao: TAdvGlowButton;
     BtnNovaImportacao: TAdvGlowButton;
-    BtnImprimirResultado: TAdvGlowButton;
     BtnExcluir: TAdvGlowButton;
     EdtDiretorio: TJvDirectoryEdit;
     BtnIniciaImportacao: TAdvGlowButton;
     cxPgcImportacao: TcxPageControl;
     TbsNF: TcxTabSheet;
-    TbsAnalise: TcxTabSheet;
-    GpbTotalizador: TAdvGroupBox;
-    lblComplementar: TLabel;
-    lblRestituir: TLabel;
-    EdtTotalARestituir: TDBText;
-    EdtTotalARecolher: TDBText;
-    GpbResultEntrada: TAdvGroupBox;
-    cxGridTotalizadorSintetico: TcxGrid;
-    cxGridTotalizadorSinteticoDBTableView1: TcxGridDBTableView;
-    cxGridTotalizadorSinteticoDBTableView1COD_ITEM: TcxGridDBColumn;
-    cxGridTotalizadorSinteticoDBTableView1DESCR_ITEM: TcxGridDBColumn;
-    cxGridTotalizadorSinteticoDBTableView1DATA_ENTRADA: TcxGridDBColumn;
-    cxGridTotalizadorSinteticoDBTableView1QTDE_ENTRADA: TcxGridDBColumn;
-    cxGridTotalizadorSinteticoDBTableView1BC_ICMS_ST_ENT: TcxGridDBColumn;
-    cxGridTotalizadorSinteticoDBTableView1VL_ICMS_ST_ENT: TcxGridDBColumn;
-    cxGridTotalizadorSinteticoDBTableView1VL_ICMS_ST_UNI_ENT: TcxGridDBColumn;
-    cxGridTotalizadorSinteticoDBTableView1DATA_SAIDA: TcxGridDBColumn;
-    cxGridTotalizadorSinteticoDBTableView1QTDE_SAIDA: TcxGridDBColumn;
-    cxGridTotalizadorSinteticoDBTableView1BC_ICMS_ST_SAI: TcxGridDBColumn;
-    cxGridTotalizadorSinteticoDBTableView1TOTAL_ICMS_SAIDA: TcxGridDBColumn;
-    cxGridTotalizadorSinteticoDBTableView1TOTAL_ICMS_ENTRADA: TcxGridDBColumn;
-    cxGridTotalizadorSinteticoDBTableView1DIFERENCA: TcxGridDBColumn;
-    cxGridTotalizadorSinteticoDBTableView1ESTOQUE_FINAL: TcxGridDBColumn;
-    cxGridTotalizadorSinteticoDBTableView1SALDO_RESTITUIR: TcxGridDBColumn;
-    cxGridTotalizadorSinteticoDBTableView1SALDO_ARECOLHER: TcxGridDBColumn;
-    cxGridTotalizadorSinteticoLevel1: TcxGridLevel;
     cxGridNF: TcxGrid;
     cxGridDBTVNF: TcxGridDBTableView;
     cxGridLevel4: TcxGridLevel;
@@ -146,6 +119,7 @@ type
     cxGridDBTableView5VL_BC_FCP_ST_RET: TcxGridDBColumn;
     cxGridDBTableView5VL_FCP_ST_RET: TcxGridDBColumn;
     cxGridDBTableView5VL_BC_ST_DEST: TcxGridDBColumn;
+    BtnImprimirResultado: TAdvGlowButton;
     procedure FormShow(Sender: TObject);
     procedure BtnNovaImportacaoClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -165,6 +139,7 @@ type
     { Private declarations }
     FCodPartLote    : String;
     FMesLote        : String;
+    FAnoLote        : String;
     DMImportacaoXML : TDMImportacaoXML;
     FImportacao     : Boolean;
     FForm           : TFormGeneric;
@@ -205,9 +180,8 @@ begin
   inherited;
   with FrmImportacaoXML do
   begin
-    TbsAnalise.TabVisible        := false;
-    BtnImprimirResultado.Visible := TbsAnalise.TabVisible;
-    BtnSair.Left                 := BtnImprimirResultado.Left;
+    BtnSair.Left                  := BtnImprimirResultado.Left;
+    BtnImprimirResultado.Visible  := false;
   end;
 end;
 
@@ -382,13 +356,14 @@ begin
     end;
 
     FrmPesquisa := TFrmPesquisa.Create(nil);
-    FrmPesquisa.MontaSql('SELECT * FROM "GET_PART_IMPORTADOS" ORDER BY "PARTICIPANTE","MES"');
+    FrmPesquisa.MontaSql('SELECT * FROM "GET_EMP_IMPORTADOS" ORDER BY "EMPRESA","MES","ANO"');
     FrmPesquisa.ShowModal;
     if FrmPesquisa.Selecionou then
     begin
       FCodPartLote := FrmPesquisa.QryPesquisa.FieldByName('CODIGO').AsString;
       FMesLote     := FrmPesquisa.QryPesquisa.FieldByName('MES').AsString;
-      if DMImportacaoXML.GetTodasNF(FCodPartLote,FMesLote) then
+      FAnoLote     := FrmPesquisa.QryPesquisa.FieldByName('ANO').AsString;
+      if DMImportacaoXML.GetTodasNF(FCodPartLote,FMesLote,FAnoLote) then
       begin
         BtnCancelar.Enabled           := true;
         BtnExcluir.Enabled            := true;
@@ -486,7 +461,7 @@ function TFrmImportacaoXML.Excluir(pExclusao: TModoExclusao): Boolean;
   begin
     result := true;
     try
-      DMImportacaoXML.DeletaTodasNF(FCodPartLote,FMesLote);
+      DMImportacaoXML.DeletaTodasNF(FCodPartLote,FMesLote,FAnoLote);
     except
       result := false;
     end;
@@ -540,6 +515,7 @@ procedure TFrmImportacaoXML.LimpaTela;
 begin
   FCodPartLote                   := '';
   FMesLote                       := '';
+  FAnoLote                       := '';
   EdtDiretorio.Text              := '';
   GpbProcessaImportacao.Visible  := false;
   cxPgcImportacao.Visible        := false;
@@ -583,13 +559,14 @@ begin
   exit;
 
   FrmMensagem.Informacao('Registro excluído com sucesso!');
-  FForm.HabilitaControlesModoInclusao;
-  LimpaTela;
+  SetCaptionAbaNF;
 end;
 
 procedure TFrmImportacaoXML.SetCaptionAbaNF;
 begin
-  TbsNF.Caption := 'Nota fiscal(' + DMImportacaoXML.QryNF.RecordCount.ToString + ')';
+  TbsNF.Caption := 'Empresa : ' +  DMImportacaoXML.QryNFCOD_EMP.AsString + ' - ' +
+                   DMImportacaoXML.QryNFEMPRESA.AsString + ' | '+
+                   'NF(' + DMImportacaoXML.QryNF.RecordCount.ToString + ')';
 end;
 
 end.
