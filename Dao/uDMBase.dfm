@@ -22,40 +22,14 @@ object DMBase: TDMBase
     CachedUpdates = True
     Connection = DB
     SQL.Strings = (
-      'SELECT * FROM "CADASTROS"."EMPRESAS"'
-      'WHERE "ID" =:ID')
+      'SELECT * FROM "GET_EMP_IMPORTADOS"'
+      'WHERE "CODIGO" =:CODIGO')
     Left = 120
     Top = 16
     ParamData = <
       item
-        Name = 'ID'
+        Name = 'CODIGO'
         ParamType = ptInput
       end>
-    object QryEmpresaID: TIntegerField
-      FieldName = 'ID'
-    end
-    object QryEmpresaIDCIDADE: TIntegerField
-      FieldName = 'IDCIDADE'
-      Origin = '"IDCIDADE"'
-    end
-    object QryEmpresaUF: TStringField
-      FieldName = 'UF'
-      Size = 2
-    end
-    object QryEmpresaRAZAO_SOCIAL: TStringField
-      FieldName = 'RAZAO_SOCIAL'
-      Size = 50
-    end
-    object QryEmpresaNOME_EMPRESARIAL: TStringField
-      FieldName = 'NOME_EMPRESARIAL'
-      Size = 50
-    end
-    object QryEmpresaCPFCNPJ: TStringField
-      FieldName = 'CPFCNPJ'
-      Size = 18
-    end
-    object QryEmpresaRGIE: TStringField
-      FieldName = 'RGIE'
-    end
   end
 end

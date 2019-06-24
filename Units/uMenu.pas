@@ -51,7 +51,8 @@ implementation
 
 {$R *.dfm}
 
-Uses uDMBase,uPesquisa,uMensagem,uImportacaoSPED,uImportacaoXML,biblKhronos;
+Uses uDMBase,uPesquisa,uMensagem,uImportacaoSPED,uImportacaoXML,biblKhronos,
+uApuracaoICMSST;
 
 procedure TFrmMenu.MnuImportaXMLClick(Sender: TObject);
 begin
@@ -78,8 +79,8 @@ end;
 
 procedure TFrmMenu.MnuApuracaoXMLClick(Sender: TObject);
 begin
-  FrmImportacaoXML := TFrmImportacaoXML.Create(nil,ftApuracao);
-  FrmImportacaoXML.Show;
+  FrmApuracao := TFrmApuracao.Create(nil);
+  FrmApuracao.Show;
 end;
 
 end.

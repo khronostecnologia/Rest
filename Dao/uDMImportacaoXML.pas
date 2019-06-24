@@ -103,6 +103,7 @@ type
     procedure DeleteNF;
     procedure DeletaTodasNF(pCodPart , pMes, pAno : String);
     procedure Cancelar;
+    procedure FiltraItensNF;
     property  NomeArqLog : String read FNomeArqLog write SetNomeArqLog;
     property  ExisteXMLImportar :Boolean read FExisteXMLImportar write SetExisteXMLImportar;
   end;
@@ -556,6 +557,16 @@ end;
 procedure TDMImportacaoXML.SetNomeArqLog(const Value: String);
 begin
   FNomeArqLog := Value;
+end;
+
+procedure TDMImportacaoXML.FiltraItensNF;
+begin
+   if (QryItensNF.Active) and (QryNF.State = (dsBrowse)) then
+  begin
+    QryItensNF.Filtered := false;
+    QryItensNF.Filter   := ' IDNF = ' + QryNF.FieldByName('ID').AsString;
+    QryItensNF.Filtered := true;
+  end;
 end;
 
 end.

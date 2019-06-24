@@ -324,6 +324,7 @@ begin
  Qry.SQL.Text       := ASQL;
  Try
   Qry.Open;
+  Qry.First;
  except
   On e: exception do
   begin

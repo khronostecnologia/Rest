@@ -7,7 +7,6 @@ inherited FrmImportacaoSPED: TFrmImportacaoSPED
   WindowState = wsMaximized
   OnClose = FormClose
   OnCreate = FormCreate
-  ExplicitTop = -68
   ExplicitWidth = 845
   ExplicitHeight = 542
   PixelsPerInch = 96
@@ -257,7 +256,7 @@ inherited FrmImportacaoSPED: TFrmImportacaoSPED
           Appearance.GradientChecked = ggVertical
         end
         object BtnSair: TAdvGlowButton
-          Left = 708
+          Left = 587
           Top = 17
           Width = 109
           Height = 30
@@ -537,103 +536,6 @@ inherited FrmImportacaoSPED: TFrmImportacaoSPED
           Appearance.GradientMirrorDown = ggVertical
           Appearance.GradientChecked = ggVertical
         end
-        object BtnImprimirResultado: TAdvGlowButton
-          Left = 588
-          Top = 17
-          Width = 114
-          Height = 30
-          Caption = 'Imprimir anal'#237'se'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -11
-          Font.Name = 'MS Sans Serif'
-          Font.Style = [fsBold]
-          NotesFont.Charset = DEFAULT_CHARSET
-          NotesFont.Color = clWindowText
-          NotesFont.Height = -11
-          NotesFont.Name = 'Tahoma'
-          NotesFont.Style = []
-          ParentFont = False
-          Picture.Data = {
-            89504E470D0A1A0A0000000D4948445200000020000000200806000000737A7A
-            F40000000473424954080808087C086488000000097048597300000EC400000E
-            C401952B0E1B00000548494441545885C5973D6F1CC719809F999DDDBDDDBBF3
-            1D291D250B0EDC4840A0421008A7485CA8890AFD0655D1EF0840F217F0171830
-            E04A85BB400D03A8919B14068C40961B3589048B10C85BF24EB71FF395626F97
-            3CF24E6753455E60B098D999799F79BF7616FECF22D6BC57C0679FA8E314301F
-            53F031F9CC397724C43ACED52284B8061CAF7A2FD76DE0BDBFB2F2DFB2762D80
-            D61AE7DC95946BBDD2F2ADAC730165A9EB894A21A5649D3BBCF778EF31C65055
-            FAEA003B3B3B9BC3E1F0BF4551E0BD278A1C41A0088200296B8806A631B5F71E
-            6B1DD61AB4369465C5FEFEFE9B2CCBBED8DBDB5B1A072B010683410CA4795EE0
-            9CC3DA90300C09828020900871DE1A1EE7FC7C9E456B435555545585102249D3
-            B4F3BB2D00B5D967B319D65A8C3128A5514AA154B0E00EEF6B006BED1C40A3B5
-            A62C2B8220F8988AD500DD6E97C964C264F201AD0D711C11866AC10DB5151A00
-            37377F0D5055154551A2B5264DD38F03ECECECA81B376E1C5FBF7EBD3F1C0E51
-            4A319D4E79FFFE3DD3E914AD2BCA32228A42940A0902899467B170066031E60C
-            A02C2BF23CE7CE9D3B6F9F3F7F8E3186C964C2D1D1D1E4CD9B379B7B7B7B4601
-            5CBB766D3B49927E9AA6731F0768ADC9B28CC9644A55458461386F8D056A17D4
-            16E01C8099C780A6AA4AB22CA3AA6A5778EF499284344DFB376FDEDC06FEA500
-            A2287A902409611822A5444A491CC7BC7DFB96EFBEFB06E75CDBACB50B7DA05D
-            23A56CE19A1645119D4EA7ED2BA5E8743A5455F5A005D8DEDEFEAADBED7E88A2
-            A89DD8EBF5E493274FE26579BFAA162CAB7CDE7B46A35139180C5C033D77C59F
-            DA18B875EBD6E7699A762F2EDCDFDFBF52153C2F524A76777793C160B030DEEB
-            F53E6F0180EB17E9B5D63445E853440881D67AD93EA316406BBDA9D462461645
-            4155554B01922421499285B13CCFC9F37C2940511468BD58968D311B2D405996
-            E945BFCE6633B22CBB0460AD25CF73D2344529851002630C799E13C7F1A5C223
-            8460369B5114C5C503765B8077EFDEC5711C9F4BADDA6C8F1F3F4608B1306E8C
-            A12C4BC230248A228410545585D69A388E09C3B0FD2035CD39C7F1F171DB9F03
-            440D80DCDCDCF417AB55AFD763381C5E32E955A4A921001F3E4C512A248A220F
-            08050C67B39993F2EC6A20A5E4E0E080D7AF5F5F3ACDC5D698F9623B3F7EFBF6
-            6D1E3E7C38CF28D17CA82C305040FFF4F4542BA5DAA89A4C26ECEEEE7E720634
-            2284E0DEBD7BF4FB7D8480B2AC984EA706D8544092655991A6697BF93C393961
-            6363834E275D7B015927DE7B8A62C6C9C9096118220458EBC8B2AC004205C8C3
-            C3C3FC7C0C1445C1FDFBF7F9FAEBBF62AD69379A9F072905CE39BCF734AE33C6
-            B455F4ECE475FF871FFE4951146459D6BE3B3C3CCC814801272F5EBCF8C7CB97
-            2F6F0921ACF73ED05AFF61636373FBC183BFC8AAAA70CE2144AD544AD93E0182
-            206895036DB00921F0DE2384E0E79F7F740707073F0541F09F300C4B6BAD1A8F
-            C7BF02270AF8F5E9D3A77F0742C001E1DDBB77FFF6E8D1A3AFBEFCF28B368DEA
-            CD6A2535409D9ED6DA3655BD07EF5D0BE09C47A980E170209F3D7BF6FDAB57AF
-            BE0572EACBB006266AAEF4CC36A09452D3ADAD2DFAFD1EB3D90C682EA4206530
-            7789E37C8C064180B576C1FF520AC230646B6B8B388E8F8177C0C2A465372231
-            1E8F4321044A29922469FD7FFEC4DE8B76AC8985FA96245AF3379F6721044747
-            47C9FCE46B017C511445B7DB6DFDDE64C2A2B96B05C698057F9FAF9CCD58B7DB
-            A5288A12B894D7CB00EC783CFEF76834FA4508F1C7C602ABD2B1093A60E5BCD1
-            68F4CB783CFEE9E2E961F5CF6917F833B0B5847AD91A4F1D4BCDD35DE89F023F
-            0293DF0A00B5BFAE528596954FBF629CFF01121CFE29C9C6B596000000004945
-            4E44AE426082}
-          TabOrder = 5
-          Appearance.BorderColor = 14727579
-          Appearance.BorderColorHot = 10079963
-          Appearance.BorderColorDown = 4548219
-          Appearance.BorderColorDisabled = clBackground
-          Appearance.Color = 15653832
-          Appearance.ColorTo = 16178633
-          Appearance.ColorChecked = 7915518
-          Appearance.ColorCheckedTo = 11918331
-          Appearance.ColorDisabled = clBackground
-          Appearance.ColorDisabledTo = clBackground
-          Appearance.ColorDown = 7778289
-          Appearance.ColorDownTo = 4296947
-          Appearance.ColorHot = 15465983
-          Appearance.ColorHotTo = 11332863
-          Appearance.ColorMirror = 15586496
-          Appearance.ColorMirrorTo = 16245200
-          Appearance.ColorMirrorHot = 5888767
-          Appearance.ColorMirrorHotTo = 10807807
-          Appearance.ColorMirrorDown = 946929
-          Appearance.ColorMirrorDownTo = 5021693
-          Appearance.ColorMirrorChecked = 10480637
-          Appearance.ColorMirrorCheckedTo = 5682430
-          Appearance.ColorMirrorDisabled = clBackground
-          Appearance.ColorMirrorDisabledTo = clBackground
-          Appearance.GradientHot = ggVertical
-          Appearance.GradientMirrorHot = ggVertical
-          Appearance.GradientDown = ggVertical
-          Appearance.GradientMirrorDown = ggVertical
-          Appearance.GradientChecked = ggVertical
-          DropDownButton = True
-          DropDownMenu = AdvPopupMenu1
-        end
         object BtnExcluir: TAdvGlowButton
           Left = 356
           Top = 17
@@ -703,7 +605,7 @@ inherited FrmImportacaoSPED: TFrmImportacaoSPED
             3A0824D1FD2F00F0622432F6A78989579E0E87CFFE40B827B178F2E4E37F3E7D
             FAA521207124B8AFD1EFFB83435AC735E77F576841BFE59D84AD000000004945
             4E44AE426082}
-          TabOrder = 6
+          TabOrder = 5
           OnClick = BtnExcluirClick
           Appearance.BorderColor = 14727579
           Appearance.BorderColorHot = 10079963
@@ -843,7 +745,7 @@ inherited FrmImportacaoSPED: TFrmImportacaoSPED
         ParentBackground = False
         ParentColor = False
         TabOrder = 2
-        Properties.ActivePage = TbsAnalise
+        Properties.ActivePage = TbsC400
         Properties.CustomButtons.Buttons = <>
         Properties.CustomButtons.Mode = cbmEveryTab
         Properties.DragImage.Data = {
@@ -896,9 +798,9 @@ inherited FrmImportacaoSPED: TFrmImportacaoSPED
           ImageIndex = 1
           ParentColor = False
           ExplicitLeft = 0
-          ExplicitTop = 20
-          ExplicitWidth = 839
-          ExplicitHeight = 202
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object cxGrid0200: TcxGrid
             Left = 0
             Top = 0
@@ -906,8 +808,6 @@ inherited FrmImportacaoSPED: TFrmImportacaoSPED
             Height = 194
             Align = alClient
             TabOrder = 0
-            ExplicitWidth = 839
-            ExplicitHeight = 202
             object cxGridDBTableView1: TcxGridDBTableView
               Navigator.Buttons.CustomButtons = <>
               DataController.DataSource = DMImportacaoSPED.Ds0200
@@ -968,9 +868,9 @@ inherited FrmImportacaoSPED: TFrmImportacaoSPED
           Caption = 'Nota fiscal  entrada (Registro C100)'
           ImageIndex = 2
           ExplicitLeft = 0
-          ExplicitTop = 20
-          ExplicitWidth = 839
-          ExplicitHeight = 202
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object cxGridC100e: TcxGrid
             Left = 0
             Top = 0
@@ -978,7 +878,6 @@ inherited FrmImportacaoSPED: TFrmImportacaoSPED
             Height = 91
             Align = alTop
             TabOrder = 0
-            ExplicitWidth = 839
             object cxGridDBTableView2: TcxGridDBTableView
               OnKeyDown = cxGridDBTableView2KeyDown
               Navigator.Buttons.CustomButtons = <>
@@ -1165,8 +1064,6 @@ inherited FrmImportacaoSPED: TFrmImportacaoSPED
             Align = alClient
             Caption = '   Itens da nota fiscal de sa'#237'da (Registro C170)   '
             TabOrder = 1
-            ExplicitWidth = 839
-            ExplicitHeight = 111
             object cxGridC170e: TcxGrid
               Left = 2
               Top = 16
@@ -1174,8 +1071,6 @@ inherited FrmImportacaoSPED: TFrmImportacaoSPED
               Height = 85
               Align = alClient
               TabOrder = 0
-              ExplicitWidth = 835
-              ExplicitHeight = 93
               object cxGridDBTableView4: TcxGridDBTableView
                 Navigator.Buttons.CustomButtons = <>
                 DataController.DataSource = DMImportacaoSPED.DsC170e
@@ -1278,9 +1173,9 @@ inherited FrmImportacaoSPED: TFrmImportacaoSPED
           Caption = 'Nota fiscal Sa'#237'da (Registro C100)'
           ImageIndex = 3
           ExplicitLeft = 0
-          ExplicitTop = 20
-          ExplicitWidth = 839
-          ExplicitHeight = 202
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object cxGridC100s: TcxGrid
             Left = 0
             Top = 0
@@ -1288,7 +1183,6 @@ inherited FrmImportacaoSPED: TFrmImportacaoSPED
             Height = 91
             Align = alTop
             TabOrder = 0
-            ExplicitWidth = 839
             object cxGridDBTableView3: TcxGridDBTableView
               OnKeyDown = cxGridDBTableView3KeyDown
               Navigator.Buttons.CustomButtons = <>
@@ -1471,8 +1365,6 @@ inherited FrmImportacaoSPED: TFrmImportacaoSPED
             Align = alClient
             Caption = '   Itens da not fiscal de sa'#237'da (Registro C170)   '
             TabOrder = 1
-            ExplicitWidth = 839
-            ExplicitHeight = 111
             object cxGridC170s: TcxGrid
               Left = 2
               Top = 16
@@ -1480,8 +1372,6 @@ inherited FrmImportacaoSPED: TFrmImportacaoSPED
               Height = 85
               Align = alClient
               TabOrder = 0
-              ExplicitWidth = 835
-              ExplicitHeight = 93
               object cxGridDBTableView5: TcxGridDBTableView
                 Navigator.Buttons.CustomButtons = <>
                 DataController.DataSource = DMImportacaoSPED.DsC170s
@@ -1576,10 +1466,6 @@ inherited FrmImportacaoSPED: TFrmImportacaoSPED
         object TbsC400: TcxTabSheet
           Caption = 'Cupom fiscal (C400)'
           ImageIndex = 4
-          ExplicitLeft = 0
-          ExplicitTop = 20
-          ExplicitWidth = 839
-          ExplicitHeight = 202
           object cxGridc400: TcxGrid
             Left = 0
             Top = 0
@@ -1587,7 +1473,6 @@ inherited FrmImportacaoSPED: TFrmImportacaoSPED
             Height = 113
             Align = alTop
             TabOrder = 0
-            ExplicitWidth = 839
             object cxGridc400DBTableView1: TcxGridDBTableView
               OnKeyDown = cxGridc400DBTableView1KeyDown
               Navigator.Buttons.CustomButtons = <>
@@ -1624,8 +1509,6 @@ inherited FrmImportacaoSPED: TFrmImportacaoSPED
             Align = alClient
             Caption = '   Itens da redu'#231#227'o Z (Registro C425)     '
             TabOrder = 1
-            ExplicitWidth = 839
-            ExplicitHeight = 89
             object cxGridC425: TcxGrid
               Left = 2
               Top = 16
@@ -1633,7 +1516,6 @@ inherited FrmImportacaoSPED: TFrmImportacaoSPED
               Height = 113
               Align = alTop
               TabOrder = 0
-              ExplicitWidth = 835
               object cxGridDBTableView7: TcxGridDBTableView
                 Navigator.Buttons.CustomButtons = <>
                 DataController.DataSource = DMImportacaoSPED.DsC425
@@ -1675,213 +1557,6 @@ inherited FrmImportacaoSPED: TFrmImportacaoSPED
               object cxGridLevel7: TcxGridLevel
                 GridView = cxGridDBTableView7
               end
-            end
-          end
-        end
-        object TbsAnalise: TcxTabSheet
-          Caption = 'Resultado analise do arquivo'
-          ImageIndex = 4
-          ExplicitLeft = 0
-          ExplicitTop = 20
-          ExplicitWidth = 839
-          ExplicitHeight = 202
-          object GpbResultEntrada: TAdvGroupBox
-            Left = 0
-            Top = 0
-            Width = 831
-            Height = 150
-            Align = alClient
-            Caption = '   Analise sint'#233'tica  '
-            TabOrder = 0
-            ExplicitWidth = 839
-            ExplicitHeight = 158
-            object cxGridTotalizadorSintetico: TcxGrid
-              Left = 2
-              Top = 16
-              Width = 827
-              Height = 132
-              Align = alClient
-              TabOrder = 0
-              ExplicitWidth = 835
-              ExplicitHeight = 140
-              object cxGridTotalizadorSinteticoDBTableView1: TcxGridDBTableView
-                Navigator.Buttons.CustomButtons = <>
-                DataController.DataSource = DMImportacaoSPED.DsResultadoS
-                DataController.Summary.DefaultGroupSummaryItems = <>
-                DataController.Summary.FooterSummaryItems = <>
-                DataController.Summary.SummaryGroups = <>
-                OptionsView.GroupByBox = False
-                object cxGridTotalizadorSinteticoDBTableView1COD_ITEM: TcxGridDBColumn
-                  Caption = 'Cod.Item'
-                  DataBinding.FieldName = 'COD_ITEM'
-                  Options.Editing = False
-                  Width = 90
-                end
-                object cxGridTotalizadorSinteticoDBTableView1DESCR_ITEM: TcxGridDBColumn
-                  Caption = 'Descri'#231#227'o item'
-                  DataBinding.FieldName = 'DESCR_ITEM'
-                  GroupIndex = 0
-                  Options.Editing = False
-                  SortIndex = 0
-                  SortOrder = soAscending
-                  Width = 250
-                end
-                object cxGridTotalizadorSinteticoDBTableView1DATA_ENTRADA: TcxGridDBColumn
-                  Caption = 'Data entrada'
-                  DataBinding.FieldName = 'DATA_ENTRADA'
-                  Options.Editing = False
-                end
-                object cxGridTotalizadorSinteticoDBTableView1QTDE_ENTRADA: TcxGridDBColumn
-                  Caption = 'Qtde ent.'
-                  DataBinding.FieldName = 'QTDE_ENTRADA'
-                  Options.Editing = False
-                  Width = 80
-                end
-                object cxGridTotalizadorSinteticoDBTableView1BC_ICMS_ST_ENT: TcxGridDBColumn
-                  Caption = 'Bc Icms St. Ent'
-                  DataBinding.FieldName = 'BC_ICMS_ST_ENT'
-                  Options.Editing = False
-                  Width = 100
-                end
-                object cxGridTotalizadorSinteticoDBTableView1VL_ICMS_ST_ENT: TcxGridDBColumn
-                  Caption = 'Valor Icms st.'
-                  DataBinding.FieldName = 'VL_ICMS_ST_ENT'
-                  Options.Editing = False
-                  Width = 100
-                end
-                object cxGridTotalizadorSinteticoDBTableView1VL_ICMS_ST_UNI_ENT: TcxGridDBColumn
-                  Caption = 'Valor Icms st unit.'
-                  DataBinding.FieldName = 'VL_ICMS_ST_UNI_ENT'
-                  Options.Editing = False
-                  Width = 100
-                end
-                object cxGridTotalizadorSinteticoDBTableView1DATA_SAIDA: TcxGridDBColumn
-                  Caption = 'Data Saida'
-                  DataBinding.FieldName = 'DATA_SAIDA'
-                  Options.Editing = False
-                end
-                object cxGridTotalizadorSinteticoDBTableView1QTDE_SAIDA: TcxGridDBColumn
-                  Caption = 'Qtde saida.'
-                  DataBinding.FieldName = 'QTDE_SAIDA'
-                  Options.Editing = False
-                  Width = 100
-                end
-                object cxGridTotalizadorSinteticoDBTableView1BC_ICMS_ST_SAI: TcxGridDBColumn
-                  Caption = 'Bc Icms st sa'#237'da'
-                  DataBinding.FieldName = 'BC_ICMS_ST_SAI'
-                  Options.Editing = False
-                  Width = 96
-                end
-                object cxGridTotalizadorSinteticoDBTableView1TOTAL_ICMS_SAIDA: TcxGridDBColumn
-                  Caption = 'Total Icms Saida'
-                  DataBinding.FieldName = 'TOTAL_ICMS_SAIDA'
-                  Options.Editing = False
-                  Width = 100
-                end
-                object cxGridTotalizadorSinteticoDBTableView1TOTAL_ICMS_ENTRADA: TcxGridDBColumn
-                  Caption = 'Total Icms st entrada'
-                  DataBinding.FieldName = 'TOTAL_ICMS_ENTRADA'
-                  Visible = False
-                  Options.Editing = False
-                  Width = 100
-                end
-                object cxGridTotalizadorSinteticoDBTableView1DIFERENCA: TcxGridDBColumn
-                  Caption = 'Diferen'#231'a'
-                  DataBinding.FieldName = 'DIFERENCA'
-                  Options.Editing = False
-                  Width = 100
-                end
-                object cxGridTotalizadorSinteticoDBTableView1ESTOQUE_FINAL: TcxGridDBColumn
-                  Caption = 'Estoque final'
-                  DataBinding.FieldName = 'ESTOQUE_FINAL'
-                  Options.Editing = False
-                  Width = 100
-                end
-                object cxGridTotalizadorSinteticoDBTableView1SALDO_RESTITUIR: TcxGridDBColumn
-                  Caption = 'Saldo restituir'
-                  DataBinding.FieldName = 'SALDO_RESTITUIR'
-                  Options.Editing = False
-                  Styles.Content = cxStyle1
-                  Width = 130
-                end
-                object cxGridTotalizadorSinteticoDBTableView1SALDO_ARECOLHER: TcxGridDBColumn
-                  Caption = 'Saldo recolher'
-                  DataBinding.FieldName = 'SALDO_ARECOLHER'
-                  Options.Editing = False
-                  Styles.Content = cxStyle1
-                  Width = 150
-                end
-              end
-              object cxGridTotalizadorSinteticoLevel1: TcxGridLevel
-                GridView = cxGridTotalizadorSinteticoDBTableView1
-              end
-            end
-          end
-          object GpbTotalizador: TAdvGroupBox
-            Left = 0
-            Top = 150
-            Width = 831
-            Height = 44
-            Align = alBottom
-            Caption = '   Totalizador '
-            TabOrder = 1
-            ExplicitTop = 158
-            ExplicitWidth = 839
-            object lblComplementar: TLabel
-              Left = 258
-              Top = 25
-              Width = 140
-              Height = 13
-              Caption = '|   Valor complementar : '
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clRed
-              Font.Height = -11
-              Font.Name = 'Tahoma'
-              Font.Style = [fsBold]
-              ParentFont = False
-            end
-            object lblRestituir: TLabel
-              Left = 5
-              Top = 25
-              Width = 87
-              Height = 13
-              Caption = ' Valor restituir: '
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clNavy
-              Font.Height = -11
-              Font.Name = 'Tahoma'
-              Font.Style = [fsBold]
-              ParentFont = False
-            end
-            object EdtTotalARestituir: TDBText
-              Left = 96
-              Top = 25
-              Width = 150
-              Height = 13
-              DataField = 'TOTAL_RESTITUIR'
-              DataSource = DMImportacaoSPED.DsResultadoS
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clNavy
-              Font.Height = -11
-              Font.Name = 'Tahoma'
-              Font.Style = [fsBold]
-              ParentFont = False
-            end
-            object EdtTotalARecolher: TDBText
-              Left = 404
-              Top = 25
-              Width = 150
-              Height = 13
-              Color = 16445929
-              DataField = 'TOTAL_ARECOLHER'
-              DataSource = DMImportacaoSPED.DsResultadoS
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clRed
-              Font.Height = -11
-              Font.Name = 'Tahoma'
-              Font.Style = [fsBold]
-              ParentColor = False
-              ParentFont = False
             end
           end
         end

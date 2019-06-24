@@ -136,11 +136,6 @@ type
     cxGridDBColumn24: TcxGridDBColumn;
     cxGridDBColumn25: TcxGridDBColumn;
     cxGridLevel3: TcxGridLevel;
-    GpbResultEntrada: TAdvGroupBox;
-    GpbTotalizador: TAdvGroupBox;
-    cxGridTotalizadorSinteticoDBTableView1: TcxGridDBTableView;
-    cxGridTotalizadorSinteticoLevel1: TcxGridLevel;
-    cxGridTotalizadorSintetico: TcxGrid;
     BtnLocalizaImportacao: TAdvGlowButton;
     BtnNovaImportacacao: TAdvGlowButton;
     cxGridDBTableView2COD_SIT: TcxGridDBColumn;
@@ -196,35 +191,16 @@ type
     cxGridDBTableView7DESCR_ITEM: TcxGridDBColumn;
     cxGridDBTableView7QTD: TcxGridDBColumn;
     cxGridDBTableView7VL_ITEM: TcxGridDBColumn;
-    lblComplementar: TLabel;
     AdvPopupMenu1: TAdvPopupMenu;
     Analtico1: TMenuItem;
     Sinttico1: TMenuItem;
-    lblRestituir: TLabel;
-    cxGridTotalizadorSinteticoDBTableView1COD_ITEM: TcxGridDBColumn;
-    cxGridTotalizadorSinteticoDBTableView1DESCR_ITEM: TcxGridDBColumn;
-    cxGridTotalizadorSinteticoDBTableView1DATA_ENTRADA: TcxGridDBColumn;
-    cxGridTotalizadorSinteticoDBTableView1QTDE_ENTRADA: TcxGridDBColumn;
-    cxGridTotalizadorSinteticoDBTableView1BC_ICMS_ST_ENT: TcxGridDBColumn;
-    cxGridTotalizadorSinteticoDBTableView1VL_ICMS_ST_ENT: TcxGridDBColumn;
-    cxGridTotalizadorSinteticoDBTableView1VL_ICMS_ST_UNI_ENT: TcxGridDBColumn;
-    cxGridTotalizadorSinteticoDBTableView1DATA_SAIDA: TcxGridDBColumn;
-    cxGridTotalizadorSinteticoDBTableView1QTDE_SAIDA: TcxGridDBColumn;
-    cxGridTotalizadorSinteticoDBTableView1BC_ICMS_ST_SAI: TcxGridDBColumn;
-    cxGridTotalizadorSinteticoDBTableView1TOTAL_ICMS_SAIDA: TcxGridDBColumn;
-    cxGridTotalizadorSinteticoDBTableView1TOTAL_ICMS_ENTRADA: TcxGridDBColumn;
-    cxGridTotalizadorSinteticoDBTableView1DIFERENCA: TcxGridDBColumn;
     cxStyleRepository1: TcxStyleRepository;
     cxStyle1: TcxStyle;
-    BtnImprimirResultado: TAdvGlowButton;
     BtnExcluir: TAdvGlowButton;
     cxGridDBTableView2Column1: TcxGridDBColumn;
     cxGridDBTableView4Column1: TcxGridDBColumn;
     cxGridDBTableView4Column2: TcxGridDBColumn;
-    cxGridTotalizadorSinteticoDBTableView1ESTOQUE_FINAL: TcxGridDBColumn;
     cxGrid0000DBTableView1Column1Codigo: TcxGridDBColumn;
-    EdtTotalARestituir: TDBText;
-    EdtTotalARecolher: TDBText;
     AdvMenuStyler1: TAdvMenuStyler;
     procedure BtnIniciaImportacaoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -264,10 +240,7 @@ type
     procedure ImportaReg0200;
     procedure ImportaRegC100;
     procedure ImportaRegC400;
-    procedure CriaTabelaEmpresaLogada(ASQL : String);
-    procedure CarregaSPED(AID : Integer);
     procedure LimpaTela;
-    procedure CarregaResultado(ATipoRel : TTipoRel);
     function  ExcluirArqSPED :Boolean;
     function  ExisteArqSPED(ADT_INI,ADT_FIM,ACNPJCPF : String) : Boolean;
   public
@@ -311,9 +284,7 @@ begin
   DMImportacaoSPED.QryC170.ApplyUpdates(0);
   DMImportacaoSPED.QryC400.ApplyUpdates(0);
   DMImportacaoSPED.QryC425.ApplyUpdates(0);
-  CarregaResultado(trelSintetico);
   FrmMensagem.Informacao('Importação salva com sucesso!');
-  BtnImprimirResultado.Enabled  := true;
   BtnNovaImportacacao.Enabled   := true;
   BtnLocalizaImportacao.Enabled := true;
   BtnCancelar.Enabled           := false;
@@ -348,28 +319,34 @@ end;
 
 procedure TFrmImportacaoSPED.BtnLocalizaImportacaoClick(Sender: TObject);
 var
-  iID : Integer;
+  vCodPart : String;
+  vMes     : String;
+  vAno     : String;
 begin
   inherited;
   LimpaTela;
   Try
     FrmPesquisa := TFrmPesquisa.Create(nil);
-    FrmPesquisa.MontaSql('SELECT * FROM "REGISTRO0000" ORDER BY "NOME"');
+    FrmPesquisa.MontaSql('SELECT * FROM "GET_EMP_SPED_IMPORTADOS" ORDER BY "EMPRESA","MES","ANO"');
     FrmPesquisa.ShowModal;
     if FrmPesquisa.Selecionou then
     begin
-     iID := FrmPesquisa.QryPesquisa.fieldbyName('ID').AsInteger;
-     CarregaSPED(iID);
-     CarregaResultado(trelSintetico);
-     BtnIniciaImportacao.Enabled   := false;
-     BtnGravar.Enabled             := false;
-     BtnCancelar.Enabled           := true;
-     BtnLocalizaImportacao.Enabled := false;
-     BtnNovaImportacacao.Enabled   := false;
-     BtnImprimirResultado.Enabled  := true;
-     BtnExcluir.Enabled            := true;
-     GpbRegistro0000.Visible       := true;
-     cxPgcImportacao.Visible       := true;
+     vCodPart := FrmPesquisa.QryPesquisa.FieldByName('CODIGO').AsString;
+     vMes     := FrmPesquisa.QryPesquisa.FieldByName('MES').AsString;
+     vAno     := FrmPesquisa.QryPesquisa.FieldByName('ANO').AsString;
+     if DMImportacaoSPED.GetSPED(DMImportacaoSPED.GetIDRegistro0000(vCodPart,vMes,vAno)) then
+     begin
+       BtnIniciaImportacao.Enabled   := false;
+       BtnGravar.Enabled             := false;
+       BtnCancelar.Enabled           := true;
+       BtnLocalizaImportacao.Enabled := false;
+       BtnNovaImportacacao.Enabled   := false;
+       BtnExcluir.Enabled            := true;
+       GpbRegistro0000.Visible       := true;
+       cxPgcImportacao.Visible       := true;
+     end
+     else
+       FrmMensagem.Informacao('Arquivo não encontrado!');
     end;
   finally
     FreeAndNil(FrmPesquisa);
@@ -391,86 +368,6 @@ begin
   inherited;
   Close;
 end;
-
-procedure TFrmImportacaoSPED.CarregaResultado(ATipoRel : TTipoRel);
-begin
-  with DMImportacaoSPED do
-  begin
-    if ATipoRel = trelAnalitico then
-      DMImportacaoSPED.GetResultadoAnalitico
-    else
-      DMImportacaoSPED.GetResultadoSintetico;
-  end;
-end;
-
-procedure TFrmImportacaoSPED.CarregaSPED(AID : Integer);
-begin
-  try
-    with DMImportacaoSPED do
-    begin
-      Qry0000.Close;
-      Qry0000.SQL.Clear;
-      Qry0000.SQL.Text := 'SELECT * FROM "REGISTRO0000" WHERE "ID" =' + AID.ToString;
-      Qry0000.Open;
-
-      Qry0200.Close;
-      Qry0200.SQL.Clear;
-      Qry0200.SQL.Text := 'SELECT * FROM "REGISTRO0200" WHERE "ID_SPED" =' + AID.ToString;
-      Qry0200.Open;
-
-      QryC100e.Close;
-      QryC100e.SQL.Clear;
-      QryC100e.SQL.Text := 'SELECT * FROM "REGISTROC100" WHERE "ID_SPED" =' + AID.ToString +
-                           ' AND "IND_OPER" = ''E''';
-      QryC100e.Open;
-                                                  
-      QryC170e.Close;
-      QryC170e.SQL.Clear;
-      QryC170e.SQL.Text := 'SELECT * FROM "REGISTROC170" WHERE "ID_SPED" =' + AID.ToString;
-      QryC170e.Open;
-
-      QryC170e.Filter   := 'ID =-99';
-      QryC170e.Filtered := true;
-
-      QryC100s.Close;
-      QryC100s.SQL.Clear;
-      QryC100s.SQL.Text := 'SELECT * FROM "REGISTROC100" WHERE "ID_SPED" =' + AID.ToString +
-                           ' AND "IND_OPER" = ''S''';
-      QryC100s.Open;
-
-      QryC170s.Close;
-      QryC170s.SQL.Clear;
-      QryC170s.SQL.Text := 'SELECT * FROM "REGISTROC170" WHERE "ID_SPED" =' + AID.ToString;
-      QryC170s.Open;
-
-      QryC170s.Filter   := 'ID =-99';
-      QryC170s.Filtered := true;
-
-      QryC400.Close;
-      QryC400.SQL.Clear;
-      QryC400.SQL.Text  := 'SELECT * FROM "REGISTROC400" WHERE "ID_SPED" =' + AID.ToString;
-      QryC400.Open;
-
-      QryC425.Close;
-      QryC425.SQL.Clear;
-      QryC425.SQL.Text  := 'SELECT * FROM "REGISTROC425" WHERE "ID_SPED" =' + AID.ToString;
-      QryC425.Open;
-
-    end;
-  except
-    on e: exception do
-    begin
-      FrmMensagem.Informacao('Erro : ' + e.Message + ' ao tentar carregar SPED.');
-      abort;
-    end;
-  end;
-end;
-
-procedure TFrmImportacaoSPED.CriaTabelaEmpresaLogada(ASQL: String);
-begin
-  dmPrincipal.DB.ExecSQL(ASQL);
-end;
-
 
 procedure TFrmImportacaoSPED.cxGridc400DBTableView1CellClick(
   Sender: TcxCustomGridTableView; ACellViewInfo: TcxGridTableDataCellViewInfo;
@@ -720,7 +617,6 @@ begin
   BtnIniciaImportacao.Enabled    := False;
   BtnGravar.Enabled              := False;
   BtnExcluir.Enabled             := false;
-  BtnImprimirResultado.Enabled   := false;
   BtnCancelar.Enabled            := false;
   GpbProcessaImportacao.Visible  := false;
   GpbRegistro0000.Visible        := false;
@@ -803,6 +699,8 @@ begin
     FieldByName('COD_MUN').AsInteger    := ACBrSPEDFiscal.Bloco_0.Registro0000.COD_MUN;
     FieldByName('IND_PERFIL').AsString  := GetCodPerfil;
     FieldByName('IND_ATIV').AsString    := GetCodAtiv;
+    FieldByName('MES').AsString         := FormatDateTime('MM',ACBrSPEDFiscal.Bloco_0.Registro0000.DT_INI);
+    FieldByName('ANO').AsString         := FormatDateTime('YYYY',ACBrSPEDFiscal.Bloco_0.Registro0000.DT_INI);;
     Post;
   end;
   ProgressBar.Position          := ProgressBar.Position + 45;
@@ -1231,7 +1129,6 @@ begin
   BtnGravar.Enabled             := false;
   BtnCancelar.Enabled           := false;
   BtnExcluir.Enabled            := false;
-  BtnImprimirResultado.Enabled  := false;
   BtnNovaImportacacao.Enabled   := true;
   BtnLocalizaImportacao.Enabled := true;
   EdtArquivo.Clear;
@@ -1275,9 +1172,6 @@ begin
       QryC425.CancelUpdates;
       QryC425.Close;
     end;
-
-    QryResultadoA.Close;
-    QryResultadoS.Close;
   end;
 end;
 

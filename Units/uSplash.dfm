@@ -12,7 +12,7 @@ object FrmSplash: TFrmSplash
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
-  Position = poDesktopCenter
+  Position = poMainFormCenter
   PixelsPerInch = 96
   TextHeight = 13
   object AdvPanelGeral: TAdvSmoothPanel
@@ -49,8 +49,6 @@ object FrmSplash: TFrmSplash
     Version = '1.5.2.1'
     Align = alClient
     TabOrder = 0
-    ExplicitWidth = 301
-    ExplicitHeight = 382
     TMSStyle = 23
     object AdvPanelCentral: TAdvSmoothPanel
       Left = 9

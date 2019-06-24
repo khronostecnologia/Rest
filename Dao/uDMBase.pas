@@ -16,13 +16,6 @@ type
     FDTransaction1: TFDTransaction;
     FDGUIxWaitCursor1: TFDGUIxWaitCursor;
     QryEmpresa: TFDQuery;
-    QryEmpresaIDCIDADE: TIntegerField;
-    QryEmpresaUF: TStringField;
-    QryEmpresaID: TIntegerField;
-    QryEmpresaRAZAO_SOCIAL: TStringField;
-    QryEmpresaNOME_EMPRESARIAL: TStringField;
-    QryEmpresaCPFCNPJ: TStringField;
-    QryEmpresaRGIE: TStringField;
     procedure DataModuleCreate(Sender: TObject);
   private
     FDirApp: String;
@@ -37,7 +30,6 @@ type
   public
     { Public declarations }
     procedure ConectaBanco;
-    function GravaEmpresa(AQry : TDataSet):Boolean;
     function GetEmpresa(ACodigo : String):Boolean;
     function GetNomeArqLog : String;
     property DirApp : String read FDirApp write SetDirApp;
@@ -117,7 +109,7 @@ end;
 function TDMBase.GetEmpresa(ACodigo: String): Boolean;
 begin
   QryEmpresa.Close;
-  QryEmpresa.ParamByName('ID').AsInteger := ACodigo.ToInteger;
+  QryEmpresa.ParamByName('CODIGO').AsString := ACodigo;
   QryEmpresa.Open;
   Result  := not (QryEmpresa.IsEmpty);
 end;
@@ -125,33 +117,6 @@ end;
 function TDMBase.GetNomeArqLog: String;
 begin
   result := FormatDateTime('ddmmyyhhmmss',Now);
-end;
-
-function TDMBase.GravaEmpresa(AQry: TDataSet):Boolean;
-begin
-  result := false;
-  if  AQry.IsEmpty then
-  begin
-    FrmMensagem.Informacao('Registro 0000 não encontrado!');
-    exit;
-  end;
-
-  if not QryEmpresa.Active then
-  begin
-    QryEmpresa.ParamByName('ID').AsInteger := -1;
-    QryEmpresa.Open;
-  end;
-
-  QryEmpresa.Insert;
-  QryEmpresaID.AsInteger               := GetID('"CADASTROS"."EMPRESAS"',DB) + 1;
-  QryEmpresaRAZAO_SOCIAL.AsString      := AQry.FieldByName('NOME').AsString;
-  QryEmpresaNOME_EMPRESARIAL.AsString  := AQry.FieldByName('NOME').AsString;
-  QryEmpresaRGIE.AsString              := AQry.FieldByName('IE').AsString;
-  QryEmpresaUF.AsString                := AQry.FieldByName('UF').AsString;
-  QryEmpresaCPFCNPJ.AsString           := AQry.FieldByName('CNPJ').AsString;
-  QryEmpresaIDCIDADE.AsInteger         := AQry.FieldByName('COD_MUN').AsInteger;
-  QryEmpresa.Post;
-  result :=  (QryEmpresa.ApplyUpdates(0) = 0);
 end;
 
 procedure TDMBase.SetDirApp(const Value: String);

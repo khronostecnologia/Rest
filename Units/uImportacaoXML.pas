@@ -119,7 +119,6 @@ type
     cxGridDBTableView5VL_BC_FCP_ST_RET: TcxGridDBColumn;
     cxGridDBTableView5VL_FCP_ST_RET: TcxGridDBColumn;
     cxGridDBTableView5VL_BC_ST_DEST: TcxGridDBColumn;
-    BtnImprimirResultado: TAdvGlowButton;
     procedure FormShow(Sender: TObject);
     procedure BtnNovaImportacaoClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -144,7 +143,6 @@ type
     FImportacao     : Boolean;
     FForm           : TFormGeneric;
     procedure LimpaTela;
-    procedure FiltraItensNF;
     procedure SetCaptionAbaNF;
     function Excluir(pExclusao : TModoExclusao) : Boolean;
   public
@@ -178,11 +176,6 @@ Uses uDMBase,uMensagem,uArquivo,uBarraProgresso,uPesquisa;
 procedure TFormImportacao.ConfigControles;
 begin
   inherited;
-  with FrmImportacaoXML do
-  begin
-    BtnSair.Left                  := BtnImprimirResultado.Left;
-    BtnImprimirResultado.Visible  := false;
-  end;
 end;
 
 procedure TFormImportacao.HabilitaControlesModoInclusao;
@@ -214,8 +207,7 @@ begin
   begin
     BtnCancelar.Enabled           := False;
     BtnExcluir.Enabled            := BtnCancelar.Enabled;
-    BtnImprimirResultado.Enabled  := BtnExcluir.Enabled;
-    BtnLocalizaImportacao.Enabled := not (BtnImprimirResultado.Enabled);
+    BtnLocalizaImportacao.Enabled := not (BtnExcluir.Enabled);
     SetaFoco(BtnLocalizaImportacao);
   end;
 end;
@@ -245,7 +237,6 @@ begin
     BtnNovaImportacao.Visible   := BtnGravar.Visible;
 
     BtnSair.Left                := BtnCancelar.Left;
-    BtnImprimirResultado.Left   := BtnExcluir.Left;
     BtnCancelar.Left            := BtnNovaImportacao.Left;
     BtnExcluir.Left             := BtnGravar.Left;
   end;
@@ -332,7 +323,7 @@ begin
       GpbProcessaImportacao.Visible   := false;
       SetCaptionAbaNF;
       SetaFoco(cxGridNF);
-      FiltraItensNF;
+      DMImportacaoXML.FiltraItensNF;
     except
       on e: exception do
       begin
@@ -356,7 +347,7 @@ begin
     end;
 
     FrmPesquisa := TFrmPesquisa.Create(nil);
-    FrmPesquisa.MontaSql('SELECT * FROM "GET_EMP_IMPORTADOS" ORDER BY "EMPRESA","MES","ANO"');
+    FrmPesquisa.MontaSql('SELECT * FROM "GET_EMP_XML_IMPORTADOS" ORDER BY "EMPRESA","MES","ANO"');
     FrmPesquisa.ShowModal;
     if FrmPesquisa.Selecionou then
     begin
@@ -371,7 +362,7 @@ begin
         cxPgcImportacao.Visible       := true;
         BtnLocalizaImportacao.Enabled := false;
         SetCaptionAbaNF;
-        FiltraItensNF;
+        DMImportacaoXML.FiltraItensNF;
       end;
     end;
   finally
@@ -422,7 +413,7 @@ procedure TFrmImportacaoXML.cxGridDBTVNFCellClick(
   AButton: TMouseButton; AShift: TShiftState; var AHandled: Boolean);
 begin
   inherited;
-  FiltraItensNF;
+  DMImportacaoXML.FiltraItensNF;
 end;
 
 procedure TFrmImportacaoXML.cxGridDBTVNFKeyDown(Sender: TObject;
@@ -479,18 +470,6 @@ begin
   case pExclusao of
     mLote: result := ExcluirLote;
     mXML : result := ExcluirXML;
-  end;
-end;
-
-procedure TFrmImportacaoXML.FiltraItensNF;
-begin
-   if (DMImportacaoXML.QryItensNF.Active) and
-     (DMImportacaoXML.QryNF.State = (dsBrowse)) then
-  begin
-    DMImportacaoXML.QryItensNF.Filtered := false;
-    DMImportacaoXML.QryItensNF.Filter   := ' IDNF = ' +
-                                          DMImportacaoXML.QryNF.FieldByName('ID').AsString;
-    DMImportacaoXML.QryItensNF.Filtered := true;
   end;
 end;
 

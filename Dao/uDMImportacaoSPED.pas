@@ -99,28 +99,6 @@ type
     QryC425DESCR_ITEM: TStringField;
     QryC425QTD: TFloatField;
     QryC425VL_ITEM: TFloatField;
-    QryResultadoA: TFDQuery;
-    QryResultadoS: TFDQuery;
-    QryResultadoSCOD_ITEM: TStringField;
-    QryResultadoSCODBARRA: TStringField;
-    QryResultadoSDESCR_ITEM: TStringField;
-    QryResultadoSDATA_ENTRADA: TDateTimeField;
-    QryResultadoSQTDE_ENTRADA: TFloatField;
-    QryResultadoSBC_ICMS_ST_ENT: TFloatField;
-    QryResultadoSVL_ICMS_ST_ENT: TFloatField;
-    QryResultadoSVL_ICMS_ST_UNI_ENT: TFloatField;
-    QryResultadoSDATA_SAIDA: TDateTimeField;
-    QryResultadoSQTDE_SAIDA: TFloatField;
-    QryResultadoSBC_ICMS_ST_SAI: TFloatField;
-    QryResultadoSTOTAL_ICMS_SAIDA: TFloatField;
-    QryResultadoSTOTAL_ICMS_ENTRADA: TFloatField;
-    QryResultadoSDIFERENCA: TFloatField;
-    QryResultadoSSALDO_RESTITUIR: TFloatField;
-    QryResultadoSSALDO_ARECOLHER: TFloatField;
-    DsResultadoA: TDataSource;
-    DsResultadoS: TDataSource;
-    QryResultadoSTOTAL_RESTITUIR: TAggregateField;
-    QryResultadoSTOTAL_ARECOLHER: TAggregateField;
     DsC100s: TDataSource;
     DsC170s: TDataSource;
     QryC100s: TFDQuery;
@@ -223,17 +201,16 @@ type
     QryC170VL_ICMS_ST: TFloatField;
     QryC170ID: TIntegerField;
     QryC170DESCR_ITEM: TStringField;
-    QryResultadoSESTOQUE_FINAL: TFloatField;
     Qry0200ID_SPED: TIntegerField;
+    Qry0000MES: TIntegerField;
+    Qry0000ANO: TIntegerField;
   private
     { Private declarations }
-    function GetSQLResultadoAnalitico:String;
-    function GetSQLResultadoSintetico:String;
   public
     { Public declarations }
     function GetProduto(AID : String):String;
-    function GetResultadoAnalitico:String;
-    function GetResultadoSintetico:String;
+    function GetSPED(AID : Integer) : Boolean;
+    function GetIDRegistro0000(pCodPart , pMes , pAno : String):Integer;
   end;
 
 implementation
@@ -254,27 +231,79 @@ begin
   Qry0200.EnableControls;
 end;
 
-function TDMImportacaoSPED.GetResultadoAnalitico: String;
+function TDMImportacaoSPED.GetSPED(AID : Integer) : Boolean;
 begin
+  result := false;
+  try
+    Qry0000.Close;
+    Qry0000.SQL.Clear;
+    Qry0000.SQL.Text := 'SELECT * FROM "REGISTRO0000" WHERE "ID" =' + AID.ToString;
+    Qry0000.Open;
+
+    Qry0200.Close;
+    Qry0200.SQL.Clear;
+    Qry0200.SQL.Text := 'SELECT * FROM "REGISTRO0200" WHERE "ID_SPED" =' + AID.ToString;
+    Qry0200.Open;
+
+    QryC100e.Close;
+    QryC100e.SQL.Clear;
+    QryC100e.SQL.Text := 'SELECT * FROM "REGISTROC100" WHERE "ID_SPED" =' + AID.ToString +
+                         ' AND "IND_OPER" = ''E''';
+    QryC100e.Open;
+
+    QryC170e.Close;
+    QryC170e.SQL.Clear;
+    QryC170e.SQL.Text := 'SELECT * FROM "REGISTROC170" WHERE "ID_SPED" =' + AID.ToString;
+    QryC170e.Open;
+
+    QryC170e.Filter   := 'ID =-99';
+    QryC170e.Filtered := true;
+
+    QryC100s.Close;
+    QryC100s.SQL.Clear;
+    QryC100s.SQL.Text := 'SELECT * FROM "REGISTROC100" WHERE "ID_SPED" =' + AID.ToString +
+                         ' AND "IND_OPER" = ''S''';
+    QryC100s.Open;
+
+    QryC170s.Close;
+    QryC170s.SQL.Clear;
+    QryC170s.SQL.Text := 'SELECT * FROM "REGISTROC170" WHERE "ID_SPED" =' + AID.ToString;
+    QryC170s.Open;
+
+    QryC170s.Filter   := 'ID =-99';
+    QryC170s.Filtered := true;
+
+    QryC400.Close;
+    QryC400.SQL.Clear;
+    QryC400.SQL.Text  := 'SELECT * FROM "REGISTROC400" WHERE "ID_SPED" =' + AID.ToString;
+    QryC400.Open;
+
+    QryC425.Close;
+    QryC425.SQL.Clear;
+    QryC425.SQL.Text  := 'SELECT * FROM "REGISTROC425" WHERE "ID_SPED" =' + AID.ToString;
+    QryC425.Open;
+
+    result := true;
+
+  except
+    raise Exception.Create('Erro ao tentar carregar SPED');
+  end;
 
 end;
 
-function TDMImportacaoSPED.GetResultadoSintetico: String;
+function TDMImportacaoSPED.GetIDRegistro0000(pCodPart , pMes , pAno : String):Integer;
+var
+  vQryReg0000   : TFDQuery;
 begin
-  QryResultadoS.Close;
-  QryResultadoS.ParamByName('ID').AsInteger := Qry0000ID.AsInteger;
-  QryResultadoS.Open;
-  CopyQuery(QryResultadoS.SQL.Text);
-end;
-
-function TDMImportacaoSPED.GetSQLResultadoAnalitico: String;
-begin
-
-end;
-
-function TDMImportacaoSPED.GetSQLResultadoSintetico: String;
-begin
-
+  try
+    vQryReg0000 := ConsultaSQL('SELECT "ID" FROM "REGISTRO0000" WHERE '+
+                               '"CNPJ" = ' + QuotedStr(pCodPart) +
+                               ' AND "MES" = ' + pMes + ' AND "ANO" = ' + pAno,
+                               dmPrincipal.DB);
+    result      := vQryReg0000.FieldByName('ID').AsInteger;
+  finally
+    FreeAndNil(vQryReg0000);
+  end;
 end;
 
 end.
