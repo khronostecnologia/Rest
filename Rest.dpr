@@ -4,7 +4,6 @@ uses
   Vcl.Forms,
   SysUtils,
   uLogin in 'Units\uLogin.pas' {FrmLogin},
-  uEmpresa in 'Units\uEmpresa.pas' {FrmEmpresas},
   uMenu in 'Units\uMenu.pas' {FrmMenu},
   uMensagem in 'Util\uMensagem.pas' {FrmMensagem},
   uSplash in 'Units\uSplash.pas' {FrmSplash},
@@ -19,7 +18,9 @@ uses
   uDMImportacaoSPED in 'Dao\uDMImportacaoSPED.pas' {DMImportacaoSPED: TDataModule},
   uBarraProgresso in 'Util\uBarraProgresso.pas',
   uGenerico in 'Util\uGenerico.pas',
-  uLog in 'Util\uLog.pas';
+  uLog in 'Util\uLog.pas',
+  uApuracaoICMSST in 'Units\uApuracaoICMSST.pas' {FrmApuracao},
+  uDMApuracaoICMSST in 'Dao\uDMApuracaoICMSST.pas' {DmApuracaoICMSST: TDataModule};
 
 {$R *.res}
 

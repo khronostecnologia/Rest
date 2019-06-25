@@ -497,7 +497,7 @@ procedure TFrmImportacaoSPED.cxGridDBTableView3KeyDown(Sender: TObject;
   var Key: Word; Shift: TShiftState);
 begin
   inherited;
- if (Key = VK_UP) or ( key = VK_DOWN) then
+  if (Key = VK_UP) or ( key = VK_DOWN) then
   begin
     if (DMImportacaoSPED.QryC170s.Active) and
        (DMImportacaoSPED.QryC100s.State = (dsBrowse)) then
