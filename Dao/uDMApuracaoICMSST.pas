@@ -26,7 +26,7 @@ implementation
 {$R *.dfm}
 
 
-Uses uDMBase;
+Uses uDMBase,BiblKhronos;
 
 { TDmApuracaoICMSST }
 
@@ -35,7 +35,7 @@ pXML , pSPED : Boolean):Boolean;
   function GetSQL : String;
   begin
     result :=    'SELECT * FROM (';
-    if pXML then
+    if pSPED then
     begin
       result :=  result + #13 +
                  'SELECT  '+
@@ -93,13 +93,12 @@ pXML , pSPED : Boolean):Boolean;
                  ' ORDER BY P."COD_ITEM", P."CODBARRA",P."DESCR_ITEM",NF."DT_E_ES",V."DATA"  ';
     end;
 
-    if pSPED then
+    if pXML then
     begin
-      if pXML then
+      if pSPED then
       result := Result + ' UNION ALL ';
 
-      result := result + 'SELECT * FROM (                                                                      '+
-                         ' SELECT                                                                              '+
+      result := result + ' SELECT                                                                              '+
                          '    NP."COD_ITEM",NP."COD_EAN",NP."DESCR_ITEM",                                      '+
                          '    NF."DT_E_ES" AS "DATA_ENTRADA",                                                  '+
                          '    SUM(COALESCE(NP."QTDE",0)) AS "QTDE_ENTRADA",                                    '+
@@ -120,18 +119,21 @@ pXML , pSPED : Boolean):Boolean;
                          '    WHERE NF."MES" =:MES  AND NF."ANO" = :ANO AND NF."COD_EMP" =:CNPJ                '+
                          '    GROUP BY  NP."COD_ITEM", NP."COD_EAN",NP."DESCR_ITEM",NF."DT_E_ES"               '+
                          '    ORDER BY NP."COD_ITEM", NP."COD_EAN",NP."DESCR_ITEM",NF."DT_E_ES"                ';
+
     end;
 
     result := result + #13 +
-              ') X where X."VL_ICMS_ST_ENT" > 0';
+              ') X ----- where X."VL_ICMS_ST_ENT" > 0';
+    CopyQuery(Result);
   end;
 begin
   with QryAnalise do
   begin
     Close;
+    SQL.Text := GetSQL;
     ParamByName('CNPJ').AsString  := pCodPart;
-    ParamByName('MES').AsString   := pMes;
-    ParamByName('ANO').AsString   := pAno;
+    ParamByName('MES').AsInteger  := pMes.ToInteger;
+    ParamByName('ANO').AsInteger  := pAno.ToInteger;
     Open;
     result := not (IsEmpty);
   end;

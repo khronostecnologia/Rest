@@ -180,17 +180,8 @@ type
     cxGridc400DBTableView1: TcxGridDBTableView;
     cxGridc400Level1: TcxGridLevel;
     cxGridc400: TcxGrid;
-    AdvGroupBox2: TAdvGroupBox;
-    cxGridC425: TcxGrid;
-    cxGridDBTableView7: TcxGridDBTableView;
-    cxGridLevel7: TcxGridLevel;
     cxGridc400DBTableView1DATA: TcxGridDBColumn;
     cxGridc400DBTableView1ECF_FAB: TcxGridDBColumn;
-    cxGridDBTableView7COD_TOT_PAR: TcxGridDBColumn;
-    cxGridDBTableView7COD_ITEM: TcxGridDBColumn;
-    cxGridDBTableView7DESCR_ITEM: TcxGridDBColumn;
-    cxGridDBTableView7QTD: TcxGridDBColumn;
-    cxGridDBTableView7VL_ITEM: TcxGridDBColumn;
     AdvPopupMenu1: TAdvPopupMenu;
     Analtico1: TMenuItem;
     Sinttico1: TMenuItem;
@@ -202,6 +193,25 @@ type
     cxGridDBTableView4Column2: TcxGridDBColumn;
     cxGrid0000DBTableView1Column1Codigo: TcxGridDBColumn;
     AdvMenuStyler1: TAdvMenuStyler;
+    CxPgcC400Itens: TcxPageControl;
+    TbsC425: TcxTabSheet;
+    TbsC470: TcxTabSheet;
+    CxGridC425: TcxGrid;
+    cxGridDBTableView7: TcxGridDBTableView;
+    cxGridDBTableView7COD_TOT_PAR: TcxGridDBColumn;
+    cxGridDBTableView7COD_ITEM: TcxGridDBColumn;
+    cxGridDBTableView7DESCR_ITEM: TcxGridDBColumn;
+    cxGridDBTableView7QTD: TcxGridDBColumn;
+    cxGridDBTableView7VL_ITEM: TcxGridDBColumn;
+    cxGridLevel7: TcxGridLevel;
+    CxGridC470: TcxGrid;
+    cxGridDBTableView6: TcxGridDBTableView;
+    cxGridDBColumn40: TcxGridDBColumn;
+    cxGridDBColumn41: TcxGridDBColumn;
+    cxGridDBColumn42: TcxGridDBColumn;
+    cxGridDBColumn43: TcxGridDBColumn;
+    cxGridLevel6: TcxGridLevel;
+    cxGridDBTableView6Column1: TcxGridDBColumn;
     procedure BtnIniciaImportacaoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -241,6 +251,7 @@ type
     procedure ImportaRegC100;
     procedure ImportaRegC400;
     procedure LimpaTela;
+    procedure MostraAbaC400Itens;
     function  ExcluirArqSPED :Boolean;
     function  ExisteArqSPED(ADT_INI,ADT_FIM,ACNPJCPF : String) : Boolean;
   public
@@ -284,6 +295,7 @@ begin
   DMImportacaoSPED.QryC170.ApplyUpdates(0);
   DMImportacaoSPED.QryC400.ApplyUpdates(0);
   DMImportacaoSPED.QryC425.ApplyUpdates(0);
+  DMImportacaoSPED.QryC470.ApplyUpdates(0);
   FrmMensagem.Informacao('Importação salva com sucesso!');
   BtnNovaImportacacao.Enabled   := true;
   BtnLocalizaImportacao.Enabled := true;
@@ -304,7 +316,7 @@ begin
 
   try
     ImportarSPED;
-
+    MostraAbaC400Itens;
     cxPgcImportacao.ActivePageIndex := 0;
     BtnGravar.Enabled             := true;
     BtnCancelar.Enabled           := true;
@@ -336,6 +348,7 @@ begin
      vAno     := FrmPesquisa.QryPesquisa.FieldByName('ANO').AsString;
      if DMImportacaoSPED.GetSPED(DMImportacaoSPED.GetIDRegistro0000(vCodPart,vMes,vAno)) then
      begin
+       MostraAbaC400Itens;
        BtnIniciaImportacao.Enabled   := false;
        BtnGravar.Enabled             := false;
        BtnCancelar.Enabled           := true;
@@ -382,6 +395,15 @@ begin
                                           DMImportacaoSPED.QryC400ID.AsString;
     DMImportacaoSPED.QryC425.Filtered := true;
   end;
+
+  if (DMImportacaoSPED.QryC400.Active) and
+     (DMImportacaoSPED.QryC400.State = (dsBrowse)) then
+  begin
+    DMImportacaoSPED.QryC470.Filtered := false;
+    DMImportacaoSPED.QryC470.Filter   := ' ID_REDZ = ' +
+                                          DMImportacaoSPED.QryC400ID.AsString;
+    DMImportacaoSPED.QryC470.Filtered := true;
+  end;
 end;
 
 procedure TFrmImportacaoSPED.cxGridc400DBTableView1KeyDown(Sender: TObject;
@@ -404,6 +426,29 @@ begin
       DMImportacaoSPED.QryC425.Filter   := ' ID_REDZ = ' +
                                           DMImportacaoSPED.QryC400ID.AsString;
       DMImportacaoSPED.QryC425.Filtered := true;
+
+      if key = VK_UP then
+        DMImportacaoSPED.QryC400.Next
+      else
+        DMImportacaoSPED.QryC400.Prior;
+
+      DMImportacaoSPED.QryC400.EnableControls;
+    end;
+
+    if (DMImportacaoSPED.QryC400.Active) and
+       (DMImportacaoSPED.QryC400.State = (dsBrowse)) then
+    begin
+      DMImportacaoSPED.QryC400.DisableControls;
+
+      if Key = VK_UP then
+        DMImportacaoSPED.QryC400.Prior
+      else
+        DMImportacaoSPED.QryC400.Next;
+
+      DMImportacaoSPED.QryC470.Filtered := false;
+      DMImportacaoSPED.QryC470.Filter   := ' ID_REDZ = ' +
+                                          DMImportacaoSPED.QryC400ID.AsString;
+      DMImportacaoSPED.QryC470.Filtered := true;
 
       if key = VK_UP then
         DMImportacaoSPED.QryC400.Next
@@ -552,9 +597,11 @@ function TFrmImportacaoSPED.ExcluirArqSPED : Boolean;
               DMImportacaoSPED.Qry0000ID.AsString;
   end;
 
-  function GetDeleteSQLC400C425 : String;
+  function GetDeleteSQLC400C425C470 : String;
   begin
-    result := 'DELETE FROM "REGISTROC425" WHERE "ID_SPED" = ' +
+    result := 'DELETE FROM "REGISTROC470" WHERE "ID_SPED" = ' +
+              DMImportacaoSPED.Qry0000ID.AsString + ';' +
+              'DELETE FROM "REGISTROC425" WHERE "ID_SPED" = ' +
               DMImportacaoSPED.Qry0000ID.AsString + ';' +
               'DELETE FROM "REGISTROC400" WHERE "ID_SPED" = ' +
               DMImportacaoSPED.Qry0000ID.AsString;
@@ -566,7 +613,7 @@ begin
     dmPrincipal.DB.StartTransaction;
     dmPrincipal.DB.ExecSQL(GetDeleteSQL0200);
     dmPrincipal.DB.ExecSQL(GetDeleteSQLC100C170);
-    dmPrincipal.DB.ExecSQL(GetDeleteSQLC400C425);
+    dmPrincipal.DB.ExecSQL(GetDeleteSQLC400C425C470);
     dmPrincipal.DB.ExecSQL(GetDeleteSQL0000);
     dmPrincipal.DB.Commit;
   except
@@ -985,8 +1032,10 @@ var
   M             : Integer;
   vIDC400       : Integer;
   vIDC425       : Integer;
+  vIDC470       : Integer;
   vGerouIDC400  : Boolean;
   vGerouIDC425  : Boolean;
+  vGerouIDC470  : Boolean;
   vTot          : String;
   vAbriuC400    : Boolean;
   vEncontrouF1  : Boolean;
@@ -1045,39 +1094,112 @@ begin
 
             vEncontrouF1 := true;
 
-            for M := 0 to Pred(ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC400.
-                          Items[i].RegistroC405.Items[k].RegistroC420.Items[L].
-                          RegistroC425.Count) do
+            if ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC400.
+               Items[i].RegistroC405.Items[k].RegistroC420.Items[L].
+               RegistroC425.Count  > 0 then
             begin
-              if not vGerouIDC425 then
+
+              for M := 0 to Pred(ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC400.
+                            Items[i].RegistroC405.Items[k].RegistroC420.Items[L].
+                            RegistroC425.Count) do
               begin
-                vIDC425       := GetID('"REGISTROC425"',dmPrincipal.DB);
-                vGerouIDC425  := true;
+                if not vGerouIDC425 then
+                begin
+                  vIDC425       := GetID('"REGISTROC425"',dmPrincipal.DB);
+                  vGerouIDC425  := true;
+                end;
+
+                QryC425.Insert;
+                vIDC425                      := vIDC425 + 1;
+                QryC425ID.AsInteger          := vIDC425;
+                QryC425ID_SPED.AsInteger     := Qry0000ID.AsInteger;
+                QryC425ID_REDZ.AsInteger     := QryC400ID.AsInteger;
+
+                QryC425COD_TOT_PAR.AsString  := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC400.
+                                                Items[i].RegistroC405.Items[k].RegistroC420.Items[L].COD_TOT_PAR;
+
+                QryC425COD_ITEM.AsString     := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC400.
+                                                Items[i].RegistroC405.Items[k].RegistroC420.Items[L].
+                                                RegistroC425.Items[M].COD_ITEM;
+
+                QryC425DESCR_ITEM.AsString   := DMImportacaoSPED.GetProduto(QryC425COD_ITEM.AsString);
+
+                QryC425QTD.AsFloat           := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC400.
+                                                Items[i].RegistroC405.Items[k].RegistroC420.Items[L].
+                                                RegistroC425.Items[M].QTD;
+
+                QryC425VL_ITEM.AsFloat       := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC400.
+                                                Items[i].RegistroC405.Items[k].RegistroC420.Items[L].
+                                                RegistroC425.Items[M].VL_ITEM;
+                QryC425.Post;
               end;
+            end;
 
-              QryC425.Insert;
-              vIDC425                      := vIDC425 + 1;
-              QryC425ID.AsInteger          := vIDC425;
-              QryC425ID_SPED.AsInteger     := Qry0000ID.AsInteger;
-              QryC425ID_REDZ.AsInteger     := QryC400ID.AsInteger;
+            if ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC400.
+            Items[i].RegistroC405.Items[K].RegistroC460.Items[L].RegistroC470.Count  > 0 then
+            begin
 
-              QryC425COD_TOT_PAR.AsString  := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC400.
-                                              Items[i].RegistroC405.Items[k].RegistroC420.Items[L].COD_TOT_PAR;
+              for M := 0 to Pred(ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC400.
+                            Items[i].RegistroC405.Items[k].RegistroC460.Items[L].
+                            RegistroC470.Count) do
+              begin
+                if not vGerouIDC470 then
+                begin
+                  vIDC470       := GetID('"REGISTROC470"',dmPrincipal.DB);
+                  vGerouIDC470  := true;
+                end;
 
-              QryC425COD_ITEM.AsString     := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC400.
-                                              Items[i].RegistroC405.Items[k].RegistroC420.Items[L].
-                                              RegistroC425.Items[M].COD_ITEM;
+                QryC470.Insert;
+                vIDC470                      := vIDC470 + 1;
+                QryC470ID.AsInteger          := vIDC470;
+                QryC470ID_SPED.AsInteger     := Qry0000ID.AsInteger;
+                QryC470ID_REDZ.AsInteger     := QryC400ID.AsInteger;
 
-              QryC425DESCR_ITEM.AsString   := DMImportacaoSPED.GetProduto(QryC425COD_ITEM.AsString);
+                QryC470COD_ITEM.AsString     := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC400.
+                                                Items[i].RegistroC405.Items[k].RegistroC460.Items[L].
+                                                RegistroC470.Items[M].COD_ITEM;
 
-              QryC425QTD.AsFloat           := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC400.
-                                              Items[i].RegistroC405.Items[k].RegistroC420.Items[L].
-                                              RegistroC425.Items[M].QTD;
+                QryC470DESCR_ITEM.AsString   := DMImportacaoSPED.GetProduto(QryC470COD_ITEM.AsString);
 
-              QryC425VL_ITEM.AsFloat       := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC400.
-                                              Items[i].RegistroC405.Items[k].RegistroC420.Items[L].
-                                              RegistroC425.Items[M].VL_ITEM;
-              QryC425.Post;
+                QryC470QTD.AsFloat           := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC400.
+                                                Items[i].RegistroC405.Items[k].RegistroC460.Items[L].
+                                                RegistroC470.Items[M].QTD;
+
+                QryC470QTD_CANC.AsFloat      := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC400.
+                                                Items[i].RegistroC405.Items[k].RegistroC460.Items[L].
+                                                RegistroC470.Items[M].QTD_CANC;
+
+                QryC470UNID.AsString         := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC400.
+                                                Items[i].RegistroC405.Items[k].RegistroC460.Items[L].
+                                                RegistroC470.Items[M].UNID;
+
+                QryC470VL_ITEM.AsFloat       := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC400.
+                                                Items[i].RegistroC405.Items[k].RegistroC460.Items[L].
+                                                RegistroC470.Items[M].VL_ITEM;
+
+                QryC470CST_ICMS.AsString     := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC400.
+                                                Items[i].RegistroC405.Items[k].RegistroC460.Items[L].
+                                                RegistroC470.Items[M].CST_ICMS;
+
+                QryC470CFOP.AsString         := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC400.
+                                                Items[i].RegistroC405.Items[k].RegistroC460.Items[L].
+                                                RegistroC470.Items[M].CFOP;
+
+                QryC470ALIQ_ICMS.AsFloat     := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC400.
+                                                Items[i].RegistroC405.Items[k].RegistroC460.Items[L].
+                                                RegistroC470.Items[M].ALIQ_ICMS;
+
+                QryC470VL_PIS.AsFloat        := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC400.
+                                                Items[i].RegistroC405.Items[k].RegistroC460.Items[L].
+                                                RegistroC470.Items[M].VL_PIS;
+
+
+                QryC470VL_COFINS.AsFloat     := ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC400.
+                                                Items[i].RegistroC405.Items[k].RegistroC460.Items[L].
+                                                RegistroC470.Items[M].VL_COFINS;
+
+                QryC470.Post;
+              end;
             end;
           end;
           if (vAbriuC400) and (not vEncontrouF1) then //somente mantem reducao de F1
@@ -1173,6 +1295,12 @@ begin
       QryC425.Close;
     end;
   end;
+end;
+
+procedure TFrmImportacaoSPED.MostraAbaC400Itens;
+begin
+  TbsC425.TabVisible := (DMImportacaoSPED.QryC425.RecordCount > 0);
+  TbsC470.TabVisible := (DMImportacaoSPED.QryC470.RecordCount > 0);
 end;
 
 end.

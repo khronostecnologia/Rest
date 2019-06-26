@@ -601,6 +601,7 @@ inherited FrmApuracao: TFrmApuracao
             Width = 43
             Height = 19
             TabOrder = 0
+            OnClick = ChkXMLClick
             Alignment = taLeftJustify
             Caption = 'XML'
             ReturnIsTab = False
@@ -614,6 +615,7 @@ inherited FrmApuracao: TFrmApuracao
             Height = 19
             Checked = True
             TabOrder = 1
+            OnClick = ChkSPEDClick
             Alignment = taLeftJustify
             Caption = 'SPED'
             ReturnIsTab = False
@@ -1062,7 +1064,7 @@ inherited FrmApuracao: TFrmApuracao
             ParentBackground = False
             ParentColor = False
             TabOrder = 0
-            Properties.ActivePage = TbsC100S
+            Properties.ActivePage = TbsC400
             Properties.CustomButtons.Buttons = <>
             Properties.CustomButtons.Mode = cbmEveryTab
             Properties.DragImage.Data = {
@@ -1779,7 +1781,9 @@ inherited FrmApuracao: TFrmApuracao
                 Align = alTop
                 TabOrder = 0
                 object cxGridc400DBTableView1: TcxGridDBTableView
+                  OnKeyDown = cxGridc400DBTableView1KeyDown
                   Navigator.Buttons.CustomButtons = <>
+                  OnCellClick = cxGridc400DBTableView1CellClick
                   DataController.DataSource = DMImportacaoSPED.DsC400
                   DataController.Summary.DefaultGroupSummaryItems = <>
                   DataController.Summary.FooterSummaryItems = <>
@@ -1804,61 +1808,129 @@ inherited FrmApuracao: TFrmApuracao
                   GridView = cxGridc400DBTableView1
                 end
               end
-              object AdvGroupBox2: TAdvGroupBox
+              object CxPgcC400Itens: TcxPageControl
                 Left = 0
                 Top = 113
                 Width = 812
                 Height = 117
                 Align = alClient
-                Caption = '   Itens da redu'#231#227'o Z (Registro C425)     '
                 TabOrder = 1
-                object cxGridC425: TcxGrid
-                  Left = 2
-                  Top = 16
-                  Width = 808
-                  Height = 113
-                  Align = alTop
-                  TabOrder = 0
-                  object cxGridDBTableView7: TcxGridDBTableView
-                    Navigator.Buttons.CustomButtons = <>
-                    DataController.DataSource = DMImportacaoSPED.DsC425
-                    DataController.Summary.DefaultGroupSummaryItems = <>
-                    DataController.Summary.FooterSummaryItems = <>
-                    DataController.Summary.SummaryGroups = <>
-                    OptionsView.GroupByBox = False
-                    object cxGridDBTableView7COD_TOT_PAR: TcxGridDBColumn
-                      Caption = 'Totalizadores'
-                      DataBinding.FieldName = 'COD_TOT_PAR'
-                      Options.Editing = False
-                      Width = 100
+                Properties.ActivePage = TbsC425
+                Properties.CustomButtons.Buttons = <>
+                ExplicitTop = 111
+                ExplicitWidth = 831
+                ExplicitHeight = 81
+                ClientRectBottom = 113
+                ClientRectLeft = 4
+                ClientRectRight = 808
+                ClientRectTop = 24
+                object TbsC425: TcxTabSheet
+                  Caption = 'Itens da redu'#231#227'o Z (C425)'
+                  ImageIndex = 0
+                  ExplicitWidth = 823
+                  ExplicitHeight = 53
+                  object CxGridC425: TcxGrid
+                    Left = 0
+                    Top = 0
+                    Width = 804
+                    Height = 113
+                    Align = alTop
+                    TabOrder = 0
+                    ExplicitWidth = 823
+                    object cxGridDBTableView7: TcxGridDBTableView
+                      Navigator.Buttons.CustomButtons = <>
+                      DataController.DataSource = DMImportacaoSPED.DsC425
+                      DataController.Summary.DefaultGroupSummaryItems = <>
+                      DataController.Summary.FooterSummaryItems = <>
+                      DataController.Summary.SummaryGroups = <>
+                      OptionsView.GroupByBox = False
+                      object cxGridDBTableView7COD_TOT_PAR: TcxGridDBColumn
+                        Caption = 'Totalizadores'
+                        DataBinding.FieldName = 'COD_TOT_PAR'
+                        Options.Editing = False
+                        Width = 100
+                      end
+                      object cxGridDBTableView7COD_ITEM: TcxGridDBColumn
+                        Caption = 'C'#243'd.Item'
+                        DataBinding.FieldName = 'COD_ITEM'
+                        Options.Editing = False
+                        Width = 150
+                      end
+                      object cxGridDBTableView7DESCR_ITEM: TcxGridDBColumn
+                        Caption = 'Descri'#231#227'o item'
+                        DataBinding.FieldName = 'DESCR_ITEM'
+                        Options.Editing = False
+                        Width = 250
+                      end
+                      object cxGridDBTableView7QTD: TcxGridDBColumn
+                        Caption = 'Qtde'
+                        DataBinding.FieldName = 'QTD'
+                        Options.Editing = False
+                        Width = 90
+                      end
+                      object cxGridDBTableView7VL_ITEM: TcxGridDBColumn
+                        Caption = 'Total item'
+                        DataBinding.FieldName = 'VL_ITEM'
+                        Options.Editing = False
+                        Width = 130
+                      end
                     end
-                    object cxGridDBTableView7COD_ITEM: TcxGridDBColumn
-                      Caption = 'C'#243'd.Item'
-                      DataBinding.FieldName = 'COD_ITEM'
-                      Options.Editing = False
-                      Width = 150
-                    end
-                    object cxGridDBTableView7DESCR_ITEM: TcxGridDBColumn
-                      Caption = 'Descri'#231#227'o item'
-                      DataBinding.FieldName = 'DESCR_ITEM'
-                      Options.Editing = False
-                      Width = 250
-                    end
-                    object cxGridDBTableView7QTD: TcxGridDBColumn
-                      Caption = 'Qtde'
-                      DataBinding.FieldName = 'QTD'
-                      Options.Editing = False
-                      Width = 90
-                    end
-                    object cxGridDBTableView7VL_ITEM: TcxGridDBColumn
-                      Caption = 'Total item'
-                      DataBinding.FieldName = 'VL_ITEM'
-                      Options.Editing = False
-                      Width = 130
+                    object cxGridLevel8: TcxGridLevel
+                      GridView = cxGridDBTableView7
                     end
                   end
-                  object cxGridLevel8: TcxGridLevel
-                    GridView = cxGridDBTableView7
+                end
+                object TbsC470: TcxTabSheet
+                  Caption = 'Itens da redu'#231#227'o Z (C470)'
+                  ImageIndex = 1
+                  object CxGridC470: TcxGrid
+                    Left = 0
+                    Top = 0
+                    Width = 804
+                    Height = 113
+                    Align = alTop
+                    TabOrder = 0
+                    object cxGridDBTableView8: TcxGridDBTableView
+                      Navigator.Buttons.CustomButtons = <>
+                      DataController.DataSource = DMImportacaoSPED.DsC470
+                      DataController.Summary.DefaultGroupSummaryItems = <>
+                      DataController.Summary.FooterSummaryItems = <>
+                      DataController.Summary.SummaryGroups = <>
+                      OptionsView.GroupByBox = False
+                      object cxGridDBTableView6Column1: TcxGridDBColumn
+                        Caption = 'CST'
+                        DataBinding.FieldName = 'CST_ICMS'
+                        Options.Editing = False
+                        Width = 100
+                      end
+                      object cxGridDBColumn40: TcxGridDBColumn
+                        Caption = 'C'#243'd.Item'
+                        DataBinding.FieldName = 'COD_ITEM'
+                        Options.Editing = False
+                        Width = 150
+                      end
+                      object cxGridDBColumn41: TcxGridDBColumn
+                        Caption = 'Descri'#231#227'o item'
+                        DataBinding.FieldName = 'DESCR_ITEM'
+                        Options.Editing = False
+                        Width = 250
+                      end
+                      object cxGridDBColumn42: TcxGridDBColumn
+                        Caption = 'Qtde'
+                        DataBinding.FieldName = 'QTD'
+                        Options.Editing = False
+                        Width = 90
+                      end
+                      object cxGridDBColumn43: TcxGridDBColumn
+                        Caption = 'Total item'
+                        DataBinding.FieldName = 'VL_ITEM'
+                        Options.Editing = False
+                        Width = 130
+                      end
+                    end
+                    object cxGridLevel9: TcxGridLevel
+                      GridView = cxGridDBTableView8
+                    end
                   end
                 end
               end
@@ -1885,6 +1957,7 @@ inherited FrmApuracao: TFrmApuracao
               TabOrder = 0
               object cxGridTotalizadorSinteticoDBTableView1: TcxGridDBTableView
                 Navigator.Buttons.CustomButtons = <>
+                DataController.DataSource = DmApuracaoICMSST.DsAnalise
                 DataController.Summary.DefaultGroupSummaryItems = <>
                 DataController.Summary.FooterSummaryItems = <>
                 DataController.Summary.SummaryGroups = <>

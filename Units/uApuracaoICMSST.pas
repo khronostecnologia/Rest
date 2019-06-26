@@ -229,15 +229,6 @@ type
     cxGridc400DBTableView1DATA: TcxGridDBColumn;
     cxGridc400DBTableView1ECF_FAB: TcxGridDBColumn;
     cxGridc400Level1: TcxGridLevel;
-    AdvGroupBox2: TAdvGroupBox;
-    cxGridC425: TcxGrid;
-    cxGridDBTableView7: TcxGridDBTableView;
-    cxGridDBTableView7COD_TOT_PAR: TcxGridDBColumn;
-    cxGridDBTableView7COD_ITEM: TcxGridDBColumn;
-    cxGridDBTableView7DESCR_ITEM: TcxGridDBColumn;
-    cxGridDBTableView7QTD: TcxGridDBColumn;
-    cxGridDBTableView7VL_ITEM: TcxGridDBColumn;
-    cxGridLevel8: TcxGridLevel;
     cxTabSheet1: TcxTabSheet;
     GpbResultEntrada: TAdvGroupBox;
     cxGridTotalizadorSintetico: TcxGrid;
@@ -271,6 +262,25 @@ type
     AdvGroupBox1: TAdvGroupBox;
     ChkXML: TAdvOfficeCheckBox;
     ChkSPED: TAdvOfficeCheckBox;
+    CxPgcC400Itens: TcxPageControl;
+    TbsC425: TcxTabSheet;
+    CxGridC425: TcxGrid;
+    cxGridDBTableView7: TcxGridDBTableView;
+    cxGridDBTableView7COD_TOT_PAR: TcxGridDBColumn;
+    cxGridDBTableView7COD_ITEM: TcxGridDBColumn;
+    cxGridDBTableView7DESCR_ITEM: TcxGridDBColumn;
+    cxGridDBTableView7QTD: TcxGridDBColumn;
+    cxGridDBTableView7VL_ITEM: TcxGridDBColumn;
+    cxGridLevel8: TcxGridLevel;
+    TbsC470: TcxTabSheet;
+    CxGridC470: TcxGrid;
+    cxGridDBTableView8: TcxGridDBTableView;
+    cxGridDBTableView6Column1: TcxGridDBColumn;
+    cxGridDBColumn40: TcxGridDBColumn;
+    cxGridDBColumn41: TcxGridDBColumn;
+    cxGridDBColumn42: TcxGridDBColumn;
+    cxGridDBColumn43: TcxGridDBColumn;
+    cxGridLevel9: TcxGridLevel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure BtnSairClick(Sender: TObject);
     procedure BtnBuscaClienteClick(Sender: TObject);
@@ -295,12 +305,20 @@ type
       AShift: TShiftState; var AHandled: Boolean);
     procedure cxGridDBTableView3KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure ChkXMLClick(Sender: TObject);
+    procedure ChkSPEDClick(Sender: TObject);
+    procedure cxGridc400DBTableView1CellClick(Sender: TcxCustomGridTableView;
+      ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
+      AShift: TShiftState; var AHandled: Boolean);
+    procedure cxGridc400DBTableView1KeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     { Private declarations }
     DMSped : TDMImportacaoSPED;
     DMXML  : TDMImportacaoXML;
     DM     : TDmApuracaoICMSST;
     procedure LimpaTela;
+    procedure MostraAba;
   public
     { Public declarations }
   end;
@@ -336,6 +354,7 @@ procedure TFrmApuracao.BtnCancelarClick(Sender: TObject);
 begin
   inherited;
   LimpaTela;
+  MostraAba;
 end;
 
 procedure TFrmApuracao.BtnIniciaApuracaoClick(Sender: TObject);
@@ -435,6 +454,92 @@ procedure TFrmApuracao.BtnSairClick(Sender: TObject);
 begin
   inherited;
   close;
+end;
+
+procedure TFrmApuracao.ChkSPEDClick(Sender: TObject);
+begin
+  inherited;
+  MostraAba;
+end;
+
+procedure TFrmApuracao.ChkXMLClick(Sender: TObject);
+begin
+  inherited;
+  MostraAba;
+end;
+
+procedure TFrmApuracao.cxGridc400DBTableView1CellClick(
+  Sender: TcxCustomGridTableView; ACellViewInfo: TcxGridTableDataCellViewInfo;
+  AButton: TMouseButton; AShift: TShiftState; var AHandled: Boolean);
+begin
+  inherited;
+  if (DMSped.QryC400.Active) and
+     (DMSped.QryC400.State = (dsBrowse)) then
+  begin
+    DMSped.QryC425.Filtered := false;
+    DMSped.QryC425.Filter   := ' ID_REDZ = ' + DMSped.QryC400ID.AsString;
+    DMSped.QryC425.Filtered := true;
+  end;
+
+  if (DMSped.QryC400.Active) and
+     (DMSped.QryC400.State = (dsBrowse)) then
+  begin
+    DMSped.QryC470.Filtered := false;
+    DMSped.QryC470.Filter   := ' ID_REDZ = ' + DMSped.QryC400ID.AsString;
+    DMSped.QryC470.Filtered := true;
+  end;
+end;
+
+procedure TFrmApuracao.cxGridc400DBTableView1KeyDown(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  inherited;
+  if (Key = VK_UP) or ( key = VK_DOWN) then
+  begin
+    if (DMSped.QryC400.Active) and
+       (DMSped.QryC400.State = (dsBrowse)) then
+    begin
+      DMSped.QryC400.DisableControls;
+
+      if Key = VK_UP then
+        DMSped.QryC400.Prior
+      else
+        DMSped.QryC400.Next;
+
+      DMSped.QryC425.Filtered := false;
+      DMSped.QryC425.Filter   := ' ID_REDZ = ' + DMSped.QryC400ID.AsString;
+      DMSped.QryC425.Filtered := true;
+
+      if key = VK_UP then
+        DMSped.QryC400.Next
+      else
+        DMSped.QryC400.Prior;
+
+      DMSped.QryC400.EnableControls;
+    end;
+
+    if (DMSped.QryC400.Active) and
+       (DMSped.QryC400.State = (dsBrowse)) then
+    begin
+      DMSped.QryC400.DisableControls;
+
+      if Key = VK_UP then
+        DMSped.QryC400.Prior
+      else
+        DMSped.QryC400.Next;
+
+      DMSped.QryC470.Filtered := false;
+      DMSped.QryC470.Filter   := ' ID_REDZ = ' + DMSped.QryC400ID.AsString;
+      DMSped.QryC470.Filtered := true;
+
+      if key = VK_UP then
+        DMSped.QryC400.Next
+      else
+        DMSped.QryC400.Prior;
+
+      DMSped.QryC400.EnableControls;
+    end;
+  end;
 end;
 
 procedure TFrmApuracao.cxGridDBTableView2CellClick(
@@ -594,24 +699,23 @@ end;
 procedure TFrmApuracao.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   inherited;
-  FreeAndNil(DMXML);
-  FreeAndNil(DMSped);
-  FreeAndNil(DM);
   FreeAndNil(FrmApuracao);
 end;
 
 procedure TFrmApuracao.FormCreate(Sender: TObject);
 begin
   inherited;
-  CxPgcGeral.ActivePageIndex   := 0;
-  DM                           := TDmApuracaoICMSST.Create(nil);
-  DMSped                       := TDMImportacaoSPED.Create(nil);
-  DMXML                        := TDMImportacaoXML.Create(nil);
+  CxPgcGeral.ActivePageIndex       := 0;
+  cxPgcImportacao.ActivePageIndex  := 0;
+  DM                               := TDmApuracaoICMSST.Create(Self);
+  DMSped                           := TDMImportacaoSPED.Create(Self);
+  DMXML                            := TDMImportacaoXML.Create(Self);
 end;
 
 procedure TFrmApuracao.FormShow(Sender: TObject);
 begin
   inherited;
+  MostraAba;
   SetaFoco(EdtCodPart);
 end;
 
@@ -638,7 +742,20 @@ begin
     QryItensNF.Close;
   end;
 
+  With DM do
+  begin
+    QryAnalise.Close;
+  end;
+
   SetaFoco(EdtCodPart);
+end;
+
+procedure TFrmApuracao.MostraAba;
+begin
+  TbsXML.TabVisible  :=  ChkXML.Checked;
+  TbsSped.TabVisible :=  ChkSPED.Checked;
+  TbsC425.TabVisible := (DMSped.QryC425.RecordCount > 0);
+  TbsC470.TabVisible := (DMSped.QryC470.RecordCount > 0);
 end;
 
 end.

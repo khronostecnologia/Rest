@@ -1,7 +1,7 @@
 object DMImportacaoSPED: TDMImportacaoSPED
   OldCreateOrder = False
-  Height = 366
-  Width = 298
+  Height = 348
+  Width = 388
   object Qry0000: TFDQuery
     CachedUpdates = True
     Connection = DMBase.DB
@@ -181,12 +181,12 @@ object DMImportacaoSPED: TDMImportacaoSPED
   end
   object DsC400: TDataSource
     DataSet = QryC400
-    Left = 160
+    Left = 224
     Top = 286
   end
   object DsC425: TDataSource
     DataSet = QryC425
-    Left = 224
+    Left = 280
     Top = 286
   end
   object QryC100e: TFDQuery
@@ -778,5 +778,65 @@ object DMImportacaoSPED: TDMImportacaoSPED
       FieldName = 'DESCR_ITEM'
       Size = 50
     end
+  end
+  object QryC470: TFDQuery
+    CachedUpdates = True
+    Connection = DMBase.DB
+    SQL.Strings = (
+      'SELECT * FROM "REGISTROC400"')
+    Left = 160
+    Top = 286
+    object QryC470ID: TIntegerField
+      FieldName = 'ID'
+    end
+    object QryC470ID_SPED: TIntegerField
+      FieldName = 'ID_SPED'
+    end
+    object QryC470ID_REDZ: TIntegerField
+      FieldName = 'ID_REDZ'
+    end
+    object QryC470COD_ITEM: TStringField
+      FieldName = 'COD_ITEM'
+      Size = 30
+    end
+    object QryC470DESCR_ITEM: TStringField
+      FieldName = 'DESCR_ITEM'
+      Size = 100
+    end
+    object QryC470QTD: TFloatField
+      FieldName = 'QTD'
+    end
+    object QryC470QTD_CANC: TFloatField
+      FieldName = 'QTD_CANC'
+    end
+    object QryC470UNID: TStringField
+      FieldName = 'UNID'
+      Size = 6
+    end
+    object QryC470VL_ITEM: TFloatField
+      FieldName = 'VL_ITEM'
+    end
+    object QryC470CST_ICMS: TStringField
+      FieldName = 'CST_ICMS'
+      Size = 3
+    end
+    object QryC470CFOP: TStringField
+      FieldName = 'CFOP'
+      Size = 4
+    end
+    object QryC470ALIQ_ICMS: TFloatField
+      FieldName = 'ALIQ_ICMS'
+    end
+    object QryC470VL_PIS: TFloatField
+      FieldName = 'VL_PIS'
+    end
+    object QryC470VL_COFINS: TFloatField
+      FieldName = 'VL_COFINS'
+    end
+  end
+  object DsC470: TDataSource
+    DataSet = QryC470
+    Left = 328
+    Top = 286
   end
 end

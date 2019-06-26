@@ -204,6 +204,22 @@ type
     Qry0200ID_SPED: TIntegerField;
     Qry0000MES: TIntegerField;
     Qry0000ANO: TIntegerField;
+    QryC470: TFDQuery;
+    DsC470: TDataSource;
+    QryC470ID: TIntegerField;
+    QryC470ID_SPED: TIntegerField;
+    QryC470ID_REDZ: TIntegerField;
+    QryC470COD_ITEM: TStringField;
+    QryC470DESCR_ITEM: TStringField;
+    QryC470QTD: TFloatField;
+    QryC470QTD_CANC: TFloatField;
+    QryC470UNID: TStringField;
+    QryC470VL_ITEM: TFloatField;
+    QryC470CST_ICMS: TStringField;
+    QryC470CFOP: TStringField;
+    QryC470ALIQ_ICMS: TFloatField;
+    QryC470VL_PIS: TFloatField;
+    QryC470VL_COFINS: TFloatField;
   private
     { Private declarations }
   public
@@ -282,6 +298,11 @@ begin
     QryC425.SQL.Clear;
     QryC425.SQL.Text  := 'SELECT * FROM "REGISTROC425" WHERE "ID_SPED" =' + AID.ToString;
     QryC425.Open;
+
+    QryC470.Close;
+    QryC470.SQL.Clear;
+    QryC470.SQL.Text  := 'SELECT * FROM "REGISTROC470" WHERE "ID_SPED" =' + AID.ToString;
+    QryC470.Open;
 
     result := true;
 

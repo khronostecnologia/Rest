@@ -1,0 +1,23 @@
+CREATE TABLE "REGISTROC470"
+              (                                                      
+                  "ID" Integer NOT NULL,                             
+                  "ID_SPED" Integer,                                 
+                  "ID_REDZ" Integer,                                              
+                  "COD_ITEM" character varying(30),                  
+                  "DESCR_ITEM" character varying(100),               
+                  "QTD" decimal(15,2), 
+				  "QTD_CANC" decimal(15,2),
+				  "UNID" character varying(6),                  
+                  "VL_ITEM" decimal(15,2),                           
+				  "CST_ICMS" character varying(6), 
+				  "CFOP" character varying(4), 
+				  "ALIQ_ICMS" decimal(15,2),
+				  "VL_PIS" decimal(15,2),
+				  "VL_COFINS" decimal(15,2),				  
+                  PRIMARY KEY ("ID")                                 
+              )                                                      
+              WITH (                                                 
+                  OIDS = FALSE                                       
+              );                                                     
+ALTER TABLE "REGISTROC470" OWNER to postgres;
+CREATE INDEX "IDX1_C470" ON "REGISTROC470" USING HASH ("ID_SPED");
