@@ -243,7 +243,6 @@ type
     procedure BtnExcluirClick(Sender: TObject);
   private
     { Private declarations }
-    DMImportacaoSPED  : TDMImportacaoSPED;
     FCNPJ             : String;
     procedure ImportarSPED;
     procedure ImportaReg0000;
@@ -1062,6 +1061,11 @@ begin
       QryC425.SQL.Text  := 'SELECT * FROM "REGISTROC425" WHERE "ID" = -1';
       QryC425.Open;
 
+      QryC470.Close;
+      QryC470.SQL.Clear;
+      QryC470.SQL.Text  := 'SELECT * FROM "REGISTROC470" WHERE "ID" = -1';
+      QryC470.Open;
+
       for I := 0 to j do {C400 pega o numero de serie da ECF}
       begin
         for K := 0 to Pred(ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC400.Items[i].RegistroC405.Count) do
@@ -1299,8 +1303,8 @@ end;
 
 procedure TFrmImportacaoSPED.MostraAbaC400Itens;
 begin
-  TbsC425.TabVisible := (DMImportacaoSPED.QryC425.RecordCount > 0);
+  (*TbsC425.TabVisible := (DMImportacaoSPED.QryC425.RecordCount > 0);
   TbsC470.TabVisible := (DMImportacaoSPED.QryC470.RecordCount > 0);
+  Application.ProcessMessages;*)
 end;
-
 end.

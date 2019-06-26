@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<TfrxReport Version="5.3.16" DotMatrixReport="False" IniFile="\Software\Fast Reports" PreviewOptions.Buttons="4095" PreviewOptions.Zoom="1" PrintOptions.Printer="Padrão" PrintOptions.PrintOnSheet="0" ReportOptions.CreateDate="42625,6392023032" ReportOptions.Description.Text="" ReportOptions.LastChange="43642,1067585532" ScriptLanguage="PascalScript" ScriptText.Text="procedure PageHeader1OnBeforePrint(Sender: TfrxComponent);&#13;&#10;begin&#13;&#10;                                                                  &#13;&#10;           &#13;&#10;End;&#13;&#10;&#13;&#10;begin&#13;&#10;&#13;&#10;end.">
+  <Datasets>
+    <item DataSet="frxDBConsulta" DataSetName="frxDBConsulta"/>
+    <item DataSet="frxDBEmpresa" DataSetName="frxDBEmpresa"/>
+  </Datasets>
+  <Variables>
+    <item Name=" variavel"/>
+    <item Name="datavenda" Value="Data pedido: 23/08/2018"/>
+    <item Name="cliente" Value="Nome do cliente: ABADIA JOSE DE OLIVEIRA"/>
+    <item Name="prazo" Value="Forma Pagto: BOLETO 20/40"/>
+    <item Name="vendedor" Value="Vendedor: ANA CAROLINA VEND"/>
+    <item Name="empresa" Value="KHRONOS TECNOLOGIA&#13;CNPJ: 08507404000188&#13;AVENIDA AYRTON SENNA DO BRASIL Bairro: ROSARIO&#13;Telefone: 32411612"/>
+    <item Name="numero" Value="Numero: 18368"/>
+    <item Name="total" Value="Total ($) : 148,00"/>
+    <item Name="obs" Value="Observação : ***************"/>
+    <item Name="tipo" Value="ORÇAMENTO"/>
+    <item Name="endereco" Value="Endereco: RUA JOHEN CARNEIRO  , CENTRO, n: 11 , Araguari - MG"/>
+    <item Name="parcelas" Value="Parcela(s) - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - &#13; Dat.Vencto: 12/09/2018 - Valor Parc: 74,00&#13; Dat.Vencto: 02/10/2018 - Valor Parc: 74,00&#13;"/>
+  </Variables>
+  <TfrxDataPage Name="Data" Height="1000" Left="0" Top="0" Width="1000"/>
+  <TfrxReportPage Name="Page1" Orientation="poLandscape" PaperWidth="297" PaperHeight="210" PaperSize="9" LeftMargin="10" RightMargin="10" TopMargin="10" BottomMargin="10" ColumnWidth="0" ColumnPositions.Text="" HGuides.Text="" VGuides.Text="">
+    <TfrxPageHeader Name="PageHeader1" FillType="ftBrush" FillGap.Top="0" FillGap.Left="0" FillGap.Bottom="0" FillGap.Right="0" Height="3,77953" Left="0" Top="128,50402" Width="1046,92981" OnBeforePrint="PageHeader1OnBeforePrint"/>
+    <TfrxMasterData Name="MasterData1" FillType="ftBrush" FillGap.Top="0" FillGap.Left="0" FillGap.Bottom="0" FillGap.Right="0" Height="22,67718" Left="0" Top="257,00804" Width="1046,92981" ColumnWidth="0" ColumnGap="0" DataSet="frxDBConsulta" DataSetName="frxDBConsulta" RowCount="0">
+      <TfrxMemoView Name="frxConsultaRelCondicionalCODIGO_EAN" Left="7,93700787" Top="3,55905999999999" Width="79,3700787401575" Height="15,11812" DataField="DATA_ENTRADA" DataSet="frxDBConsulta" DataSetName="frxDBConsulta" Text="[frxDBConsulta.&#34;DATA_ENTRADA&#34;]"/>
+      <TfrxMemoView Name="frxConsultaRelCondicionalNOME_PRODUTO" Left="94,11023622" Top="4" Width="60,47243118" Height="15,11812" DataField="QTDE_ENTRADA" DataSet="frxDBConsulta" DataSetName="frxDBConsulta" Text="[frxDBConsulta.&#34;QTDE_ENTRADA&#34;]"/>
+      <TfrxMemoView Name="frxConsultaRelCondicionalQTDE" Left="159,7718" Top="4" Width="90,70866142" Height="15,11812" DataField="BC_ICMS_ST_ENT" DataSet="frxDBConsulta" DataSetName="frxDBConsulta" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" HAlign="haCenter" Text="[frxDBConsulta.&#34;BC_ICMS_ST_ENT&#34;]"/>
+      <TfrxMemoView Name="frxConsultaRelCondicionalVLRUNIT" Left="256,12598425" Top="3,77953000000002" Width="94,48818898" Height="15,11812" DataField="VL_ICMS_ST_ENT" DataSet="frxDBConsulta" DataSetName="frxDBConsulta" DisplayFormat.FormatStr="%2.2f" DisplayFormat.Kind="fkNumeric" HAlign="haRight" Text="[frxDBConsulta.&#34;VL_ICMS_ST_ENT&#34;]"/>
+      <TfrxMemoView Name="Memo12" Left="358,17347" Top="2" Width="79,37007874" Height="15,11812" DataField="DATA_SAIDA" DataSet="frxDBConsulta" DataSetName="frxDBConsulta" Text="[frxDBConsulta.&#34;DATA_SAIDA&#34;]"/>
+      <TfrxMemoView Name="Memo13" Left="442,72440945" Top="2,44094000000001" Width="64,25196118" Height="15,11812" DataField="QTDE_SAIDA" DataSet="frxDBConsulta" DataSetName="frxDBConsulta" Text="[frxDBConsulta.&#34;QTDE_SAIDA&#34;]"/>
+      <TfrxMemoView Name="Memo14" Left="512,00826213" Top="2,44094000000001" Width="90,70866142" Height="15,11812" DataField="BC_ICMS_ST_SAI" DataSet="frxDBConsulta" DataSetName="frxDBConsulta" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" HAlign="haCenter" Text="[frxDBConsulta.&#34;BC_ICMS_ST_SAI&#34;]"/>
+      <TfrxMemoView Name="Memo15" Left="608,36244638" Top="2,22047" Width="94,48818898" Height="15,11812" DataField="total_icms_saida" DataSet="frxDBConsulta" DataSetName="frxDBConsulta" DisplayFormat.FormatStr="%2.2f" DisplayFormat.Kind="fkNumeric" HAlign="haRight" Text="[frxDBConsulta.&#34;total_icms_saida&#34;]"/>
+      <TfrxMemoView Name="Memo7" Left="707,00835" Top="2,26771653999998" Width="68,03147898" Height="15,11812" DataField="diferenca" DataSet="frxDBConsulta" DataSetName="frxDBConsulta" DisplayFormat.FormatStr="%2.2f" DisplayFormat.Kind="fkNumeric" HAlign="haRight" Text="[frxDBConsulta.&#34;diferenca&#34;]"/>
+      <TfrxMemoView Name="Memo9" Left="778,81942" Top="2,26771653999998" Width="79,37006898" Height="15,11812" DataField="estoque_final" DataSet="frxDBConsulta" DataSetName="frxDBConsulta" DisplayFormat.FormatStr="%2.2f" DisplayFormat.Kind="fkNumeric" HAlign="haRight" Text="[frxDBConsulta.&#34;estoque_final&#34;]"/>
+      <TfrxMemoView Name="Memo10" Left="861,96908" Top="2,26771653999998" Width="94,48818898" Height="15,11812" DataField="saldo_restituir" DataSet="frxDBConsulta" DataSetName="frxDBConsulta" DisplayFormat.FormatStr="%2.2f" DisplayFormat.Kind="fkNumeric" HAlign="haRight" Text="[frxDBConsulta.&#34;saldo_restituir&#34;]"/>
+      <TfrxMemoView Name="Memo11" Left="960,23686" Top="2,26771653999998" Width="83,14959898" Height="15,11812" DataSet="frxDBConsulta" DataSetName="frxDBConsulta" DisplayFormat.FormatStr="%2.2f" DisplayFormat.Kind="fkNumeric" HAlign="haRight" Text="[frxDBConsulta.&#34;saldo_arecolher&#34;]"/>
+    </TfrxMasterData>
+    <TfrxReportSummary Name="ReportSummary1" FillType="ftBrush" FillGap.Top="0" FillGap.Left="0" FillGap.Bottom="0" FillGap.Right="0" Height="26,45671" Left="0" Top="366,61441" Width="1046,92981">
+      <TfrxShapeView Name="Shape3" Align="baClient" Left="0" Top="0" Width="1046,92981" Height="26,45671"/>
+      <TfrxMemoView Name="Memo8" Left="1,66141" Top="6,44094" Width="139,84261" Height="15,11812" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" HAlign="haCenter" ParentFont="False" Text="Totalizador do saldo &#62;&#62;&#62;&#62;"/>
+      <TfrxSysMemoView Name="SysMemo1" Left="673,55164" Top="4,91338583" Width="109,60637" Height="15,11812" DisplayFormat.FormatStr="%2.2f" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="0" ParentFont="False" Text="[SUM(&#60;frxDBConsulta.&#34;saldo_restituir&#34;&#62;,MasterData1)]"/>
+      <TfrxSysMemoView Name="SysMemo2" Left="908,20532" Top="4,91338582677165" Width="128,50402" Height="15,11811024" DisplayFormat.FormatStr="%2.2f" DisplayFormat.Kind="fkNumeric" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="0" ParentFont="False" Text="[SUM(&#60;frxDBConsulta.&#34;saldo_arecolher&#34;&#62;,MasterData1)]"/>
+      <TfrxMemoView Name="Memo24" Left="554,26809" Top="4,77953" Width="113,3859" Height="15,11812" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" ParentFont="False" Text="Total a restituir :"/>
+      <TfrxMemoView Name="Memo25" Left="789,81942" Top="4,91338582677165" Width="113,3859" Height="15,11812" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" ParentFont="False" Text="Total a recolher :"/>
+    </TfrxReportSummary>
+    <TfrxGroupFooter Name="gpfCondicional" FillType="ftBrush" FillGap.Top="0" FillGap.Left="0" FillGap.Bottom="0" FillGap.Right="0" Height="3,77953" Left="0" Top="302,3624" Width="1046,92981"/>
+    <TfrxGroupHeader Name="gphVendedor" FillType="ftBrush" FillGap.Top="0" FillGap.Left="0" FillGap.Bottom="0" FillGap.Right="0" Height="41,57483" Left="0" Top="192,75603" Width="1046,92981" Condition="frxDBConsulta.&#34;CODBARRA&#34;" DrillDown="True" ExpandDrillDown="True" KeepTogether="True">
+      <TfrxShapeView Name="Shape1" Align="baClient" Left="0" Top="0" Width="1046,92981" Height="41,57483"/>
+      <TfrxMemoView Name="frxConsultaRelCondicionalCOD_VENDEDOR" Left="6,55906" Top="3,77952999999999" Width="910,86673" Height="18,89765" DataSetName="frxConsultaRelCondicional" Font.Charset="0" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="1" ParentFont="False" Text="Codigo : [&#60;frxDBConsulta.&#34;CODBARRA&#34;&#62;]  - Produto:  [&#60;frxDBConsulta.&#34;DESCR_ITEM&#34;&#62;]">
+        <Formats>
+          <item/>
+          <item/>
+        </Formats>
+      </TfrxMemoView>
+      <TfrxMemoView Name="Memo16" Left="7,55906" Top="22,00804" Width="79,37013" Height="15,11812" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" ParentFont="False" Text="Data entrada"/>
+      <TfrxMemoView Name="Memo17" Left="93,94496" Top="22,00804" Width="60,47248" Height="15,11812" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" ParentFont="False" Text="Qtde ent."/>
+      <TfrxMemoView Name="Memo18" Left="159,43321" Top="21,72449" Width="90,70872" Height="15,11812" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" HAlign="haRight" ParentFont="False" Text="Bc Icms st. ent."/>
+      <TfrxMemoView Name="Memo19" Left="255,78757" Top="21,72449" Width="94,48825" Height="15,11812" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" HAlign="haRight" ParentFont="False" Text="Vlr Icms st Ent"/>
+      <TfrxMemoView Name="Memo20" Left="357,83488" Top="21,96073" Width="79,37013" Height="15,11812" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" ParentFont="False" Text="Data saida"/>
+      <TfrxMemoView Name="Memo21" Left="442,22078" Top="21,96073" Width="64,25201" Height="15,11812" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" ParentFont="False" Text="Qtde saida"/>
+      <TfrxMemoView Name="Memo22" Left="511,70903" Top="21,67718" Width="90,70872" Height="15,11812" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" HAlign="haRight" ParentFont="False" Text="Bc Icms st. saida"/>
+      <TfrxMemoView Name="Memo23" Left="608,06339" Top="21,67718" Width="94,48825" Height="15,11812" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" HAlign="haRight" ParentFont="False" Text="Vlr Icms st Saida"/>
+      <TfrxMemoView Name="Memo2" Left="707,00835" Top="22,67718" Width="68,03154" Height="15,11812" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" HAlign="haRight" ParentFont="False" Text="Diferença"/>
+      <TfrxMemoView Name="Memo3" Left="778,81942" Top="22,67718" Width="79,37013" Height="15,11812" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" HAlign="haRight" ParentFont="False" Text="Estoque final"/>
+      <TfrxMemoView Name="Memo5" Left="861,96908" Top="22,67718" Width="94,48825" Height="15,11812" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" HAlign="haRight" ParentFont="False" Text="Saldo restituir"/>
+      <TfrxMemoView Name="Memo6" Left="960,23686" Top="22,67718" Width="83,14966" Height="15,11812" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" HAlign="haRight" ParentFont="False" Text="Saldo recolher"/>
+    </TfrxGroupHeader>
+    <TfrxReportTitle Name="ReportTitle1" FillType="ftBrush" FillGap.Top="0" FillGap.Left="0" FillGap.Bottom="0" FillGap.Right="0" Height="86,92919" Left="0" Top="18,89765" Width="1046,92981">
+      <TfrxShapeView Name="Shape2" Align="baClient" Left="0" Top="0" Width="1046,92981" Height="86,92919"/>
+      <TfrxMemoView Name="Memo1" Align="baCenter" Left="24,566945" Top="9,55906" Width="997,79592" Height="30,23624" Font.Charset="1" Font.Color="0" Font.Height="-24" Font.Name="Arial" Font.Style="1" HAlign="haCenter" ParentFont="False" Text="ANALÍSE DA APURAÇÃO DE ICMS ST"/>
+      <TfrxMemoView Name="frxDtsEmpresanom_fantasia" Align="baCenter" Left="287,24428" Top="37,7953" Width="472,44125" Height="18,89765" DataSetName="frxDtsEmpresa" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" HAlign="haCenter" ParentFont="False" Text="[frxDBEmpresa.&#34;NOME&#34;]"/>
+      <TfrxMemoView Name="Memo4" Align="baCenter" Left="296,693105" Top="51,69295" Width="453,5436" Height="18,89765" DataSetName="frxDtsEmpresa" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" HAlign="haCenter" ParentFont="False" Text="[frxDBEmpresa.&#34;CNPJ&#34;]"/>
+      <TfrxMemoView Name="frxDtsEmpresaENDERECO" Align="baCenter" Left="309,92146" Top="65,81107" Width="427,08689" Height="15,11812" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" HAlign="haCenter" ParentFont="False" Text="Periodo apurado :[&#60;frxDBEmpresa.&#34;MES&#34;&#62; ] / [&#60;frxDBEmpresa.&#34;ANO&#34;&#62; ]">
+        <Formats>
+          <item/>
+          <item/>
+        </Formats>
+      </TfrxMemoView>
+    </TfrxReportTitle>
+  </TfrxReportPage>
+</TfrxReport>

@@ -229,6 +229,9 @@ type
     function GetIDRegistro0000(pCodPart , pMes , pAno : String):Integer;
   end;
 
+var
+  DMImportacaoSPED: TDMImportacaoSPED;
+
 implementation
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}

@@ -139,7 +139,6 @@ type
     FCodPartLote    : String;
     FMesLote        : String;
     FAnoLote        : String;
-    DMImportacaoXML : TDMImportacaoXML;
     FImportacao     : Boolean;
     FForm           : TFormGeneric;
     procedure LimpaTela;
@@ -400,6 +399,7 @@ constructor TFrmImportacaoXML.create(pOwner: TComponent;
   pFinalidadeTela: TFinalidadeTela);
 begin
   inherited create(pOwner);
+  if not Assigned(DMImportacaoXML) then
   DMImportacaoXML := TDMImportacaoXML.Create(Self);
 
   if pFinalidadeTela = ftImportacao then

@@ -646,6 +646,8 @@ inherited FrmImportacaoSPED: TFrmImportacaoSPED
         Align = alTop
         Caption = '  Selecione o arquivo txt que deseja importar   '
         TabOrder = 1
+        ExplicitLeft = -2
+        ExplicitTop = -6
         object Label1: TLabel
           Left = 8
           Top = 25
@@ -788,8 +790,6 @@ inherited FrmImportacaoSPED: TFrmImportacaoSPED
         Properties.TabSlants.Kind = skCutCorner
         LookAndFeel.Kind = lfOffice11
         TabSlants.Kind = skCutCorner
-        ExplicitLeft = -2
-        ExplicitTop = 181
         ClientRectBottom = 218
         ClientRectLeft = 4
         ClientRectRight = 835
@@ -1500,7 +1500,6 @@ inherited FrmImportacaoSPED: TFrmImportacaoSPED
             TabOrder = 1
             Properties.ActivePage = TbsC425
             Properties.CustomButtons.Buttons = <>
-            ExplicitTop = 111
             ClientRectBottom = 77
             ClientRectLeft = 4
             ClientRectRight = 827
@@ -1515,7 +1514,6 @@ inherited FrmImportacaoSPED: TFrmImportacaoSPED
                 Height = 113
                 Align = alTop
                 TabOrder = 0
-                ExplicitTop = -60
                 object cxGridDBTableView7: TcxGridDBTableView
                   Navigator.Buttons.CustomButtons = <>
                   DataController.DataSource = DMImportacaoSPED.DsC425
@@ -1569,7 +1567,6 @@ inherited FrmImportacaoSPED: TFrmImportacaoSPED
                 Height = 113
                 Align = alTop
                 TabOrder = 0
-                ExplicitTop = -60
                 object cxGridDBTableView6: TcxGridDBTableView
                   Navigator.Buttons.CustomButtons = <>
                   DataController.DataSource = DMImportacaoSPED.DsC470

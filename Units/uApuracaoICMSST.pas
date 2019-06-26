@@ -26,7 +26,7 @@ uses
   cxDataStorage, cxNavigator, Data.DB, cxDBData, cxTextEdit, Vcl.DBCtrls,
   cxGridLevel, cxGridCustomTableView, cxGridTableView, cxGridDBTableView,
   cxClasses, cxGridCustomView, cxGrid,UDMImportacaoSPED,UDMImportacaoXML,
-  uDMApuracaoICMSST, AdvOfficeButtons;
+  uDMApuracaoICMSST, AdvOfficeButtons, frxClass, frxDBSet;
 
 type
   TFrmApuracao = class(TFrmMaster)
@@ -250,11 +250,6 @@ type
     cxGridTotalizadorSinteticoDBTableView1SALDO_RESTITUIR: TcxGridDBColumn;
     cxGridTotalizadorSinteticoDBTableView1SALDO_ARECOLHER: TcxGridDBColumn;
     cxGridTotalizadorSinteticoLevel1: TcxGridLevel;
-    GpbTotalizador: TAdvGroupBox;
-    lblComplementar: TLabel;
-    lblRestituir: TLabel;
-    EdtTotalARestituir: TDBText;
-    EdtTotalARecolher: TDBText;
     cmbMes: TComboBox;
     Label1: TLabel;
     CmbAno: TComboBox;
@@ -281,6 +276,9 @@ type
     cxGridDBColumn42: TcxGridDBColumn;
     cxGridDBColumn43: TcxGridDBColumn;
     cxGridLevel9: TcxGridLevel;
+    frxReport: TfrxReport;
+    frxDBConsulta: TfrxDBDataset;
+    frxDBEmpresa: TfrxDBDataset;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure BtnSairClick(Sender: TObject);
     procedure BtnBuscaClienteClick(Sender: TObject);
@@ -312,6 +310,7 @@ type
       AShift: TShiftState; var AHandled: Boolean);
     procedure cxGridc400DBTableView1KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure BtnImprimirResultadoClick(Sender: TObject);
   private
     { Private declarations }
     DMSped : TDMImportacaoSPED;
@@ -355,6 +354,18 @@ begin
   inherited;
   LimpaTela;
   MostraAba;
+end;
+
+procedure TFrmApuracao.BtnImprimirResultadoClick(Sender: TObject);
+begin
+  inherited;
+  if DM.QryAnalise.IsEmpty then
+  begin
+    FrmMensagem.Informacao('Não á registros para impressão.');
+    exit;
+  end;
+
+  Imprimir(frxReport);
 end;
 
 procedure TFrmApuracao.BtnIniciaApuracaoClick(Sender: TObject);
@@ -442,7 +453,7 @@ begin
       BtnCancelar.Enabled := DM.GetAnalise(EdtCodPart.Text,cmbMes.Text,CmbAno.Text,
                              ChkXML.Checked,ChkSPED.Checked);
     end;
-
+    MostraAba;
   except
     On e: exception do
     FrmMensagem.Informacao('Erro : ' + e.Message + ' ao tentar apurar ICMSST.');
@@ -726,7 +737,7 @@ begin
   cmbMes.ItemIndex     := -1;
   CmbAno.ItemIndex     := -1;
   ChkXML.Checked       := false;
-  ChkSPED.Checked      := false;
+  ChkSPED.Checked      := true;
 
   with DMSped do
   begin
@@ -754,8 +765,11 @@ procedure TFrmApuracao.MostraAba;
 begin
   TbsXML.TabVisible  :=  ChkXML.Checked;
   TbsSped.TabVisible :=  ChkSPED.Checked;
-  TbsC425.TabVisible := (DMSped.QryC425.RecordCount > 0);
+  (*TbsC425.TabVisible := (DMSped.QryC425.RecordCount > 0);
+  CxGridC425.Visible :=  TbsC425.TabVisible;
   TbsC470.TabVisible := (DMSped.QryC470.RecordCount > 0);
+  CxGridC470.Visible :=  TbsC425.TabVisible;
+  Application.ProcessMessages; *)
 end;
 
 end.

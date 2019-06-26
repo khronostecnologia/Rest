@@ -108,6 +108,9 @@ type
     property  ExisteXMLImportar :Boolean read FExisteXMLImportar write SetExisteXMLImportar;
   end;
 
+var
+  DMImportacaoXML: TDMImportacaoXML;
+
 implementation
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}

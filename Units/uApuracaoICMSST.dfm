@@ -152,7 +152,7 @@ inherited FrmApuracao: TFrmApuracao
           Top = 15
           Width = 114
           Height = 30
-          Caption = 'Imprimir anal'#237'se'
+          Caption = 'Imprimir'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -11
@@ -212,6 +212,7 @@ inherited FrmApuracao: TFrmApuracao
             0293DF0A00B5BFAE528596954FBF629CFF01121CFE29C9C6B596000000004945
             4E44AE426082}
           TabOrder = 1
+          OnClick = BtnImprimirResultadoClick
           Appearance.BorderColor = 14727579
           Appearance.BorderColorHot = 10079963
           Appearance.BorderColorDown = 4548219
@@ -241,7 +242,6 @@ inherited FrmApuracao: TFrmApuracao
           Appearance.GradientDown = ggVertical
           Appearance.GradientMirrorDown = ggVertical
           Appearance.GradientChecked = ggVertical
-          DropDownButton = True
         end
         object BtnSair: TAdvGlowButton
           Left = 247
@@ -632,7 +632,7 @@ inherited FrmApuracao: TFrmApuracao
         Height = 286
         Align = alClient
         TabOrder = 2
-        Properties.ActivePage = TbsSped
+        Properties.ActivePage = cxTabSheet1
         Properties.CustomButtons.Buttons = <>
         ClientRectBottom = 282
         ClientRectLeft = 4
@@ -1815,11 +1815,8 @@ inherited FrmApuracao: TFrmApuracao
                 Height = 117
                 Align = alClient
                 TabOrder = 1
-                Properties.ActivePage = TbsC425
+                Properties.ActivePage = TbsC470
                 Properties.CustomButtons.Buttons = <>
-                ExplicitTop = 111
-                ExplicitWidth = 831
-                ExplicitHeight = 81
                 ClientRectBottom = 113
                 ClientRectLeft = 4
                 ClientRectRight = 808
@@ -1827,8 +1824,6 @@ inherited FrmApuracao: TFrmApuracao
                 object TbsC425: TcxTabSheet
                   Caption = 'Itens da redu'#231#227'o Z (C425)'
                   ImageIndex = 0
-                  ExplicitWidth = 823
-                  ExplicitHeight = 53
                   object CxGridC425: TcxGrid
                     Left = 0
                     Top = 0
@@ -1836,7 +1831,6 @@ inherited FrmApuracao: TFrmApuracao
                     Height = 113
                     Align = alTop
                     TabOrder = 0
-                    ExplicitWidth = 823
                     object cxGridDBTableView7: TcxGridDBTableView
                       Navigator.Buttons.CustomButtons = <>
                       DataController.DataSource = DMImportacaoSPED.DsC425
@@ -1944,17 +1938,19 @@ inherited FrmApuracao: TFrmApuracao
             Left = 0
             Top = 0
             Width = 820
-            Height = 214
+            Height = 258
             Align = alClient
             Caption = '   Analise sint'#233'tica  '
             TabOrder = 0
+            ExplicitHeight = 214
             object cxGridTotalizadorSintetico: TcxGrid
               Left = 2
               Top = 16
               Width = 816
-              Height = 196
+              Height = 240
               Align = alClient
               TabOrder = 0
+              ExplicitHeight = 196
               object cxGridTotalizadorSinteticoDBTableView1: TcxGridDBTableView
                 Navigator.Buttons.CustomButtons = <>
                 DataController.DataSource = DmApuracaoICMSST.DsAnalise
@@ -2066,71 +2062,688 @@ inherited FrmApuracao: TFrmApuracao
               end
             end
           end
-          object GpbTotalizador: TAdvGroupBox
-            Left = 0
-            Top = 214
-            Width = 820
-            Height = 44
-            Align = alBottom
-            Caption = '   Totalizador '
-            TabOrder = 1
-            object lblComplementar: TLabel
-              Left = 258
-              Top = 25
-              Width = 140
-              Height = 13
-              Caption = '|   Valor complementar : '
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clRed
-              Font.Height = -11
-              Font.Name = 'Tahoma'
-              Font.Style = [fsBold]
-              ParentFont = False
-            end
-            object lblRestituir: TLabel
-              Left = 5
-              Top = 25
-              Width = 87
-              Height = 13
-              Caption = ' Valor restituir: '
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clNavy
-              Font.Height = -11
-              Font.Name = 'Tahoma'
-              Font.Style = [fsBold]
-              ParentFont = False
-            end
-            object EdtTotalARestituir: TDBText
-              Left = 96
-              Top = 25
-              Width = 150
-              Height = 13
-              DataField = 'TOTAL_RESTITUIR'
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clNavy
-              Font.Height = -11
-              Font.Name = 'Tahoma'
-              Font.Style = [fsBold]
-              ParentFont = False
-            end
-            object EdtTotalARecolher: TDBText
-              Left = 404
-              Top = 25
-              Width = 150
-              Height = 13
-              Color = 16445929
-              DataField = 'TOTAL_ARECOLHER'
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clRed
-              Font.Height = -11
-              Font.Name = 'Tahoma'
-              Font.Style = [fsBold]
-              ParentColor = False
-              ParentFont = False
-            end
-          end
         end
       end
     end
+  end
+  object frxReport: TfrxReport
+    Version = '5.3.16'
+    DotMatrixReport = False
+    IniFile = '\Software\Fast Reports'
+    PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
+    PreviewOptions.Zoom = 1.000000000000000000
+    PrintOptions.Printer = 'Padr'#227'o'
+    PrintOptions.PrintOnSheet = 0
+    ReportOptions.CreateDate = 42625.639202303200000000
+    ReportOptions.LastChange = 43642.107512708330000000
+    ScriptLanguage = 'PascalScript'
+    ScriptText.Strings = (
+      'procedure PageHeader1OnBeforePrint(Sender: TfrxComponent);'
+      'begin'
+      
+        '                                                                ' +
+        '  '
+      '           '
+      'End;'
+      ''
+      'begin'
+      ''
+      'end.')
+    Left = 408
+    Top = 432
+    Datasets = <
+      item
+        DataSet = frxDBConsulta
+        DataSetName = 'frxDBConsulta'
+      end
+      item
+        DataSet = frxDBEmpresa
+        DataSetName = 'frxDBEmpresa'
+      end>
+    Variables = <
+      item
+        Name = ' variavel'
+        Value = Null
+      end
+      item
+        Name = 'datavenda'
+        Value = 'Data pedido: 23/08/2018'
+      end
+      item
+        Name = 'cliente'
+        Value = 'Nome do cliente: ABADIA JOSE DE OLIVEIRA'
+      end
+      item
+        Name = 'prazo'
+        Value = 'Forma Pagto: BOLETO 20/40'
+      end
+      item
+        Name = 'vendedor'
+        Value = 'Vendedor: ANA CAROLINA VEND'
+      end
+      item
+        Name = 'empresa'
+        Value = 
+          'KHRONOS TECNOLOGIA'#13'CNPJ: 08507404000188'#13'AVENIDA AYRTON SENNA DO ' +
+          'BRASIL Bairro: ROSARIO'#13'Telefone: 32411612'
+      end
+      item
+        Name = 'numero'
+        Value = 'Numero: 18368'
+      end
+      item
+        Name = 'total'
+        Value = 'Total ($) : 148,00'
+      end
+      item
+        Name = 'obs'
+        Value = 'Observa'#231#227'o : ***************'
+      end
+      item
+        Name = 'tipo'
+        Value = 'OR'#199'AMENTO'
+      end
+      item
+        Name = 'endereco'
+        Value = 'Endereco: RUA JOHEN CARNEIRO  , CENTRO, n: 11 , Araguari - MG'
+      end
+      item
+        Name = 'parcelas'
+        Value = 
+          'Parcela(s) - - - - - - - - - - - - - - - - - - - - - - - - - - -' +
+          ' - - - - '#13' Dat.Vencto: 12/09/2018 - Valor Parc: 74,00'#13' Dat.Venct' +
+          'o: 02/10/2018 - Valor Parc: 74,00'#13
+      end>
+    Style = <>
+    object Data: TfrxDataPage
+      Height = 1000.000000000000000000
+      Width = 1000.000000000000000000
+    end
+    object Page1: TfrxReportPage
+      Orientation = poLandscape
+      PaperWidth = 297.000000000000000000
+      PaperHeight = 210.000000000000000000
+      PaperSize = 9
+      LeftMargin = 10.000000000000000000
+      RightMargin = 10.000000000000000000
+      TopMargin = 10.000000000000000000
+      BottomMargin = 10.000000000000000000
+      object PageHeader1: TfrxPageHeader
+        FillType = ftBrush
+        Height = 3.779530000000000000
+        Top = 128.504020000000000000
+        Width = 1046.929810000000000000
+        OnBeforePrint = 'PageHeader1OnBeforePrint'
+      end
+      object MasterData1: TfrxMasterData
+        FillType = ftBrush
+        Height = 22.677180000000000000
+        Top = 257.008040000000000000
+        Width = 1046.929810000000000000
+        DataSet = frxDBConsulta
+        DataSetName = 'frxDBConsulta'
+        RowCount = 0
+        object frxConsultaRelCondicionalCODIGO_EAN: TfrxMemoView
+          Left = 7.937007870000000000
+          Top = 3.559059999999988000
+          Width = 79.370078740157500000
+          Height = 15.118120000000000000
+          DataField = 'DATA_ENTRADA'
+          DataSet = frxDBConsulta
+          DataSetName = 'frxDBConsulta'
+          Memo.UTF8W = (
+            '[frxDBConsulta."DATA_ENTRADA"]')
+        end
+        object frxConsultaRelCondicionalNOME_PRODUTO: TfrxMemoView
+          Left = 94.110236220000000000
+          Top = 4.000000000000000000
+          Width = 60.472431180000000000
+          Height = 15.118120000000000000
+          DataField = 'QTDE_ENTRADA'
+          DataSet = frxDBConsulta
+          DataSetName = 'frxDBConsulta'
+          Memo.UTF8W = (
+            '[frxDBConsulta."QTDE_ENTRADA"]')
+        end
+        object frxConsultaRelCondicionalQTDE: TfrxMemoView
+          Left = 159.771800000000000000
+          Top = 4.000000000000000000
+          Width = 90.708661420000000000
+          Height = 15.118120000000000000
+          DataField = 'BC_ICMS_ST_ENT'
+          DataSet = frxDBConsulta
+          DataSetName = 'frxDBConsulta'
+          DisplayFormat.FormatStr = '%2.2n'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haCenter
+          Memo.UTF8W = (
+            '[frxDBConsulta."BC_ICMS_ST_ENT"]')
+        end
+        object frxConsultaRelCondicionalVLRUNIT: TfrxMemoView
+          Left = 256.125984250000000000
+          Top = 3.779530000000022000
+          Width = 94.488188980000000000
+          Height = 15.118120000000000000
+          DataField = 'VL_ICMS_ST_ENT'
+          DataSet = frxDBConsulta
+          DataSetName = 'frxDBConsulta'
+          DisplayFormat.FormatStr = '%2.2f'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[frxDBConsulta."VL_ICMS_ST_ENT"]')
+        end
+        object Memo12: TfrxMemoView
+          Left = 358.173470000000000000
+          Top = 2.000000000000000000
+          Width = 79.370078740000000000
+          Height = 15.118120000000000000
+          DataField = 'DATA_SAIDA'
+          DataSet = frxDBConsulta
+          DataSetName = 'frxDBConsulta'
+          Memo.UTF8W = (
+            '[frxDBConsulta."DATA_SAIDA"]')
+        end
+        object Memo13: TfrxMemoView
+          Left = 442.724409450000000000
+          Top = 2.440940000000012000
+          Width = 64.251961180000000000
+          Height = 15.118120000000000000
+          DataField = 'QTDE_SAIDA'
+          DataSet = frxDBConsulta
+          DataSetName = 'frxDBConsulta'
+          Memo.UTF8W = (
+            '[frxDBConsulta."QTDE_SAIDA"]')
+        end
+        object Memo14: TfrxMemoView
+          Left = 512.008262130000000000
+          Top = 2.440940000000012000
+          Width = 90.708661420000000000
+          Height = 15.118120000000000000
+          DataField = 'BC_ICMS_ST_SAI'
+          DataSet = frxDBConsulta
+          DataSetName = 'frxDBConsulta'
+          DisplayFormat.FormatStr = '%2.2n'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haCenter
+          Memo.UTF8W = (
+            '[frxDBConsulta."BC_ICMS_ST_SAI"]')
+        end
+        object Memo15: TfrxMemoView
+          Left = 608.362446380000000000
+          Top = 2.220469999999978000
+          Width = 94.488188980000000000
+          Height = 15.118120000000000000
+          DataField = 'total_icms_saida'
+          DataSet = frxDBConsulta
+          DataSetName = 'frxDBConsulta'
+          DisplayFormat.FormatStr = '%2.2f'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[frxDBConsulta."total_icms_saida"]')
+        end
+        object Memo7: TfrxMemoView
+          Left = 707.008350000000000000
+          Top = 2.267716539999981000
+          Width = 68.031478980000000000
+          Height = 15.118120000000000000
+          DataField = 'diferenca'
+          DataSet = frxDBConsulta
+          DataSetName = 'frxDBConsulta'
+          DisplayFormat.FormatStr = '%2.2f'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[frxDBConsulta."diferenca"]')
+        end
+        object Memo9: TfrxMemoView
+          Left = 778.819420000000000000
+          Top = 2.267716539999981000
+          Width = 79.370068980000000000
+          Height = 15.118120000000000000
+          DataField = 'estoque_final'
+          DataSet = frxDBConsulta
+          DataSetName = 'frxDBConsulta'
+          DisplayFormat.FormatStr = '%2.2f'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[frxDBConsulta."estoque_final"]')
+        end
+        object Memo10: TfrxMemoView
+          Left = 861.969080000000000000
+          Top = 2.267716539999981000
+          Width = 94.488188980000000000
+          Height = 15.118120000000000000
+          DataField = 'saldo_restituir'
+          DataSet = frxDBConsulta
+          DataSetName = 'frxDBConsulta'
+          DisplayFormat.FormatStr = '%2.2f'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[frxDBConsulta."saldo_restituir"]')
+        end
+        object Memo11: TfrxMemoView
+          Left = 960.236860000000000000
+          Top = 2.267716539999981000
+          Width = 83.149598980000000000
+          Height = 15.118120000000000000
+          DataSet = frxDBConsulta
+          DataSetName = 'frxDBConsulta'
+          DisplayFormat.FormatStr = '%2.2f'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[frxDBConsulta."saldo_arecolher"]')
+        end
+      end
+      object ReportSummary1: TfrxReportSummary
+        FillType = ftBrush
+        Height = 26.456710000000000000
+        Top = 366.614410000000000000
+        Width = 1046.929810000000000000
+        object Shape3: TfrxShapeView
+          Align = baClient
+          Width = 1046.929810000000000000
+          Height = 26.456710000000000000
+        end
+        object Memo8: TfrxMemoView
+          Left = 1.661410000000000000
+          Top = 6.440940000000012000
+          Width = 139.842610000000000000
+          Height = 15.118120000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = []
+          HAlign = haCenter
+          Memo.UTF8W = (
+            'Totalizador do saldo >>>>')
+          ParentFont = False
+        end
+        object SysMemo1: TfrxSysMemoView
+          Left = 673.551640000000000000
+          Top = 4.913385829999981000
+          Width = 109.606370000000000000
+          Height = 15.118120000000000000
+          DisplayFormat.FormatStr = '%2.2f'
+          DisplayFormat.Kind = fkNumeric
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          Memo.UTF8W = (
+            '[SUM(<frxDBConsulta."saldo_restituir">,MasterData1)]')
+          ParentFont = False
+        end
+        object SysMemo2: TfrxSysMemoView
+          Left = 908.205320000000000000
+          Top = 4.913385826771673000
+          Width = 128.504020000000000000
+          Height = 15.118110240000000000
+          DisplayFormat.FormatStr = '%2.2f'
+          DisplayFormat.Kind = fkNumeric
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          Memo.UTF8W = (
+            '[SUM(<frxDBConsulta."saldo_arecolher">,MasterData1)]')
+          ParentFont = False
+        end
+        object Memo24: TfrxMemoView
+          Left = 554.268090000000000000
+          Top = 4.779530000000022000
+          Width = 113.385900000000000000
+          Height = 15.118120000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Memo.UTF8W = (
+            'Total a restituir :')
+          ParentFont = False
+        end
+        object Memo25: TfrxMemoView
+          Left = 789.819420000000000000
+          Top = 4.913385826771673000
+          Width = 113.385900000000000000
+          Height = 15.118120000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Memo.UTF8W = (
+            'Total a recolher :')
+          ParentFont = False
+        end
+      end
+      object gpfCondicional: TfrxGroupFooter
+        FillType = ftBrush
+        Height = 3.779530000000000000
+        Top = 302.362400000000000000
+        Width = 1046.929810000000000000
+      end
+      object gphVendedor: TfrxGroupHeader
+        FillType = ftBrush
+        Height = 41.574830000000000000
+        Top = 192.756030000000000000
+        Width = 1046.929810000000000000
+        Condition = 'frxDBConsulta."CODBARRA"'
+        DrillDown = True
+        ExpandDrillDown = True
+        KeepTogether = True
+        object Shape1: TfrxShapeView
+          Align = baClient
+          Width = 1046.929810000000000000
+          Height = 41.574830000000000000
+        end
+        object frxConsultaRelCondicionalCOD_VENDEDOR: TfrxMemoView
+          Left = 6.559060000000000000
+          Top = 3.779529999999994000
+          Width = 910.866730000000000000
+          Height = 18.897650000000000000
+          DataSetName = 'frxConsultaRelCondicional'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -12
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Memo.UTF8W = (
+            
+              'Codigo : [<frxDBConsulta."CODBARRA">]  - Produto:  [<frxDBConsul' +
+              'ta."DESCR_ITEM">]')
+          ParentFont = False
+          Formats = <
+            item
+            end
+            item
+            end>
+        end
+        object Memo16: TfrxMemoView
+          Left = 7.559060000000000000
+          Top = 22.008039999999990000
+          Width = 79.370130000000000000
+          Height = 15.118120000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -12
+          Font.Name = 'Arial'
+          Font.Style = []
+          Memo.UTF8W = (
+            'Data entrada')
+          ParentFont = False
+        end
+        object Memo17: TfrxMemoView
+          Left = 93.944960000000000000
+          Top = 22.008039999999990000
+          Width = 60.472480000000000000
+          Height = 15.118120000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -12
+          Font.Name = 'Arial'
+          Font.Style = []
+          Memo.UTF8W = (
+            'Qtde ent.')
+          ParentFont = False
+        end
+        object Memo18: TfrxMemoView
+          Left = 159.433210000000000000
+          Top = 21.724490000000000000
+          Width = 90.708720000000000000
+          Height = 15.118120000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -12
+          Font.Name = 'Arial'
+          Font.Style = []
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Bc Icms st. ent.')
+          ParentFont = False
+        end
+        object Memo19: TfrxMemoView
+          Left = 255.787570000000000000
+          Top = 21.724490000000000000
+          Width = 94.488250000000000000
+          Height = 15.118120000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -12
+          Font.Name = 'Arial'
+          Font.Style = []
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Vlr Icms st Ent')
+          ParentFont = False
+        end
+        object Memo20: TfrxMemoView
+          Left = 357.834880000000000000
+          Top = 21.960730000000010000
+          Width = 79.370130000000000000
+          Height = 15.118120000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -12
+          Font.Name = 'Arial'
+          Font.Style = []
+          Memo.UTF8W = (
+            'Data saida')
+          ParentFont = False
+        end
+        object Memo21: TfrxMemoView
+          Left = 442.220780000000000000
+          Top = 21.960730000000010000
+          Width = 64.252010000000000000
+          Height = 15.118120000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -12
+          Font.Name = 'Arial'
+          Font.Style = []
+          Memo.UTF8W = (
+            'Qtde saida')
+          ParentFont = False
+        end
+        object Memo22: TfrxMemoView
+          Left = 511.709030000000000000
+          Top = 21.677179999999990000
+          Width = 90.708720000000000000
+          Height = 15.118120000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -12
+          Font.Name = 'Arial'
+          Font.Style = []
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Bc Icms st. saida')
+          ParentFont = False
+        end
+        object Memo23: TfrxMemoView
+          Left = 608.063390000000000000
+          Top = 21.677179999999990000
+          Width = 94.488250000000000000
+          Height = 15.118120000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -12
+          Font.Name = 'Arial'
+          Font.Style = []
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Vlr Icms st Saida')
+          ParentFont = False
+        end
+        object Memo2: TfrxMemoView
+          Left = 707.008350000000000000
+          Top = 22.677179999999990000
+          Width = 68.031540000000000000
+          Height = 15.118120000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -12
+          Font.Name = 'Arial'
+          Font.Style = []
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Diferen'#231'a')
+          ParentFont = False
+        end
+        object Memo3: TfrxMemoView
+          Left = 778.819420000000000000
+          Top = 22.677179999999990000
+          Width = 79.370130000000000000
+          Height = 15.118120000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -12
+          Font.Name = 'Arial'
+          Font.Style = []
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Estoque final')
+          ParentFont = False
+        end
+        object Memo5: TfrxMemoView
+          Left = 861.969080000000000000
+          Top = 22.677179999999990000
+          Width = 94.488250000000000000
+          Height = 15.118120000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -12
+          Font.Name = 'Arial'
+          Font.Style = []
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Saldo restituir')
+          ParentFont = False
+        end
+        object Memo6: TfrxMemoView
+          Left = 960.236860000000000000
+          Top = 22.677179999999990000
+          Width = 83.149660000000000000
+          Height = 15.118120000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -12
+          Font.Name = 'Arial'
+          Font.Style = []
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Saldo recolher')
+          ParentFont = False
+        end
+      end
+      object ReportTitle1: TfrxReportTitle
+        FillType = ftBrush
+        Height = 86.929190000000000000
+        Top = 18.897650000000000000
+        Width = 1046.929810000000000000
+        object Shape2: TfrxShapeView
+          Align = baClient
+          Width = 1046.929810000000000000
+          Height = 86.929190000000000000
+        end
+        object Memo1: TfrxMemoView
+          Align = baCenter
+          Left = 24.566945000000040000
+          Top = 9.559059999999999000
+          Width = 997.795920000000000000
+          Height = 30.236240000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -24
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          HAlign = haCenter
+          Memo.UTF8W = (
+            'ANAL'#205'SE DA APURA'#199#195'O DE ICMS ST')
+          ParentFont = False
+        end
+        object frxDtsEmpresanom_fantasia: TfrxMemoView
+          Align = baCenter
+          Left = 287.244280000000100000
+          Top = 37.795300000000000000
+          Width = 472.441250000000000000
+          Height = 18.897650000000000000
+          DataSetName = 'frxDtsEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -12
+          Font.Name = 'Arial'
+          Font.Style = []
+          HAlign = haCenter
+          Memo.UTF8W = (
+            '[frxDBEmpresa."NOME"]')
+          ParentFont = False
+        end
+        object Memo4: TfrxMemoView
+          Align = baCenter
+          Left = 296.693105000000100000
+          Top = 51.692949999999990000
+          Width = 453.543600000000000000
+          Height = 18.897650000000000000
+          DataSetName = 'frxDtsEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -12
+          Font.Name = 'Arial'
+          Font.Style = []
+          HAlign = haCenter
+          Memo.UTF8W = (
+            '[frxDBEmpresa."CNPJ"]')
+          ParentFont = False
+        end
+        object frxDtsEmpresaENDERECO: TfrxMemoView
+          Align = baCenter
+          Left = 309.921460000000000000
+          Top = 65.811070000000000000
+          Width = 427.086890000000000000
+          Height = 15.118120000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = []
+          HAlign = haCenter
+          Memo.UTF8W = (
+            
+              'Periodo apurado :[<frxDBEmpresa."MES"> ] / [<frxDBEmpresa."ANO">' +
+              ' ]')
+          ParentFont = False
+          Formats = <
+            item
+            end
+            item
+            end>
+        end
+      end
+    end
+  end
+  object frxDBConsulta: TfrxDBDataset
+    UserName = 'frxDBConsulta'
+    CloseDataSource = False
+    DataSet = DmApuracaoICMSST.QryAnalise
+    BCDToCurrency = False
+    Left = 472
+    Top = 432
+  end
+  object frxDBEmpresa: TfrxDBDataset
+    UserName = 'frxDBEmpresa'
+    CloseDataSource = False
+    DataSet = DMImportacaoSPED.Qry0000
+    BCDToCurrency = False
+    Left = 552
+    Top = 432
   end
 end
