@@ -646,8 +646,6 @@ inherited FrmImportacaoSPED: TFrmImportacaoSPED
         Align = alTop
         Caption = '  Selecione o arquivo txt que deseja importar   '
         TabOrder = 1
-        ExplicitLeft = -2
-        ExplicitTop = -6
         object Label1: TLabel
           Left = 8
           Top = 25

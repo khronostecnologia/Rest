@@ -366,11 +366,20 @@ begin
 end;
 
 procedure TFrmImportacaoSPED.BtnNovaImportacacaoClick(Sender: TObject);
+  procedure PreparaDiretorio;
+  var
+   vDir : String;
+  begin
+   vDir := EdtArquivo.Text;
+   vDir := vDir.Replace('"','').Trim;
+   EdtArquivo.Text := vDir;
+  end;
 begin
   inherited;
   LimpaTela;
   EdtArquivo.Enabled := true;
   EdtArquivo.DoClick;
+  PreparaDiretorio;
   if BtnIniciaImportacao.Enabled then
   SetaFoco(BtnIniciaImportacao);
 end;
@@ -1098,10 +1107,9 @@ begin
 
             vEncontrouF1 := true;
 
-            if ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC400.
-               Items[i].RegistroC405.Items[k].RegistroC420.Items[L].
-               RegistroC425.Count  > 0 then
-            begin
+
+             if Qry0000.FieldByName('IND_PERFIL').AsString = 'B' then
+             begin
 
               for M := 0 to Pred(ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC400.
                             Items[i].RegistroC405.Items[k].RegistroC420.Items[L].
@@ -1139,10 +1147,9 @@ begin
               end;
             end;
 
-            if ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC400.
-            Items[i].RegistroC405.Items[K].RegistroC460.Items[L].RegistroC470.Count  > 0 then
-            begin
 
+            if Qry0000.FieldByName('IND_PERFIL').AsString = 'A' then
+            begin
               for M := 0 to Pred(ACBrSPEDFiscal.Bloco_C.RegistroC001.RegistroC400.
                             Items[i].RegistroC405.Items[k].RegistroC460.Items[L].
                             RegistroC470.Count) do
