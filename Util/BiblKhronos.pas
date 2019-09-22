@@ -33,7 +33,8 @@ Uses
   TFinalidadeTela         = (ftImportacao,ftApuracao);
 
   Function GetValor(AConexao : TFDConnection; ACampo, ATabela : String; AAgregacao : String  = '' ; AWhere : String = '') : Variant;
-  Function GetStrValor(AConexao : TFDConnection; ACampo, ATabela : String; AAgregacao : String  = '' ; AWhere : String = '') : Variant;
+  Function GetStrValor(AConexao : TFDConnection; ACampo, ATabela : String;
+  AAgregacao : String  = '' ; AWhere : String = '') : Variant;
   function ConsultaSQL(ASQL : String ; AConnection : TFDConnection):TFDQuery;Overload;
   Function InserirLog(AConexao:TFDConnection; ATexto : String ; ATabela : String = '' ;
   ACodUsuario : String =  '';AAplicCommit : Boolean = False):Boolean;
@@ -46,8 +47,10 @@ Uses
   Procedure SetaFoco(AControl : TWinControl);
   Procedure MarcacaoCheckBox(ADataSet : TFDQuery ; AMarcacao : Boolean) ;
   Procedure CopyQuery(SQL : String);
-  function GetID(ATabela : String ; AConexao : TFDConnection):Integer;
-
+  procedure AtivaPerformanceMemTable(Var pMemQry : TFDMemTable ; pRecsMax : Integer);
+  function  GetID(ATabela : String ; AConexao : TFDConnection):Integer;
+  procedure ExecutaArrayDMLEmBatch(var pQryArrayDML : TFDQUery);
+  procedure HabilitaBotao(pButon : TWinControl; pHabilitado : Boolean);
 
 Const
   CheckBoxMarcado      = True;
@@ -201,13 +204,14 @@ begin
     Result := Falso;
 end;
 
-
 procedure Imprimir(Var pReport : TfrxReport);
 begin
  if (GetKeyState(VK_SHIFT) <  0) then
-   pReport.DesignReport
- else
-   pReport.ShowReport(True);
+ begin
+   pReport.DesignReport;
+   exit;
+ end;
+ pReport.ShowReport;
 end;
 
 procedure AjustaTamanhoCampoGrid(pGrid : TJvDBUltimGrid);
@@ -285,9 +289,9 @@ Var
 begin
 
  if AAgregacao <> '' Then
-  vSQL        := ' SELECT ' + AAgregacao + '(COALESCE(' + ACampo + ',''0'')) RETORNO FROM ' + ATabela + ' WHERE ' + AWhere
+  vSQL        := ' SELECT ' + AAgregacao + '(COALESCE(' + ACampo + ',' + QuotedStr('0') + ')) RETORNO FROM ' + ATabela + ' WHERE ' + AWhere
  else
-  vSQL        := ' SELECT COALESCE(' + ACampo + ',''0'')RETORNO FROM ' + ATabela + ' WHERE ' + AWhere;
+  vSQL        := ' SELECT COALESCE(' + ACampo + ',' + QuotedStr('0') + ' )RETORNO FROM ' + ATabela + ' WHERE ' + AWhere;
 
  Result       := AConexao.ExecSQLScalar(vSQL);
 
@@ -318,18 +322,18 @@ function ConsultaSQL(ASQL : String ; AConnection : TFDConnection):TFDQuery;
 Var
  Qry                : TFDQuery;
 begin
- Qry                := TFDQuery.Create(nil);
- Qry.Connection     := AConnection;
- Qry.CachedUpdates  := true;
- Qry.SQL.Text       := ASQL;
  Try
+  Qry                := TFDQuery.Create(nil);
+  Qry.Connection     := AConnection;
+  Qry.CachedUpdates  := true;
+  Qry.SQL.Text       := ASQL;
   Qry.Open;
   Qry.First;
  except
   On e: exception do
   begin
    Qry.Free;
-   raise Exception.Create('Erro: ' + e.message + ' ao tentar executar consultaSQL.');
+   raise;
   end;
  end;
  result := Qry;
@@ -368,6 +372,74 @@ begin
  finally
    FreeAndNil(Qry);
  end;
+end;
+
+procedure AtivaPerformanceMemTable(Var pMemQry : TFDMemTable ; pRecsMax : Integer);
+begin
+  with pMemQry do
+  begin
+    LogChanges                          := False;
+    FetchOptions.RecsMax                := pRecsMax;
+    ResourceOptions.SilentMode          := True;
+    UpdateOptions.LockMode              := lmNone;
+    UpdateOptions.LockPoint             := lpDeferred;
+    UpdateOptions.FetchGeneratorsPoint  := gpImmediate;
+  end;
+end;
+
+procedure ExecutaArrayDMLEmBatch(var pQryArrayDML : TFDQUery);
+var
+  vTotalRegistroEnviar  : Integer;
+  vTotalRegistroEnviado : Integer;
+  vTotalRegistroNoLote  : Integer;
+  vTotalRegistroPorLote : Integer;
+  vInicioLote           : Integer;
+begin
+  vTotalRegistroPorLote := 1500;
+  vTotalRegistroEnviar  := pQryArrayDML.Params.ArraySize;
+  vTotalRegistroNoLote  := vTotalRegistroEnviar;
+  vTotalRegistroEnviado := 0;
+  vInicioLote           := 0;
+
+  if vTotalRegistroEnviar <= 1 then
+  exit;
+
+  repeat
+
+    if vTotalRegistroNoLote > vTotalRegistroPorLote then
+    begin
+      vTotalRegistroEnviado := vTotalRegistroEnviado + vTotalRegistroPorLote;
+      vTotalRegistroNoLote  := vTotalRegistroNoLote - vTotalRegistroPorLote;
+    end
+    else
+    begin
+      vTotalRegistroEnviado := vTotalRegistroEnviado + vTotalRegistroNoLote;
+      vTotalRegistroNoLote  := 0;
+    end;
+
+    pQryArrayDML.Prepare;
+    pQryArrayDML.Execute(vTotalRegistroEnviado,vInicioLote);
+    pQryArrayDML.Unprepare;
+
+    if vTotalRegistroEnviado <> vTotalRegistroEnviar then
+    vInicioLote := vTotalRegistroEnviado;
+
+  until vTotalRegistroNoLote <= 0;
+end;
+
+procedure EnableDataSet(pDataSet : TDataSet);
+begin
+  pDataSet.EnableControls;
+end;
+
+procedure DisableDataSet(pDataSet : TDataSet);
+begin
+    pDataSet.DisableControls;
+end;
+
+procedure HabilitaBotao(pButon : TWinControl; pHabilitado : Boolean);
+begin
+  pButon.enabled := pHabilitado;
 end;
 
 end.

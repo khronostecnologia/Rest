@@ -162,6 +162,16 @@
             <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
+        <DCCReference Include="Controller\Controller.ApuracaoICMSST.pas"/>
+        <DCCReference Include="Units\uCadContribuinte.pas">
+            <Form>FrmCadContribuinte</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Dao\uDMCadContribuinte.pas">
+            <Form>DMCadContribuinte</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -183,7 +193,6 @@
                     <Source Name="MainSource">Rest.dpr</Source>
                 </Source>
                 <Excluded_Packages>
-                    <Excluded_Packages Name="G:\Acbr\Lib\Delphi\LibD24\ACBr_Integrador.bpl">ACBr - Integrador - (http://www.projetoacbr.com.br/)</Excluded_Packages>
                     <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\18.0\Bpl\dclcxSchedulerTreeBrowserRS24.bpl">ExpressScheduler tree browser by Developer Express Inc.</Excluded_Packages>
                     <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\18.0\Bpl\tmsdedXE10.bpl">TMS Component Pack design time support</Excluded_Packages>
                     <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\18.0\Bpl\dclcxPivotGridOLAPRS24.bpl">ExpressPivotGrid OLAP by Developer Express Inc.</Excluded_Packages>

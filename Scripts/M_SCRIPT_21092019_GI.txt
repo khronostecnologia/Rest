@@ -1,0 +1,19 @@
+CREATE OR REPLACE VIEW "GET_EMPRESAS" AS
+ SELECT a."CODIGO",
+        COALESCE(
+		(SELECT X."EMPRESA" FROM "NF" X WHERE X."COD_EMP" = A."CODIGO" LIMIT 1),
+		(SELECT X."NOME" FROM "REGISTRO0000" X WHERE X."CNPJ" = A."CODIGO" LIMIT 1)
+			     )"EMPRESA"
+   FROM ( SELECT "NF"."COD_EMP" AS "CODIGO",
+            upper("NF"."EMPRESA"::text)::character varying(100) AS "EMPRESA"
+           FROM "NF"
+          GROUP BY "NF"."COD_EMP", "NF"."EMPRESA"
+        UNION ALL
+         SELECT "REGISTRO0000"."CNPJ",
+            upper("REGISTRO0000"."NOME"::text)::character varying(100) AS upper
+           FROM "REGISTRO0000"
+          GROUP BY "REGISTRO0000"."CNPJ", "REGISTRO0000"."NOME") a
+  GROUP BY a."CODIGO";
+
+ALTER TABLE public."GET_EMPRESAS"
+    OWNER TO postgres;

@@ -3,6 +3,7 @@ inherited FrmApuracao: TFrmApuracao
   ClientWidth = 828
   OnClose = FormClose
   OnCreate = FormCreate
+  ExplicitTop = -60
   ExplicitWidth = 844
   PixelsPerInch = 96
   TextHeight = 13
@@ -244,7 +245,7 @@ inherited FrmApuracao: TFrmApuracao
           Appearance.GradientChecked = ggVertical
         end
         object BtnSair: TAdvGlowButton
-          Left = 247
+          Left = 368
           Top = 15
           Width = 109
           Height = 30
@@ -336,12 +337,93 @@ inherited FrmApuracao: TFrmApuracao
           Appearance.GradientMirrorDown = ggVertical
           Appearance.GradientChecked = ggVertical
         end
+        object BtnExcluir: TAdvGlowButton
+          Left = 250
+          Top = 15
+          Width = 109
+          Height = 30
+          Caption = 'Gerar arquivos'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = [fsBold]
+          NotesFont.Charset = DEFAULT_CHARSET
+          NotesFont.Color = clWindowText
+          NotesFont.Height = -11
+          NotesFont.Name = 'Tahoma'
+          NotesFont.Style = []
+          ParentFont = False
+          Picture.Data = {
+            89504E470D0A1A0A0000000D4948445200000020000000200806000000737A7A
+            F40000000473424954080808087C086488000000097048597300000EC400000E
+            C401952B0E1B00000354494441545885C5974F681C7514C73F6FFECF6C32EE2E
+            310DABB2C622B4A5C4AA514A518A8748BA1189079B83AD14AA3428A2A2ED4141
+            2F5E0A2288C13FB78AB7F8EF90ADD68A885EEC4D6BAD918A3596522B9AC434BB
+            716767677F1E82C96E3653D8B8BBFDDE667EEFFDDE87F77BF3E6FD84182D3EB7
+            AF5774F76D851A11112BCEEE6A2A8595EAA98BBF3FF3C0E48937E26CB4586FC3
+            3986F0D046830320680A793D3F967BB1690051ECDC70E0DA7D440478253F963B
+            DA1480026905408D8EE4F7E6DE7A794DCCF823688784F1BBC7F6BCFBE5EEDD46
+            47004C4DC3D0EA13A9907DC5BEC4FB9F0C0FDB6D07D0358D2D3D29B4C6C31CAD
+            5EA74D7D36349430D6F16BA97A3C97C14C2F17160A14CB61EDD29099B14FB61D
+            00C0334DB6F4A4082A1185B04C55AD2CEDEA6811DA864ECA71700C7DE55D67BF
+            024013A1DBB248DA16BA081D3982F564EA3A2947EB7C066A2522D71600AE410D
+            AC9531F930BAA7E5F62BA50644ADF6FF9F67175CAD657842DAB549BB4E23802B
+            C313C0B888D4FD7E2E158AAD8A0EC0C52B0536A77C327E17BAAC0632400EAC35
+            D60C939E81DB919A14A82862E9CF3FB0BA7DE6A67F00A0EFAE5D2CCCFC829FED
+            AFF38F8280BFCE7CDB0071B9B8846B1A78A6896BE88808868834E4C54EA5E9CF
+            8D62B81EC9CDB7327F6E9A2808B8F4CDD76CDBFF385F3D3F4EA22FC38EA70E73
+            FACDD7C80EE5B07C9FAE1BB3CC4D9F210A0266CF9E4655AB75FB2A050A288621
+            A54A856ECB44F26339B516E03FF9D97EEE3D3AC1174F3C4A696E1680C1C32F21
+            BA4E57E6267EFBFC38E7A73E0460D3E04EEE78F6053E7DE4C1B8EDF04C83FE94
+            5F9FED58EB189D3DF60ED7DF7627D5A8C2F9FC47CDBA37A86980ECFD2304F373
+            78BD9B486FDDDE5980F4D6EDDC921BE5BB8957993931C5C0A1A7D16DBB7D00E1
+            529170A948A55402E0867BEE63E6E471667FFC9E7393EFA1A268250BE5C52B94
+            17FE6E1A40A6F6EE298B88B901F8A695300D6E5EA7083FE8447000DF6EBC6218
+            FFA8F9839E247F42C90EA5D44A8B4AB9CE48A4546B3223D06D99249DC67A899D
+            FD178F3C361F4451B2500E896D142DD0550712C730B0749D6239A414456D0188
+            BF9A2D77CDE511CA5E1DA15A29A5948ABF9A09A76A9F9747281BCF6CDD142722
+            BFC6F7814AE9008A8F9552E51A0712A649DAB131FFE7B020A8CBC093FF02D64C
+            EF4A14D82FD40000000049454E44AE426082}
+          TabOrder = 3
+          Appearance.BorderColor = 14727579
+          Appearance.BorderColorHot = 10079963
+          Appearance.BorderColorDown = 4548219
+          Appearance.BorderColorDisabled = clBackground
+          Appearance.Color = 15653832
+          Appearance.ColorTo = 16178633
+          Appearance.ColorChecked = 7915518
+          Appearance.ColorCheckedTo = 11918331
+          Appearance.ColorDisabled = clBackground
+          Appearance.ColorDisabledTo = clBackground
+          Appearance.ColorDown = 7778289
+          Appearance.ColorDownTo = 4296947
+          Appearance.ColorHot = 15465983
+          Appearance.ColorHotTo = 11332863
+          Appearance.ColorMirror = 15586496
+          Appearance.ColorMirrorTo = 16245200
+          Appearance.ColorMirrorHot = 5888767
+          Appearance.ColorMirrorHotTo = 10807807
+          Appearance.ColorMirrorDown = 946929
+          Appearance.ColorMirrorDownTo = 5021693
+          Appearance.ColorMirrorChecked = 10480637
+          Appearance.ColorMirrorCheckedTo = 5682430
+          Appearance.ColorMirrorDisabled = clBackground
+          Appearance.ColorMirrorDisabledTo = clBackground
+          Appearance.GradientHot = ggVertical
+          Appearance.GradientMirrorHot = ggVertical
+          Appearance.GradientDown = ggVertical
+          Appearance.GradientMirrorDown = ggVertical
+          Appearance.GradientChecked = ggVertical
+          DropDownButton = True
+          DropDownMenu = PpmArquivos
+        end
       end
       object AdvGpbArquivos: TAdvGroupBox
         Left = 0
         Top = 0
         Width = 828
-        Height = 81
+        Height = 78
         Align = alTop
         Caption = ' Configura'#231#245'es da apura'#231#227'o '
         TabOrder = 1
@@ -627,20 +709,23 @@ inherited FrmApuracao: TFrmApuracao
       end
       object CxPgcGeral: TcxPageControl
         Left = 0
-        Top = 81
+        Top = 123
         Width = 828
-        Height = 286
+        Height = 244
         Align = alClient
         TabOrder = 2
-        Properties.ActivePage = cxTabSheet1
+        Properties.ActivePage = TbsSped
         Properties.CustomButtons.Buttons = <>
-        ClientRectBottom = 282
+        ExplicitTop = 200
+        ExplicitHeight = 167
+        ClientRectBottom = 240
         ClientRectLeft = 4
         ClientRectRight = 824
         ClientRectTop = 24
         object TbsXML: TcxTabSheet
           Caption = 'XML'
           ImageIndex = 0
+          ExplicitHeight = 258
           object cxGridNF: TcxGrid
             Left = 0
             Top = 0
@@ -822,17 +907,19 @@ inherited FrmApuracao: TFrmApuracao
             Left = 0
             Top = 89
             Width = 820
-            Height = 169
+            Height = 127
             Align = alClient
             Caption = '   Itens da nota fiscal'
             TabOrder = 1
+            ExplicitHeight = 169
             object cxGridItensNF: TcxGrid
               Left = 2
               Top = 16
               Width = 816
-              Height = 151
+              Height = 109
               Align = alClient
               TabOrder = 0
+              ExplicitHeight = 151
               object cxGridDBTableView5: TcxGridDBTableView
                 Navigator.Buttons.CustomButtons = <>
                 DataController.DataSource = DMImportacaoXML.DsQryItensNF
@@ -1054,17 +1141,18 @@ inherited FrmApuracao: TFrmApuracao
         object TbsSped: TcxTabSheet
           Caption = 'SPED FISCAL'
           ImageIndex = 1
+          ExplicitHeight = 258
           object cxPgcImportacao: TcxPageControl
             Left = 0
             Top = 0
             Width = 820
-            Height = 258
+            Height = 216
             Align = alClient
             Color = 16445929
             ParentBackground = False
             ParentColor = False
             TabOrder = 0
-            Properties.ActivePage = TbsC400
+            Properties.ActivePage = Tbs0200
             Properties.CustomButtons.Buttons = <>
             Properties.CustomButtons.Mode = cbmEveryTab
             Properties.DragImage.Data = {
@@ -1107,7 +1195,8 @@ inherited FrmApuracao: TFrmApuracao
             Properties.TabSlants.Kind = skCutCorner
             LookAndFeel.Kind = lfOffice11
             TabSlants.Kind = skCutCorner
-            ClientRectBottom = 254
+            ExplicitHeight = 258
+            ClientRectBottom = 212
             ClientRectLeft = 4
             ClientRectRight = 816
             ClientRectTop = 24
@@ -1116,14 +1205,16 @@ inherited FrmApuracao: TFrmApuracao
               Color = 16445929
               ImageIndex = 1
               ParentColor = False
+              ExplicitHeight = 230
               object cxGrid0200: TcxGrid
                 Left = 0
                 Top = 0
                 Width = 812
-                Height = 230
+                Height = 188
                 Align = alClient
                 TabOrder = 0
-                object cxGridDBTableView1: TcxGridDBTableView
+                ExplicitHeight = 230
+                object cxGridDBTVW0200: TcxGridDBTableView
                   Navigator.Buttons.CustomButtons = <>
                   DataController.DataSource = DMImportacaoSPED.Ds0200
                   DataController.Options = [dcoAssignGroupingValues, dcoAssignMasterDetailKeys, dcoSaveExpanding, dcoImmediatePost]
@@ -1135,53 +1226,54 @@ inherited FrmApuracao: TFrmApuracao
                   OptionsData.Editing = False
                   OptionsData.Inserting = False
                   OptionsView.GroupByBox = False
-                  object cxGridDBTableView1COD_ITEM: TcxGridDBColumn
+                  object cxGridDBTVW0200COD_ITEM: TcxGridDBColumn
                     Caption = 'Cod.Item'
                     DataBinding.FieldName = 'COD_ITEM'
                     Width = 150
                   end
-                  object cxGridDBTableView1DESCR_ITEM: TcxGridDBColumn
+                  object cxGridDBTVW0200DESCR_ITEM: TcxGridDBColumn
                     Caption = 'Descri'#231#227'o item'
                     DataBinding.FieldName = 'DESCR_ITEM'
                     Width = 250
                   end
-                  object cxGridDBTableView1CODBARRA: TcxGridDBColumn
+                  object cxGridDBTVW0200CODBARRA: TcxGridDBColumn
                     Caption = 'Cod.Barra'
                     DataBinding.FieldName = 'CODBARRA'
                     Width = 150
                   end
-                  object cxGridDBTableView1UNID: TcxGridDBColumn
+                  object cxGridDBTVW0200UNID: TcxGridDBColumn
                     Caption = 'Unid.'
                     DataBinding.FieldName = 'UNID'
                   end
-                  object cxGridDBTableView1TIPO_ITEM: TcxGridDBColumn
+                  object cxGridDBTVW0200TIPO_ITEM: TcxGridDBColumn
                     Caption = 'Tipo '
                     DataBinding.FieldName = 'TIPO_ITEM'
                     Width = 150
                   end
-                  object cxGridDBTableView1ALIQ_ICMS: TcxGridDBColumn
+                  object cxGridDBTVW0200ALIQ_ICMS: TcxGridDBColumn
                     Caption = 'Aliq.ICMS'
                     DataBinding.FieldName = 'ALIQ_ICMS'
                     Width = 90
                   end
-                  object cxGridDBTableView1COD_NCM: TcxGridDBColumn
+                  object cxGridDBTVW0200COD_NCM: TcxGridDBColumn
                     Caption = 'NCM'
                     DataBinding.FieldName = 'COD_NCM'
                     Width = 150
                   end
-                  object cxGridDBTableView1CEST: TcxGridDBColumn
+                  object cxGridDBTVW0200CEST: TcxGridDBColumn
                     DataBinding.FieldName = 'CEST'
                     Width = 150
                   end
                 end
                 object cxGridLevel1: TcxGridLevel
-                  GridView = cxGridDBTableView1
+                  GridView = cxGridDBTVW0200
                 end
               end
             end
             object TbsC100E: TcxTabSheet
               Caption = 'Nota fiscal  entrada (Registro C100)'
               ImageIndex = 2
+              ExplicitHeight = 230
               object cxGridC100e: TcxGrid
                 Left = 0
                 Top = 0
@@ -1371,17 +1463,19 @@ inherited FrmApuracao: TFrmApuracao
                 Left = 0
                 Top = 91
                 Width = 812
-                Height = 139
+                Height = 97
                 Align = alClient
                 Caption = '   Itens da nota fiscal de sa'#237'da (Registro C170)   '
                 TabOrder = 1
+                ExplicitHeight = 139
                 object cxGridC170e: TcxGrid
                   Left = 2
                   Top = 16
                   Width = 808
-                  Height = 121
+                  Height = 79
                   Align = alClient
                   TabOrder = 0
+                  ExplicitHeight = 121
                   object cxGridDBTableView4: TcxGridDBTableView
                     Navigator.Buttons.CustomButtons = <>
                     DataController.DataSource = DMImportacaoSPED.DsC170e
@@ -1483,6 +1577,7 @@ inherited FrmApuracao: TFrmApuracao
             object TbsC100S: TcxTabSheet
               Caption = 'Nota fiscal Sa'#237'da (Registro C100)'
               ImageIndex = 3
+              ExplicitHeight = 230
               object cxGridC100s: TcxGrid
                 Left = 0
                 Top = 0
@@ -1668,17 +1763,19 @@ inherited FrmApuracao: TFrmApuracao
                 Left = 0
                 Top = 91
                 Width = 812
-                Height = 139
+                Height = 97
                 Align = alClient
                 Caption = '   Itens da not fiscal de sa'#237'da (Registro C170)   '
                 TabOrder = 1
+                ExplicitHeight = 139
                 object cxGridC170s: TcxGrid
                   Left = 2
                   Top = 16
                   Width = 808
-                  Height = 121
+                  Height = 79
                   Align = alClient
                   TabOrder = 0
+                  ExplicitHeight = 121
                   object cxGridDBTableView6: TcxGridDBTableView
                     Navigator.Buttons.CustomButtons = <>
                     DataController.DataSource = DMImportacaoSPED.DsC170s
@@ -1773,6 +1870,7 @@ inherited FrmApuracao: TFrmApuracao
             object TbsC400: TcxTabSheet
               Caption = 'Cupom fiscal (C400)'
               ImageIndex = 4
+              ExplicitHeight = 230
               object cxGridc400: TcxGrid
                 Left = 0
                 Top = 0
@@ -1812,18 +1910,20 @@ inherited FrmApuracao: TFrmApuracao
                 Left = 0
                 Top = 113
                 Width = 812
-                Height = 117
+                Height = 75
                 Align = alClient
                 TabOrder = 1
                 Properties.ActivePage = TbsC470
                 Properties.CustomButtons.Buttons = <>
-                ClientRectBottom = 113
+                ExplicitHeight = 117
+                ClientRectBottom = 71
                 ClientRectLeft = 4
                 ClientRectRight = 808
                 ClientRectTop = 24
                 object TbsC425: TcxTabSheet
                   Caption = 'Itens da redu'#231#227'o Z (C425)'
                   ImageIndex = 0
+                  ExplicitHeight = 89
                   object CxGridC425: TcxGrid
                     Left = 0
                     Top = 0
@@ -1877,6 +1977,7 @@ inherited FrmApuracao: TFrmApuracao
                 object TbsC470: TcxTabSheet
                   Caption = 'Itens da redu'#231#227'o Z (C470)'
                   ImageIndex = 1
+                  ExplicitHeight = 89
                   object CxGridC470: TcxGrid
                     Left = 0
                     Top = 0
@@ -1934,23 +2035,24 @@ inherited FrmApuracao: TFrmApuracao
         object cxTabSheet1: TcxTabSheet
           Caption = 'Analise da apura'#231#227'o'
           ImageIndex = 2
+          ExplicitHeight = 258
           object GpbResultEntrada: TAdvGroupBox
             Left = 0
             Top = 0
             Width = 820
-            Height = 258
+            Height = 216
             Align = alClient
             Caption = '   Analise sint'#233'tica  '
             TabOrder = 0
-            ExplicitHeight = 214
+            ExplicitHeight = 258
             object cxGridTotalizadorSintetico: TcxGrid
               Left = 2
               Top = 16
               Width = 816
-              Height = 240
+              Height = 198
               Align = alClient
               TabOrder = 0
-              ExplicitHeight = 196
+              ExplicitHeight = 240
               object cxGridTotalizadorSinteticoDBTableView1: TcxGridDBTableView
                 Navigator.Buttons.CustomButtons = <>
                 DataController.DataSource = DmApuracaoICMSST.DsAnalise
@@ -2064,6 +2166,30 @@ inherited FrmApuracao: TFrmApuracao
           end
         end
       end
+      object GpbProcessamento: TAdvGroupBox
+        Left = 0
+        Top = 78
+        Width = 828
+        Height = 45
+        Align = alTop
+        Caption = '  Processando  '
+        TabOrder = 3
+        Visible = False
+        ExplicitTop = 69
+        ExplicitWidth = 885
+        object ProgressBar: TW7ProgressBar
+          Left = 14
+          Top = 21
+          Width = 645
+          Height = 16
+          Min = 0
+          Max = 100
+          Position = 1
+          BackgroundColor = clWhite
+          Transparent = True
+          Style = pbsBlue
+        end
+      end
     end
   end
   object frxReport: TfrxReport
@@ -2089,8 +2215,8 @@ inherited FrmApuracao: TFrmApuracao
       'begin'
       ''
       'end.')
-    Left = 408
-    Top = 432
+    Left = 392
+    Top = 312
     Datasets = <
       item
         DataSet = frxDBConsulta
@@ -2735,15 +2861,59 @@ inherited FrmApuracao: TFrmApuracao
     CloseDataSource = False
     DataSet = DmApuracaoICMSST.QryAnalise
     BCDToCurrency = False
-    Left = 472
-    Top = 432
+    Left = 432
+    Top = 312
   end
   object frxDBEmpresa: TfrxDBDataset
     UserName = 'frxDBEmpresa'
     CloseDataSource = False
     DataSet = DMImportacaoSPED.Qry0000
     BCDToCurrency = False
-    Left = 552
-    Top = 432
+    Left = 472
+    Top = 312
+  end
+  object PpmArquivos: TPopupMenu
+    Left = 352
+    Top = 312
+    object MnSintegra: TMenuItem
+      Bitmap.Data = {
+        36010000424D3601000000000000360000002800000008000000080000000100
+        2000000000000001000000000000000000000000000000000000A4A5A525A4A4
+        A5579F9785919B8D6DC59C8E6EC39F98898EA4A5A658A4A4A5299A958A039979
+        34609C7A31E09E7C30FF9E7C30FF9B7A31D9987A3654A1B5E1029E7C323FA480
+        33E6AB8636FFAD8736FFAD8736FFAB8535FFA37F33DC9D7B3230A8843A95B28B
+        3DFFB78F3FFFB68F3FFFB68F3FFFB68F3FFFB08A3CFFA783397FB18C43A9BB94
+        45FFBF9747FFBF9747FFBF9747FFBF9747FFBA9345FFB08C4293B9944D72C199
+        4DFDC99E4EFFC99F4FFFC99F4FFFC89E4EFFC0994DF8B8944D5EBE9C5817C49E
+        56B1CCA255FFCFA456FFCFA456FFCBA155FFC39D56A2BD9B590FC4A05B00C7A4
+        621DCBA55F91CEA65FD8CEA65FD5CAA56088C7A46316C3A05C00}
+      Caption = 'Sintegra'
+      OnClick = MnSintegraClick
+    end
+    object MnSefApur: TMenuItem
+      Bitmap.Data = {
+        36010000424D3601000000000000360000002800000008000000080000000100
+        2000000000000001000000000000000000000000000000000000A4A5A525A4A4
+        A5579F9785919B8D6DC59C8E6EC39F98898EA4A5A658A4A4A5299A958A039979
+        34609C7A31E09E7C30FF9E7C30FF9B7A31D9987A3654A1B5E1029E7C323FA480
+        33E6AB8636FFAD8736FFAD8736FFAB8535FFA37F33DC9D7B3230A8843A95B28B
+        3DFFB78F3FFFB68F3FFFB68F3FFFB68F3FFFB08A3CFFA783397FB18C43A9BB94
+        45FFBF9747FFBF9747FFBF9747FFBF9747FFBA9345FFB08C4293B9944D72C199
+        4DFDC99E4EFFC99F4FFFC99F4FFFC89E4EFFC0994DF8B8944D5EBE9C5817C49E
+        56B1CCA255FFCFA456FFCFA456FFCBA155FFC39D56A2BD9B590FC4A05B00C7A4
+        621DCBA55F91CEA65FD8CEA65FD5CAA56088C7A46316C3A05C00}
+      Caption = 'SEF Apura'#231#227'o de estoque'
+      OnClick = MnSefApurClick
+    end
+  end
+  object ACBrSintegra: TACBrSintegra
+    VersaoValidador = vv524
+    Informa88SME = False
+    Informa88SMS = False
+    Informa88EAN = False
+    Informa88C = False
+    InformaSapiMG = False
+    Left = 308
+    Top = 312
   end
 end

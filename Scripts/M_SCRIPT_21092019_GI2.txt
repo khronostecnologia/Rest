@@ -1,0 +1,22 @@
+CREATE TABLE "CONTRIBUINTE"
+(                                                       
+"ID" Integer NOT NULL,  
+"CNPJ" character varying(14), 
+"IE" character varying(14),   
+"NOME"	character varying(35),   
+"MUNICIPIO" character varying(30), 
+"UF" character varying(2),   
+"LOGRADOURO" character varying(34),   	
+"NUMERO" INTEGER, 
+"COMPLEMENTO" character varying(22),  
+"BAIRRO" character varying(15),  
+"CEP" character varying(8),  
+"TELEFONE" character varying(12),  	
+PRIMARY KEY ("ID")                                  
+)                                                       
+WITH (OIDS = FALSE);                                                      
+ALTER TABLE "CONTRIBUINTE" OWNER to postgres;  
+
+CREATE OR REPLACE VIEW "GET_CONTRIBUINTE" AS
+SELECT "ID" AS "CODIGO","NOME","CNPJ","LOGRADOURO","MUNICIPIO","UF" 
+FROM "CONTRIBUINTE"

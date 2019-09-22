@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, AdvGlowButton, dxGDIPlusClasses,
-  Vcl.ExtCtrls, AdvSmoothLabel, AdvSmoothPanel;
+  Vcl.ExtCtrls, AdvSmoothLabel, AdvSmoothPanel,Vcl.Clipbrd;
 
 type
   TMensagem = (MsgConfirmacao,MsgInformacao);
@@ -24,6 +24,7 @@ type
     procedure BtnNaoClick(Sender: TObject);
     procedure BtnOkClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     { Private declarations }
     FRetorno: Boolean;
@@ -31,6 +32,7 @@ type
     procedure HabilitaBotoesMensagem(AMensagem : TMensagem);
     procedure HabilitaImageMensagem;
     procedure DesabilitaImagemMensagem;
+    procedure AjustaTamanhoTexto;
   public
     { Public declarations }
     function  Confirmacao(ATexto : String): Boolean;
@@ -59,6 +61,16 @@ begin
   close;
 end;
 
+procedure TFrmMensagem.AjustaTamanhoTexto;
+begin
+  if lblTextoMensagem.Caption.Text.Length > 100 then
+    lblTextoMensagem.Caption.Font.Size := 10;
+  if lblTextoMensagem.Caption.Text.Length <=100 then
+    lblTextoMensagem.Caption.Font.Size := 12;
+  if lblTextoMensagem.Caption.Text.Length <=50 then
+    lblTextoMensagem.Caption.Font.Size := 14;
+end;
+
 procedure TFrmMensagem.BtnNaoClick(Sender: TObject);
 begin
   FRetorno := false;
@@ -79,9 +91,13 @@ end;
 
 function TFrmMensagem.Confirmacao(ATexto: String): Boolean;
 begin
+  if Self.Visible then
+  close;
+
   lblTextoMensagem.Caption.Text := ATexto;
   HabilitaBotoesMensagem(MsgConfirmacao);
   HabilitaImageMensagem;
+  AjustaTamanhoTexto;
   ShowModal;
   result := FRetorno;
 end;
@@ -104,6 +120,13 @@ begin
   close;
 end;
 
+procedure TFrmMensagem.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if Key = VK_F10 then
+  Clipboard.AsText := lblTextoMensagem.Caption.Text;
+end;
+
 procedure TFrmMensagem.FormShow(Sender: TObject);
 begin
   AdvLblAguarde.Visible := ((not BtnSim.Visible) and
@@ -113,9 +136,13 @@ end;
 
 procedure TFrmMensagem.Informacao(ATexto: String);
 begin
+  if Self.Visible then
+  close;
+
   lblTextoMensagem.Caption.Text := ATexto;
   HabilitaBotoesMensagem(MsgInformacao);
   HabilitaImageMensagem;
+  AjustaTamanhoTexto;
   ShowModal;
 end;
 
@@ -123,6 +150,8 @@ procedure TFrmMensagem.MostraMensagem(ATexto: String);
 begin
   lblTextoMensagem.Caption.Text := ATexto;
   DesabilitaBotoesMensagem;
+  DesabilitaImagemMensagem;
+  AjustaTamanhoTexto;
   Self.Show;
   Self.BringToFront;
 end;

@@ -14,6 +14,7 @@ object FrmMensagem: TFrmMensagem
   FormStyle = fsStayOnTop
   OldCreateOrder = False
   Position = poMainFormCenter
+  OnKeyDown = FormKeyDown
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -85,10 +86,10 @@ object FrmMensagem: TFrmMensagem
       TabOrder = 0
       TMSStyle = 4
       object lblTextoMensagem: TAdvSmoothLabel
-        Left = 8
-        Top = 125
-        Width = 502
-        Height = 59
+        Left = 3
+        Top = 121
+        Width = 495
+        Height = 67
         Fill.ColorMirror = clNone
         Fill.ColorMirrorTo = clNone
         Fill.GradientType = gtVertical
@@ -103,8 +104,8 @@ object FrmMensagem: TFrmMensagem
         Caption.Font.Height = -19
         Caption.Font.Name = 'Tahoma'
         Caption.Font.Style = []
-        Caption.ColorStart = clMenuHighlight
-        Caption.ColorEnd = clHighlight
+        Caption.ColorStart = clBtnText
+        Caption.ColorEnd = clBtnText
         CaptionShadow.Text = 'Verificando registros de cheques...'
         CaptionShadow.Font.Charset = DEFAULT_CHARSET
         CaptionShadow.Font.Color = clWindowText

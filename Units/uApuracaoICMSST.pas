@@ -26,7 +26,8 @@ uses
   cxDataStorage, cxNavigator, Data.DB, cxDBData, cxTextEdit, Vcl.DBCtrls,
   cxGridLevel, cxGridCustomTableView, cxGridTableView, cxGridDBTableView,
   cxClasses, cxGridCustomView, cxGrid,UDMImportacaoSPED,UDMImportacaoXML,
-  uDMApuracaoICMSST, AdvOfficeButtons, frxClass, frxDBSet;
+  uDMApuracaoICMSST, AdvOfficeButtons, frxClass, frxDBSet, Vcl.Menus,
+  Controller.ApuracaoICMSST, ACBrBase, ACBrSintegra, W7Classes, W7ProgressBars;
 
 type
   TFrmApuracao = class(TFrmMaster)
@@ -112,15 +113,15 @@ type
     cxPgcImportacao: TcxPageControl;
     Tbs0200: TcxTabSheet;
     cxGrid0200: TcxGrid;
-    cxGridDBTableView1: TcxGridDBTableView;
-    cxGridDBTableView1COD_ITEM: TcxGridDBColumn;
-    cxGridDBTableView1DESCR_ITEM: TcxGridDBColumn;
-    cxGridDBTableView1CODBARRA: TcxGridDBColumn;
-    cxGridDBTableView1UNID: TcxGridDBColumn;
-    cxGridDBTableView1TIPO_ITEM: TcxGridDBColumn;
-    cxGridDBTableView1ALIQ_ICMS: TcxGridDBColumn;
-    cxGridDBTableView1COD_NCM: TcxGridDBColumn;
-    cxGridDBTableView1CEST: TcxGridDBColumn;
+    cxGridDBTVW0200: TcxGridDBTableView;
+    cxGridDBTVW0200COD_ITEM: TcxGridDBColumn;
+    cxGridDBTVW0200DESCR_ITEM: TcxGridDBColumn;
+    cxGridDBTVW0200CODBARRA: TcxGridDBColumn;
+    cxGridDBTVW0200UNID: TcxGridDBColumn;
+    cxGridDBTVW0200TIPO_ITEM: TcxGridDBColumn;
+    cxGridDBTVW0200ALIQ_ICMS: TcxGridDBColumn;
+    cxGridDBTVW0200COD_NCM: TcxGridDBColumn;
+    cxGridDBTVW0200CEST: TcxGridDBColumn;
     cxGridLevel1: TcxGridLevel;
     TbsC100E: TcxTabSheet;
     cxGridC100e: TcxGrid;
@@ -279,6 +280,13 @@ type
     frxReport: TfrxReport;
     frxDBConsulta: TfrxDBDataset;
     frxDBEmpresa: TfrxDBDataset;
+    BtnExcluir: TAdvGlowButton;
+    PpmArquivos: TPopupMenu;
+    MnSintegra: TMenuItem;
+    MnSefApur: TMenuItem;
+    ACBrSintegra: TACBrSintegra;
+    GpbProcessamento: TAdvGroupBox;
+    ProgressBar: TW7ProgressBar;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure BtnSairClick(Sender: TObject);
     procedure BtnBuscaClienteClick(Sender: TObject);
@@ -311,11 +319,14 @@ type
     procedure cxGridc400DBTableView1KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure BtnImprimirResultadoClick(Sender: TObject);
+    procedure MnSintegraClick(Sender: TObject);
+    procedure MnSefApurClick(Sender: TObject);
   private
     { Private declarations }
-    DMSped : TDMImportacaoSPED;
-    DMXML  : TDMImportacaoXML;
-    DM     : TDmApuracaoICMSST;
+    DMSped      : TDMImportacaoSPED;
+    DMXML       : TDMImportacaoXML;
+    DM          : TDmApuracaoICMSST;
+    FController : TControllerApuracaoICMSST;
     procedure LimpaTela;
     procedure MostraAba;
   public
@@ -721,6 +732,7 @@ begin
   DM                               := TDmApuracaoICMSST.Create(Self);
   DMSped                           := TDMImportacaoSPED.Create(Self);
   DMXML                            := TDMImportacaoXML.Create(Self);
+  FController                      := TControllerApuracaoICMSST.create(Self,DM);
 end;
 
 procedure TFrmApuracao.FormShow(Sender: TObject);
@@ -761,15 +773,32 @@ begin
   SetaFoco(EdtCodPart);
 end;
 
+procedure TFrmApuracao.MnSefApurClick(Sender: TObject);
+begin
+  inherited;
+  if not FController.ValidadoDadosBasicos then
+  begin
+    FrmMensagem.Informacao(FController.Mensagem);
+    exit;
+  end;
+  FController.GerarArquivoSEF;
+end;
+
+procedure TFrmApuracao.MnSintegraClick(Sender: TObject);
+begin
+  inherited;
+  if not FController.ValidadoDadosBasicos then
+  begin
+    FrmMensagem.Informacao(FController.Mensagem);
+    exit;
+  end;
+  FController.GerarSintegra;
+end;
+
 procedure TFrmApuracao.MostraAba;
 begin
   TbsXML.TabVisible  :=  ChkXML.Checked;
   TbsSped.TabVisible :=  ChkSPED.Checked;
-  (*TbsC425.TabVisible := (DMSped.QryC425.RecordCount > 0);
-  CxGridC425.Visible :=  TbsC425.TabVisible;
-  TbsC470.TabVisible := (DMSped.QryC470.RecordCount > 0);
-  CxGridC470.Visible :=  TbsC425.TabVisible;
-  Application.ProcessMessages; *)
 end;
 
 end.

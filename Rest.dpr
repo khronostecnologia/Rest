@@ -20,7 +20,10 @@ uses
   uGenerico in 'Util\uGenerico.pas',
   uLog in 'Util\uLog.pas',
   uApuracaoICMSST in 'Units\uApuracaoICMSST.pas' {FrmApuracao},
-  uDMApuracaoICMSST in 'Dao\uDMApuracaoICMSST.pas' {DmApuracaoICMSST: TDataModule};
+  uDMApuracaoICMSST in 'Dao\uDMApuracaoICMSST.pas' {DmApuracaoICMSST: TDataModule},
+  Controller.ApuracaoICMSST in 'Controller\Controller.ApuracaoICMSST.pas',
+  uCadContribuinte in 'Units\uCadContribuinte.pas' {FrmCadContribuinte},
+  uDMCadContribuinte in 'Dao\uDMCadContribuinte.pas' {DMCadContribuinte: TDataModule};
 
 {$R *.res}
 
