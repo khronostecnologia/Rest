@@ -546,7 +546,7 @@ inherited FrmCadContribuinte: TFrmCadContribuinte
         Align = alTop
         TabOrder = 1
         object lblCodigo: TLabel
-          Left = 11
+          Left = 10
           Top = 13
           Width = 55
           Height = 16
@@ -559,7 +559,7 @@ inherited FrmCadContribuinte: TFrmCadContribuinte
           ParentFont = False
         end
         object BtnBusca: TAdvGlowButton
-          Left = 199
+          Left = 198
           Top = 10
           Width = 26
           Height = 19
@@ -635,12 +635,13 @@ inherited FrmCadContribuinte: TFrmCadContribuinte
           Appearance.BorderColor = 14727579
           Appearance.BorderColorHot = 10079963
           Appearance.BorderColorDown = 4548219
+          Appearance.BorderColorDisabled = clBackground
           Appearance.Color = 15653832
           Appearance.ColorTo = 16178633
           Appearance.ColorChecked = 7915518
           Appearance.ColorCheckedTo = 11918331
-          Appearance.ColorDisabled = 15921906
-          Appearance.ColorDisabledTo = 15921906
+          Appearance.ColorDisabled = clBackground
+          Appearance.ColorDisabledTo = clBackground
           Appearance.ColorDown = 7778289
           Appearance.ColorDownTo = 4296947
           Appearance.ColorHot = 15465983
@@ -653,8 +654,8 @@ inherited FrmCadContribuinte: TFrmCadContribuinte
           Appearance.ColorMirrorDownTo = 5021693
           Appearance.ColorMirrorChecked = 10480637
           Appearance.ColorMirrorCheckedTo = 5682430
-          Appearance.ColorMirrorDisabled = 11974326
-          Appearance.ColorMirrorDisabledTo = 15921906
+          Appearance.ColorMirrorDisabled = clBackground
+          Appearance.ColorMirrorDisabledTo = clBackground
           Appearance.GradientHot = ggVertical
           Appearance.GradientMirrorHot = ggVertical
           Appearance.GradientDown = ggVertical
@@ -680,14 +681,14 @@ inherited FrmCadContribuinte: TFrmCadContribuinte
         Caption = '  Dados do contribuinte  '
         TabOrder = 2
         object lblNome: TLabel
-          Left = 11
-          Top = 25
-          Width = 46
-          Height = 16
+          Left = 12
+          Top = 26
+          Width = 37
+          Height = 13
           Caption = 'Nome:'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
-          Font.Height = -13
+          Font.Height = -12
           Font.Name = 'MS Sans Serif'
           Font.Style = [fsBold]
           ParentFont = False
@@ -695,12 +696,12 @@ inherited FrmCadContribuinte: TFrmCadContribuinte
         object lblCNPJ: TLabel
           Left = 12
           Top = 53
-          Width = 44
-          Height = 16
+          Width = 36
+          Height = 13
           Caption = 'CNPJ:'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
-          Font.Height = -13
+          Font.Height = -12
           Font.Name = 'MS Sans Serif'
           Font.Style = [fsBold]
           ParentFont = False
@@ -708,25 +709,25 @@ inherited FrmCadContribuinte: TFrmCadContribuinte
         object lblIE: TLabel
           Left = 303
           Top = 51
-          Width = 19
-          Height = 16
+          Width = 17
+          Height = 13
           Caption = 'IE:'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
-          Font.Height = -13
+          Font.Height = -12
           Font.Name = 'MS Sans Serif'
           Font.Style = [fsBold]
           ParentFont = False
         end
         object lblTelefone: TLabel
-          Left = 13
+          Left = 12
           Top = 78
-          Width = 67
-          Height = 16
+          Width = 55
+          Height = 13
           Caption = 'Telefone:'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
-          Font.Height = -13
+          Font.Height = -12
           Font.Name = 'MS Sans Serif'
           Font.Style = [fsBold]
           ParentFont = False
@@ -741,7 +742,7 @@ inherited FrmCadContribuinte: TFrmCadContribuinte
           TabOrder = 0
         end
         object EdtCNPJ: TDBEdit
-          Left = 73
+          Left = 72
           Top = 49
           Width = 225
           Height = 19
@@ -755,16 +756,16 @@ inherited FrmCadContribuinte: TFrmCadContribuinte
           Width = 616
           Height = 213
           Caption = '  Dados do endere'#231'o '
-          TabOrder = 2
+          TabOrder = 4
           object lblLogradouro: TLabel
-            Left = 12
-            Top = 25
-            Width = 81
-            Height = 16
+            Left = 15
+            Top = 28
+            Width = 65
+            Height = 13
             Caption = 'Logradouro'
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
-            Font.Height = -13
+            Font.Height = -12
             Font.Name = 'MS Sans Serif'
             Font.Style = [fsBold]
             ParentFont = False
@@ -772,25 +773,25 @@ inherited FrmCadContribuinte: TFrmCadContribuinte
           object lblNumero: TLabel
             Left = 15
             Top = 74
-            Width = 59
-            Height = 16
+            Width = 48
+            Height = 13
             Caption = 'N'#250'mero:'
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
-            Font.Height = -13
+            Font.Height = -12
             Font.Name = 'MS Sans Serif'
             Font.Style = [fsBold]
             ParentFont = False
           end
           object lblComplemento: TLabel
             Left = 167
-            Top = 70
-            Width = 100
-            Height = 16
+            Top = 76
+            Width = 80
+            Height = 13
             Caption = 'Complemento:'
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
-            Font.Height = -13
+            Font.Height = -12
             Font.Name = 'MS Sans Serif'
             Font.Style = [fsBold]
             ParentFont = False
@@ -798,38 +799,38 @@ inherited FrmCadContribuinte: TFrmCadContribuinte
           object lblBairro: TLabel
             Left = 15
             Top = 99
-            Width = 47
-            Height = 16
+            Width = 38
+            Height = 13
             Caption = 'Bairro:'
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
-            Font.Height = -13
+            Font.Height = -12
             Font.Name = 'MS Sans Serif'
             Font.Style = [fsBold]
             ParentFont = False
           end
           object lblCep: TLabel
             Left = 308
-            Top = 95
-            Width = 35
-            Height = 16
+            Top = 99
+            Width = 29
+            Height = 13
             Caption = 'CEP:'
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
-            Font.Height = -13
+            Font.Height = -12
             Font.Name = 'MS Sans Serif'
             Font.Style = [fsBold]
             ParentFont = False
           end
           object lblMunicipio: TLabel
             Left = 19
-            Top = 124
-            Width = 71
-            Height = 16
+            Top = 127
+            Width = 59
+            Height = 13
             Caption = 'Municipio:'
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
-            Font.Height = -13
+            Font.Height = -12
             Font.Name = 'MS Sans Serif'
             Font.Style = [fsBold]
             ParentFont = False
@@ -837,12 +838,12 @@ inherited FrmCadContribuinte: TFrmCadContribuinte
           object lblUF: TLabel
             Left = 311
             Top = 124
-            Width = 25
-            Height = 16
+            Width = 21
+            Height = 13
             Caption = 'UF:'
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
-            Font.Height = -13
+            Font.Height = -12
             Font.Name = 'MS Sans Serif'
             Font.Style = [fsBold]
             ParentFont = False
@@ -866,9 +867,9 @@ inherited FrmCadContribuinte: TFrmCadContribuinte
             TabOrder = 1
           end
           object EdtComplemento: TDBEdit
-            Left = 273
+            Left = 253
             Top = 70
-            Width = 328
+            Width = 348
             Height = 19
             DataField = 'COMPLEMENTO'
             DataSource = DsPrincipal
@@ -884,22 +885,13 @@ inherited FrmCadContribuinte: TFrmCadContribuinte
             TabOrder = 3
           end
           object EdtCEP: TDBEdit
-            Left = 349
+            Left = 343
             Top = 95
-            Width = 252
+            Width = 258
             Height = 19
             DataField = 'CEP'
             DataSource = DsPrincipal
             TabOrder = 4
-          end
-          object EdtMunicipio: TDBComboBox
-            Left = 96
-            Top = 120
-            Width = 209
-            Height = 21
-            DataField = 'MUNICIPIO'
-            DataSource = DsPrincipal
-            TabOrder = 5
           end
           object EdtUF: TDBComboBox
             Left = 342
@@ -909,6 +901,15 @@ inherited FrmCadContribuinte: TFrmCadContribuinte
             DataField = 'UF'
             DataSource = DsPrincipal
             TabOrder = 6
+          end
+          object EdtMunicipio: TDBEdit
+            Left = 84
+            Top = 120
+            Width = 218
+            Height = 21
+            DataField = 'MUNICIPIO'
+            DataSource = DsPrincipal
+            TabOrder = 5
           end
         end
         object EdtTelefone: TDBEdit
@@ -920,17 +921,17 @@ inherited FrmCadContribuinte: TFrmCadContribuinte
           DataSource = DsPrincipal
           TabOrder = 3
         end
+        object EdtIE: TDBEdit
+          Left = 326
+          Top = 49
+          Width = 302
+          Height = 19
+          DataField = 'IE'
+          DataSource = DsPrincipal
+          TabOrder = 2
+        end
       end
     end
-  end
-  object EdtIE: TDBEdit
-    Left = 334
-    Top = 145
-    Width = 294
-    Height = 21
-    DataField = 'IE'
-    DataSource = DsPrincipal
-    TabOrder = 1
   end
   object DsPrincipal: TDataSource
     DataSet = DMCadContribuinte.QryContribuinte

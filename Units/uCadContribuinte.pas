@@ -40,10 +40,10 @@ type
     lblTelefone: TLabel;
     EdtTelefone: TDBEdit;
     lblMunicipio: TLabel;
-    EdtMunicipio: TDBComboBox;
     lblUF: TLabel;
     EdtUF: TDBComboBox;
     DsPrincipal: TDataSource;
+    EdtMunicipio: TDBEdit;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure EdtCodigoKeyDown(Sender: TObject; var Key: Word;
@@ -75,7 +75,9 @@ Uses uDMCadContribuinte,uPesquisa,uMensagem,uDMBase;
 procedure TFrmCadContribuinte.BtnAdicionarClick(Sender: TObject);
 begin
   inherited;
-  DMCadContribuinte.Adicionar;
+  if not DMCadContribuinte.Adicionar then
+  exit;
+
   SetCodigoEdit;
   ControlaBotoesPrincipal(stBrowser);
   ControlaEditMaster(True);
@@ -107,6 +109,7 @@ begin
   SetCodigoEdit;
   ControlaBotoesPrincipal(stBrowser);
   ControlaEditMaster(False);
+  SetaFoco(EdtCodigo);
 end;
 
 procedure TFrmCadContribuinte.BtnEditarClick(Sender: TObject);
@@ -165,6 +168,7 @@ begin
   BtnExcluir.Enabled     :=  (DMCadContribuinte.QryContribuinte.State in [dsInsert,dsEdit]);
   BtnSalvar.Enabled      :=  (DMCadContribuinte.QryContribuinte.State in [dsInsert,dsEdit]);
   BtnCancelar.Enabled    :=  BtnSalvar.Enabled;
+  BtnBusca.Enabled       := (DMCadContribuinte.QryContribuinte.State in [dsBrowse]);
 end;
 
 procedure TFrmCadContribuinte.ControlaEditMaster(AEnabled: Boolean);
@@ -184,8 +188,13 @@ begin
   inherited;
   if key = VK_Return then
   begin
-    DMCadContribuinte.AbreDataSet(StrToInt(EdtCodigo.Text));
-    ControlaBotoesPrincipal(stBrowser);
+    if EdtCodigo.Text <> '' then
+    begin
+      DMCadContribuinte.AbreDataSet(StrToInt(EdtCodigo.Text));
+      ControlaBotoesPrincipal(stBrowser);
+    end
+    else
+      BtnAdicionar.Click;
   end;
 
   if Key = VK_F3 then
@@ -209,9 +218,9 @@ end;
 
 procedure TFrmCadContribuinte.SetCodigoEdit;
 begin
-  EdtCodigo.Text    := iif(DMCadContribuinte.QryContribuinte.State in
-                       [dsInsert,dsEdit,dsBrowse],DMCadContribuinte.
-                       QryContribuinteID.AsInteger,0);
+  EdtCodigo.Text    := iif(DMCadContribuinte.QryContribuinteID.AsInteger > 0,
+                       DMCadContribuinte.QryContribuinteID.AsInteger,
+                       '');
 
   EdtCodigo.Enabled := not (DMCadContribuinte.QryContribuinte.State
                        in [dsInsert,dsEdit]);

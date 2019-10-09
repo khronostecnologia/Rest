@@ -3,12 +3,19 @@ object DMCadContribuinte: TDMCadContribuinte
   Height = 229
   Width = 368
   object QryContribuinte: TFDQuery
+    OnNewRecord = QryContribuinteNewRecord
     CachedUpdates = True
     Connection = DMBase.DB
     SQL.Strings = (
-      'SELECT * FROM "CONTRIBUINTE"')
+      'SELECT * FROM "CONTRIBUINTE"'
+      'WHERE "ID" =:CODIGO')
     Left = 32
     Top = 16
+    ParamData = <
+      item
+        Name = 'CODIGO'
+        ParamType = ptInput
+      end>
     object QryContribuinteID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]

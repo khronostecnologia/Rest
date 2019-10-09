@@ -49,6 +49,7 @@ Uses
   Procedure CopyQuery(SQL : String);
   procedure AtivaPerformanceMemTable(Var pMemQry : TFDMemTable ; pRecsMax : Integer);
   function  GetID(ATabela : String ; AConexao : TFDConnection):Integer;
+  function  GetSequence(pSequence : String; pConexao : TFDConnection):Integer;
   procedure ExecutaArrayDMLEmBatch(var pQryArrayDML : TFDQUery);
   procedure HabilitaBotao(pButon : TWinControl; pHabilitado : Boolean);
 
@@ -369,6 +370,18 @@ begin
  try
   Qry    := ConsultaSQL('SELECT MAX("ID")ID FROM ' + ATabela,AConexao);
   result := iif(Qry.IsEmpty,'0',Qry.FieldByName('ID').AsInteger);
+ finally
+   FreeAndNil(Qry);
+ end;
+end;
+
+function GetSequence(pSequence : String; pConexao : TFDConnection):Integer;
+var
+  Qry    : TFDQuery;
+begin
+ try
+  Qry    := ConsultaSQL('SELECT nextval (' + pSequence.QuotedString + ') AS "CODIGO";',pConexao);
+  result := iif(Qry.IsEmpty,'0',Qry.FieldByName('CODIGO').AsInteger);
  finally
    FreeAndNil(Qry);
  end;

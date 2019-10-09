@@ -23,16 +23,17 @@ type
     QryContribuinteBAIRRO: TStringField;
     QryContribuinteCEP: TStringField;
     QryContribuinteTELEFONE: TStringField;
+    procedure QryContribuinteNewRecord(DataSet: TDataSet);
   private
     { Private declarations }
   public
     { Public declarations }
     procedure Editar;
-    procedure Adicionar;
     procedure Cancelar;
     procedure Salvar;
     procedure Excluir;
     procedure GravarBanco;
+    function Adicionar : Boolean;
     function AbreDataSet(pCodigo : Integer = -1):Boolean;
   end;
 
@@ -41,7 +42,7 @@ var
 
 implementation
 
-uses uDMBase,uMensagem;
+uses uDMBase,uMensagem,BiblKhronos;
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
@@ -58,9 +59,11 @@ begin
     Open;
   end;
 end;
-procedure TDMCadContribuinte.Adicionar;
+function TDMCadContribuinte.Adicionar;
 begin
-  if FrmMensagem.Confirmacao('Deseja realmente incluir um registro?') then
+  result := FrmMensagem.Confirmacao('Deseja incluir um novo contribuinte?');
+
+  if result then
   QryContribuinte.Append;
 end;
 
@@ -86,6 +89,13 @@ begin
   if QryContribuinte.ApplyUpdates(0) > 0 then
   Raise Exception.Create('Erro ao aplicar atualização na qryPrincipal!');
  end;
+end;
+
+procedure TDMCadContribuinte.QryContribuinteNewRecord(DataSet: TDataSet);
+Const
+  SEQUENCE = 'ID_CONTRIBUINTE';
+begin
+  QryContribuinteID.AsInteger := GetSequence(SEQUENCE,dmPrincipal.BancoExec)
 end;
 
 procedure TDMCadContribuinte.Salvar;
