@@ -31,15 +31,9 @@ uses
 
 type
   TFrmApuracao = class(TFrmMaster)
-    AdvGpbArquivos: TAdvGroupBox;
-    BtnIniciaApuracao: TAdvGlowButton;
     BtnCancelar: TAdvGlowButton;
     BtnImprimirResultado: TAdvGlowButton;
     BtnSair: TAdvGlowButton;
-    EdtCodPart: TEdit;
-    EdtParticipante: TEdit;
-    lblEmpresa: TLabel;
-    BtnBuscaCliente: TAdvGlowButton;
     CxPgcGeral: TcxPageControl;
     TbsXML: TcxTabSheet;
     TbsSped: TcxTabSheet;
@@ -251,13 +245,6 @@ type
     cxGridTotalizadorSinteticoDBTableView1SALDO_RESTITUIR: TcxGridDBColumn;
     cxGridTotalizadorSinteticoDBTableView1SALDO_ARECOLHER: TcxGridDBColumn;
     cxGridTotalizadorSinteticoLevel1: TcxGridLevel;
-    cmbMes: TComboBox;
-    Label1: TLabel;
-    CmbAno: TComboBox;
-    Label2: TLabel;
-    AdvGroupBox1: TAdvGroupBox;
-    ChkXML: TAdvOfficeCheckBox;
-    ChkSPED: TAdvOfficeCheckBox;
     CxPgcC400Itens: TcxPageControl;
     TbsC425: TcxTabSheet;
     CxGridC425: TcxGrid;
@@ -287,6 +274,21 @@ type
     ACBrSintegra: TACBrSintegra;
     GpbProcessamento: TAdvGroupBox;
     ProgressBar: TW7ProgressBar;
+    AdvGpbArquivos: TAdvGroupBox;
+    lblEmpresa: TLabel;
+    Label1: TLabel;
+    Label2: TLabel;
+    BtnIniciaApuracao: TAdvGlowButton;
+    EdtCodPart: TEdit;
+    EdtParticipante: TEdit;
+    BtnBuscaCliente: TAdvGlowButton;
+    cmbMes: TComboBox;
+    CmbAno: TComboBox;
+    AdvGroupBox1: TAdvGroupBox;
+    ChkXML: TAdvOfficeCheckBox;
+    ChkSPED: TAdvOfficeCheckBox;
+    Normal1: TMenuItem;
+    Retificao1: TMenuItem;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure BtnSairClick(Sender: TObject);
     procedure BtnBuscaClienteClick(Sender: TObject);
@@ -319,8 +321,9 @@ type
     procedure cxGridc400DBTableView1KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure BtnImprimirResultadoClick(Sender: TObject);
-    procedure MnSintegraClick(Sender: TObject);
     procedure MnSefApurClick(Sender: TObject);
+    procedure Normal1Click(Sender: TObject);
+    procedure Retificao1Click(Sender: TObject);
   private
     { Private declarations }
     DMSped      : TDMImportacaoSPED;
@@ -776,29 +779,31 @@ end;
 procedure TFrmApuracao.MnSefApurClick(Sender: TObject);
 begin
   inherited;
-  if not FController.ValidadoDadosBasicos then
+  FrmMensagem.Informacao('Erro : Runtime error 204 at 0040972D ao tentar gerar arquivo apuração SEF');
+ (*  if not FController.ValidadoDadosBasicos then
   begin
     FrmMensagem.Informacao(FController.Mensagem);
     exit;
   end;
-  FController.GerarArquivoSEF;
-end;
-
-procedure TFrmApuracao.MnSintegraClick(Sender: TObject);
-begin
-  inherited;
-  if not FController.ValidadoDadosBasicos then
-  begin
-    FrmMensagem.Informacao(FController.Mensagem);
-    exit;
-  end;
-  FController.GerarSintegra;
+  FController.GerarArquivoSEF; *)
 end;
 
 procedure TFrmApuracao.MostraAba;
 begin
   TbsXML.TabVisible  :=  ChkXML.Checked;
   TbsSped.TabVisible :=  ChkSPED.Checked;
+end;
+
+procedure TFrmApuracao.Normal1Click(Sender: TObject);
+begin
+  inherited;
+  FController.ProcessarSintegra(fsNormal);
+end;
+
+procedure TFrmApuracao.Retificao1Click(Sender: TObject);
+begin
+  inherited;
+  FController.ProcessarSintegra(fsRetificacao);
 end;
 
 end.

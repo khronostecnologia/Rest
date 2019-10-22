@@ -5,34 +5,50 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, biblKhronos,DateUtils;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, biblKhronos,DateUtils,
+  FireDAC.Comp.Client,Data.DB;
 
 type
   TControllerApuracaoICMSST = class
   private
-    FView : TForm;
-    FModel: TDataModule;
-    FMensagem: String;
+    FView      : TForm;
+    FModel     : TDataModule;
+    FMensagem  : String;
+    FQry       : TFDQuery;
     procedure SetMensagem(const Value: String);
+    function  GetMensagem : String;
+    procedure GeraRegistro10(pMes,pAno : String; pFinalidadeSintegra: TFinalidadeSintegra);
+    procedure GerarRegistro88STES(pCNPJ,pDatInv,pDatIni,pDatFin : String);
+    procedure GerarRegistro88STITNF;
+    procedure GeraRegistro11;
   public
     function ValidadoDadosBasicos:Boolean;
-    procedure GerarSintegra;
+    function  GerarSintegra(pFinalidadeSintegra: TFinalidadeSintegra) : Boolean;
+    procedure ProcessarSintegra(pFinalidadeSintegra : TFinalidadeSintegra);
+    procedure DefineNomeArqSint(pCNPJ,pMes,pAno : String);
     procedure GerarArquivoSEF;
     constructor create(pView: TForm; pModel : TDataModule);
-    property Mensagem : String read FMensagem write SetMensagem;
+    property Mensagem : String read GetMensagem write SetMensagem;
   end;
 
 implementation
 
 { TControllerApuracaoICMSST }
 
-Uses uApuracaoICMSST, uDMApuracaoICMSST,uDMBase;
+Uses uApuracaoICMSST, uDMApuracaoICMSST,uDMBase,uMensagem,ACBrSintegra;
 
 constructor TControllerApuracaoICMSST.create(pView: TForm; pModel : TDataModule);
 begin
   inherited create;
-  FView  := pView;
-  FModel := pModel;
+  FView   := pView;
+  FModel  := pModel;
+end;
+
+procedure TControllerApuracaoICMSST.DefineNomeArqSint(pCNPJ,pMes,pAno : String);
+Const
+  cPasta = '\Sintegra\Sint_';
+begin
+  TFrmApuracao(FView).ACBrSintegra.FileName := dmPrincipal.DirRaizApp + cPasta + pCNPJ + pMes + pAno;
 end;
 
 procedure TControllerApuracaoICMSST.GerarArquivoSEF;
@@ -40,45 +56,125 @@ begin
 
 end;
 
-procedure TControllerApuracaoICMSST.GerarSintegra;
+procedure TControllerApuracaoICMSST.GerarRegistro88STES(pCNPJ,pDatInv,pDatIni,pDatFin : String);
 var
-  vCodigo : String;
-  vEmp    : String;
-  vMes    : String;
-  vAno    : String;
+  vReg88STES     : TRegistro88STES;
+  vQryInventario : TFDMemTable;
+  vSQL           : String;
 
-  procedure GeraRegistro10;
-  Const
-    cCodigoConv        = '3 - Convênio 57/95 Alt. 76/03';
-    cNaturezaInf       = '1 - Interestaduais - Somente operações sujeitas ao regime de Substituição Tributária';
-    cFinalidadeArquivo = '1 - Normal';
-  begin
-    with TFrmApuracao(FView).ACBrSintegra do
-    begin
-      Registro10.CNPJ                := vCodigo;
-      Registro10.Inscricao           := 'ISENTO';
-      Registro10.RazaoSocial         := vEmp;
-      Registro10.Cidade              := 'UBERLANDIA';
-      Registro10.Estado              := 'MG';
-      Registro10.Telefone            := '3511111111';
-      Registro10.DataInicial         := StartOfaMonth(vAno.ToInteger,vMes.ToInteger);
-      Registro10.DataFinal           := EndOfaMonth(vAno.ToInteger,vMes.ToInteger);
-      Registro10.CodigoConvenio      := cCodigoConv;
-      Registro10.NaturezaInformacoes := cNaturezaInf;
-      Registro10.FinalidadeArquivo   := cFinalidadeArquivo;
+begin
+  {Estoques de Produtos ao Regime de Substituição Tributária}
+  try
+    try
+      vSQL := TDmApuracaoICMSST(FModel).GetSQL88STES(pDatIni,pDatFin,pCNPJ);
+      dmPrincipal.BancoExec.ExecSQL(vSQL,TDataSet(vQryInventario));
+
+      if vQryInventario.IsEmpty then
+      exit;
+
+      vQryInventario.DisableControls;
+      vQryInventario.First;
+      while not vQryInventario.Eof do
+      begin
+        vReg88STES := TRegistro88STES.Create;
+        with vReg88STES do
+        begin
+          CNPJ            := pCNPJ;
+          DataInventario  := StrToDate(pDatInv);
+          CodigoProduto   := vQryInventario.FieldByName('COD_ITEM').AsString;
+          Quantidade      := vQryInventario.FieldByName('QTDE').AsFloat;
+          VlrICMSST       := vQryInventario.FieldByName('VLRICMSST').AsFloat;
+          VlrICMSOP       := vQryInventario.FieldByName('VLRICMSOP').AsFloat;
+        end;
+        TFrmApuracao(FView).ACBrSintegra.Registros88STES.Add(vReg88STES);
+        vQryInventario.Next;
+      end;
+      vQryInventario.EnableControls;
+    except
+      raise;
     end;
+  finally
+    FreeAndNil(vQryInventario);
+  end;
+end;
+
+procedure TControllerApuracaoICMSST.GerarRegistro88STITNF;
+begin
+  {Itens das Notas Fiscais Relativas à Entrada de Produtos Sujeitos a Substituição Tributária}
+end;
+
+function TControllerApuracaoICMSST.GerarSintegra(pFinalidadeSintegra:
+TFinalidadeSintegra) : Boolean;
+var
+  vCNPJ      : String;
+  vMes       : String;
+  vAno       : String;
+  vDatInv    : String;
+  vDatIniInv : String;
+  vDatIni    : String;
+  vDatFin    : String;
+
+  procedure GerarArquivoSintegra;
+  begin
+    TFrmApuracao(FView).ACBrSintegra.GeraArquivo;
   end;
 
 begin
-  vCodigo := TFrmApuracao(FView).EdtCodPart.Text;
-  vEmp    := TFrmApuracao(FView).EdtParticipante.Text;
-  vMes    := TFrmApuracao(FView).cmbMes.Text;
-  vAno    := TFrmApuracao(FView).CmbAno.Text;
+  result       := false;
+  try
+    FQry       := TFDQuery.Create(nil);
+    vCNPJ      := TFrmApuracao(FView).EdtCodPart.Text;
+    vMes       := TFrmApuracao(FView).cmbMes.Text;
+    vAno       := TFrmApuracao(FView).CmbAno.Text;
+    vDatIniInv := DateToStr(StartOfTheMonth(StartOfAMonth(vAno.ToInteger,vMes.ToInteger)-1));
+    vDatIni    := DateToStr(StartOfAMonth(vAno.ToInteger,vMes.ToInteger));
+    vDatInv    := DateToStr((StrToDate(vDatIni))-1);
+    vDatFin    := DateToStr(EndOfTheMonth(StrToDate(vDatIni)));
 
-  with TFrmApuracao(FView).ACBrSintegra do
+
+    try
+      if not TDmApuracaoICMSST(FModel).GetContribuinte(vCNPJ) then
+      begin
+        Mensagem := 'Contribuinte não possui cadastro!';
+        exit;
+      end;
+
+      DefineNomeArqSint(vCNPJ,vMes,vAno);
+      GeraRegistro10(vMes,vAno,pFinalidadeSintegra);
+      GeraRegistro11;
+      GerarRegistro88STES(vCNPJ,vDatInv,vDatIniInv,vDatInv);
+      GerarRegistro88STITNF;
+      GerarArquivoSintegra;
+
+      result := true;
+    except
+      On e: exception do
+      Mensagem := 'Erro : ' + e.Message + ' ao tentar gerar sintegra.';
+    end;
+  finally
+    FreeAndNil(FQry);
+  end;
+end;
+
+function TControllerApuracaoICMSST.GetMensagem: String;
+begin
+  result    := FMensagem;
+  FMensagem := '';
+end;
+
+procedure TControllerApuracaoICMSST.ProcessarSintegra(
+  pFinalidadeSintegra: TFinalidadeSintegra);
+begin
+
+  if not ValidadoDadosBasicos then
   begin
-    FileName := dmPrincipal.DirRaizApp + '\Sintegra\Sint_' + vEmp + vMes + vAno;
-    GeraRegistro10;
+    FrmMensagem.Informacao(Mensagem);
+    exit;
+  end;
+
+  if not GerarSintegra(pFinalidadeSintegra) then
+  begin
+    FrmMensagem.Informacao(Mensagem);
   end;
 end;
 
@@ -110,6 +206,52 @@ begin
   end;
 
   result := true;
+end;
+
+procedure TControllerApuracaoICMSST.GeraRegistro10(pMes,pAno : String;
+pFinalidadeSintegra: TFinalidadeSintegra);
+var
+  vQryContrib : TFDQuery;
+
+  function ConvFinalidadeSintStr:String;
+  begin
+    result := iif(pFinalidadeSintegra = fsNormal,'1','2');
+  end;
+
+begin
+  vQryContrib           := TDmApuracaoICMSST(FModel).GetQry;
+
+  with TFrmApuracao(FView).ACBrSintegra.Registro10 do
+  begin
+    CNPJ                := vQryContrib.FieldByName('CNPJ').AsString;
+    Inscricao           := vQryContrib.FieldByName('IE').AsString;
+    RazaoSocial         := vQryContrib.FieldByName('RAZAOSOCIAL').AsString;
+    Cidade              := vQryContrib.FieldByName('MUNICIPIO').AsString;
+    Estado              := vQryContrib.FieldByName('UF').AsString;
+    Telefone            := vQryContrib.FieldByName('TELEFONE').AsString;
+    DataInicial         := StartOfaMonth(pAno.ToInteger,pMes.ToInteger);
+    DataFinal           := EndOfaMonth(pAno.ToInteger,pMes.ToInteger);
+    CodigoConvenio      := '1';
+    NaturezaInformacoes := '1';
+    FinalidadeArquivo   := ConvFinalidadeSintStr;
+  end;
+end;
+
+procedure TControllerApuracaoICMSST.GeraRegistro11;
+var
+  vQryEndContrib : TFDQuery;
+begin
+  vQryEndContrib := TDmApuracaoICMSST(FModel).GetQry;
+
+  with TFrmApuracao(FView).ACBrSintegra.Registro11 do
+  begin
+    Endereco     := vQryEndContrib.FieldByName('LOGRADOURO').AsString;
+    Numero       := vQryEndContrib.FieldByName('NUMERO').AsString;
+    Bairro       := vQryEndContrib.FieldByName('BAIRRO').AsString;
+    Cep          := vQryEndContrib.FieldByName('CEP').AsString;
+    Responsavel  := '';
+    Telefone     := vQryEndContrib.FieldByName('TELEFONE').AsString;
+  end;
 end;
 
 end.

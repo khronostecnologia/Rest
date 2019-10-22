@@ -1,7 +1,9 @@
 object DmApuracaoICMSST: TDmApuracaoICMSST
   OldCreateOrder = False
-  Height = 132
-  Width = 79
+  OnCreate = DataModuleCreate
+  OnDestroy = DataModuleDestroy
+  Height = 136
+  Width = 449
   object QryAnalise: TFDQuery
     CachedUpdates = True
     Connection = DMBase.DB

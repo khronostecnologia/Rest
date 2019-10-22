@@ -12,11 +12,17 @@ type
   TDmApuracaoICMSST = class(TDataModule)
     QryAnalise: TFDQuery;
     DsAnalise: TDataSource;
+    procedure DataModuleCreate(Sender: TObject);
+    procedure DataModuleDestroy(Sender: TObject);
   private
     { Private declarations }
+    FQry :TFDQuery;
   public
     { Public declarations }
     function GetAnalise(pCodPart , pMes , pAno : String ; pXML , pSPED : Boolean):Boolean;
+    function GetContribuinte(pCNPJ : String):Boolean;
+    function GetSQL88STES(pDatIni, pDatFin, pCNPJ: String): String;
+    function GetQry : TFDQuery;
   end;
 
 implementation
@@ -29,6 +35,16 @@ implementation
 Uses uDMBase,BiblKhronos;
 
 { TDmApuracaoICMSST }
+
+procedure TDmApuracaoICMSST.DataModuleCreate(Sender: TObject);
+begin
+  FQry := TFDQuery.Create(nil);
+end;
+
+procedure TDmApuracaoICMSST.DataModuleDestroy(Sender: TObject);
+begin
+  FreeAndNil(FQry);
+end;
 
 function TDmApuracaoICMSST.GetAnalise(pCodPart , pMes , pAno : String ;
 pXML , pSPED : Boolean):Boolean;
@@ -137,6 +153,52 @@ begin
     Open;
     result := not (IsEmpty);
   end;
+end;
+
+function TDmApuracaoICMSST.GetContribuinte(pCNPJ: String): Boolean;
+
+  function GetSQL : String;
+  begin
+    result := 'SELECT * FROM "GET_CONTRIBUINTE" WHERE "CNPJ" = ' + pCNPJ.QuotedString;
+  end;
+
+begin
+  with FQry do
+  begin
+    close;
+    SQL.Text := GetSQL;
+    CopyQuery(SQL.Text);
+    Open;
+  end;
+  result := not (FQry.IsEmpty);
+end;
+
+function TDmApuracaoICMSST.GetQry: TFDQuery;
+begin
+  Result := FQry;
+end;
+
+function TDmApuracaoICMSST.GetSQL88STES(pDatIni, pDatFin, pCNPJ: String): String;
+begin
+  result  := ' SELECT I."COD_ITEM",'+
+             ' CAST( '+
+             '  ( (CASE WHEN N."IND_OPER" = ''E'' THEN SUM("QTDE") '+
+             '  ELSE 0 END) - (CASE WHEN N."IND_OPER" = ''S'' '+
+             '  THEN SUM("QTDE") ELSE 0 END)) AS NUMERIC(15,2) '+
+             '    ) "QTDE", '+
+             '  (CASE WHEN N."IND_OPER" = ''E'' THEN SUM(I."VL_ICMS_ST") '+
+             '  ELSE 0 END) - (CASE WHEN N."IND_OPER" = ''S'' THEN '+
+             '  SUM(I."VL_ICMS_ST") ELSE 0 END) "VL_ICMSST", '+
+             '  (CASE WHEN N."IND_OPER" = ''E'' THEN SUM(I."VL_ICMS") '+
+             '  ELSE 0 END) - (CASE WHEN N."IND_OPER" = ''S'' THEN '+
+             '  SUM(I."VL_ICMS") ELSE 0 END) "VL_ICMS" '+
+             '  FROM "NF_ITENS" I '+
+             '  LEFT JOIN "NF" N ON N."ID" = I."IDNF" '+
+             '  WHERE N."DT_E_ES" BETWEEN ' + pDatIni.QuotedString +
+             '  AND ' + pDatFin.QuotedString +
+             '  AND N."COD_EMP" = ' + pCNPJ.QuotedString +
+             '  GROUP BY I."COD_ITEM",N."IND_OPER"  '+
+             '  ORDER BY CAST("COD_ITEM" AS NUMERIC)';
 end;
 
 end.

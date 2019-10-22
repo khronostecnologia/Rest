@@ -1,7 +1,6 @@
 inherited FrmCadContribuinte: TFrmCadContribuinte
   Caption = 'Cadastro de contribuinte'
   OnCreate = FormCreate
-  ExplicitTop = -64
   PixelsPerInch = 96
   TextHeight = 13
   object Label3: TLabel [0]
@@ -740,6 +739,7 @@ inherited FrmCadContribuinte: TFrmCadContribuinte
           DataField = 'NOME'
           DataSource = DsPrincipal
           TabOrder = 0
+          OnExit = OnExitPadrao
         end
         object EdtCNPJ: TDBEdit
           Left = 72
@@ -759,10 +759,10 @@ inherited FrmCadContribuinte: TFrmCadContribuinte
           TabOrder = 4
           object lblLogradouro: TLabel
             Left = 15
-            Top = 28
-            Width = 65
+            Top = 27
+            Width = 69
             Height = 13
-            Caption = 'Logradouro'
+            Caption = 'Logradouro:'
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
             Font.Height = -12
@@ -772,7 +772,7 @@ inherited FrmCadContribuinte: TFrmCadContribuinte
           end
           object lblNumero: TLabel
             Left = 15
-            Top = 74
+            Top = 52
             Width = 48
             Height = 13
             Caption = 'N'#250'mero:'
@@ -785,7 +785,7 @@ inherited FrmCadContribuinte: TFrmCadContribuinte
           end
           object lblComplemento: TLabel
             Left = 167
-            Top = 76
+            Top = 54
             Width = 80
             Height = 13
             Caption = 'Complemento:'
@@ -798,7 +798,7 @@ inherited FrmCadContribuinte: TFrmCadContribuinte
           end
           object lblBairro: TLabel
             Left = 15
-            Top = 99
+            Top = 77
             Width = 38
             Height = 13
             Caption = 'Bairro:'
@@ -811,7 +811,7 @@ inherited FrmCadContribuinte: TFrmCadContribuinte
           end
           object lblCep: TLabel
             Left = 308
-            Top = 99
+            Top = 77
             Width = 29
             Height = 13
             Caption = 'CEP:'
@@ -823,8 +823,8 @@ inherited FrmCadContribuinte: TFrmCadContribuinte
             ParentFont = False
           end
           object lblMunicipio: TLabel
-            Left = 19
-            Top = 127
+            Left = 15
+            Top = 105
             Width = 59
             Height = 13
             Caption = 'Municipio:'
@@ -837,7 +837,7 @@ inherited FrmCadContribuinte: TFrmCadContribuinte
           end
           object lblUF: TLabel
             Left = 311
-            Top = 124
+            Top = 102
             Width = 21
             Height = 13
             Caption = 'UF:'
@@ -849,17 +849,18 @@ inherited FrmCadContribuinte: TFrmCadContribuinte
             ParentFont = False
           end
           object EdtLogradouro: TDBEdit
-            Left = 12
-            Top = 45
-            Width = 589
+            Left = 90
+            Top = 22
+            Width = 511
             Height = 19
             DataField = 'LOGRADOURO'
             DataSource = DsPrincipal
             TabOrder = 0
+            OnExit = OnExitPadrao
           end
           object EdtNumero: TDBEdit
             Left = 76
-            Top = 70
+            Top = 48
             Width = 85
             Height = 19
             DataField = 'NUMERO'
@@ -868,25 +869,27 @@ inherited FrmCadContribuinte: TFrmCadContribuinte
           end
           object EdtComplemento: TDBEdit
             Left = 253
-            Top = 70
+            Top = 48
             Width = 348
             Height = 19
             DataField = 'COMPLEMENTO'
             DataSource = DsPrincipal
             TabOrder = 2
+            OnExit = OnExitPadrao
           end
           object EdtBairro: TDBEdit
             Left = 76
-            Top = 95
+            Top = 73
             Width = 225
             Height = 19
             DataField = 'BAIRRO'
             DataSource = DsPrincipal
             TabOrder = 3
+            OnExit = OnExitPadrao
           end
           object EdtCEP: TDBEdit
             Left = 343
-            Top = 95
+            Top = 73
             Width = 258
             Height = 19
             DataField = 'CEP'
@@ -895,21 +898,52 @@ inherited FrmCadContribuinte: TFrmCadContribuinte
           end
           object EdtUF: TDBComboBox
             Left = 342
-            Top = 120
+            Top = 98
             Width = 86
             Height = 21
+            Style = csDropDownList
             DataField = 'UF'
             DataSource = DsPrincipal
+            Items.Strings = (
+              'AC'
+              'AL'
+              'AM'
+              'AP'
+              'BA'
+              'CE'
+              'DF'
+              'ES'
+              'GO'
+              'MA'
+              'MG'
+              'MS'
+              'MT'
+              'PA'
+              'PB'
+              'PE'
+              'PI'
+              'PR'
+              'RJ'
+              'RN'
+              'RO'
+              'RR'
+              'RS'
+              'SC'
+              'SE'
+              'SP'
+              'TO')
             TabOrder = 6
+            OnExit = OnExitPadrao
           end
           object EdtMunicipio: TDBEdit
-            Left = 84
-            Top = 120
-            Width = 218
-            Height = 21
+            Left = 76
+            Top = 100
+            Width = 225
+            Height = 19
             DataField = 'MUNICIPIO'
             DataSource = DsPrincipal
             TabOrder = 5
+            OnExit = OnExitPadrao
           end
         end
         object EdtTelefone: TDBEdit

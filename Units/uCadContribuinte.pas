@@ -54,6 +54,7 @@ type
     procedure BtnCancelarClick(Sender: TObject);
     procedure BtnSalvarClick(Sender: TObject);
     procedure BtnExcluirClick(Sender: TObject);
+    procedure OnExitPadrao(Sender : TObject);
   private
     { Private declarations }
     procedure ControlaBotoesPrincipal(AState : TState);
@@ -126,7 +127,9 @@ procedure TFrmCadContribuinte.BtnExcluirClick(Sender: TObject);
 begin
   inherited;
   Try
-    DMCadContribuinte.Excluir;
+    if not DMCadContribuinte.Excluir then
+    exit;
+
     DMCadContribuinte.GravarBanco;
   except
     On e: exception do
@@ -214,6 +217,12 @@ begin
   ControlaBotoesPrincipal(stBrowser);
   ControlaEditMaster(False);
   SetaFoco(EdtCodigo);
+end;
+
+procedure TFrmCadContribuinte.OnExitPadrao(Sender: TObject);
+begin
+  if Sender.InheritsFrom(TCustomEdit) then
+  TCustomEdit(Sender).Text := UpperCase(TCustomEdit(Sender).Text);
 end;
 
 procedure TFrmCadContribuinte.SetCodigoEdit;

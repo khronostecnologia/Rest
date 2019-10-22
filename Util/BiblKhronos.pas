@@ -31,27 +31,26 @@ Uses
   TMovimento              = (tmovCompra,tmovVenda);
   TTipoRel                = (trelAnalitico,trelSintetico);
   TFinalidadeTela         = (ftImportacao,ftApuracao);
+  TFinalidadeSintegra     = (fsNormal,fsRetificacao);
 
-  Function GetValor(AConexao : TFDConnection; ACampo, ATabela : String; AAgregacao : String  = '' ; AWhere : String = '') : Variant;
-  Function GetStrValor(AConexao : TFDConnection; ACampo, ATabela : String;
-  AAgregacao : String  = '' ; AWhere : String = '') : Variant;
+  function GetValor(AConexao : TFDConnection; ACampo, ATabela : String; AAgregacao : String  = '' ; AWhere : String = '') : Variant;
+  function GetStrValor(AConexao : TFDConnection; ACampo, ATabela : String; AAgregacao : String  = '' ; AWhere : String = '') : Variant;
   function ConsultaSQL(ASQL : String ; AConnection : TFDConnection):TFDQuery;Overload;
-  Function InserirLog(AConexao:TFDConnection; ATexto : String ; ATabela : String = '' ;
-  ACodUsuario : String =  '';AAplicCommit : Boolean = False):Boolean;
-  Function IIf(const condicao: Boolean; const Verdadeiro, Falso: Variant): Variant;
-  Function TerminarProcesso(sFile: String): Boolean;
-  function  TabelaExiste(ATabela : String ;AConexao : TFDConnection):Boolean;
-  Procedure SelecionarRegistros(Querie : TFDQuery;Sel : String; SelAll : Boolean);
-  Procedure Imprimir(Var pReport : TfrxReport);
-  Procedure AjustaTamanhoCampoGrid(pGrid : TJvDBUltimGrid);
-  Procedure SetaFoco(AControl : TWinControl);
-  Procedure MarcacaoCheckBox(ADataSet : TFDQuery ; AMarcacao : Boolean) ;
-  Procedure CopyQuery(SQL : String);
-  procedure AtivaPerformanceMemTable(Var pMemQry : TFDMemTable ; pRecsMax : Integer);
-  function  GetID(ATabela : String ; AConexao : TFDConnection):Integer;
-  function  GetSequence(pSequence : String; pConexao : TFDConnection):Integer;
+  function InserirLog(AConexao:TFDConnection; ATexto : String ; ATabela : String = '' ; ACodUsuario : String =  '';AAplicCommit : Boolean = False):Boolean;
+  function IIf(const condicao: Boolean; const Verdadeiro, Falso: Variant): Variant;
+  function TerminarProcesso(sFile: String): Boolean;
+  function TabelaExiste(ATabela : String ;AConexao : TFDConnection):Boolean;
+  function GetID(ATabela : String ; AConexao : TFDConnection):Integer;
+  function GetSequence(pSequence : String ; AConexao : TFDConnection):Integer;
   procedure ExecutaArrayDMLEmBatch(var pQryArrayDML : TFDQUery);
   procedure HabilitaBotao(pButon : TWinControl; pHabilitado : Boolean);
+  procedure SelecionarRegistros(Querie : TFDQuery;Sel : String; SelAll : Boolean);
+  procedure Imprimir(Var pReport : TfrxReport);
+  procedure AjustaTamanhoCampoGrid(pGrid : TJvDBUltimGrid);
+  procedure SetaFoco(AControl : TWinControl);
+  procedure MarcacaoCheckBox(ADataSet : TFDQuery ; AMarcacao : Boolean) ;
+  procedure CopyQuery(SQL : String);
+  procedure AtivaPerformanceMemTable(Var pMemQry : TFDMemTable ; pRecsMax : Integer);
 
 Const
   CheckBoxMarcado      = True;
@@ -375,18 +374,6 @@ begin
  end;
 end;
 
-function GetSequence(pSequence : String; pConexao : TFDConnection):Integer;
-var
-  Qry    : TFDQuery;
-begin
- try
-  Qry    := ConsultaSQL('SELECT nextval (' + pSequence.QuotedString + ') AS "CODIGO";',pConexao);
-  result := iif(Qry.IsEmpty,'0',Qry.FieldByName('CODIGO').AsInteger);
- finally
-   FreeAndNil(Qry);
- end;
-end;
-
 procedure AtivaPerformanceMemTable(Var pMemQry : TFDMemTable ; pRecsMax : Integer);
 begin
   with pMemQry do
@@ -453,6 +440,18 @@ end;
 procedure HabilitaBotao(pButon : TWinControl; pHabilitado : Boolean);
 begin
   pButon.enabled := pHabilitado;
+end;
+
+function GetSequence(pSequence : String ; AConexao : TFDConnection):Integer;
+var
+  Qry    : TFDQuery;
+begin
+ try
+  Qry    := ConsultaSQL('SELECT NEXT VALUE  FOR ' + pSequence,AConexao);
+  result := iif(Qry.IsEmpty,'0',Qry.FieldByName('ID').AsInteger);
+ finally
+   FreeAndNil(Qry);
+ end;
 end;
 
 end.

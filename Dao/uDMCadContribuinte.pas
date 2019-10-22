@@ -31,8 +31,8 @@ type
     procedure Editar;
     procedure Cancelar;
     procedure Salvar;
-    procedure Excluir;
     procedure GravarBanco;
+    function  Excluir:Boolean;
     function Adicionar : Boolean;
     function AbreDataSet(pCodigo : Integer = -1):Boolean;
   end;
@@ -77,8 +77,15 @@ begin
   QryContribuinte.Edit;
 end;
 
-procedure TDMCadContribuinte.Excluir;
+function TDMCadContribuinte.Excluir:Boolean;
+Const
+  MsgExclusao = 'Deseja realmente excluir o contribuinte?';
 begin
+  result := FrmMensagem.Confirmacao(MsgExclusao);
+
+  if not result then
+  exit;
+
   QryContribuinte.Delete;
 end;
 

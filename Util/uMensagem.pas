@@ -132,12 +132,6 @@ begin
   AdvLblAguarde.Visible := ((not BtnSim.Visible) and
                             (not BtnNao.Visible) and
                             (not BtnOk.Visible));
-  if BtnSim.Visible then
-  BtnSim.SetFocus;
-
-  if BtnOk.Visible then
-  BtnOk.SetFocus;
-
 end;
 
 procedure TFrmMensagem.Informacao(ATexto: String);
