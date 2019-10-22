@@ -19,7 +19,7 @@ type
     function  GetMensagem : String;
     procedure GeraRegistro10(pMes,pAno : String; pFinalidadeSintegra: TFinalidadeSintegra);
     procedure GerarRegistro88STES(pCNPJ,pDatInv,pDatIni,pDatFin : String);
-    procedure GerarRegistro88STITNF;
+    procedure GerarRegistro88STITNF(pCNPJ,pDatIni,pDatFin : String);
     procedure GeraRegistro11;
   public
     function ValidadoDadosBasicos:Boolean;
@@ -52,8 +52,49 @@ begin
 end;
 
 procedure TControllerApuracaoICMSST.GerarArquivoSEF;
-begin
+Const
+  cPasta   = '\SEF\SEF_';
+  cDelimit = '|';
+var
+  vLstSEF      : TStringList;
+  vDirSaveArq  : String;
+  vLinha       : String;
+  vCNPJ        : String;
+  vMes         : String;
+  vAno         : String;
 
+  procedure AddLinhaMontada(pTexto : String);
+  begin
+    vLstSEF.Add(pTexto);
+  end;
+
+  procedure MontaLinha(pTexto : String);
+  begin
+    vLinha := vLinha + pTexto + cDelimit;
+  end;
+
+  procedure CriaArqSEF;
+  begin
+    vLstSEF.SaveToFile(vDirSaveArq);
+  end;
+
+begin
+  try
+    vLstSEF     := TStringList.Create;
+    vCNPJ       := TFrmApuracao(FView).EdtCodPart.Text;
+    vMes        := TFrmApuracao(FView).cmbMes.Text;
+    vAno        := TFrmApuracao(FView).CmbAno.Text;
+    vDirSaveArq := dmPrincipal.DirRaizApp + cPasta + vCNPJ + vMes + vAno;
+    try
+      MontaLinha('ARQUIVO SEF');
+      AddLinhaMontada(vLinha);
+      CriaArqSEF;
+    except
+      raise;
+    end;
+  finally
+    FreeAndNil(vLstSEF);
+  end;
 end;
 
 procedure TControllerApuracaoICMSST.GerarRegistro88STES(pCNPJ,pDatInv,pDatIni,pDatFin : String);
@@ -61,46 +102,87 @@ var
   vReg88STES     : TRegistro88STES;
   vQryInventario : TFDMemTable;
   vSQL           : String;
-
 begin
   {Estoques de Produtos ao Regime de Substituição Tributária}
   try
-    try
-      vSQL := TDmApuracaoICMSST(FModel).GetSQL88STES(pDatIni,pDatFin,pCNPJ);
-      dmPrincipal.BancoExec.ExecSQL(vSQL,TDataSet(vQryInventario));
+    vSQL            := TDmApuracaoICMSST(FModel).GetSQL88STES(pDatIni,pDatFin,pCNPJ);
+    vQryInventario  := TDmApuracaoICMSST(FModel).GetQryTemp;
+    dmPrincipal.BancoExec.ExecSQL(vSQL,TDataSet(vQryInventario));
 
-      if vQryInventario.IsEmpty then
-      exit;
+    if vQryInventario.IsEmpty then
+    exit;
 
-      vQryInventario.DisableControls;
-      vQryInventario.First;
-      while not vQryInventario.Eof do
+    vQryInventario.DisableControls;
+    vQryInventario.First;
+    while not vQryInventario.Eof do
+    begin
+      vReg88STES := TRegistro88STES.Create;
+      with vReg88STES do
       begin
-        vReg88STES := TRegistro88STES.Create;
-        with vReg88STES do
-        begin
-          CNPJ            := pCNPJ;
-          DataInventario  := StrToDate(pDatInv);
-          CodigoProduto   := vQryInventario.FieldByName('COD_ITEM').AsString;
-          Quantidade      := vQryInventario.FieldByName('QTDE').AsFloat;
-          VlrICMSST       := vQryInventario.FieldByName('VLRICMSST').AsFloat;
-          VlrICMSOP       := vQryInventario.FieldByName('VLRICMSOP').AsFloat;
-        end;
-        TFrmApuracao(FView).ACBrSintegra.Registros88STES.Add(vReg88STES);
-        vQryInventario.Next;
+        CNPJ            := pCNPJ;
+        DataInventario  := StrToDate(pDatInv);
+        CodigoProduto   := vQryInventario.FieldByName('COD_ITEM').AsString;
+        Quantidade      := vQryInventario.FieldByName('QTDE').AsFloat;
+        VlrICMSST       := vQryInventario.FieldByName('VLRICMSST').AsFloat;
+        VlrICMSOP       := vQryInventario.FieldByName('VLRICMSOP').AsFloat;
       end;
-      vQryInventario.EnableControls;
-    except
-      raise;
+      TFrmApuracao(FView).ACBrSintegra.Registros88STES.Add(vReg88STES);
+      vQryInventario.Next;
     end;
-  finally
-    FreeAndNil(vQryInventario);
+    vQryInventario.EnableControls;
+  except
+    raise;
   end;
 end;
 
-procedure TControllerApuracaoICMSST.GerarRegistro88STITNF;
+procedure TControllerApuracaoICMSST.GerarRegistro88STITNF(pCNPJ,pDatIni,pDatFin : String);
+var
+  vReg88STITNF : TRegistro88STITNF;
+  vQryNF       : TFDMemTable;
+  vSQL         : String;
 begin
   {Itens das Notas Fiscais Relativas à Entrada de Produtos Sujeitos a Substituição Tributária}
+  try
+    vSQL       := TDmApuracaoICMSST(FModel).GetSQL88STITNF(pDatIni,pDatFin,pCNPJ);
+    vQryNF     := TDmApuracaoICMSST(FModel).GetQryTemp;
+    dmPrincipal.BancoExec.ExecSQL(vSQL,TDataSet(vQryNF));
+
+    if vQryNF.IsEmpty then
+    exit;
+
+    vQryNF.DisableControls;
+    vQryNF.First;
+    while not vQryNF.Eof do
+    begin
+      vReg88STITNF := TRegistro88STITNF.Create;
+      with vReg88STITNF do
+      begin
+        CNPJ            := '';
+        Modelo          := '';
+        Serie           := '';
+        Numero          := '';
+        CFOP            := '';
+        CST             := '';
+        NumeroItem      := 0;
+        DataEntrada     := now;
+        CodigoProduto   := '';
+        Quantidade      := 0;
+        VlrProduto      := 0;
+        ValorDesconto   := 0;
+        BaseICMSOP      := 0;
+        BaseICMSST      := 0;
+        AliquotaICMSOP  := 0;
+        AliquotaICMSST  := 0;
+        VlrIPI          := 0;
+        ChaveNFE        := '';
+      end;
+      TFrmApuracao(FView).ACBrSintegra.Registros88STITNF.Add(vReg88STITNF);
+      vQryNF.Next;
+    end;
+    vQryNF.EnableControls;
+  except
+    raise;
+  end;
 end;
 
 function TControllerApuracaoICMSST.GerarSintegra(pFinalidadeSintegra:
@@ -143,7 +225,7 @@ begin
       GeraRegistro10(vMes,vAno,pFinalidadeSintegra);
       GeraRegistro11;
       GerarRegistro88STES(vCNPJ,vDatInv,vDatIniInv,vDatInv);
-      GerarRegistro88STITNF;
+      GerarRegistro88STITNF(vCNPJ,vDatIniInv,vDatInv);
       GerarArquivoSintegra;
 
       result := true;

@@ -779,13 +779,12 @@ end;
 procedure TFrmApuracao.MnSefApurClick(Sender: TObject);
 begin
   inherited;
-  FrmMensagem.Informacao('Erro : Runtime error 204 at 0040972D ao tentar gerar arquivo apuração SEF');
- (*  if not FController.ValidadoDadosBasicos then
+  if not FController.ValidadoDadosBasicos then
   begin
     FrmMensagem.Informacao(FController.Mensagem);
     exit;
   end;
-  FController.GerarArquivoSEF; *)
+  FController.GerarArquivoSEF;
 end;
 
 procedure TFrmApuracao.MostraAba;

@@ -16,13 +16,17 @@ type
     procedure DataModuleDestroy(Sender: TObject);
   private
     { Private declarations }
-    FQry :TFDQuery;
+    FQry     : TFDQuery;
+    FQryTemp : TFDMemTable;
   public
     { Public declarations }
     function GetAnalise(pCodPart , pMes , pAno : String ; pXML , pSPED : Boolean):Boolean;
     function GetContribuinte(pCNPJ : String):Boolean;
     function GetSQL88STES(pDatIni, pDatFin, pCNPJ: String): String;
+    function GetSQL88STITNF(pDatIni, pDatFin, pCNPJ: String): String;
     function GetQry : TFDQuery;
+    function GetQryTemp : TFDMemTable;
+
   end;
 
 implementation
@@ -38,12 +42,15 @@ Uses uDMBase,BiblKhronos;
 
 procedure TDmApuracaoICMSST.DataModuleCreate(Sender: TObject);
 begin
-  FQry := TFDQuery.Create(nil);
+  FQry                    := TFDQuery.Create(nil);
+  FQryTemp                := TFDMemTable.Create(nil);
+  FQryTemp.CachedUpdates  := true;
 end;
 
 procedure TDmApuracaoICMSST.DataModuleDestroy(Sender: TObject);
 begin
   FreeAndNil(FQry);
+  FreeAndNil(FQryTemp);
 end;
 
 function TDmApuracaoICMSST.GetAnalise(pCodPart , pMes , pAno : String ;
@@ -178,6 +185,11 @@ begin
   Result := FQry;
 end;
 
+function TDmApuracaoICMSST.GetQryTemp: TFDMemTable;
+begin
+  result := FQryTemp;
+end;
+
 function TDmApuracaoICMSST.GetSQL88STES(pDatIni, pDatFin, pCNPJ: String): String;
 begin
   result  := ' SELECT I."COD_ITEM",'+
@@ -199,6 +211,12 @@ begin
              '  AND N."COD_EMP" = ' + pCNPJ.QuotedString +
              '  GROUP BY I."COD_ITEM",N."IND_OPER"  '+
              '  ORDER BY CAST("COD_ITEM" AS NUMERIC)';
+end;
+
+function TDmApuracaoICMSST.GetSQL88STITNF(pDatIni, pDatFin,
+  pCNPJ: String): String;
+begin
+  result := '';
 end;
 
 end.
