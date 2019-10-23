@@ -216,7 +216,32 @@ end;
 function TDmApuracaoICMSST.GetSQL88STITNF(pDatIni, pDatFin,
   pCNPJ: String): String;
 begin
-  result := '';
+  result := ' SELECT '+
+            ' N."COD_PART", '+
+            ' N."COD_MOD", '+
+            ' N."SER", '+
+            ' N."NUM_DOC", '+
+            ' I."CFOP", '+
+            ' COALESCE(I."CST",I."CSOSN")"CST", '+
+            ' I."NUM_ITEM", '+
+            ' N."DT_E_ES", '+
+            ' I."COD_ITEM",  '+
+            ' I."QTDE", '+
+            ' I."VL_ITEM", '+
+            ' I."VL_DESC", '+
+            ' I."VL_BC_ICMS", '+
+            ' I."VL_BC_ICMS_ST", '+
+            ' I."ALIQ_ST", '+
+            ' I."ALIQ_ICMS", '+
+            ' I."VL_IPI", '+
+            ' N."CHV_NFE"  '+
+            ' FROM "NF_ITENS" I  '+
+            ' LEFT JOIN "NF" N ON N."ID" = I."IDNF" '+
+            ' WHERE I."VL_BC_ICMS_ST" > 0 '+
+            ' AND N."DT_E_ES" BETWEEN ' + pDatIni.QuotedString +
+            ' AND ' + pDatFin.QuotedString +
+            ' AND N."COD_EMP" = ' + pCNPJ.QuotedString +
+            ' ORDER BY N."CHV_NFE",I."NUM_ITEM" ';
 end;
 
 end.
