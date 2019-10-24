@@ -787,7 +787,14 @@ begin
     FrmMensagem.Informacao(FController.Mensagem);
     exit;
   end;
-  FController.GerarArquivoSEF;
+
+  if not FController.GerarArquivoSEF then
+  begin
+    FrmMensagem.Informacao(FController.Mensagem);
+    exit;
+  end;
+
+  FrmMensagem.Informacao(FController.Mensagem);
 end;
 
 procedure TFrmApuracao.MostraAba;

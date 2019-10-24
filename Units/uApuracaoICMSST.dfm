@@ -425,10 +425,8 @@ inherited FrmApuracao: TFrmApuracao
         Height = 244
         Align = alClient
         TabOrder = 1
-        Properties.ActivePage = TbsXML
+        Properties.ActivePage = cxTabSheet1
         Properties.CustomButtons.Buttons = <>
-        ExplicitLeft = 224
-        ExplicitTop = 203
         ClientRectBottom = 240
         ClientRectLeft = 4
         ClientRectRight = 824
@@ -918,9 +916,6 @@ inherited FrmApuracao: TFrmApuracao
                 Height = 188
                 Align = alClient
                 TabOrder = 0
-                ExplicitLeft = 119
-                ExplicitTop = 168
-                ExplicitHeight = 233
                 object cxGridDBTVW0200: TcxGridDBTableView
                   Navigator.Buttons.CustomButtons = <>
                   DataController.DataSource = DMImportacaoSPED.Ds0200
@@ -1869,8 +1864,6 @@ inherited FrmApuracao: TFrmApuracao
         Caption = '  Processando  '
         TabOrder = 2
         Visible = False
-        ExplicitLeft = 160
-        ExplicitTop = 110
         object ProgressBar: TW7ProgressBar
           Left = 14
           Top = 21
@@ -1892,8 +1885,6 @@ inherited FrmApuracao: TFrmApuracao
         Align = alTop
         Caption = '  Dados da apura'#231#227'o '
         TabOrder = 3
-        ExplicitLeft = 174
-        ExplicitTop = 40
         object lblEmpresa: TLabel
           Left = 12
           Top = 22

@@ -23,10 +23,10 @@ type
     procedure GeraRegistro11;
   public
     function ValidadoDadosBasicos:Boolean;
-    function  GerarSintegra(pFinalidadeSintegra: TFinalidadeSintegra) : Boolean;
+    function GerarSintegra(pFinalidadeSintegra: TFinalidadeSintegra) : Boolean;
+    function GerarArquivoSEF : Boolean;
     procedure ProcessarSintegra(pFinalidadeSintegra : TFinalidadeSintegra);
     procedure DefineNomeArqSint(pCNPJ,pMes,pAno : String);
-    procedure GerarArquivoSEF;
     constructor create(pView: TForm; pModel : TDataModule);
     property Mensagem : String read GetMensagem write SetMensagem;
   end;
@@ -58,10 +58,10 @@ begin
   TFrmApuracao(FView).ACBrSintegra.FileName := vDir + PreFixoArq + pCNPJ + '_' + pMes + pAno + '.txt';
 end;
 
-procedure TControllerApuracaoICMSST.GerarArquivoSEF;
-Const
-  cPasta   = '\SEF\SEF_';
-  cDelimit = '|';
+function TControllerApuracaoICMSST.GerarArquivoSEF : Boolean;
+const
+  PreFixoArq  = '\SEF_';
+  cDelimit    = '|';
 var
   vLstSEF      : TStringList;
   vDirSaveArq  : String;
@@ -69,6 +69,8 @@ var
   vCNPJ        : String;
   vMes         : String;
   vAno         : String;
+  vDir         : String;
+  vQryST       : TFDMemTable;
 
   procedure AddLinhaMontada(pTexto : String);
   begin
@@ -87,15 +89,34 @@ var
 
 begin
   try
+    result      := false;
     vLstSEF     := TStringList.Create;
     vCNPJ       := TFrmApuracao(FView).EdtCodPart.Text;
     vMes        := TFrmApuracao(FView).cmbMes.Text;
     vAno        := TFrmApuracao(FView).CmbAno.Text;
-    vDirSaveArq := dmPrincipal.DirRaizApp + cPasta + vCNPJ + vMes + vAno;
+    vDir        := dmPrincipal.DirRaizApp + 'SEF';
+    vDirSaveArq := vDir + PreFixoArq + vCNPJ + '_' + vMes + vAno + '.txt';
     try
-      MontaLinha('ARQUIVO SEF');
-      AddLinhaMontada(vLinha);
+      vQryST := TDmApuracaoICMSST(FModel).GetQryTemp;
+      dmPrincipal.BancoExec.ExecSQL('',TDataSet(vQryST));
+
+      if vQryST.IsEmpty then
+      exit;
+
+      MontaLinha('CD_SPED|CD_NCM|CD_EAN13|DS_PRODMERC|TP_UNIDADE|QT_PROD_ST_COMP|'+
+                 'VR_ICMS_ST_COMP|VR_FEM_ST_COMP|QT_PROD_ST_REST|VR_ICMS_ST_REST|'+
+                 'VR_FEM_ST_REST|'
+                );
+
+      vQryST.First;
+      while not vQryST.Eof do
+      begin
+        AddLinhaMontada(vLinha);
+        vQryST.Next;
+      end;
       CriaArqSEF;
+      Mensagem := 'Arquivo SEF : ' + vDirSaveArq + ' gerado com sucesso.';
+      result := true;
     except
       raise;
     end;
