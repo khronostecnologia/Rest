@@ -699,25 +699,28 @@ procedure TFrmApuracao.EdtCodPartKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
   inherited;
+  if Key = VK_F3 then
+  begin
+    BtnBuscaCliente.Click;
+  end;
+
   if key = VK_Return then
   begin
-     if (EdtCodPart.text = '') then
-     exit;
+    if (EdtCodPart.text = '') then
+    exit;
 
-     Try
+    Try
       if not dmPrincipal.GetEmpresa(EdtCodPart.Text) then
       exit;
-     except
+    except
       on e: exception do
       begin
-       FrmMensagem.Informacao('Erro: ' + e.message + ' ao consultar empresa.');
-       Abort;
+        FrmMensagem.Informacao('Erro: ' + e.message + ' ao consultar empresa.');
+        Abort;
       end;
-     end;
-
-     EdtParticipante.Text  := dmPrincipal.QryEmpresa.FieldByName('EMPRESA').AsString;
-     cmbMes.Text           := dmPrincipal.QryEmpresa.FieldByName('MES').AsString;
-     CmbAno.Text           := dmPrincipal.QryEmpresa.FieldByName('ANO').AsString;
+    end;
+    EdtCodPart.Text      := dmPrincipal.QryEmpresa.FieldByName('CODIGO').AsString;
+    EdtParticipante.Text := dmPrincipal.QryEmpresa.FieldByName('EMPRESA').AsString;
   end;
 end;
 

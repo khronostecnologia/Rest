@@ -43,6 +43,7 @@ Uses uDMBase,BiblKhronos;
 procedure TDmApuracaoICMSST.DataModuleCreate(Sender: TObject);
 begin
   FQry                    := TFDQuery.Create(nil);
+  FQry.Connection         := dmPrincipal.BancoExec;
   FQryTemp                := TFDMemTable.Create(nil);
   FQryTemp.CachedUpdates  := true;
 end;

@@ -46,9 +46,16 @@ end;
 
 procedure TControllerApuracaoICMSST.DefineNomeArqSint(pCNPJ,pMes,pAno : String);
 Const
-  cPasta = '\Sintegra\Sint_';
+  PreFixoArq = '\Sint_';
+var
+  vDir : String;
 begin
-  TFrmApuracao(FView).ACBrSintegra.FileName := dmPrincipal.DirRaizApp + cPasta + pCNPJ + pMes + pAno;
+  vDir := dmPrincipal.DirRaizApp + 'Sintegra';
+
+  if not DirectoryExists(vDir) then
+  ForceDirectories(vDir);
+
+  TFrmApuracao(FView).ACBrSintegra.FileName := vDir + PreFixoArq + pCNPJ + '_' + pMes + pAno + '.txt';
 end;
 
 procedure TControllerApuracaoICMSST.GerarArquivoSEF;
@@ -225,9 +232,10 @@ begin
       GeraRegistro10(vMes,vAno,pFinalidadeSintegra);
       GeraRegistro11;
       GerarRegistro88STES(vCNPJ,vDatInv,vDatIniInv,vDatInv);
-      GerarRegistro88STITNF(vCNPJ,vDatIniInv,vDatInv);
+      GerarRegistro88STITNF(vCNPJ,vDatIni,vDatFin);
       GerarArquivoSintegra;
-
+      Mensagem := 'Sintegra :' + TFrmApuracao(FView).ACBrSintegra.FileName +
+                  ' gerado com sucesso.';
       result := true;
     except
       On e: exception do
@@ -257,7 +265,10 @@ begin
   if not GerarSintegra(pFinalidadeSintegra) then
   begin
     FrmMensagem.Informacao(Mensagem);
+    exit;
   end;
+
+  FrmMensagem.Informacao(Mensagem);
 end;
 
 procedure TControllerApuracaoICMSST.SetMensagem(const Value: String);

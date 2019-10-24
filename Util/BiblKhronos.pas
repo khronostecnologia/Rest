@@ -447,8 +447,8 @@ var
   Qry    : TFDQuery;
 begin
  try
-  Qry    := ConsultaSQL('SELECT NEXT VALUE  FOR ' + pSequence,AConexao);
-  result := iif(Qry.IsEmpty,'0',Qry.FieldByName('ID').AsInteger);
+  Qry    := ConsultaSQL('SELECT NEXTVAL(' + pSequence.QuotedString + ')"ID"',AConexao);
+  result := Qry.FieldByName('ID').AsInteger;
  finally
    FreeAndNil(Qry);
  end;

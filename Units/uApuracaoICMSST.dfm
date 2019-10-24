@@ -423,9 +423,12 @@ inherited FrmApuracao: TFrmApuracao
         Top = 123
         Width = 828
         Height = 244
+        Align = alClient
         TabOrder = 1
-        Properties.ActivePage = TbsSped
+        Properties.ActivePage = TbsXML
         Properties.CustomButtons.Buttons = <>
+        ExplicitLeft = 224
+        ExplicitTop = 203
         ClientRectBottom = 240
         ClientRectLeft = 4
         ClientRectRight = 824
@@ -433,10 +436,6 @@ inherited FrmApuracao: TFrmApuracao
         object TbsXML: TcxTabSheet
           Caption = 'XML'
           ImageIndex = 0
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object cxGridNF: TcxGrid
             Left = 0
             Top = 0
@@ -919,6 +918,9 @@ inherited FrmApuracao: TFrmApuracao
                 Height = 188
                 Align = alClient
                 TabOrder = 0
+                ExplicitLeft = 119
+                ExplicitTop = 168
+                ExplicitHeight = 233
                 object cxGridDBTVW0200: TcxGridDBTableView
                   Navigator.Buttons.CustomButtons = <>
                   DataController.DataSource = DMImportacaoSPED.Ds0200
@@ -978,10 +980,6 @@ inherited FrmApuracao: TFrmApuracao
             object TbsC100E: TcxTabSheet
               Caption = 'Nota fiscal  entrada (Registro C100)'
               ImageIndex = 2
-              ExplicitLeft = 0
-              ExplicitTop = 0
-              ExplicitWidth = 0
-              ExplicitHeight = 0
               object cxGridC100e: TcxGrid
                 Left = 0
                 Top = 0
@@ -1283,10 +1281,6 @@ inherited FrmApuracao: TFrmApuracao
             object TbsC100S: TcxTabSheet
               Caption = 'Nota fiscal Sa'#237'da (Registro C100)'
               ImageIndex = 3
-              ExplicitLeft = 0
-              ExplicitTop = 0
-              ExplicitWidth = 0
-              ExplicitHeight = 0
               object cxGridC100s: TcxGrid
                 Left = 0
                 Top = 0
@@ -1577,10 +1571,6 @@ inherited FrmApuracao: TFrmApuracao
             object TbsC400: TcxTabSheet
               Caption = 'Cupom fiscal (C400)'
               ImageIndex = 4
-              ExplicitLeft = 0
-              ExplicitTop = 0
-              ExplicitWidth = 0
-              ExplicitHeight = 0
               object cxGridc400: TcxGrid
                 Left = 0
                 Top = 0
@@ -1632,10 +1622,6 @@ inherited FrmApuracao: TFrmApuracao
                 object TbsC425: TcxTabSheet
                   Caption = 'Itens da redu'#231#227'o Z (C425)'
                   ImageIndex = 0
-                  ExplicitLeft = 0
-                  ExplicitTop = 0
-                  ExplicitWidth = 0
-                  ExplicitHeight = 0
                   object CxGridC425: TcxGrid
                     Left = 0
                     Top = 0
@@ -1689,10 +1675,6 @@ inherited FrmApuracao: TFrmApuracao
                 object TbsC470: TcxTabSheet
                   Caption = 'Itens da redu'#231#227'o Z (C470)'
                   ImageIndex = 1
-                  ExplicitLeft = 0
-                  ExplicitTop = 0
-                  ExplicitWidth = 0
-                  ExplicitHeight = 0
                   object CxGridC470: TcxGrid
                     Left = 0
                     Top = 0
@@ -1750,10 +1732,6 @@ inherited FrmApuracao: TFrmApuracao
         object cxTabSheet1: TcxTabSheet
           Caption = 'Analise da apura'#231#227'o'
           ImageIndex = 2
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object GpbResultEntrada: TAdvGroupBox
             Left = 0
             Top = 0
@@ -1887,9 +1865,12 @@ inherited FrmApuracao: TFrmApuracao
         Top = 78
         Width = 828
         Height = 45
+        Align = alTop
         Caption = '  Processando  '
         TabOrder = 2
         Visible = False
+        ExplicitLeft = 160
+        ExplicitTop = 110
         object ProgressBar: TW7ProgressBar
           Left = 14
           Top = 21
@@ -1911,6 +1892,8 @@ inherited FrmApuracao: TFrmApuracao
         Align = alTop
         Caption = '  Dados da apura'#231#227'o '
         TabOrder = 3
+        ExplicitLeft = 174
+        ExplicitTop = 40
         object lblEmpresa: TLabel
           Left = 12
           Top = 22
@@ -2004,15 +1987,15 @@ inherited FrmApuracao: TFrmApuracao
           OnKeyDown = EdtCodPartKeyDown
         end
         object EdtParticipante: TEdit
-          Left = 127
+          Left = 151
           Top = 40
-          Width = 290
+          Width = 291
           Height = 19
           Enabled = False
           TabOrder = 1
         end
         object BtnBuscaCliente: TAdvGlowButton
-          Left = 423
+          Left = 125
           Top = 40
           Width = 20
           Height = 19

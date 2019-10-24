@@ -22,7 +22,7 @@ object DMBase: TDMBase
     CachedUpdates = True
     Connection = DB
     SQL.Strings = (
-      'SELECT * FROM "GET_EMP_IMPORTADOS"'
+      'SELECT * FROM "GET_EMPRESAS" '
       'WHERE "CODIGO" =:CODIGO')
     Left = 120
     Top = 16
