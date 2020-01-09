@@ -23,7 +23,9 @@ uses
   uDMApuracaoICMSST in 'Dao\uDMApuracaoICMSST.pas' {DmApuracaoICMSST: TDataModule},
   Controller.ApuracaoICMSST in 'Controller\Controller.ApuracaoICMSST.pas',
   uCadContribuinte in 'Units\uCadContribuinte.pas' {FrmCadContribuinte},
-  uDMCadContribuinte in 'Dao\uDMCadContribuinte.pas' {DMCadContribuinte: TDataModule};
+  uDMCadContribuinte in 'Dao\uDMCadContribuinte.pas' {DMCadContribuinte: TDataModule},
+  uCadNCM in 'Units\uCadNCM.pas' {FrmCadNCM},
+  uDMCadNCM in 'Dao\uDMCadNCM.pas' {DMCadNCM: TDataModule};
 
 {$R *.res}
 

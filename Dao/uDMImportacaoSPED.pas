@@ -61,16 +61,12 @@ type
     QryC100eVL_ICMS: TFloatField;
     QryC100eVL_BC_ICMS_ST: TFloatField;
     QryC100eVL_ICMS_ST: TFloatField;
-    QryC100eVL_BC_IPI: TFloatField;
     QryC100eVL_IPI: TFloatField;
-    QryC100eVL_BC_PIS: TFloatField;
     QryC100eVL_PIS: TFloatField;
-    QryC100eVL_BC_COFINS: TFloatField;
     QryC100eVL_COFINS: TFloatField;
     QryC100ePARTICIPANTE: TStringField;
     QryC170eID_SPED: TIntegerField;
     QryC170eIDNF: TIntegerField;
-    QryC170eNUM_ITEM: TStringField;
     QryC170eCOD_ITEM: TStringField;
     QryC170eQTDE: TFloatField;
     QryC170eUNID: TStringField;
@@ -122,17 +118,13 @@ type
     QryC100sVL_ICMS: TFloatField;
     QryC100sVL_BC_ICMS_ST: TFloatField;
     QryC100sVL_ICMS_ST: TFloatField;
-    QryC100sVL_BC_IPI: TFloatField;
     QryC100sVL_IPI: TFloatField;
-    QryC100sVL_BC_PIS: TFloatField;
     QryC100sVL_PIS: TFloatField;
-    QryC100sVL_BC_COFINS: TFloatField;
     QryC100sVL_COFINS: TFloatField;
     QryC100sPARTICIPANTE: TStringField;
     QryC100sCOD_SIT: TStringField;
     QryC170sID_SPED: TIntegerField;
     QryC170sIDNF: TIntegerField;
-    QryC170sNUM_ITEM: TStringField;
     QryC170sCOD_ITEM: TStringField;
     QryC170sQTDE: TFloatField;
     QryC170sUNID: TStringField;
@@ -174,18 +166,14 @@ type
     QryC100VL_ICMS: TFloatField;
     QryC100VL_BC_ICMS_ST: TFloatField;
     QryC100VL_ICMS_ST: TFloatField;
-    QryC100VL_BC_IPI: TFloatField;
     QryC100VL_IPI: TFloatField;
-    QryC100VL_BC_PIS: TFloatField;
     QryC100VL_PIS: TFloatField;
-    QryC100VL_BC_COFINS: TFloatField;
     QryC100VL_COFINS: TFloatField;
     QryC100PARTICIPANTE: TStringField;
     QryC100ID: TIntegerField;
     QryC100COD_SIT: TStringField;
     QryC170ID_SPED: TIntegerField;
     QryC170IDNF: TIntegerField;
-    QryC170NUM_ITEM: TStringField;
     QryC170COD_ITEM: TStringField;
     QryC170QTDE: TFloatField;
     QryC170UNID: TStringField;
@@ -220,6 +208,15 @@ type
     QryC470ALIQ_ICMS: TFloatField;
     QryC470VL_PIS: TFloatField;
     QryC470VL_COFINS: TFloatField;
+    QryC170NUM_ITEM: TIntegerField;
+    QryC170eNUM_ITEM: TIntegerField;
+    QryC170sNUM_ITEM: TIntegerField;
+    QryC100VL_COFINS_ST: TFloatField;
+    QryC100VL_PIS_ST: TFloatField;
+    QryC100IND_FRT: TStringField;
+    QryC100VL_ABAT_NT: TFloatField;
+    QryC100IND_PGTO: TStringField;
+    QryC100IND_EMIT: TStringField;
   private
     { Private declarations }
   public
@@ -310,7 +307,9 @@ begin
     result := true;
 
   except
-    raise Exception.Create('Erro ao tentar carregar SPED');
+    //raise Exception.Create('Erro ao tentar carregar SPED');
+    On e: exception do
+    raise Exception.Create('Erro : ' + e.Message + 'ao tentar carregar SPED');
   end;
 
 end;

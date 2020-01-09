@@ -26,6 +26,7 @@ type
     function GetSQL88STITNF(pDatIni, pDatFin, pCNPJ: String): String;
     function GetQry : TFDQuery;
     function GetQryTemp : TFDMemTable;
+    function GetSEF(pDatIni, pDatFin, pCNPJ : String) : String;
 
   end;
 
@@ -36,7 +37,7 @@ implementation
 {$R *.dfm}
 
 
-Uses uDMBase,BiblKhronos;
+Uses uDMBase,BiblKhronos, uApuracaoICMSST;
 
 { TDmApuracaoICMSST }
 
@@ -189,6 +190,21 @@ end;
 function TDmApuracaoICMSST.GetQryTemp: TFDMemTable;
 begin
   result := FQryTemp;
+end;
+
+function TDmApuracaoICMSST.GetSEF(pDatIni, pDatFin, pCNPJ: String): String;
+begin
+   Result := ' SELECT *, ' +
+             ' I."NCM", ' +
+             ' I."COD_EAN", '+
+             ' I."UNID", ' +
+             ' I."P_MVA_ST", ' +
+             ' I."P_RED_BC_ST" FROM "REGISTROC170" R ' +
+             ' LEFT JOIN "NF" N ON R."IDNF" = N."ID" ' +
+             ' LEFT JOIN "NF_ITENS" I ON R."IDNF" = I."ID" ' +
+             ' WHERE N."DT_E_ES" BETWEEN ' + pDatIni.QuotedString +
+             ' AND ' + pDatFin.QuotedString +
+             ' AND N."COD_EMP" = ' + pCNPJ.QuotedString;
 end;
 
 function TDmApuracaoICMSST.GetSQL88STES(pDatIni, pDatFin, pCNPJ: String): String;

@@ -41,7 +41,6 @@ type
     QryNFPARTICIPANTE: TStringField;
     QryNFID: TIntegerField;
     QryItensNFIDNF: TIntegerField;
-    QryItensNFNUM_ITEM: TStringField;
     QryItensNFCOD_ITEM: TStringField;
     QryItensNFQTDE: TFloatField;
     QryItensNFUNID: TStringField;
@@ -83,6 +82,7 @@ type
     QryNFEMPRESA: TStringField;
     QryNFMES: TIntegerField;
     QryNFANO: TIntegerField;
+    QryItensNFNUM_ITEM: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
     procedure DataModuleDestroy(Sender: TObject);
   private

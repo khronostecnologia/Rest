@@ -269,24 +269,12 @@ object DMImportacaoSPED: TDMImportacaoSPED
       FieldName = 'VL_ICMS_ST'
       DisplayFormat = '0.00'
     end
-    object QryC100eVL_BC_IPI: TFloatField
-      FieldName = 'VL_BC_IPI'
-      DisplayFormat = '0.00'
-    end
     object QryC100eVL_IPI: TFloatField
       FieldName = 'VL_IPI'
       DisplayFormat = '0.00'
     end
-    object QryC100eVL_BC_PIS: TFloatField
-      FieldName = 'VL_BC_PIS'
-      DisplayFormat = '0.00'
-    end
     object QryC100eVL_PIS: TFloatField
       FieldName = 'VL_PIS'
-      DisplayFormat = '0.00'
-    end
-    object QryC100eVL_BC_COFINS: TFloatField
-      FieldName = 'VL_BC_COFINS'
       DisplayFormat = '0.00'
     end
     object QryC100eVL_COFINS: TFloatField
@@ -318,9 +306,8 @@ object DMImportacaoSPED: TDMImportacaoSPED
     object QryC170eIDNF: TIntegerField
       FieldName = 'IDNF'
     end
-    object QryC170eNUM_ITEM: TStringField
+    object QryC170eNUM_ITEM: TIntegerField
       FieldName = 'NUM_ITEM'
-      Size = 5
     end
     object QryC170eCOD_ITEM: TStringField
       FieldName = 'COD_ITEM'
@@ -466,24 +453,12 @@ object DMImportacaoSPED: TDMImportacaoSPED
       FieldName = 'VL_ICMS_ST'
       DisplayFormat = '0.00'
     end
-    object QryC100sVL_BC_IPI: TFloatField
-      FieldName = 'VL_BC_IPI'
-      DisplayFormat = '0.00'
-    end
     object QryC100sVL_IPI: TFloatField
       FieldName = 'VL_IPI'
       DisplayFormat = '0.00'
     end
-    object QryC100sVL_BC_PIS: TFloatField
-      FieldName = 'VL_BC_PIS'
-      DisplayFormat = '0.00'
-    end
     object QryC100sVL_PIS: TFloatField
       FieldName = 'VL_PIS'
-      DisplayFormat = '0.00'
-    end
-    object QryC100sVL_BC_COFINS: TFloatField
-      FieldName = 'VL_BC_COFINS'
       DisplayFormat = '0.00'
     end
     object QryC100sVL_COFINS: TFloatField
@@ -517,10 +492,6 @@ object DMImportacaoSPED: TDMImportacaoSPED
     end
     object QryC170sIDNF: TIntegerField
       FieldName = 'IDNF'
-    end
-    object QryC170sNUM_ITEM: TStringField
-      FieldName = 'NUM_ITEM'
-      Size = 5
     end
     object QryC170sCOD_ITEM: TStringField
       FieldName = 'COD_ITEM'
@@ -577,6 +548,9 @@ object DMImportacaoSPED: TDMImportacaoSPED
     object QryC170sDESCR_ITEM: TStringField
       FieldName = 'DESCR_ITEM'
       Size = 50
+    end
+    object QryC170sNUM_ITEM: TIntegerField
+      FieldName = 'NUM_ITEM'
     end
   end
   object DsC100: TDataSource
@@ -669,24 +643,12 @@ object DMImportacaoSPED: TDMImportacaoSPED
       FieldName = 'VL_ICMS_ST'
       DisplayFormat = '0.00'
     end
-    object QryC100VL_BC_IPI: TFloatField
-      FieldName = 'VL_BC_IPI'
-      DisplayFormat = '0.00'
-    end
     object QryC100VL_IPI: TFloatField
       FieldName = 'VL_IPI'
       DisplayFormat = '0.00'
     end
-    object QryC100VL_BC_PIS: TFloatField
-      FieldName = 'VL_BC_PIS'
-      DisplayFormat = '0.00'
-    end
     object QryC100VL_PIS: TFloatField
       FieldName = 'VL_PIS'
-      DisplayFormat = '0.00'
-    end
-    object QryC100VL_BC_COFINS: TFloatField
-      FieldName = 'VL_BC_COFINS'
       DisplayFormat = '0.00'
     end
     object QryC100VL_COFINS: TFloatField
@@ -704,6 +666,25 @@ object DMImportacaoSPED: TDMImportacaoSPED
       FieldName = 'COD_SIT'
       Size = 50
     end
+    object QryC100VL_COFINS_ST: TFloatField
+      FieldName = 'VL_COFINS_ST'
+    end
+    object QryC100VL_PIS_ST: TFloatField
+      FieldName = 'VL_PIS_ST'
+    end
+    object QryC100IND_FRT: TStringField
+      FieldName = 'IND_FRT'
+      Size = 100
+    end
+    object QryC100VL_ABAT_NT: TFloatField
+      FieldName = 'VL_ABAT_NT'
+    end
+    object QryC100IND_PGTO: TStringField
+      FieldName = 'IND_PGTO'
+    end
+    object QryC100IND_EMIT: TStringField
+      FieldName = 'IND_EMIT'
+    end
   end
   object QryC170: TFDQuery
     CachedUpdates = True
@@ -718,9 +699,8 @@ object DMImportacaoSPED: TDMImportacaoSPED
     object QryC170IDNF: TIntegerField
       FieldName = 'IDNF'
     end
-    object QryC170NUM_ITEM: TStringField
+    object QryC170NUM_ITEM: TIntegerField
       FieldName = 'NUM_ITEM'
-      Size = 5
     end
     object QryC170COD_ITEM: TStringField
       FieldName = 'COD_ITEM'

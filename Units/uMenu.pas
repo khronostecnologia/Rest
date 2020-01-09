@@ -35,12 +35,14 @@ type
     ApplicationEvents1: TApplicationEvents;
     Cadastros1: TMenuItem;
     Contribuinte1: TMenuItem;
+    NCM1: TMenuItem;
     procedure MnuSubImportaSPEDClick(Sender: TObject);
     procedure Sair1Click(Sender: TObject);
     procedure MnuImportaXMLClick(Sender: TObject);
     procedure MnuApuracaoXMLClick(Sender: TObject);
     procedure ApplicationEvents1Exception(Sender: TObject; E: Exception);
     procedure Contribuinte1Click(Sender: TObject);
+    procedure NCM1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -55,7 +57,7 @@ implementation
 {$R *.dfm}
 
 Uses uDMBase,uPesquisa,uMensagem,uImportacaoSPED,uImportacaoXML,biblKhronos,
-uApuracaoICMSST,uCadContribuinte;
+uApuracaoICMSST,uCadContribuinte, uCadNCM;
 
 procedure TFrmMenu.MnuImportaXMLClick(Sender: TObject);
 begin
@@ -67,6 +69,12 @@ procedure TFrmMenu.MnuSubImportaSPEDClick(Sender: TObject);
 begin
   FrmImportacaoSPED := TFrmImportacaoSPED.Create(nil);
   FrmImportacaoSPED.Show;
+end;
+
+procedure TFrmMenu.NCM1Click(Sender: TObject);
+begin
+  FrmCadNCM := TFrmCadNCM.Create(nil);
+  FrmCadNCM.Show;
 end;
 
 procedure TFrmMenu.Sair1Click(Sender: TObject);

@@ -780,6 +780,10 @@ begin
 end;
 
 procedure TFrmApuracao.MnSefApurClick(Sender: TObject);
+var
+  vCNPJ : String;
+  vDatIni : String;
+  vDatFin : String;
 begin
   inherited;
   if not FController.ValidadoDadosBasicos then

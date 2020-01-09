@@ -71,15 +71,34 @@ var
   vAno         : String;
   vDir         : String;
   vQryST       : TFDMemTable;
+  vSQL         : String;
+  vDatIni      : String;
+  vDatFin      : String;
+  vCab         : String;
 
   procedure AddLinhaMontada(pTexto : String);
   begin
     vLstSEF.Add(pTexto);
   end;
 
-  procedure MontaLinha(pTexto : String);
+  procedure MontaLinha;
   begin
-    vLinha := vLinha + pTexto + cDelimit;
+    vLinha := IntToStr(vQryST.FieldByName('ID_SPED').AsInteger)       + cDelimit +
+              vQryST.FieldByName('NCM').AsString                      + cDelimit +
+              vQryST.FieldByName('COD_EAN').AsString                  + cDelimit +
+              vQryST.FieldByName('DESCR_ITEM').AsString               + cDelimit +
+              vQryST.FieldByName('UNID').AsString                     + cDelimit +
+              FloatToStr(vQryST.FieldByName('QTDE').AsFloat)          + cDelimit +
+
+
+              FloatToStr(vQryST.FieldByName('VL_ICMS_ST').AsFloat)    + cDelimit +
+              FloatToStr(vQryST.FieldByName('P_MVA_ST').AsFloat)      + cDelimit +
+              FloatToStr(vQryST.FieldByName('P_RED_BC_ST').AsFloat)   + cDelimit +
+              FloatToStr(vQryST.FieldByName('VL_ICMSST_RET').AsFloat) + cDelimit +
+              FloatToStr(vQryST.FieldByName('VL_BC_ICMS_ST').AsFloat) + cDelimit +
+              FloatToStr(vQryST.FieldByName('VL_ICMS_ST').AsFloat)    + cDelimit ;
+    //vLinha := vLinha + pTexto + cDelimit;
+    //vLinha := vLinha + cDelimit;
   end;
 
   procedure CriaArqSEF;
@@ -89,28 +108,33 @@ var
 
 begin
   try
-    result      := false;
+    result      := False;
     vLstSEF     := TStringList.Create;
     vCNPJ       := TFrmApuracao(FView).EdtCodPart.Text;
     vMes        := TFrmApuracao(FView).cmbMes.Text;
     vAno        := TFrmApuracao(FView).CmbAno.Text;
     vDir        := dmPrincipal.DirRaizApp + 'SEF';
     vDirSaveArq := vDir + PreFixoArq + vCNPJ + '_' + vMes + vAno + '.txt';
+    vDatIni     := DateToStr(StartOfAMonth(vAno.ToInteger,vMes.ToInteger));
+    vDatFin     := DateToStr(EndOfTheMonth(StrToDate(vDatIni)));
+
     try
+      vSQL   := TDmApuracaoICMSST(FModel).GetSEF(vDatIni, vDatFin, vCNPJ);
       vQryST := TDmApuracaoICMSST(FModel).GetQryTemp;
-      dmPrincipal.BancoExec.ExecSQL('',TDataSet(vQryST));
+      dmPrincipal.BancoExec.ExecSQL(vSQL,TDataSet(vQryST));
 
       if vQryST.IsEmpty then
       exit;
 
-      MontaLinha('CD_SPED|CD_NCM|CD_EAN13|DS_PRODMERC|TP_UNIDADE|QT_PROD_ST_COMP|'+
-                 'VR_ICMS_ST_COMP|VR_FEM_ST_COMP|QT_PROD_ST_REST|VR_ICMS_ST_REST|'+
-                 'VR_FEM_ST_REST|'
-                );
+      vCab := 'CD_SPED|CD_NCM|CD_EAN13|DS_PRODMERC|TP_UNIDADE|QT_PROD_ST_COMP|' +
+              'VR_ICMS_ST_COMP|VR_FEM_ST_COMP|QT_PROD_ST_REST|VR_ICMS_ST_REST|' +
+              'VR_FEM_ST_REST|';
+      vLstSEF.Add(vCab);
 
       vQryST.First;
       while not vQryST.Eof do
       begin
+        MontaLinha;
         AddLinhaMontada(vLinha);
         vQryST.Next;
       end;
