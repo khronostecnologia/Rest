@@ -7,8 +7,8 @@ object DMCadNCM: TDMCadNCM
     CachedUpdates = True
     Connection = DMBase.DB
     SQL.Strings = (
-      'SELECT * FROM "ncm"'
-      'WHERE "id" =:CODIGO')
+      'SELECT * FROM "NCM"'
+      'WHERE "ID" =:CODIGO')
     Left = 32
     Top = 16
     ParamData = <
@@ -16,15 +16,15 @@ object DMCadNCM: TDMCadNCM
         Name = 'CODIGO'
         ParamType = ptInput
       end>
-    object QryNCMid: TIntegerField
-      FieldName = 'id'
+    object QryNCMID: TIntegerField
+      FieldName = 'ID'
     end
-    object QryNCMncm: TStringField
-      FieldName = 'ncm'
+    object QryNCMNCM: TStringField
+      FieldName = 'NCM'
       Size = 8
     end
-    object QryNCMmva: TFloatField
-      FieldName = 'mva'
+    object QryNCMMVA: TFloatField
+      FieldName = 'MVA'
     end
   end
 end

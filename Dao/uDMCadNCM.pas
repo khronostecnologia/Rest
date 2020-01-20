@@ -11,9 +11,9 @@ uses
 type
   TDMCadNCM = class(TDataModule)
     QryNCM: TFDQuery;
-    QryNCMid: TIntegerField;
-    QryNCMncm: TStringField;
-    QryNCMmva: TFloatField;
+    QryNCMID: TIntegerField;
+    QryNCMNCM: TStringField;
+    QryNCMMVA: TFloatField;
     procedure QryNCMNewRecord(DataSet: TDataSet);
   private
     { Private declarations }

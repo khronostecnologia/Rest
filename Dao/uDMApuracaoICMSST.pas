@@ -113,6 +113,7 @@ pXML , pSPED : Boolean):Boolean;
                  ' LEFT JOIN "REGISTROC100" NF ON NF."ID" = NP."IDNF"                                                     '+
                  ' LEFT JOIN "REGISTROC425" VI ON VI."COD_ITEM" = P."COD_ITEM"                                            '+
                  ' LEFT JOIN "REGISTROC400" V ON V."ID" = VI."ID_REDZ"                                                    '+
+                 ' LEFT JOIN "NCM" NC ON C."COD_NCM" = NC."NCM"                                                                '+
                  ' WHERE C."MES" =:MES AND C."ANO" =:ANO AND C."CNPJ" = :CNPJ                                             '+
                  ' GROUP BY  P."COD_ITEM", P."CODBARRA",P."DESCR_ITEM",NF."DT_E_ES",V."DATA"                              '+
                  ' ORDER BY P."COD_ITEM", P."CODBARRA",P."DESCR_ITEM",NF."DT_E_ES",V."DATA" )A                            ';
@@ -141,6 +142,7 @@ pXML , pSPED : Boolean):Boolean;
                          '    0 SALDO_ARECOLHER                                                                '+
                          '    FROM "NF_ITENS" NP                                                               '+
                          '    LEFT JOIN "NF" NF ON NF."ID" = NP."IDNF"                                         '+
+                         '    LEFT JOIN "NCM" NC ON NP."NCM" = NC."NCM"                                        '+
                          '    WHERE NF."MES" =:MES  AND NF."ANO" = :ANO AND NF."COD_EMP" =:CNPJ                '+
                          '    GROUP BY  NP."COD_ITEM", NP."COD_EAN",NP."DESCR_ITEM",NF."DT_E_ES"               '+
                          '    ORDER BY NP."COD_ITEM", NP."COD_EAN",NP."DESCR_ITEM",NF."DT_E_ES")B              ';

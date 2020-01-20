@@ -70,7 +70,7 @@ begin
   inherited;
   Try
     FrmPesquisa  := TFrmPesquisa.Create(nil);
-    FrmPesquisa.MontaSql('SELECT * FROM "ncm"');
+    FrmPesquisa.MontaSql('SELECT * FROM "NCM"');
     FrmPesquisa.ShowModal;
     if FrmPesquisa.Selecionou then
     begin

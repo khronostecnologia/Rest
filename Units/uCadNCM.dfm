@@ -10,13 +10,11 @@ inherited FrmCadNCM: TFrmCadNCM
       inherited lblTitulo: TLabel
         Left = 6
         Top = 16
-        Width = 198
-        Height = 50
+        Width = 181
         Caption = 'Cadastro de NCM'
         ExplicitLeft = 6
         ExplicitTop = 16
-        ExplicitWidth = 198
-        ExplicitHeight = 50
+        ExplicitWidth = 181
       end
     end
     inherited PnlCentral: TAdvSmoothPanel
@@ -535,7 +533,6 @@ inherited FrmCadNCM: TFrmCadNCM
         Height = 39
         Align = alTop
         TabOrder = 1
-        ExplicitTop = 8
         object lblCodigo: TLabel
           Left = 10
           Top = 13
