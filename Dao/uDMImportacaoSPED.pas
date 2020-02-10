@@ -208,15 +208,15 @@ type
     QryC470ALIQ_ICMS: TFloatField;
     QryC470VL_PIS: TFloatField;
     QryC470VL_COFINS: TFloatField;
-    QryC170NUM_ITEM: TIntegerField;
-    QryC170eNUM_ITEM: TIntegerField;
-    QryC170sNUM_ITEM: TIntegerField;
     QryC100VL_COFINS_ST: TFloatField;
     QryC100VL_PIS_ST: TFloatField;
     QryC100IND_FRT: TStringField;
     QryC100VL_ABAT_NT: TFloatField;
     QryC100IND_PGTO: TStringField;
     QryC100IND_EMIT: TStringField;
+    QryC170NUM_ITEM: TStringField;
+    QryC170eNUM_ITEM: TStringField;
+    QryC170sNUM_ITEM: TStringField;
   private
     { Private declarations }
   public

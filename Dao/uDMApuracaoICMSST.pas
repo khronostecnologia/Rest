@@ -18,6 +18,7 @@ type
     { Private declarations }
     FQry     : TFDQuery;
     FQryTemp : TFDMemTable;
+    vSefSQL  : String;
   public
     { Public declarations }
     function GetAnalise(pCodPart , pMes , pAno : String ; pXML , pSPED : Boolean):Boolean;
@@ -73,21 +74,21 @@ pXML , pSPED : Boolean):Boolean;
                  'V."DATA" AS "DATA_SAIDA",                                                                                        '+
                  'SUM(VI."QTD") AS "QTDE_SAIDA",                                                                                   '+
                  'SUM((VI."QTD" * VI."VL_ITEM")) AS "BC_ICMS_ST_SAI",                                                              '+
-                 'SUM(( /*ALIQUOTA PRATICA SAIDA*/ 14.00 * VI."VL_ITEM")) AS TOTAL_ICMS_SAIDA,                                     '+
-                 'SUM( ( (NP."VL_BC_ICMS_ST" / NP."QTDE") * (VI."QTD") * (/*ALIQUOTA PRATICA SAIDA*/ 14.00))) TOTAL_ICMS_ENTRADA,  '+
-                 'SUM(( ( /*ALIQUOTA PRATICA SAIDA*/ 14.00 * VI."VL_ITEM") -                                                       '+
-                 '( (NP."VL_BC_ICMS_ST" / NP."QTDE") * (VI."QTD") * (/*ALIQUOTA PRATICA SAIDA*/ 14.00))                            '+
+                 'SUM((P."ALIQ_ICMS" * VI."VL_ITEM")) AS TOTAL_ICMS_SAIDA,                                                         '+
+                 'SUM( ( (NP."VL_BC_ICMS_ST" / NP."QTDE") * (VI."QTD") * (P."ALIQ_ICMS"))) TOTAL_ICMS_ENTRADA,                     '+
+                 'SUM(( (P."ALIQ_ICMS" * VI."VL_ITEM") -                                                                           '+
+                 '( (NP."VL_BC_ICMS_ST" / NP."QTDE") * (VI."QTD") * (P."ALIQ_ICMS"))                                                '+
                  '))DIFERENCA,                                                                                                     '+
                  '(SUM(COALESCE(NP."QTDE",0)) - SUM(COALESCE(VI."QTD",0))) ESTOQUE_FINAL,                                          '+
-                 'SUM( (                                                                                                  '+
-                 ' CASE                                                                                                   '+
-                 '  WHEN                                                                                                  '+
-                 '   ( ( /*ALIQUOTA PRATICA SAIDA*/ 14.00 * VI."VL_ITEM") -                                               '+
-                 '( (NP."VL_BC_ICMS_ST" / NP."QTDE") * (VI."QTD") * (/*ALIQUOTA PRATICA SAIDA*/ 14.00))                   '+
-                 '   ) < 0 THEN                                                                                           '+
-                 '   ( ( /*ALIQUOTA PRATICA SAIDA*/ 14.00 * VI."VL_ITEM") -                                               '+
-                 '( (NP."VL_BC_ICMS_ST" / NP."QTDE") * (VI."QTD") * (/*ALIQUOTA PRATICA SAIDA*/ 14.00))                   '+
-                 '   )                                                                                                    '+
+                 'SUM( (                                                                                                           '+
+                 ' CASE                                                                                                            '+
+                 '  WHEN                                                                                                           '+
+                 '   ( (P."ALIQ_ICMS" * VI."VL_ITEM") -                                                                            '+
+                 '( (NP."VL_BC_ICMS_ST" / NP."QTDE") * (VI."QTD") * (P."ALIQ_ICMS"))                                               '+
+                 '   ) < 0 THEN                                                                                                    '+
+                 '   ( (P."ALIQ_ICMS"  * VI."VL_ITEM") -                                                                           '+
+                 '( (NP."VL_BC_ICMS_ST" / NP."QTDE") * (VI."QTD") * (P."ALIQ_ICMS"))                                               '+
+                 '   )                                                                                                             '+
                  '   ELSE                                                                                                 '+
                  '    0                                                                                                   '+
                  '  END                                                                                                   '+
@@ -96,16 +97,16 @@ pXML , pSPED : Boolean):Boolean;
                  ' SUM(  (                                                                                                '+
                  '  CASE                                                                                                  '+
                  '  WHEN                                                                                                  '+
-                 '   ( ( /*ALIQUOTA PRATICA SAIDA*/ 14.00 * VI."VL_ITEM") -                                               '+
-                 '   ( (NP."VL_BC_ICMS_ST" / NP."QTDE") * (VI."QTD") * (/*ALIQUOTA PRATICA SAIDA*/ 14.00))                '+
+                 '   ( (P."ALIQ_ICMS" * VI."VL_ITEM") -                                                                   '+
+                 '   ( (NP."VL_BC_ICMS_ST" / NP."QTDE") * (VI."QTD") * (P."ALIQ_ICMS"))                                   '+
                  '       ) > 0 THEN                                                                                       '+
-                 '       ( ( /*ALIQUOTA PRATICA SAIDA*/ 14.00 * VI."VL_ITEM") -                                           '+
-                 '   ( (NP."VL_BC_ICMS_ST" / NP."QTDE") * (VI."QTD") * (/*ALIQUOTA PRATICA SAIDA*/ 14.00))                '+
+                 '       ( (P."ALIQ_ICMS" * VI."VL_ITEM") -                                                               '+
+                 '   ( (NP."VL_BC_ICMS_ST" / NP."QTDE") * (VI."QTD") * (P."ALIQ_ICMS"))                                   '+
                  '       )                                                                                                '+
                  '       ELSE                                                                                             '+
                  '        0                                                                                               '+
                  '      END                                                                                               '+
-                 '    )) SALDO_ARECOLHER                                                                                  '+
+                 '    )) SALDO_ACOMPLEMENTAR                                                                              '+
                  '                                                                                                        '+
                  ' FROM "REGISTRO0200" P                                                                                  '+
                  ' LEFT JOIN "REGISTRO0000" C ON C."ID" = P."ID_SPED"                                                     '+
@@ -113,7 +114,7 @@ pXML , pSPED : Boolean):Boolean;
                  ' LEFT JOIN "REGISTROC100" NF ON NF."ID" = NP."IDNF"                                                     '+
                  ' LEFT JOIN "REGISTROC425" VI ON VI."COD_ITEM" = P."COD_ITEM"                                            '+
                  ' LEFT JOIN "REGISTROC400" V ON V."ID" = VI."ID_REDZ"                                                    '+
-                 ' LEFT JOIN "NCM" NC ON C."COD_NCM" = NC."NCM"                                                                '+
+                 ' LEFT JOIN "NCM" NC ON P."COD_NCM" = NC."NCM"                                                           '+
                  ' WHERE C."MES" =:MES AND C."ANO" =:ANO AND C."CNPJ" = :CNPJ                                             '+
                  ' GROUP BY  P."COD_ITEM", P."CODBARRA",P."DESCR_ITEM",NF."DT_E_ES",V."DATA"                              '+
                  ' ORDER BY P."COD_ITEM", P."CODBARRA",P."DESCR_ITEM",NF."DT_E_ES",V."DATA" )A                            ';
@@ -130,16 +131,77 @@ pXML , pSPED : Boolean):Boolean;
                          '    SUM(COALESCE(NP."QTDE",0)) AS "QTDE_ENTRADA",                                    '+
                          '    SUM(NP."VL_BC_ICMS_ST") AS "BC_ICMS_ST_ENT",                                     '+
                          '    SUM(NP."VL_ICMS_ST") AS "VL_ICMS_ST_ENT",                                        '+
-                         '    SUM((NP."VL_BC_ICMS_ST" / NP."QTDE")) VL_ICMS_ST_UNI_ENT,                        '+
+                        // '    SUM((NP."VL_BC_ICMS_ST" / NP."QTDE")) "VL_ICMS_ST_UNI_ENT",                      '+
+                         '   SUM( (                                                                            '+
+                         '    CASE                                                                             '+
+                         '     WHEN                                                                            '+
+                         '      ( (NP."VL_BC_ICMS_ST")                                                         '+
+                         '      ) > 0 AND (NP."QTDE") > 0 THEN                                                 '+
+                         '      ((NP."VL_BC_ICMS_ST" / NP."QTDE")                                              '+
+                         '      )                                                                              '+
+                         '      ELSE                                                                           '+
+                         '       0                                                                             '+
+                         '     END                                                                             '+
+                         '    ))VL_ICMS_ST_UNI_ENT,                                                            '+
                          '    NF."DT_E_ES" AS "DATA_SAIDA",                                                    '+
                          '    SUM(NP."QTDE" * 0) AS "QTDE_SAIDA",                                              '+
                          '    SUM(0) AS "BC_ICMS_ST_SAI",                                                      '+
-                         '    SUM(0) AS TOTAL_ICMS_SAIDA,                                                      '+
-                         '    SUM(NP."VL_ICMS_ST") TOTAL_ICMS_ENTRADA,                                         '+
-                         '    SUM(NP."VL_ICMS_ST")DIFERENCA,                                                   '+
-                         '    SUM(COALESCE(NP."QTDE",0)) ESTOQUE_FINAL,                                        '+
-                         '    SUM(NP."VL_ICMS_ST")SALDO_RESTITUIR,                                             '+
-                         '    0 SALDO_ARECOLHER                                                                '+
+                         '    SUM(0) AS "TOTAL_ICMS_SAIDA",                                                    '+
+                         '    SUM(NP."VL_ICMS_ST") "TOTAL_ICMS_ENTRADA",                                       '+
+                         //'    SUM(NP."VL_ICMS_ST")"DIFERENCA",                                                 '+
+                         '    SUM((                                                                            '+
+                         '      CASE                                                                           '+
+                         '       WHEN                                                                          '+
+                         '      ( (NP."VL_BC_ICMS_ST")                                                         '+
+                         '      ) > 0 AND (NP."QTDE") > 0 THEN                                                 '+
+                         '      (NP."ALIQ_ICMS" * NP."VL_ITEM") -                                              '+
+                         '      ( (NP."VL_BC_ICMS_ST" / NP."QTDE") * (NP."QTDE") * (NP."ALIQ_ICMS")            '+
+                         '      )                                                                              '+
+                         '      ELSE                                                                           '+
+                         '        0                                                                            '+
+                         '      END                                                                            '+
+                         '    ))"DIFERENCA",                                                                   '+
+                         '    SUM(COALESCE(NP."QTDE",0)) "ESTOQUE_FINAL",                                      '+
+                         //'    SUM(NP."VL_ICMS_ST")"SALDO_RESTITUIR",                                         '+
+                         '    SUM( (                                                                           '+
+						             '      CASE                                                                           '+
+                         '       WHEN                                                                          '+
+								         '        ( (NP."VL_BC_ICMS_ST")                                                       '+
+                         '        ) > 0 AND (NP."QTDE") > 0 THEN                                               '+
+								         '       CASE WHEN                                                                     '+
+                         '        ( (NP."ALIQ_ICMS" * NP."VL_ITEM") -                                          '+
+                         '        ( (NP."VL_BC_ICMS_ST" / NP."QTDE") * (NP."QTDE") * (NP."ALIQ_ICMS"))         '+
+                         '         ) < 0 THEN                                                                  '+
+                         '       ( (NP."ALIQ_ICMS"  * NP."VL_ITEM") -                                          '+
+                         '       ( (NP."VL_BC_ICMS_ST" / NP."QTDE") * (NP."QTDE") * (NP."ALIQ_ICMS"))          '+
+                         '         )                                                                           '+
+                         '       ELSE                                                                          '+
+                         '        0                                                                            '+
+							           '       END                                                                           '+
+							           '      ELSE                                                                           '+
+							           '        0                                                                            '+
+                         '    END                                                                              '+
+                         '    ))SALDO_RESTITUIR,                                                               '+
+                         //'    0 "SALDO_ACOMPLEMENTAR"                                                        '+
+                         '   SUM(  (                                                                           '+
+                         '     CASE                                                                            '+
+                         '      WHEN                                                                           '+
+							           '       ( (NP."VL_BC_ICMS_ST")                                                        '+
+                         '       ) > 0 AND (NP."QTDE") > 0 THEN                                                '+
+						             '      	CASE WHEN                                                                    '+
+                         '        ( (NP."ALIQ_ICMS" * NP."VL_ITEM") -                                          '+
+                         '        ( (NP."VL_BC_ICMS_ST" / NP."QTDE") * (NP."QTDE") * (NP."ALIQ_ICMS"))         '+
+                         '         ) > 0 THEN                                                                  '+
+                         '        ( (NP."ALIQ_ICMS" * NP."VL_ITEM") -                                          '+
+                         '        ( (NP."VL_BC_ICMS_ST" / NP."QTDE") * (NP."QTDE") * (NP."ALIQ_ICMS"))         '+
+                         '       )                                                                             '+
+                         '       ELSE                                                                          '+
+                         '        0                                                                            '+
+                         '       END                                                                           '+
+							           '       ELSE                                                                          '+
+							           '       0                                                                             '+
+							           '      END                                                                            '+
+                         '    )) SALDO_ACOMPLEMENTAR                                                           '+
                          '    FROM "NF_ITENS" NP                                                               '+
                          '    LEFT JOIN "NF" NF ON NF."ID" = NP."IDNF"                                         '+
                          '    LEFT JOIN "NCM" NC ON NP."NCM" = NC."NCM"                                        '+
@@ -164,6 +226,7 @@ begin
     Open;
     result := not (IsEmpty);
   end;
+  vSefSQL := GetSQL;
 end;
 
 function TDmApuracaoICMSST.GetContribuinte(pCNPJ: String): Boolean;
@@ -204,6 +267,7 @@ begin
              ' I."P_RED_BC_ST" FROM "REGISTROC170" R ' +
              ' LEFT JOIN "NF" N ON R."IDNF" = N."ID" ' +
              ' LEFT JOIN "NF_ITENS" I ON R."IDNF" = I."ID" ' +
+             // ' LEFT JOIN "NCM" NC ON NC."NCM" = I."NCM" ' +
              ' WHERE N."DT_E_ES" BETWEEN ' + pDatIni.QuotedString +
              ' AND ' + pDatFin.QuotedString +
              ' AND N."COD_EMP" = ' + pCNPJ.QuotedString;

@@ -132,8 +132,9 @@ object DMImportacaoXML: TDMImportacaoXML
     object QryItensNFIDNF: TIntegerField
       FieldName = 'IDNF'
     end
-    object QryItensNFNUM_ITEM: TIntegerField
+    object QryItensNFNUM_ITEM: TStringField
       FieldName = 'NUM_ITEM'
+      Size = 10
     end
     object QryItensNFCOD_ITEM: TStringField
       FieldName = 'COD_ITEM'

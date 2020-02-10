@@ -66,7 +66,7 @@ object DmApuracaoICMSST: TDmApuracaoICMSST
       #9'    ELSE'
       #9'     0'
       #9'   END'#9'   '
-      '   )) SALDO_ARECOLHER'
+      '   )) SALDO_ACOMPLEMENTAR'
       '   '
       'FROM "REGISTRO0200" P'
       'LEFT JOIN "REGISTROC170" NP ON NP."COD_ITEM" = P."COD_ITEM"'
@@ -86,6 +86,7 @@ object DmApuracaoICMSST: TDmApuracaoICMSST
       item
         Name = 'ID'
         ParamType = ptInput
+        Value = Null
       end>
   end
   object DsAnalise: TDataSource

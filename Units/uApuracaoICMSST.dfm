@@ -1842,8 +1842,8 @@ inherited FrmApuracao: TFrmApuracao
                   Width = 130
                 end
                 object cxGridTotalizadorSinteticoDBTableView1SALDO_ARECOLHER: TcxGridDBColumn
-                  Caption = 'Saldo recolher'
-                  DataBinding.FieldName = 'SALDO_ARECOLHER'
+                  Caption = 'Saldo a Complementar'
+                  DataBinding.FieldName = 'SALDO_ACOMPLEMENTAR'
                   Options.Editing = False
                   Width = 150
                 end

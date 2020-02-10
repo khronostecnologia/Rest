@@ -82,7 +82,7 @@ type
     QryNFEMPRESA: TStringField;
     QryNFMES: TIntegerField;
     QryNFANO: TIntegerField;
-    QryItensNFNUM_ITEM: TIntegerField;
+    QryItensNFNUM_ITEM: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure DataModuleDestroy(Sender: TObject);
   private

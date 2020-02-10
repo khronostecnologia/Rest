@@ -88,15 +88,15 @@ var
               vQryST.FieldByName('COD_EAN').AsString                  + cDelimit +
               vQryST.FieldByName('DESCR_ITEM').AsString               + cDelimit +
               vQryST.FieldByName('UNID').AsString                     + cDelimit +
-              FloatToStr(vQryST.FieldByName('QTDE').AsFloat)          + cDelimit +
 
+              '0.00' + cDelimit + //FloatToStr(vQryST.FieldByName('VI.QTDE').AsFloat)       + cDelimit +
+              '0.00' + cDelimit +//FloatToStr(vQryST.FieldByName('VL_ICMS_ST_ENT').AsFloat)+ cDelimit +
+              '0.00'                                                    + cDelimit +
 
-              FloatToStr(vQryST.FieldByName('VL_ICMS_ST').AsFloat)    + cDelimit +
-              FloatToStr(vQryST.FieldByName('P_MVA_ST').AsFloat)      + cDelimit +
-              FloatToStr(vQryST.FieldByName('P_RED_BC_ST').AsFloat)   + cDelimit +
-              FloatToStr(vQryST.FieldByName('VL_ICMSST_RET').AsFloat) + cDelimit +
-              FloatToStr(vQryST.FieldByName('VL_BC_ICMS_ST').AsFloat) + cDelimit +
-              FloatToStr(vQryST.FieldByName('VL_ICMS_ST').AsFloat)    + cDelimit ;
+              '0.00' + cDelimit +//FloatToStr(vQryST.FieldByName('VI.QTDE').AsFloat)       + cDelimit +
+              '0.00' + cDelimit +//FloatToStr(vQryST.FieldByName('VL_ICMS_ST_ENT').AsFloat)+ cDelimit +
+              '0.00'                                                    + cDelimit;
+
     //vLinha := vLinha + pTexto + cDelimit;
     //vLinha := vLinha + cDelimit;
   end;

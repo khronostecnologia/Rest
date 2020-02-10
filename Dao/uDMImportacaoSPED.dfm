@@ -306,8 +306,9 @@ object DMImportacaoSPED: TDMImportacaoSPED
     object QryC170eIDNF: TIntegerField
       FieldName = 'IDNF'
     end
-    object QryC170eNUM_ITEM: TIntegerField
+    object QryC170eNUM_ITEM: TStringField
       FieldName = 'NUM_ITEM'
+      Size = 10
     end
     object QryC170eCOD_ITEM: TStringField
       FieldName = 'COD_ITEM'
@@ -549,8 +550,9 @@ object DMImportacaoSPED: TDMImportacaoSPED
       FieldName = 'DESCR_ITEM'
       Size = 50
     end
-    object QryC170sNUM_ITEM: TIntegerField
+    object QryC170sNUM_ITEM: TStringField
       FieldName = 'NUM_ITEM'
+      Size = 10
     end
   end
   object DsC100: TDataSource
@@ -699,8 +701,9 @@ object DMImportacaoSPED: TDMImportacaoSPED
     object QryC170IDNF: TIntegerField
       FieldName = 'IDNF'
     end
-    object QryC170NUM_ITEM: TIntegerField
+    object QryC170NUM_ITEM: TStringField
       FieldName = 'NUM_ITEM'
+      Size = 10
     end
     object QryC170COD_ITEM: TStringField
       FieldName = 'COD_ITEM'
