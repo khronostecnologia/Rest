@@ -131,7 +131,6 @@ pXML , pSPED : Boolean):Boolean;
                          '    SUM(COALESCE(NP."QTDE",0)) AS "QTDE_ENTRADA",                                    '+
                          '    SUM(NP."VL_BC_ICMS_ST") AS "BC_ICMS_ST_ENT",                                     '+
                          '    SUM(NP."VL_ICMS_ST") AS "VL_ICMS_ST_ENT",                                        '+
-                        // '    SUM((NP."VL_BC_ICMS_ST" / NP."QTDE")) "VL_ICMS_ST_UNI_ENT",                      '+
                          '   SUM( (                                                                            '+
                          '    CASE                                                                             '+
                          '     WHEN                                                                            '+
@@ -148,65 +147,35 @@ pXML , pSPED : Boolean):Boolean;
                          '    SUM(0) AS "BC_ICMS_ST_SAI",                                                      '+
                          '    SUM(0) AS "TOTAL_ICMS_SAIDA",                                                    '+
                          '    SUM(NP."VL_ICMS_ST") "TOTAL_ICMS_ENTRADA",                                       '+
-                         //'    SUM(NP."VL_ICMS_ST")"DIFERENCA",                                                 '+
-                         '    SUM((                                                                            '+
-                         '      CASE                                                                           '+
-                         '       WHEN                                                                          '+
-                         '      ( (NP."VL_BC_ICMS_ST")                                                         '+
-                         '      ) > 0 AND (NP."QTDE") > 0 THEN                                                 '+
-                         '      (NP."ALIQ_ICMS" * NP."VL_ITEM") -                                              '+
-                         '      ( (NP."VL_BC_ICMS_ST" / NP."QTDE") * (NP."QTDE") * (NP."ALIQ_ICMS")            '+
-                         '      )                                                                              '+
-                         '      ELSE                                                                           '+
-                         '        0                                                                            '+
-                         '      END                                                                            '+
-                         '    ))"DIFERENCA",                                                                   '+
-                         '    SUM(COALESCE(NP."QTDE",0)) "ESTOQUE_FINAL",                                      '+
-                         //'    SUM(NP."VL_ICMS_ST")"SALDO_RESTITUIR",                                         '+
-                         '    SUM( (                                                                           '+
-						             '      CASE                                                                           '+
-                         '       WHEN                                                                          '+
-								         '        ( (NP."VL_BC_ICMS_ST")                                                       '+
-                         '        ) > 0 AND (NP."QTDE") > 0 THEN                                               '+
-								         '       CASE WHEN                                                                     '+
-                         '        ( (NP."ALIQ_ICMS" * NP."VL_ITEM") -                                          '+
-                         '        ( (NP."VL_BC_ICMS_ST" / NP."QTDE") * (NP."QTDE") * (NP."ALIQ_ICMS"))         '+
-                         '         ) < 0 THEN                                                                  '+
-                         '       ( (NP."ALIQ_ICMS"  * NP."VL_ITEM") -                                          '+
-                         '       ( (NP."VL_BC_ICMS_ST" / NP."QTDE") * (NP."QTDE") * (NP."ALIQ_ICMS"))          '+
-                         '         )                                                                           '+
-                         '       ELSE                                                                          '+
-                         '        0                                                                            '+
-							           '       END                                                                           '+
-							           '      ELSE                                                                           '+
-							           '        0                                                                            '+
-                         '    END                                                                              '+
-                         '    ))SALDO_RESTITUIR,                                                               '+
-                         //'    0 "SALDO_ACOMPLEMENTAR"                                                        '+
-                         '   SUM(  (                                                                           '+
-                         '     CASE                                                                            '+
-                         '      WHEN                                                                           '+
-							           '       ( (NP."VL_BC_ICMS_ST")                                                        '+
-                         '       ) > 0 AND (NP."QTDE") > 0 THEN                                                '+
-						             '      	CASE WHEN                                                                    '+
-                         '        ( (NP."ALIQ_ICMS" * NP."VL_ITEM") -                                          '+
-                         '        ( (NP."VL_BC_ICMS_ST" / NP."QTDE") * (NP."QTDE") * (NP."ALIQ_ICMS"))         '+
-                         '         ) > 0 THEN                                                                  '+
-                         '        ( (NP."ALIQ_ICMS" * NP."VL_ITEM") -                                          '+
-                         '        ( (NP."VL_BC_ICMS_ST" / NP."QTDE") * (NP."QTDE") * (NP."ALIQ_ICMS"))         '+
-                         '       )                                                                             '+
-                         '       ELSE                                                                          '+
-                         '        0                                                                            '+
-                         '       END                                                                           '+
-							           '       ELSE                                                                          '+
-							           '       0                                                                             '+
-							           '      END                                                                            '+
-                         '    )) SALDO_ACOMPLEMENTAR                                                           '+
+                         '    SUM((CASE                                                                        '+
+                         '            WHEN ((NP."VL_BC_ICMS_ST")) > 0                                          '+
+                         '             AND (NP."QTDE") > 0 THEN (NP."VL_BC_ICMS_ST" / NP."QTDE") - NP."VL_ITEM"'+
+                         '         ELSE 0                                                                      '+
+                         '         END))AS DIFERENCA,                                                          '+
+                         '     SUM(COALESCE(NP."QTDE",0)) "ESTOQUE_FINAL",                                     '+
+                         '  SUM((CASE                                                                          '+
+                         '          WHEN ((NP."VL_BC_ICMS_ST")) > 0                                            '+
+                         '           AND (NP."QTDE") > 0                                                       '+
+                         '             THEN CASE                                                               '+
+                         '                     WHEN (NP."VL_BC_ICMS_ST" / NP."QTDE") - NP."VL_ITEM" < 0 THEN ((NP."VL_BC_ICMS_ST" / NP."QTDE") - NP."VL_ITEM") * NP."ALIQ_ICMS" '+
+                         '          ELSE 0                                                                     '+
+                         '          END                                                                        '+
+                         '   ELSE 0                                                                            '+
+                         '   END)) SALDO_ACOMPLEMENTAR,                                                        '+
+                         '  SUM((CASE                                                                          '+
+                         '          WHEN ((NP."VL_BC_ICMS_ST")) > 0                                            '+
+                         '           AND (NP."QTDE") > 0                                                       '+
+                         '             THEN CASE                                                               '+
+                         '                     WHEN (NP."VL_BC_ICMS_ST" / NP."QTDE") - NP."VL_ITEM" > 0 THEN ((NP."VL_BC_ICMS_ST" / NP."QTDE") - NP."VL_ITEM") * NP."ALIQ_ICMS" '+
+                         '          ELSE 0                                                                     '+
+                         '          END                                                                        '+
+                         '   ELSE 0                                                                            '+
+                         '   END)) SALDO_RESTITUIR                                                             '+
                          '    FROM "NF_ITENS" NP                                                               '+
                          '    LEFT JOIN "NF" NF ON NF."ID" = NP."IDNF"                                         '+
                          '    LEFT JOIN "NCM" NC ON NP."NCM" = NC."NCM"                                        '+
                          '    WHERE NF."MES" =:MES  AND NF."ANO" = :ANO AND NF."COD_EMP" =:CNPJ                '+
-                         '    GROUP BY  NP."COD_ITEM", NP."COD_EAN",NP."DESCR_ITEM",NF."DT_E_ES"               '+
+                         '    GROUP BY  NP."COD_ITEM", NP."COD_EAN",NP."DESCR_ITEM",NF."DT_E_ES",NP."VL_ITEM"  '+
                          '    ORDER BY NP."COD_ITEM", NP."COD_EAN",NP."DESCR_ITEM",NF."DT_E_ES")B              ';
 
     end;
